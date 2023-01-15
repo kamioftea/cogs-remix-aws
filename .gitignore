@@ -1,0 +1,16 @@
+node_modules
+
+/server/index.js
+/public/build
+preferences.arc
+sam.json
+sam.yaml
+.env
+
+/cypress/screenshots
+/cypress/videos
+
+/app/styles/tailwind.css
+
+/.idea
+/cogs-remix.iml
