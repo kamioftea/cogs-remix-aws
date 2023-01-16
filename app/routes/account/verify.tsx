@@ -1,0 +1,142 @@
+import {
+  ActionFunction,
+  json,
+  LoaderFunction,
+  redirect,
+} from "@remix-run/node";
+import * as React from "react";
+import { useEffect } from "react";
+import * as yup from "yup";
+import { SchemaOf, ValidationError } from "yup";
+import { setUserPassword } from "~/account/user-model.server";
+import {
+  Form,
+  Link,
+  useActionData,
+  useCatch,
+  useLoaderData,
+} from "@remix-run/react";
+import { getYupErrorMessage } from "~/utils/validation";
+import { validateResetKey } from "~/account/auth.server";
+import { createUserSession, getUserId } from "~/session.server";
+import ErrorPage, { GenericErrorPage } from "~/error-handling/error-page";
+
+interface LoaderData {
+  email: string;
+}
+
+export const loader: LoaderFunction = async ({ request }) => {
+  const userId = await getUserId(request);
+  if (userId) return redirect("/");
+
+  const user = await validateResetKey(request);
+  return json<LoaderData>({ email: user.email });
+};
+
+interface VerifyData {
+  password: string;
+}
+
+const schema: SchemaOf<VerifyData> = yup.object().shape({
+  password: yup.string().min(10).required(),
+});
+
+interface ActionData {
+  errors?: {
+    password?: string;
+  };
+}
+
+export const action: ActionFunction = async ({ request }) => {
+  const userId = await getUserId(request);
+  if (userId) return redirect("/");
+
+  const user = await validateResetKey(request);
+
+  const formData = Object.fromEntries(await request.formData());
+  let verifyData: VerifyData;
+  try {
+    verifyData = await schema.validate(formData, { abortEarly: false });
+  } catch (err) {
+    if (ValidationError.isError(err)) {
+      return json<ActionData>(
+        {
+          errors: {
+            password: getYupErrorMessage("password", err),
+          },
+        },
+        400
+      );
+    }
+    throw err;
+  }
+
+  await setUserPassword(user.email, verifyData.password);
+
+  return createUserSession({
+    request,
+    userId: user.id,
+    remember: false,
+    redirectTo: "/account",
+  });
+};
+
+export default function AccountRegisterPage() {
+  const passwordRef = React.useRef<HTMLInputElement>(null);
+
+  const { email } = useLoaderData<LoaderData>();
+  const { errors } = (useActionData() ?? {}) as ActionData;
+
+  useEffect(() => {
+    if (errors?.password) {
+      passwordRef.current?.focus();
+    }
+  }, [errors]);
+
+  return (
+    <>
+      <Form method="post" className="credentials-form">
+        <h2>Set a password</h2>
+        <p>Please enter a new password for {email}</p>
+        <input name={email} type="hidden" value={email} />
+        <label className={errors?.password ? "is-invalid-label" : undefined}>
+          New password
+          <input
+            ref={passwordRef}
+            id="name"
+            required
+            autoFocus={true}
+            name="password"
+            type="password"
+            autoComplete="password"
+            aria-invalid={errors?.password ? true : undefined}
+            aria-describedby="password-error"
+            className={errors?.password ? "is-invalid-input" : undefined}
+          />
+          {errors?.password && (
+            <span className="form-error is-visible" id="password-error">
+              {errors.password}
+            </span>
+          )}
+        </label>
+        <input type="submit" className="button primary" value="Set password" />
+        Not the right email? <Link to="/account/login">Back to log in.</Link>
+      </Form>
+    </>
+  );
+}
+
+export function CatchBoundary() {
+  const caught = useCatch();
+
+  if (caught.data.heading && caught.data.message) {
+    return (
+      <ErrorPage heading={caught.data.heading}>
+        <div dangerouslySetInnerHTML={{ __html: caught.data.message }} />
+      </ErrorPage>
+    );
+  }
+
+  console.error(caught);
+  return <GenericErrorPage />;
+}

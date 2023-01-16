@@ -11,14 +11,17 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useCatch,
 } from "@remix-run/react";
 
-import tailwindStylesheetUrl from "./styles/tailwind.css";
+import stylesheetUrl from "./styles/globals.css";
 import { getUser } from "./session.server";
+import ErrorPage, { GenericErrorPage } from "~/error-handling/error-page";
+import { PropsWithChildren } from "react";
 
 export const links: LinksFunction = () => {
   return [
-    { rel: "stylesheet", href: tailwindStylesheetUrl },
+    { rel: "stylesheet", href: stylesheetUrl },
     // NOTE: Architect deploys the public directory to /_static/
     { rel: "icon", href: "/_static/favicon.ico" },
   ];
@@ -40,7 +43,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   });
 };
 
-export default function App() {
+function LayoutBoilerplate({ children }: PropsWithChildren) {
   return (
     <html lang="en" className="h-full">
       <head>
@@ -48,11 +51,45 @@ export default function App() {
         <Links />
       </head>
       <body className="h-full">
-        <Outlet />
+        {children}
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
       </body>
     </html>
   );
+}
+
+export default function App() {
+  return (
+    <LayoutBoilerplate>
+      <Outlet />
+    </LayoutBoilerplate>
+  );
+}
+
+export function ErrorBoundary({ error }: { error: Error }) {
+  console.error(error);
+
+  return (
+    <LayoutBoilerplate>
+      <GenericErrorPage />
+    </LayoutBoilerplate>
+  );
+}
+
+export function CatchBoundary() {
+  const caught = useCatch();
+
+  if (caught.status === 404) {
+    return (
+      <LayoutBoilerplate>
+        <ErrorPage heading="Page not found">
+          <p>Sorry the requested URL is not a page on this site.</p>
+        </ErrorPage>
+      </LayoutBoilerplate>
+    );
+  }
+
+  throw new Error(`Unexpected caught response with status: ${caught.status}`);
 }

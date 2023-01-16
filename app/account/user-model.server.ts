@@ -1,8 +1,24 @@
 import arc from "@architect/functions";
 import bcrypt from "bcryptjs";
 import invariant from "tiny-invariant";
+import { sendEmail } from "~/utils/send-email.server";
+import { ProcessRegistrationEmail } from "~/account/process-registration-email";
+import { VerifyAccountEmail } from "~/account/verify-account-email";
+import { getResetKey } from "~/account/auth.server";
 
-export type User = { id: `email#${string}`; email: string };
+enum Role {
+  Admin = "Admin",
+  Registered = "Registered",
+}
+
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
+
+export type User = {
+  id: `email#${string}`;
+  email: string;
+  name?: string;
+  roles?: Role[];
+};
 export type Password = { password: string };
 
 export async function getUserById(id: User["id"]): Promise<User | null> {
@@ -34,26 +50,42 @@ async function getUserPasswordByEmail(email: User["email"]) {
   return null;
 }
 
-export async function createUser(
-  email: User["email"],
-  password: Password["password"]
-) {
-  const hashedPassword = await bcrypt.hash(password, 10);
+export async function createUser(name: User["name"], email: User["email"]) {
   const db = await arc.tables();
-  await db.password.put({
-    pk: `email#${email}`,
-    password: hashedPassword,
-  });
+  let roles: Role[] = [];
+  if (email === ADMIN_EMAIL) {
+    roles = [Role.Admin];
+    const resetKey = await getResetKey(email);
+    await sendEmail(new VerifyAccountEmail(name, email, resetKey));
+  } else {
+    await sendEmail(new ProcessRegistrationEmail(name, email));
+  }
 
   await db.user.put({
     pk: `email#${email}`,
     email,
+    name,
+    roles,
   });
 
   const user = await getUserByEmail(email);
   invariant(user, `User not found after being created. This should not happen`);
 
   return user;
+}
+
+export async function setUserPassword(
+  email: User["email"],
+  password: Password["password"]
+) {
+  const db = await arc.tables();
+
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  await db.password.put({
+    pk: `email#${email}`,
+    password: hashedPassword,
+  });
 }
 
 export async function deleteUser(email: User["email"]) {
@@ -77,5 +109,10 @@ export async function verifyLogin(
     return undefined;
   }
 
-  return getUserByEmail(email);
+  const user = await getUserByEmail(email);
+  if (!user || !user.roles?.length) {
+    return undefined;
+  }
+
+  return user;
 }

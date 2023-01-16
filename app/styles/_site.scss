@@ -1,0 +1,146 @@
+@import "settings";
+
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+}
+
+th {
+  text-align: left;
+}
+
+@include breakpoint(small only) {
+  .lead {
+    font-size: $lead-font-size * 0.8;
+  }
+}
+
+@each $name, $color in $foundation-palette {
+  .text-#{$name} {
+    color: darken($color, 10%)
+  }
+}
+
+header, main, nav, footer {
+  max-width: rem-calc(960px);
+  margin: auto;
+  padding: 0 0.5rem;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  line-height: 1;
+
+  svg {
+    height: 1rem;
+  }
+}
+
+td > .button-group {
+  margin: 0;
+}
+
+.react-icons {
+  vertical-align: middle;
+}
+
+.spin {
+  animation:spin 4s linear infinite;
+}
+
+@keyframes spin {
+  100% {
+    transform:rotate(360deg);
+  }
+}
+
+.fieldset {
+  legend {
+    font-family: $header-font-family;
+    font-size: 1.5rem;
+
+    display: grid;
+    grid-template-columns: max-content max-content;
+    grid-gap: 0.5rem;
+    align-items: center;
+
+    a {
+      font-family: $body-font-family;
+      font-size: 0.9rem;
+    }
+  }
+}
+
+.inline {
+  display: grid;
+  grid-template-columns: 8rem auto;
+  grid-template-areas: "Left Right"
+                       "Below Below";
+  align-items: center;
+  grid-gap: 0.5rem;
+
+  & > select, & > input, & > textarea, & > .form-error, & > .input-group {
+    margin: 0;
+  }
+}
+
+.left-right-row {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.split-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+  justify-items: stretch;
+  @include grid-gap();
+  margin-bottom: $global-margin;
+
+  .fieldset {
+    margin: 0;
+  }
+}
+
+.input-group {
+  & > select, & > input {
+    margin-bottom: 0;
+  }
+}
+
+textarea.mde-text {
+  margin-bottom: 0;
+  font-family: $font-family-monospace;
+}
+
+.mde-header .mde-tabs button {
+  padding: 0 0.333rem;
+}
+
+abbr:hover {
+  color: $primary-color;
+}
+
+footer {
+  border-top: thin $primary-color solid;
+  margin-top: 1rem;
+  padding: 1rem 0.5rem;
+  max-width: rem-calc(960px);
+}
+
+.disclaimer {
+  font-size: rem-calc(12px);
+}
+
+.credentials-form {
+  max-width: rem-calc(560px);
+  margin: auto;
+  padding: $global-padding;
+  border: thin $dark-gray solid;
+}

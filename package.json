@@ -1,5 +1,5 @@
 {
-  "name": "cogs-remix-b7e7",
+  "name": "cogs-kings-of-war",
   "private": true,
   "sideEffects": false,
   "scripts": {
@@ -11,7 +11,7 @@
     "dev:css": "npm run generate:css -- --watch",
     "dev:remix": "remix watch",
     "format": "prettier --write .",
-    "generate:css": "tailwindcss -o ./app/styles/tailwind.css",
+    "generate:css": "sass -Inode_modules/foundation-sites/scss app/styles",
     "lint": "eslint --cache --cache-location ./node_modules/.cache/eslint .",
     "test": "vitest",
     "test:e2e:dev": "start-server-and-test dev http://localhost:3000 \"npx cypress open\"",
@@ -28,16 +28,22 @@
   "dependencies": {
     "@architect/architect": "^10.6.0",
     "@architect/functions": "^5.2.2",
+    "@aws-sdk/client-ses": "^3.245.0",
+    "@hapi/iron": "^7.0.0",
     "@remix-run/architect": "^1.10.1",
     "@remix-run/node": "^1.10.1",
     "@remix-run/react": "^1.10.1",
     "@remix-run/server-runtime": "^1.10.1",
     "bcryptjs": "2.4.3",
     "cuid": "^2.1.8",
+    "feather-icons": "^4.29.0",
     "isbot": "^3.5.3",
+    "markdown-it": "^13.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "tiny-invariant": "^1.2.0"
+    "react-icons": "^4.7.1",
+    "tiny-invariant": "^1.2.0",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@faker-js/faker": "^7.5.0",
@@ -51,6 +57,7 @@
     "@types/architect__functions": "^3.13.7",
     "@types/bcryptjs": "2.4.2",
     "@types/eslint": "^8.4.6",
+    "@types/markdown-it": "^12.2.3",
     "@types/react": "^18.0.20",
     "@types/react-dom": "^18.0.6",
     "@vitejs/plugin-react": "^2.1.0",
@@ -62,20 +69,21 @@
     "eslint": "^8.23.1",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-cypress": "^2.12.1",
+    "foundation-sites": "^6.7.5",
     "happy-dom": "^6.0.4",
     "mock-aws-s3": "^4.0.2",
     "msw": "^0.47.3",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.7.1",
     "prettier-plugin-tailwindcss": "^0.1.13",
+    "sass": "^1.57.1",
     "start-server-and-test": "^1.14.0",
-    "tailwindcss": "^3.1.8",
     "ts-node": "^10.9.1",
     "typescript": "^4.8.3",
     "vite-tsconfig-paths": "^3.5.0",
     "vitest": "^0.23.4"
   },
   "engines": {
-    "node": ">=14"
+    "node": ">=18"
   }
 }

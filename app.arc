@@ -1,5 +1,9 @@
 @app
-cogs-remix-b7e7
+cogs-kings-of-war
+
+@aws
+region eu-west-2
+runtime nodejs18.x
 
 @http
 /*
