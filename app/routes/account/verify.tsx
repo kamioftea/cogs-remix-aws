@@ -1,13 +1,15 @@
-import {
+import type {
   ActionFunction,
+  LoaderFunction} from "@remix-run/node";
+import {
   json,
-  LoaderFunction,
   redirect,
 } from "@remix-run/node";
 import * as React from "react";
 import { useEffect } from "react";
 import * as yup from "yup";
-import { SchemaOf, ValidationError } from "yup";
+import type { SchemaOf} from "yup";
+import { ValidationError } from "yup";
 import { setUserPassword } from "~/account/user-model.server";
 import {
   Form,

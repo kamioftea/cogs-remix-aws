@@ -1,12 +1,14 @@
-import {
+import type {
   ActionFunction,
+  LoaderFunction} from "@remix-run/node";
+import {
   json,
-  LoaderFunction,
   redirect,
 } from "@remix-run/node";
 import { getUserId } from "~/session.server";
 import * as React from "react";
-import { SchemaOf, ValidationError } from "yup";
+import type { SchemaOf} from "yup";
+import { ValidationError } from "yup";
 import * as yup from "yup";
 import { getUserByEmail } from "~/account/user-model.server";
 import { Form, Link, useActionData } from "@remix-run/react";

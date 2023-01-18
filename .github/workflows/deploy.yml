@@ -5,7 +5,6 @@ on:
     branches:
       - main
       - dev
-  pull_request: {}
 
 permissions:
   actions: write
@@ -30,12 +29,10 @@ jobs:
       - name: ⎔ Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 14
+          node-version: 18
 
       - name: 📥 Download deps
-        uses: bahmutov/npm-install@v1
-        with:
-          useLockFile: false
+        run: npm ci
 
       - name: 🔬 Lint
         run: npm run lint
@@ -44,21 +41,16 @@ jobs:
     name: ʦ TypeScript
     runs-on: ubuntu-latest
     steps:
-      - name: 🛑 Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.11.0
-
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v3
 
       - name: ⎔ Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 14
+          node-version: 18
 
       - name: 📥 Download deps
-        uses: bahmutov/npm-install@v1
-        with:
-          useLockFile: false
+        run: npm ci
 
       - name: 🔎 Type check
         run: npm run typecheck --if-present
@@ -67,21 +59,16 @@ jobs:
     name: ⚡ Vitest
     runs-on: ubuntu-latest
     steps:
-      - name: 🛑 Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.11.0
-
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v3
 
       - name: ⎔ Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 14
+          node-version: 18
 
       - name: 📥 Download deps
-        uses: bahmutov/npm-install@v1
-        with:
-          useLockFile: false
+        run: npm ci
 
       - name: ⚡ Run vitest
         run: npm run test -- --coverage
@@ -90,9 +77,6 @@ jobs:
     name: ⚫️ Cypress
     runs-on: ubuntu-latest
     steps:
-      - name: 🛑 Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.11.0
-
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v3
 
@@ -102,12 +86,10 @@ jobs:
       - name: ⎔ Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 14
+          node-version: 18
 
       - name: 📥 Download deps
-        uses: bahmutov/npm-install@v1
-        with:
-          useLockFile: false
+        run: npm ci
 
       - name: 🏗 Build
         run: npm run build
@@ -125,16 +107,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 🛑 Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.11.0
-
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v3
 
       - name: ⎔ Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 14
+          node-version: 18
 
       - name: 👀 Env
         run: |
@@ -146,9 +125,7 @@ jobs:
           VER=`npm --version`; echo "npm ver:    $VER"
 
       - name: 📥 Download deps
-        uses: bahmutov/npm-install@v1
-        with:
-          useLockFile: false
+        run: npm ci
 
       - name: 🏗 Build
         run: npm run build

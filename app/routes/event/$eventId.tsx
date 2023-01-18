@@ -1,7 +1,9 @@
-import { json, LinksFunction, LoaderFunction } from "@remix-run/node";
+import type { LinksFunction, LoaderFunction } from "@remix-run/node";
+import { json } from "@remix-run/node";
+import type {
+  Tournament} from "~/tournament/tournament-model.server";
 import {
-  getTournamentBySlug,
-  Tournament,
+  getTournamentBySlug
 } from "~/tournament/tournament-model.server";
 import invariant from "tiny-invariant";
 import { Link, useCatch, useLoaderData } from "@remix-run/react";

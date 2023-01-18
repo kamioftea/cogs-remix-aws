@@ -1,5 +1,6 @@
 import Iron from "@hapi/iron";
-import { getUserByEmail, User } from "~/account/user-model.server";
+import type { User } from "~/account/user-model.server";
+import { getUserByEmail } from "~/account/user-model.server";
 import { json } from "@remix-run/node";
 import { unsafeRenderMarkdown } from "~/utils/markdown";
 
@@ -58,8 +59,6 @@ export async function validateResetKey(request: Request): Promise<User> {
   }
 
   const { email, createdAt } = await validateToken(token);
-
-  console.log({ email, createdAt });
 
   const expiresAt = createdAt + MAX_AGE * 1000;
 

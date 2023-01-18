@@ -92,7 +92,7 @@ $foundation-palette: (
 );
 $light-gray: #e6e6e6;
 $medium-gray: #cacaca;
-$dark-gray: #8a8a8a;
+$dark-gray: #232323;
 $black: #0a0a0a;
 $white: #fefefe;
 $body-background: $black;
@@ -812,7 +812,7 @@ $switch-cursor-disabled: not-allowed;
 // 50. Table
 // ---------
 
-$table-background: $white;
+$table-background: darken($dark-gray, 10%);
 $table-color-scale: 5%;
 $table-border: 1px solid smart-scale($table-background, $table-color-scale);
 $table-padding: rem-calc(8 10 10);

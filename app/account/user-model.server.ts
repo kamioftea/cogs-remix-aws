@@ -6,12 +6,12 @@ import { ProcessRegistrationEmail } from "~/account/process-registration-email";
 import { VerifyAccountEmail } from "~/account/verify-account-email";
 import { getResetKey } from "~/account/auth.server";
 
-enum Role {
+export enum Role {
   Admin = "Admin",
   Registered = "Registered",
 }
 
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
+export const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
 
 export type User = {
   id: `email#${string}`;
@@ -21,6 +21,21 @@ export type User = {
 };
 export type Password = { password: string };
 
+export async function getUsers(): Promise<User[]> {
+  const db = await arc.tables();
+  const result = await db.user.scan({});
+  return result.Items;
+}
+
+function userFromRecord(record: any) {
+  return {
+    id: record.pk,
+    email: record.email,
+    name: record.name,
+    roles: record.roles,
+  };
+}
+
 export async function getUserById(id: User["id"]): Promise<User | null> {
   const db = await arc.tables();
   const result = await db.user.query({
@@ -29,7 +44,7 @@ export async function getUserById(id: User["id"]): Promise<User | null> {
   });
 
   const [record] = result.Items;
-  if (record) return { id: record.pk, email: record.email };
+  if (record) return userFromRecord(record);
   return null;
 }
 
@@ -61,12 +76,14 @@ export async function createUser(name: User["name"], email: User["email"]) {
     await sendEmail(new ProcessRegistrationEmail(name, email));
   }
 
-  await db.user.put({
+  const data = {
     pk: `email#${email}`,
     email,
     name,
     roles,
-  });
+  };
+
+  await db.user.put(data);
 
   const user = await getUserByEmail(email);
   invariant(user, `User not found after being created. This should not happen`);

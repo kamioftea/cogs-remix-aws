@@ -1,4 +1,5 @@
-import { json, LoaderFunction, redirect } from "@remix-run/node";
+import type { LoaderFunction } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
 import { getUserId } from "~/session.server";
 import { useUser } from "~/utils";
 
@@ -11,5 +12,10 @@ export const loader: LoaderFunction = async ({ request }) => {
 export default function AccountIndexPage() {
   const user = useUser();
 
-  return <p>You are logged in as {user.email}</p>;
+  return (
+    <>
+      <p>You are logged in as {user.email}</p>
+      <pre>{JSON.stringify(user, null, " ")}</pre>
+    </>
+  );
 }

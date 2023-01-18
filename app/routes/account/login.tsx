@@ -1,12 +1,9 @@
-import {
-  ActionFunction,
-  json,
-  LoaderFunction,
-  redirect,
-} from "@remix-run/node";
+import type { ActionFunction, LoaderFunction } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
 import { createUserSession, getUserId } from "~/session.server";
 import * as React from "react";
-import { SchemaOf, ValidationError } from "yup";
+import type { SchemaOf } from "yup";
+import { ValidationError } from "yup";
 import * as yup from "yup";
 import { verifyLogin } from "~/account/user-model.server";
 import { safeRedirect } from "~/utils";
@@ -95,8 +92,6 @@ export default function AccountLoginPage() {
     }
   }, [errors]);
 
-  console.log(errors);
-
   return (
     <>
       <Form method="post" className="credentials-form">
@@ -141,7 +136,13 @@ export default function AccountLoginPage() {
           )}
         </label>
         <input type="submit" className="button primary" value="Login" />
-        Don't have an account? <Link to="/account/register">Sign up.</Link>
+        <p>
+          Problems logging in?{" "}
+          <Link to="/account/reset-password">Request a password reset.</Link>
+        </p>
+        <p>
+          Don't have an account? <Link to="/account/register">Sign up.</Link>
+        </p>
       </Form>
     </>
   );

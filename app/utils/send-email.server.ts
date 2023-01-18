@@ -1,9 +1,10 @@
-import {
-  SESClient,
-  SendEmailCommand,
+import type {
   SendEmailCommandInput,
   SendEmailCommandOutput,
-  Body,
+  Body} from "@aws-sdk/client-ses";
+import {
+  SESClient,
+  SendEmailCommand
 } from "@aws-sdk/client-ses";
 
 const client = new SESClient({ region: "eu-west-2" });

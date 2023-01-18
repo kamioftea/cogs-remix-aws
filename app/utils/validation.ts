@@ -1,4 +1,4 @@
-import { ValidationError } from "yup";
+import type { ValidationError } from "yup";
 
 export function getYupErrorMessage(
   path: string,

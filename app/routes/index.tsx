@@ -1,10 +1,12 @@
 import { Link, useLoaderData } from "@remix-run/react";
 import { useOptionalUser } from "~/utils";
-import { json, LinksFunction, LoaderFunction } from "@remix-run/node";
+import type { LinksFunction, LoaderFunction } from "@remix-run/node";
+import { json } from "@remix-run/node";
 import { FiChevronRight } from "react-icons/fi";
 
 import stylesheetUrl from "~/styles/index.css";
-import { Tournament, tournaments } from "~/tournament/tournament-model.server";
+import type { Tournament } from "~/tournament/tournament-model.server";
+import { tournaments } from "~/tournament/tournament-model.server";
 import { Fragment } from "react";
 
 interface LoaderData {
@@ -15,7 +17,7 @@ export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: stylesheetUrl }];
 };
 
-export const loader: LoaderFunction = async ({}) => {
+export const loader: LoaderFunction = async () => {
   return json<LoaderData>({ tournaments });
 };
 
@@ -23,8 +25,19 @@ export default function Index() {
   // noinspection JSUnusedLocalSymbols
   const user = useOptionalUser();
   const { tournaments } = useLoaderData<LoaderData>();
+
   return (
     <>
+      {user && (
+        <header>
+          Logged in as {user.name}{" "}
+          <form action="/logout" method="post" className="display-inline">
+            <button type="submit" className="button clear link display-inline">
+              Logout
+            </button>
+          </form>
+        </header>
+      )}
       <section role="banner" className="cogs-header margin-bottom-1">
         <img
           src="/_static/images/logo.png"
@@ -128,6 +141,7 @@ export default function Index() {
           <a
             href="https://facebook.com/events/s/kow-1995pts1000pts/807563333639644/"
             target="_blank"
+            rel="noreferrer"
           >
             see the Facebook event
           </a>{" "}

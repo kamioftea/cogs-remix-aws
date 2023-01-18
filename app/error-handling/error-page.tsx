@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { Link } from "@remix-run/react";
 
 export interface ErrorPageProps {
@@ -11,7 +11,9 @@ export default function ErrorPage({ heading, children }: ErrorPageProps) {
     <main>
       <h1>{heading}</h1>
       {children}
-      <Link to="/">Return to Kings of War homepage.</Link>
+      <p>
+        <Link to="/">Return to Kings of War homepage.</Link>
+      </p>
     </main>
   );
 }

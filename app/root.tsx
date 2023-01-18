@@ -17,7 +17,7 @@ import {
 import stylesheetUrl from "./styles/globals.css";
 import { getUser } from "./session.server";
 import ErrorPage, { GenericErrorPage } from "~/error-handling/error-page";
-import { PropsWithChildren } from "react";
+import type { PropsWithChildren } from "react";
 
 export const links: LinksFunction = () => {
   return [
@@ -29,7 +29,7 @@ export const links: LinksFunction = () => {
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
-  title: "Remix Notes",
+  title: "Kings of War | Chesterfield Open Gaming Society",
   viewport: "width=device-width,initial-scale=1",
 });
 
@@ -50,7 +50,7 @@ function LayoutBoilerplate({ children }: PropsWithChildren) {
         <Meta />
         <Links />
       </head>
-      <body className="h-full">
+      <body>
         {children}
         <ScrollRestoration />
         <Scripts />

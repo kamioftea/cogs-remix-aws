@@ -1,5 +1,5 @@
-import { Email } from "~/utils/send-email.server";
-import { User } from "./user-model.server";
+import type { Email } from "~/utils/send-email.server";
+import type { User } from "./user-model.server";
 
 const BASE_URL = process.env.BASE_URL ?? "http://localhost:3000";
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL ?? "changeme@example.org";
@@ -16,7 +16,10 @@ export class ProcessRegistrationEmail implements Email {
       `${BASE_URL}/admin/users/process-registration/${email}`
     );
 
-    this.html = `<p>You now need to <a href="${processURL}">process this request</a>.</p>`;
+    this.html = `<p>
+      You now need to <a href="${processURL}">process this request</a>.
+    </p>`;
+
     this.to = [ADMIN_EMAIL];
   }
 }

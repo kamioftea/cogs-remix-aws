@@ -12,6 +12,24 @@ th {
   text-align: left;
 }
 
+.button.clear {
+  color: $primary-color;
+
+  &:hover {
+    color: darken($primary-color, 10%);
+  }
+
+  &:focus {
+    color: darken($primary-color, 10%);
+    border: 2px $primary-color
+  }
+
+  &.link {
+    padding: 0 0.1rem;
+    margin: 0;
+  }
+}
+
 @include breakpoint(small only) {
   .lead {
     font-size: $lead-font-size * 0.8;

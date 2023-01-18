@@ -1,0 +1,41 @@
+@import "settings";
+
+body {
+  display: grid;
+
+  grid-template:
+    "header header"
+    "sidebar main";
+
+  grid-template-columns: 20rem 1fr;
+  grid-template-rows: 5rem 1fr;
+
+  align-items: start;
+  justify-items: start;
+  grid-gap: $global-margin;
+
+}
+
+header {
+  grid-area: header;
+  width: 100%;
+  max-width: 100%;
+  place-self: start;
+  min-height: 100%;
+}
+
+nav.admin-sidebar {
+  grid-area: sidebar;
+  width: 100%;
+  max-width: 100%;
+  place-self: start;
+  min-height: 100%;
+}
+
+main {
+  grid-area: main;
+  width: 100%;
+  max-width: 100%;
+  place-self: stretch;
+  min-height: 100%;
+}

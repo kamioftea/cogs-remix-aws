@@ -1,5 +1,5 @@
 #file: noinspection YAMLSchemaValidation
-name: ✔ Test
+name: 🔍 Test
 on:
   pull_request:
     branches: [ main, dev ]
