@@ -18,6 +18,7 @@ import stylesheetUrl from "./styles/globals.css";
 import { getUser } from "./session.server";
 import ErrorPage, { GenericErrorPage } from "~/error-handling/error-page";
 import type { PropsWithChildren } from "react";
+import { Breadcrumb, CURRENT } from "~/utils/breadcrumbs";
 
 export const links: LinksFunction = () => {
   return [
@@ -32,6 +33,15 @@ export const meta: MetaFunction = () => ({
   title: "Kings of War | Chesterfield Open Gaming Society",
   viewport: "width=device-width,initial-scale=1",
 });
+
+const breadcrumbs: Breadcrumb[] = [
+  { label: "Home", url: "https://www.c-o-g-s.org.uk" },
+  { label: "Kings of War", url: CURRENT },
+];
+
+export const handle = {
+  breadcrumbs,
+};
 
 type LoaderData = {
   user: Awaited<ReturnType<typeof getUser>>;

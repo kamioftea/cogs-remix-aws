@@ -1,17 +1,14 @@
 import type { LinksFunction, LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import type {
-  Tournament} from "~/tournament/tournament-model.server";
-import {
-  getTournamentBySlug
-} from "~/tournament/tournament-model.server";
+import type { Tournament } from "~/tournament/tournament-model.server";
+import { getTournamentBySlug } from "~/tournament/tournament-model.server";
 import invariant from "tiny-invariant";
-import { Link, useCatch, useLoaderData } from "@remix-run/react";
+import { Outlet, useCatch, useLoaderData } from "@remix-run/react";
 import stylesheetUrl from "~/styles/event.css";
-import { Fragment } from "react";
 import ErrorPage, { GenericErrorPage } from "~/error-handling/error-page";
+import { Breadcrumb, Breadcrumbs, CURRENT } from "~/utils/breadcrumbs";
 
-interface LoaderData {
+export interface TournamentLoaderData {
   tournament: Tournament;
 }
 
@@ -23,15 +20,29 @@ export const loader: LoaderFunction = async ({ params }) => {
     throw new Response("Event not found", { status: 404 });
   }
 
-  return json<LoaderData>({ tournament });
+  return json<TournamentLoaderData>({ tournament });
 };
 
 export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: stylesheetUrl }];
 };
 
+const breadcrumbs: Breadcrumb[] = [
+  {
+    label: ({ data }) => {
+      const { tournament } = data as TournamentLoaderData;
+      return tournament.title;
+    },
+    url: CURRENT,
+  },
+];
+
+export const handle = {
+  breadcrumbs,
+};
+
 export default function EventLandingPage() {
-  const { tournament } = useLoaderData<LoaderData>();
+  const { tournament } = useLoaderData<TournamentLoaderData>();
 
   return (
     <>
@@ -59,40 +70,10 @@ export default function EventLandingPage() {
         </div>
       </header>
 
-      <nav aria-label="You are here:" role="navigation">
-        <ul className="breadcrumbs">
-          <li>
-            <a href="https://www.c-o-g-s.org.uk/">Home</a>
-          </li>
-          <li>
-            <Link to="/">Kings of War</Link>
-          </li>
-          <li className="">Events</li>
-          <li>
-            <span className="show-for-sr">Current: </span> {tournament.title}
-          </li>
-        </ul>
-      </nav>
+      <Breadcrumbs />
 
       <main>
-        <aside className="summary-box">
-          <p>{tournament.description}</p>
-          {tournament.about && (
-            <dl>
-              {Object.entries(tournament.about).map(([label, items]) => (
-                <Fragment key={label}>
-                  <dt>{label}</dt>
-                  <dd>
-                    {items.map((item, index) => (
-                      <p key={index}>{item}</p>
-                    ))}
-                  </dd>
-                </Fragment>
-              ))}
-            </dl>
-          )}
-        </aside>
-        <div dangerouslySetInnerHTML={{ __html: tournament.content }} />
+        <Outlet />
       </main>
 
       <footer>

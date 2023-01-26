@@ -93,7 +93,7 @@ export default function ResetPasswordPage() {
     return (
       <>
         <h2>
-          Reset email sent <FiCheck />
+          <FiCheck /> Reset email sent
         </h2>
         <p>
           Thanks. An email with a link to reset the password for your account

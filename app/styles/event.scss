@@ -82,20 +82,21 @@ main {
     padding-left: 1rem;
     width: 40%;
   }
+}
 
-  dl {
-    dt {
-      font-family: "Wolfsbane", "Spectral", "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
-      color: $primary-color;
-      font-size: rem-calc(24px);
-    }
+dl {
+  dt {
+    font-family: "Wolfsbane", "Spectral", "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+    color: $primary-color;
+    font-size: rem-calc(24px);
+    font-weight: normal;
+  }
 
-    dd {
-      margin: 0 0 0.5rem;
+  dd {
+    margin: 0 0 0.5rem;
 
-      p {
-        margin: 0;
-      }
+    p {
+      margin: 0;
     }
   }
 }

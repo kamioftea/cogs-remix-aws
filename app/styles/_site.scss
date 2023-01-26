@@ -6,6 +6,7 @@ html {
 
 body {
   min-height: 100%;
+  scroll-behavior: smooth;
 }
 
 th {
@@ -46,16 +47,6 @@ header, main, nav, footer {
   max-width: rem-calc(960px);
   margin: auto;
   padding: 0 0.5rem;
-}
-
-.button {
-  display: flex;
-  align-items: center;
-  line-height: 1;
-
-  svg {
-    height: 1rem;
-  }
 }
 
 td > .button-group {

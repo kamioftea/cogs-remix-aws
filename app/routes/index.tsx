@@ -8,6 +8,7 @@ import stylesheetUrl from "~/styles/index.css";
 import type { Tournament } from "~/tournament/tournament-model.server";
 import { tournaments } from "~/tournament/tournament-model.server";
 import { Fragment } from "react";
+import { Breadcrumbs } from "~/utils/breadcrumbs";
 
 interface LoaderData {
   tournaments: Tournament[];
@@ -48,16 +49,7 @@ export default function Index() {
         <h1>Kings of War</h1>
       </section>
 
-      <nav aria-label="You are here:" role="navigation">
-        <ul className="breadcrumbs">
-          <li>
-            <a href="https://www.c-o-g-s.org.uk/">Home</a>
-          </li>
-          <li>
-            <span className="show-for-sr">Current: </span>Kings of War
-          </li>
-        </ul>
-      </nav>
+      <Breadcrumbs />
 
       <main style={{ maxWidth: "960px", margin: "auto" }}>
         <p className="lead">

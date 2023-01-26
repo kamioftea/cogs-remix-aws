@@ -1,6 +1,8 @@
 import Markdown from "markdown-it";
 
-const md = new Markdown();
+const md = new Markdown({
+  typographer: true,
+});
 
 const mdUnsafe = new Markdown({
   html: true,

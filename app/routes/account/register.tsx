@@ -1,13 +1,8 @@
-import type {
-  ActionFunction,
-  LoaderFunction} from "@remix-run/node";
-import {
-  json,
-  redirect,
-} from "@remix-run/node";
+import type { ActionFunction, LoaderFunction } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
 import { getUserId } from "~/session.server";
 import * as React from "react";
-import type { SchemaOf} from "yup";
+import type { SchemaOf } from "yup";
 import { ValidationError } from "yup";
 import * as yup from "yup";
 import { getUserByEmail } from "~/account/user-model.server";
@@ -15,6 +10,7 @@ import { Form, Link, useActionData } from "@remix-run/react";
 import { useEffect } from "react";
 import { getYupErrorMessage } from "~/utils/validation";
 import { createUser } from "~/account/user-model.server";
+import { FiCheck } from "react-icons/fi";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const userId = await getUserId(request);
@@ -37,6 +33,7 @@ interface ActionData {
     name?: string;
     email?: string;
   };
+  accountCreated?: boolean;
 }
 
 export const action: ActionFunction = async ({ request }) => {
@@ -68,15 +65,13 @@ export const action: ActionFunction = async ({ request }) => {
   }
 
   await createUser(registerData.name, registerData.email);
-
-  return redirect("/account/registration-pending");
 };
 
 export default function AccountRegisterPage() {
   const nameRef = React.useRef<HTMLInputElement>(null);
   const emailRef = React.useRef<HTMLInputElement>(null);
 
-  const { errors } = (useActionData() ?? {}) as ActionData;
+  const { errors, accountCreated } = (useActionData() ?? {}) as ActionData;
 
   useEffect(() => {
     if (errors?.name) {
@@ -85,6 +80,34 @@ export default function AccountRegisterPage() {
       emailRef.current?.focus();
     }
   }, [errors]);
+
+  if (accountCreated === true) {
+    return (
+      <>
+        <h2>
+          <FiCheck /> Registration Requested
+        </h2>
+        <p className="lead">
+          Thanks, your account registration has been received.
+        </p>
+
+        <h3>What happens now?</h3>
+        <p>
+          One of the organisers will approve your request. Once this happens you
+          will receive an email that will allow you to verify your email and set
+          up a password.
+        </p>
+        <p>
+          If you haven't received an email within a couple of days, please
+          contact
+          <a href="mailto:jeff@goblinoid.co.uk">jeff@goblinoid.co.uk</a>.
+        </p>
+        <p>
+          <Link to="/">Return to Kings of War homepage.</Link>
+        </p>
+      </>
+    );
+  }
 
   return (
     <>
