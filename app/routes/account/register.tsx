@@ -1,6 +1,6 @@
 import type { ActionFunction, LoaderFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
-import { getUserId } from "~/session.server";
+import { getSessionId } from "~/account/session.server";
 import * as React from "react";
 import type { SchemaOf } from "yup";
 import { ValidationError } from "yup";
@@ -13,8 +13,8 @@ import { createUser } from "~/account/user-model.server";
 import { FiCheck } from "react-icons/fi";
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const userId = await getUserId(request);
-  if (userId) return redirect("/account");
+  const sessionId = await getSessionId(request);
+  if (sessionId) return redirect("/account");
   return json({});
 };
 
@@ -65,6 +65,8 @@ export const action: ActionFunction = async ({ request }) => {
   }
 
   await createUser(registerData.name, registerData.email);
+
+  return json<ActionData>({ accountCreated: true });
 };
 
 export default function AccountRegisterPage() {
@@ -99,8 +101,8 @@ export default function AccountRegisterPage() {
         </p>
         <p>
           If you haven't received an email within a couple of days, please
-          contact
-          <a href="mailto:jeff@goblinoid.co.uk">jeff@goblinoid.co.uk</a>.
+          contact <a href="mailto:jeff@goblinoid.co.uk">jeff@goblinoid.co.uk</a>
+          .
         </p>
         <p>
           <Link to="/">Return to Kings of War homepage.</Link>
@@ -124,11 +126,11 @@ export default function AccountRegisterPage() {
             type="text"
             autoComplete="name"
             aria-invalid={errors?.name ? true : undefined}
-            aria-describedby="password-error"
+            aria-describedby="name-error"
             className={errors?.name ? "is-invalid-input" : undefined}
           />
           {errors?.name && (
-            <span className="form-error is-visible" id="password-error">
+            <span className="form-error is-visible" id="name-error">
               {errors.name}
             </span>
           )}
@@ -139,7 +141,6 @@ export default function AccountRegisterPage() {
             ref={emailRef}
             id="email"
             required
-            autoFocus={true}
             name="email"
             type="text"
             autoComplete="email"
@@ -153,7 +154,9 @@ export default function AccountRegisterPage() {
           )}
         </label>
         <input type="submit" className="button primary" value="Register" />
-        Already have an account? <Link to="/account/login">Log in.</Link>
+        <p>
+          Already have an account? <Link to="/account/login">Log in.</Link>
+        </p>
       </Form>
     </>
   );

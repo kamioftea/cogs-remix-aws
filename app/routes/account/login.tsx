@@ -1,6 +1,6 @@
 import type { ActionFunction, LoaderFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
-import { createUserSession, getUserId } from "~/session.server";
+import { createUserSession, getSessionId } from "~/account/session.server";
 import * as React from "react";
 import type { SchemaOf } from "yup";
 import { ValidationError } from "yup";
@@ -12,8 +12,8 @@ import { useEffect } from "react";
 import { getYupErrorMessage } from "~/utils/validation";
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const userId = await getUserId(request);
-  if (userId) return redirect("/account");
+  const sessionId = await getSessionId(request);
+  if (sessionId) return redirect("/account");
   return json({});
 };
 
@@ -26,7 +26,7 @@ interface LoginData {
 
 const schema: SchemaOf<LoginData> = yup.object().shape({
   email: yup.string().email().required(),
-  password: yup.string().min(8).required(),
+  password: yup.string().min(10).required(),
   remember: yup.mixed().transform((s) => s === "on"),
   redirectTo: yup
     .string()
@@ -72,7 +72,7 @@ export const action: ActionFunction = async ({ request }) => {
 
   return createUserSession({
     request,
-    userId: user.id,
+    email: user.email,
     remember: loginData.remember,
     redirectTo: loginData.redirectTo,
   });
@@ -121,7 +121,6 @@ export default function AccountLoginPage() {
             ref={passwordRef}
             id="password"
             required
-            autoFocus={true}
             name="password"
             type="password"
             autoComplete="password"

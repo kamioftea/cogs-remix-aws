@@ -1,4 +1,8 @@
-import type { LinksFunction, LoaderFunction } from "@remix-run/node";
+import type {
+  LinksFunction,
+  LoaderFunction,
+  MetaFunction,
+} from "@remix-run/node";
 import { json } from "@remix-run/node";
 import type { Tournament } from "~/tournament/tournament-model.server";
 import { getTournamentBySlug } from "~/tournament/tournament-model.server";
@@ -25,6 +29,15 @@ export const loader: LoaderFunction = async ({ params }) => {
 
 export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: stylesheetUrl }];
+};
+
+export const meta: MetaFunction = ({ data }) => {
+  const tournament = data.tournament as Tournament;
+
+  return {
+    "og:description": tournament.description,
+    "og:image": tournament.openGraph.imageUrl,
+  };
 };
 
 const breadcrumbs: Breadcrumb[] = [

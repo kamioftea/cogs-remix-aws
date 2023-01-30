@@ -1,28 +1,32 @@
-import type { ActionFunction, LoaderFunction } from "@remix-run/node";
-import { json, redirect } from "@remix-run/node";
+import { ActionFunction, json } from "@remix-run/router";
+import invariant from "tiny-invariant";
+import { getTournamentBySlug } from "~/tournament/tournament-model.server";
 import * as React from "react";
 import { useEffect } from "react";
-import type { SchemaOf } from "yup";
-import * as yup from "yup";
-import { ValidationError } from "yup";
-import { ADMIN_EMAIL, getUserByEmail } from "~/account/user-model.server";
-import { Form, Link, useActionData, useCatch } from "@remix-run/react";
-import { getYupErrorMessage } from "~/utils/validation";
-import { getResetKey } from "~/account/auth.server";
-import { getSessionId } from "~/account/session.server";
-import ErrorPage, { GenericErrorPage } from "~/error-handling/error-page";
-import { sendEmail } from "~/utils/send-email.server";
-import { ResetPasswordEmail } from "~/account/reset-password-email";
+import {
+  Form,
+  Link,
+  useActionData,
+  useCatch,
+  useRouteLoaderData,
+} from "@remix-run/react";
 import { FiCheck } from "react-icons/fi";
+import ErrorPage, { GenericErrorPage } from "~/error-handling/error-page";
+import { TournamentLoaderData } from "~/routes/event/$eventId";
+import * as yup from "yup";
+import { SchemaOf, ValidationError } from "yup";
+import { getYupErrorMessage } from "~/utils/validation";
+import { sendEmail } from "~/utils/send-email.server";
+import { getAttendeeKey } from "~/account/auth.server";
+import { getTournamentAttendee } from "~/tournament/attendee-model.server";
+import { EditAttendeeDetailsEmail } from "~/tournament/edit-attendee-details-email";
+import { Breadcrumb, CURRENT } from "~/utils/breadcrumbs";
 
-interface LoaderData {}
+const breadcrumbs: Breadcrumb[] = [
+  { label: "Request Edit Link", url: CURRENT },
+];
 
-export const loader: LoaderFunction = async ({ request }) => {
-  const sessionId = await getSessionId(request);
-  if (sessionId) return redirect("/");
-
-  return json<LoaderData>({});
-};
+export const handle = { breadcrumbs };
 
 interface RequestData {
   email: string;
@@ -40,9 +44,12 @@ interface ActionData {
   email?: string;
 }
 
-export const action: ActionFunction = async ({ request }) => {
-  const sessionId = await getSessionId(request);
-  if (sessionId) return redirect("/");
+export const action: ActionFunction = async ({ request, params }) => {
+  invariant(params.eventId, "From route");
+  const tournament = await getTournamentBySlug(params.eventId);
+  if (!tournament || !tournament.rulesPack) {
+    throw new Response("No online rules pack for this event", { status: 404 });
+  }
 
   const formData = Object.fromEntries(await request.formData());
   let requestData: RequestData;
@@ -62,24 +69,36 @@ export const action: ActionFunction = async ({ request }) => {
     throw err;
   }
 
-  const user = await getUserByEmail(requestData.email);
-  if (!user || (!user.roles && user.email !== ADMIN_EMAIL)) {
+  const attendee = await getTournamentAttendee(
+    tournament.slug,
+    requestData.email
+  );
+  if (!attendee) {
     return json<ActionData>({
       errors: {
-        email: "No active user found with that email.",
+        email: `No ${tournament.title} attendee found with that email.`,
       },
     });
   }
 
   await sendEmail(
-    new ResetPasswordEmail(user.name, user.email, await getResetKey(user.email))
+    new EditAttendeeDetailsEmail(
+      attendee.name,
+      attendee.email,
+      tournament.slug,
+      tournament.title,
+      await getAttendeeKey(attendee.email, tournament.slug)
+    )
   );
 
   return json<ActionData>({ emailSent: true });
 };
 
-export default function ResetPasswordPage() {
+export default function SendEditLinkPage() {
   const emailRef = React.useRef<HTMLInputElement>(null);
+  const { tournament } = useRouteLoaderData(
+    "routes/event/$eventId"
+  ) as TournamentLoaderData;
 
   const { errors, emailSent, email } = (useActionData() ?? {}) as ActionData;
 
@@ -93,14 +112,16 @@ export default function ResetPasswordPage() {
     return (
       <>
         <h2>
-          <FiCheck /> Reset email sent
+          <FiCheck /> Edit link sent
         </h2>
         <p>
-          Thanks. An email with a link to reset the password for your account
-          has been sent to {email}.
+          Thanks. An email with a link to edit your account details has been
+          sent to {email}.
         </p>
         <p>
-          <Link to="/">Return to Kings of War homepage.</Link>
+          <Link to={`/event/${tournament.slug}`}>
+            Return to {tournament.title} event page.
+          </Link>
         </p>
       </>
     );
@@ -109,7 +130,7 @@ export default function ResetPasswordPage() {
   return (
     <>
       <Form method="post" className="credentials-form">
-        <h2>Request a password reset</h2>
+        <h2>Request a link to edit your details</h2>
         <input name={email} type="hidden" value={email} />
         <label className={errors?.email ? "is-invalid-label" : undefined}>
           Email
@@ -133,11 +154,14 @@ export default function ResetPasswordPage() {
         </label>
         <input type="submit" className="button primary" value="Request reset" />
         <p>
-          Don't need a password reset?{" "}
-          <Link to="/account/login">Back to log in.</Link>
+          Don't need edit your details?{" "}
+          <Link to={`/event/${tournament.slug}`}>
+            Return to {tournament.title} event page.
+          </Link>
         </p>
         <p>
-          Don't have an account? <Link to="/account/register">Sign up.</Link>
+          Not yet registered?{" "}
+          <Link to={`/event/${tournament.slug}/sign-up`}>Sign up.</Link>
         </p>
       </Form>
     </>

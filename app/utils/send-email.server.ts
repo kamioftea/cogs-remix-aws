@@ -1,15 +1,12 @@
 import type {
   SendEmailCommandInput,
   SendEmailCommandOutput,
-  Body} from "@aws-sdk/client-ses";
-import {
-  SESClient,
-  SendEmailCommand
+  Body,
 } from "@aws-sdk/client-ses";
+import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
 
 const client = new SESClient({ region: "eu-west-2" });
 
-const SOURCE_EMAIL = process.env.SOURCE_EMAIL ?? "changeme@example.org";
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL ?? "changeme@example.org";
 
 export interface Email {
@@ -38,7 +35,7 @@ export function sendEmail(email: Email): Promise<SendEmailCommandOutput> {
   }
 
   const params: SendEmailCommandInput = {
-    Source: SOURCE_EMAIL,
+    Source: ADMIN_EMAIL,
     ReplyToAddresses: [ADMIN_EMAIL],
     Destination: {
       ToAddresses: email.to,

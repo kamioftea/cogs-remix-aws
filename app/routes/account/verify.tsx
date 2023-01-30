@@ -1,14 +1,9 @@
-import type {
-  ActionFunction,
-  LoaderFunction} from "@remix-run/node";
-import {
-  json,
-  redirect,
-} from "@remix-run/node";
+import type { ActionFunction, LoaderFunction } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
 import * as React from "react";
 import { useEffect } from "react";
 import * as yup from "yup";
-import type { SchemaOf} from "yup";
+import type { SchemaOf } from "yup";
 import { ValidationError } from "yup";
 import { setUserPassword } from "~/account/user-model.server";
 import {
@@ -20,7 +15,7 @@ import {
 } from "@remix-run/react";
 import { getYupErrorMessage } from "~/utils/validation";
 import { validateResetKey } from "~/account/auth.server";
-import { createUserSession, getUserId } from "~/session.server";
+import { createUserSession, getSessionId } from "~/account/session.server";
 import ErrorPage, { GenericErrorPage } from "~/error-handling/error-page";
 
 interface LoaderData {
@@ -28,8 +23,8 @@ interface LoaderData {
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const userId = await getUserId(request);
-  if (userId) return redirect("/");
+  const sessionId = await getSessionId(request);
+  if (sessionId) return redirect("/");
 
   const user = await validateResetKey(request);
   return json<LoaderData>({ email: user.email });
@@ -50,8 +45,8 @@ interface ActionData {
 }
 
 export const action: ActionFunction = async ({ request }) => {
-  const userId = await getUserId(request);
-  if (userId) return redirect("/");
+  const sessionId = await getSessionId(request);
+  if (sessionId) return redirect("/");
 
   const user = await validateResetKey(request);
 
@@ -77,7 +72,7 @@ export const action: ActionFunction = async ({ request }) => {
 
   return createUserSession({
     request,
-    userId: user.id,
+    email: user.email,
     remember: false,
     redirectTo: "/account",
   });
@@ -100,12 +95,11 @@ export default function AccountRegisterPage() {
       <Form method="post" className="credentials-form">
         <h2>Set a password</h2>
         <p>Please enter a new password for {email}</p>
-        <input name={email} type="hidden" value={email} />
         <label className={errors?.password ? "is-invalid-label" : undefined}>
           New password
           <input
             ref={passwordRef}
-            id="name"
+            id="password"
             required
             autoFocus={true}
             name="password"
@@ -122,7 +116,9 @@ export default function AccountRegisterPage() {
           )}
         </label>
         <input type="submit" className="button primary" value="Set password" />
-        Not the right email? <Link to="/account/login">Back to log in.</Link>
+        <p>
+          Not the right email? <Link to="/account/login">Back to log in.</Link>
+        </p>
       </Form>
     </>
   );

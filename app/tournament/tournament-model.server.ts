@@ -12,7 +12,8 @@ export interface Tournament {
   slug: string;
   description: string;
   about?: Record<string, string[]>;
-  content: string;
+  content?: string;
+  signUpEnabled: boolean;
   disclaimer?: string;
   imageUrl: string;
   imageDescription: string;
@@ -53,14 +54,7 @@ export const tournaments: Tournament[] = [
         "S41 7JH",
       ],
     },
-    content: unsafeRenderMarkdown(`
-## Save the date
-
-<p class="lead">
-  Announcing Cogs of War. A 1995 points, one day Kings of War singles tournament using the 3.5 edition rules.
-</p>
-
-The full rules pack and sign-up will be available at the start of December.`),
+    signUpEnabled: true,
     disclaimer: renderMarkdownInline(
       `Mantic® and Kings of War® and all associated names, characters, places, and things are copyright © and
       ™ Mantic Games. The event image is [The Siege of Chill](https://www.manticgames.com/wallpapers/) © 
@@ -305,6 +299,7 @@ more candidates.`),
       imageUrl:
         "https://kow.c-o-g-s.org.uk/_static/images/twilight-expansion-og.png",
     },
+    signUpEnabled: false,
     content: unsafeRenderMarkdown(`
 ## Prepare for battle
 

@@ -1,6 +1,6 @@
 import type { LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { requireUser } from "~/session.server";
+import { requireUser } from "~/account/session.server";
 import type { User } from "~/account/user-model.server";
 import { getUsers, Role } from "~/account/user-model.server";
 import { useLoaderData } from "@remix-run/react";

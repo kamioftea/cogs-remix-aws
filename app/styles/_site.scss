@@ -153,3 +153,22 @@ footer {
   padding: $global-padding;
   border: thin $dark-gray solid;
 }
+
+dl {
+  dt {
+    font-family: "Wolfsbane", "Spectral", "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+    color: $primary-color;
+    font-size: rem-calc(24px);
+    font-weight: normal;
+  }
+
+  dd {
+    margin: 0 0 0.5rem;
+
+    p {
+      margin: 0;
+    }
+  }
+}
+
+

@@ -68,37 +68,36 @@ main {
   @include clearfix()
 }
 
-.summary-box {
-  border-top: thin $primary-color solid;
-  border-bottom: thin $primary-color solid;
-  padding-top: 0.5rem;
-  margin: 0 0 1rem 0;
+.right-aside {
+  display: grid;
+  grid-template:
+    "content aside"
+     / 3fr 2fr;
 
-  @include breakpoint(medium) {
-    float: right;
-    margin: 0 0 1rem 1rem;
-    border: none;
-    border-left: thin $primary-color solid;
-    padding-left: 1rem;
-    width: 40%;
-  }
-}
-
-dl {
-  dt {
-    font-family: "Wolfsbane", "Spectral", "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
-    color: $primary-color;
-    font-size: rem-calc(24px);
-    font-weight: normal;
+  @include breakpoint(small down) {
+    grid-template:
+      "aside"
+     "content"
+     / 1fr;
   }
 
-  dd {
-    margin: 0 0 0.5rem;
 
-    p {
-      margin: 0;
+  .summary-box {
+    border-top: thin $primary-color solid;
+    border-bottom: thin $primary-color solid;
+    padding-top: 0.5rem;
+    margin: 0 0 1rem 0;
+    grid-area: aside;
+
+    @include breakpoint(medium) {
+      margin: 0 0 1rem 1rem;
+      border: none;
+      border-left: thin $primary-color solid;
+      padding-left: 1rem;
     }
   }
+
+  .content {
+    grid-area: content;
+  }
 }
-
-

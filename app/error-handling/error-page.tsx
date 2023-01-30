@@ -26,9 +26,9 @@ export const GenericErrorPage = () => (
     </p>
     <p>
       If you keep seeing this message, please{" "}
-      <a href="mailto:contact@jeff-horton.uk">email contact@jeff-horton.uk</a>{" "}
-      and let me know what you are trying to do. Please include a copy of the
-      URL and any other details you think might be relevant.
+      <a href="mailto:jeff@goblinoid.co.uk">email jeff@goblinoid.co.uk</a> and
+      let me know what you are trying to do. Please include a copy of the URL
+      and any other details you think might be relevant.
     </p>
   </ErrorPage>
 );

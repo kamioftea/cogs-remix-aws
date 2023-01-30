@@ -3,41 +3,68 @@ import type { User } from "~/account/user-model.server";
 import { getUserByEmail } from "~/account/user-model.server";
 import { json } from "@remix-run/node";
 import { unsafeRenderMarkdown } from "~/utils/markdown";
+import {
+  Attendee,
+  getTournamentAttendee,
+} from "~/tournament/attendee-model.server";
+import invariant from "tiny-invariant";
 
 const TOKEN_SECRET =
   process.env.TOKEN_SECRET || "change-me-to-a-32-character-or-longer-string";
 
 const MAX_AGE = 60 * 60 * 24;
 
-interface ResetToken {
-  email: User["email"];
+interface AccessToken {
+  email: string;
+  purpose: "user" | "attendee";
+  eventSlug?: Attendee["eventSlug"];
   createdAt: number;
 }
 
 export async function getResetKey(email: User["email"]): Promise<string> {
+  return getAccessKey(email, "user");
+}
+
+export async function getAttendeeKey(
+  email: Attendee["email"],
+  eventSlug: Attendee["eventSlug"]
+): Promise<string> {
+  return getAccessKey(email, "attendee", eventSlug);
+}
+
+export async function getAccessKey(
+  email: AccessToken["email"],
+  purpose: AccessToken["purpose"],
+  eventSlug?: Attendee["eventSlug"]
+): Promise<string> {
   return await Iron.seal(
-    { email, createdAt: Date.now() },
+    { email, purpose, eventSlug, createdAt: Date.now() },
     TOKEN_SECRET,
     Iron.defaults
   );
 }
 
-const message = unsafeRenderMarkdown(`
+const loginMessage = unsafeRenderMarkdown(`
 You can request a new link using the [forgotten password form](/account/forgotten).
   `);
 
-async function validateToken(token: string): Promise<ResetToken> {
+const attendeeMessage = (eventSlug: Attendee["eventSlug"]) =>
+  unsafeRenderMarkdown(`
+You can request a new link using the [get edit link form](/event/${eventSlug}/edit-attendee).
+  `);
+
+async function validateToken(token: string): Promise<AccessToken> {
   try {
     return (await Iron.unseal(
       token,
       TOKEN_SECRET,
       Iron.defaults
-    )) as ResetToken;
+    )) as AccessToken;
   } catch (err) {
     throw json(
       {
         heading: "Failed to read reset token",
-        message,
+        message: loginMessage,
       },
       { status: 400 }
     );
@@ -45,44 +72,94 @@ async function validateToken(token: string): Promise<ResetToken> {
 }
 
 export async function validateResetKey(request: Request): Promise<User> {
-  const url = new URL(request.url);
-  const token = url.searchParams.get("token");
+  const accessToken = await validateAccessKey(request, "user", loginMessage);
 
-  if (!token) {
-    throw json(
-      {
-        heading: "Reset token was missing",
-        message,
-      },
-      { status: 400 }
-    );
-  }
-
-  const { email, createdAt } = await validateToken(token);
-
-  const expiresAt = createdAt + MAX_AGE * 1000;
-
-  // Validate the expiration date of the session
-  if (Date.now() > expiresAt || Date.now() < createdAt) {
-    throw json(
-      {
-        heading: "Reset token has expired",
-        message,
-      },
-      { status: 400 }
-    );
-  }
-
-  const user = await getUserByEmail(email);
+  const user = await getUserByEmail(accessToken.email);
   if (!user) {
     throw json(
       {
         heading: "Reset token is not for an active user",
-        message,
+        message: loginMessage,
       },
       { status: 400 }
     );
   }
 
   return user;
+}
+
+export async function validateAttendeeKey(
+  request: Request,
+  eventSlug: Attendee["eventSlug"]
+): Promise<Attendee> {
+  const message = attendeeMessage(eventSlug);
+  console.log("validateAttendeeKey", eventSlug, message);
+
+  const accessToken = await validateAccessKey(request, "attendee", message);
+
+  invariant(accessToken.eventSlug, "Always set for attendee purpose");
+
+  const attendee = await getTournamentAttendee(
+    accessToken.eventSlug,
+    accessToken.email
+  );
+  if (!attendee) {
+    throw json(
+      {
+        heading: "Access token is not for an active attendee",
+        message: loginMessage,
+      },
+      { status: 400 }
+    );
+  }
+
+  return attendee;
+}
+
+export async function validateAccessKey(
+  request: Request,
+  expectedPurpose: AccessToken["purpose"],
+  message: string
+): Promise<AccessToken> {
+  const url = new URL(request.url);
+  const token = url.searchParams.get("token");
+
+  if (!token) {
+    throw json(
+      {
+        heading: "Access token was missing",
+        message,
+      },
+      { status: 400 }
+    );
+  }
+
+  const accessToken = await validateToken(token);
+
+  const expiresAt = accessToken.createdAt + MAX_AGE * 1000;
+
+  // Validate the expiration date of the session
+  if (Date.now() > expiresAt || Date.now() < accessToken.createdAt) {
+    throw json(
+      {
+        heading: "Access token has expired",
+        message,
+      },
+      { status: 400 }
+    );
+  }
+
+  // Validate the purpose
+  if (accessToken.purpose !== expectedPurpose) {
+    console.log(accessToken.purpose, expectedPurpose);
+    throw json(
+      {
+        heading: "Access token was created for a different purpose",
+        message,
+      },
+      { status: 400 }
+    );
+  }
+
+  return accessToken;
 }

@@ -2,7 +2,7 @@ import type { ActionFunction } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
 
 import { setUserPassword, createUser } from "~/account/user-model.server";
-import { createUserSession } from "~/session.server";
+import { createUserSession } from "~/account/session.server";
 
 export const action: ActionFunction = async ({ request }) => {
   if (process.env.NODE_ENV === "production") {
@@ -23,13 +23,13 @@ export const action: ActionFunction = async ({ request }) => {
     throw new Error("All test emails must end in @example.com");
   }
 
-  const user = await createUser(`Test User <${email}>`, email);
+  await createUser(`Test User <${email}>`, email);
   // noinspection SpellCheckingInspection
   await setUserPassword(email, "myreallystrongpassword");
 
   return createUserSession({
     request,
-    userId: user.id,
+    email: email,
     remember: true,
     redirectTo: "/",
   });

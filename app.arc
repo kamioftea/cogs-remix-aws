@@ -4,6 +4,9 @@ cogs-kings-of-war
 @aws
 region eu-west-2
 runtime nodejs18.x
+policies
+  arn:aws:iam::296681679694:policy/SESSendOnly
+  architect-default-policies
 
 @http
 /*
@@ -14,11 +17,18 @@ runtime nodejs18.x
 
 @tables
 user
-  pk *String
+  email *String
+  encrypt true
 
 password
-  pk *String # userId
+  email *String
+  encrypt true
 
-note
-  pk *String  # userId
-  sk **String # noteId
+session
+  sessionId *String
+  ttl **Number
+
+attendee
+  eventSlug *String
+  email **String
+  encrypt true

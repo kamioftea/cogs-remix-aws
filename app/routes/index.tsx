@@ -32,7 +32,11 @@ export default function Index() {
       {user && (
         <header>
           Logged in as {user.name}{" "}
-          <form action="/logout" method="post" className="display-inline">
+          <form
+            action="/account/logout"
+            method="post"
+            className="display-inline"
+          >
             <button type="submit" className="button clear link display-inline">
               Logout
             </button>

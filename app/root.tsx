@@ -15,7 +15,7 @@ import {
 } from "@remix-run/react";
 
 import stylesheetUrl from "./styles/globals.css";
-import { getUser } from "./session.server";
+import { getUser } from "./account/session.server";
 import ErrorPage, { GenericErrorPage } from "~/error-handling/error-page";
 import type { PropsWithChildren } from "react";
 import { Breadcrumb, CURRENT } from "~/utils/breadcrumbs";
@@ -28,10 +28,16 @@ export const links: LinksFunction = () => {
   ];
 };
 
-export const meta: MetaFunction = () => ({
+export const meta: MetaFunction = ({ location, data }) => ({
   charset: "utf-8",
   title: "Kings of War | Chesterfield Open Gaming Society",
   viewport: "width=device-width,initial-scale=1",
+  "og:type": "website",
+  "og:title": "Kings of War | Chesterfield Open Gaming Society",
+  "og:url": data.root_url + location.pathname,
+  "og:image": data.root_url + "/_static/images/cogs-og-image.png",
+  "og:image:type": "image/png",
+  "og:image:alt": "Chesterfield Open Gaming Society logo",
 });
 
 const breadcrumbs: Breadcrumb[] = [
@@ -45,11 +51,13 @@ export const handle = {
 
 type LoaderData = {
   user: Awaited<ReturnType<typeof getUser>>;
+  root_url: string;
 };
 
 export const loader: LoaderFunction = async ({ request }) => {
   return json<LoaderData>({
     user: await getUser(request),
+    root_url: process.env.ROOT_URL || "http://localhost:3000",
   });
 };
 

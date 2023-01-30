@@ -2,7 +2,7 @@ import { Link, Outlet } from "@remix-run/react";
 import stylesheetUrl from "../styles/admin.css";
 import type { LinksFunction, LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { requireUser } from "~/session.server";
+import { requireUser } from "~/account/session.server";
 import { Role } from "~/account/user-model.server";
 
 export const links: LinksFunction = () => {
@@ -22,7 +22,12 @@ export default function AdminLayout() {
       </header>
       <nav className="admin-sidebar" aria-label="Admin pages">
         <h2>Sections</h2>
-        <Link to={"/admin/user/"}>Users</Link>
+        <p>
+          <Link to={"/admin/user/"}>Users</Link>
+        </p>
+        <p>
+          <Link to={"/admin/event/"}>Events</Link>
+        </p>
       </nav>
       <main>
         <Outlet />

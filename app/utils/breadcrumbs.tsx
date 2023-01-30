@@ -15,13 +15,6 @@ function getLabel(label: Breadcrumb["label"], match: RouteMatch): string {
 export function Breadcrumbs() {
   const matches = useMatches();
 
-  console.log(
-    matches.map((m) => [
-      m.pathname,
-      m.handle?.breadcrumbs?.map((b: Breadcrumb) => b.label),
-    ])
-  );
-
   const breadcrumbMatches: { breadcrumb: Breadcrumb; match: RouteMatch }[] =
     matches.flatMap(
       (match) =>

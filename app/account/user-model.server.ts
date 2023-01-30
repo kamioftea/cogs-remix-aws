@@ -5,6 +5,7 @@ import { sendEmail } from "~/utils/send-email.server";
 import { ProcessRegistrationEmail } from "~/account/process-registration-email";
 import { VerifyAccountEmail } from "~/account/verify-account-email";
 import { getResetKey } from "~/account/auth.server";
+import { v4 } from "uuid";
 
 export enum Role {
   Admin = "Admin",
@@ -14,12 +15,12 @@ export enum Role {
 export const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
 
 export type User = {
-  id: `email#${string}`;
   email: string;
   name?: string;
   roles?: Role[];
 };
 export type Password = { password: string };
+export type Session = { sessionId: string; email: string; ttl: Date };
 
 export async function getUsers(): Promise<User[]> {
   const db = await arc.tables();
@@ -27,20 +28,29 @@ export async function getUsers(): Promise<User[]> {
   return result.Items;
 }
 
-function userFromRecord(record: any) {
+function userFromRecord(record: any): User {
   return {
-    id: record.pk,
     email: record.email,
     name: record.name,
     roles: record.roles,
   };
 }
 
-export async function getUserById(id: User["id"]): Promise<User | null> {
+function sessionFromRecord(record: any): Session {
+  return {
+    sessionId: record.id,
+    email: record.email,
+    ttl: new Date(record.ttl),
+  };
+}
+
+export async function getUserByEmail(
+  email: User["email"]
+): Promise<User | null> {
   const db = await arc.tables();
   const result = await db.user.query({
-    KeyConditionExpression: "pk = :pk",
-    ExpressionAttributeValues: { ":pk": id },
+    KeyConditionExpression: "email = :email",
+    ExpressionAttributeValues: { ":email": email },
   });
 
   const [record] = result.Items;
@@ -48,21 +58,21 @@ export async function getUserById(id: User["id"]): Promise<User | null> {
   return null;
 }
 
-export async function getUserByEmail(email: User["email"]) {
-  return getUserById(`email#${email}`);
-}
-
 async function getUserPasswordByEmail(email: User["email"]) {
   const db = await arc.tables();
   const result = await db.password.query({
-    KeyConditionExpression: "pk = :pk",
-    ExpressionAttributeValues: { ":pk": `email#${email}` },
+    KeyConditionExpression: "email = :email",
+    ExpressionAttributeValues: { ":email": email },
   });
 
   const [record] = result.Items;
 
   if (record) return { hash: record.password };
   return null;
+}
+
+export async function isVerified(user: User): Promise<boolean> {
+  return (await getUserPasswordByEmail(user.email)) !== null;
 }
 
 export async function createUser(name: User["name"], email: User["email"]) {
@@ -77,7 +87,6 @@ export async function createUser(name: User["name"], email: User["email"]) {
   }
 
   const data = {
-    pk: `email#${email}`,
     email,
     name,
     roles,
@@ -100,15 +109,24 @@ export async function setUserPassword(
   const hashedPassword = await bcrypt.hash(password, 10);
 
   await db.password.put({
-    pk: `email#${email}`,
+    email: email,
     password: hashedPassword,
+  });
+}
+
+export async function putUser(user: User): Promise<User> {
+  const db = await arc.tables();
+  return await db.user.put({
+    email: user.email,
+    name: user.name,
+    roles: user.roles,
   });
 }
 
 export async function deleteUser(email: User["email"]) {
   const db = await arc.tables();
-  await db.password.delete({ pk: `email#${email}` });
-  await db.user.delete({ pk: `email#${email}` });
+  await db.password.delete({ email });
+  await db.user.delete({ email });
 }
 
 export async function verifyLogin(
@@ -132,4 +150,35 @@ export async function verifyLogin(
   }
 
   return user;
+}
+
+export async function createSessionRecord(
+  email: User["email"],
+  ttl?: Date
+): Promise<string> {
+  const db = await arc.tables();
+  const sessionId = v4();
+
+  await db.session.put({
+    sessionId,
+    email,
+    ttl: ttl?.getTime() ?? Date.now() + 24 * 60 * 60 * 1000,
+  });
+
+  return sessionId;
+}
+
+export async function getSessionRecordById(
+  sessionId: Session["sessionId"]
+): Promise<Session | null> {
+  const db = await arc.tables();
+  const result = await db.session.query({
+    KeyConditionExpression: "sessionId = :sessionId",
+    ExpressionAttributeValues: { ":sessionId": sessionId },
+  });
+
+  const [record] = result.Items;
+
+  if (record) return sessionFromRecord(record);
+  return null;
 }
