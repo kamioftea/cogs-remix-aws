@@ -1,0 +1,32 @@
+@import 'util/util';
+@import "settings";
+
+main {
+  display: grid;
+  grid-template: "sidebar content"
+                  / rem-calc(250px) 1fr;
+
+  @include breakpoint(small down) {
+    grid-template:
+      "content"
+      "sidebar"
+    / 1fr
+  }
+  grid-gap: $global-margin;
+  place-content: start start;
+}
+
+nav.side-navigation {
+  grid-area: sidebar;
+  width: 100%;
+  height: 100%;
+
+  .button {
+    text-align: left;
+  };
+}
+
+div.page-content {
+  grid-area: content;
+  width: 100%;
+}

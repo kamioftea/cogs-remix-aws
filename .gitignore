@@ -1,6 +1,7 @@
 node_modules
 
 /server/index.js
+/server/index.js.map
 /public/build
 preferences.arc
 sam.json
@@ -10,7 +11,8 @@ sam.yaml
 /cypress/screenshots
 /cypress/videos
 
-/app/styles/tailwind.css
+/app/styles/*.css
+/app/styles/*.css.map
 
 /.idea
 /cogs-remix.iml

@@ -1,0 +1,129 @@
+@import 'settings';
+@import 'util/util';
+
+.cogs-header {
+  display: grid;
+  max-width: rem-calc(960px);
+  margin: auto;
+  padding: 0.5rem;
+
+  border-bottom: thin $primary-color solid;
+
+  text-align: end;
+  justify-items: end;
+
+  grid-template:
+    "img top"
+    "img bottom"
+    / min(30%, 256px) auto;
+
+  grid-gap: 1rem;
+
+  @include breakpoint(25rem down) {
+    grid-template:
+      "img"
+      "top"
+      "bottom"
+      / auto;
+
+    text-align: center;
+    justify-items: center;
+
+    img {
+      max-width: 60%;
+    }
+  }
+
+  img {
+    place-self: center center;
+    grid-area: img;
+  }
+
+  .club-name {
+    font-family: "Staatliches", "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+    align-self: start;
+    grid-area: top;
+    margin: 0;
+  }
+
+  h1 {
+    align-self: end;
+    grid-area: bottom;
+    font-size: rem-calc(72px);
+    margin: 0;
+    line-height: 1;
+
+    @include breakpoint(medium) {
+      font-size: rem-calc(96px);
+    }
+  }
+}
+
+.upcoming-events {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 1rem;
+  margin-bottom: 1rem;
+
+  @include breakpoint(medium) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  a {
+    border: thin $secondary-color solid;
+
+    &:hover {
+      border-color: $primary-color;
+    }
+  }
+
+  .event {
+    position: relative;
+
+    .event-title {
+      position: absolute;
+      top: 0.5rem;
+      left: 1rem;
+      line-height: 1;
+
+      font-size: rem-calc(48px);
+      @include breakpoint(25rem down) {
+        font-size: rem-calc(32px);
+      }
+
+      small {
+        font-size: rem-calc(32px);
+        @include breakpoint(25rem down) {
+          font-size: rem-calc(24px);
+        }
+      }
+    }
+
+    @include breakpoint(18rem down) {
+      min-height: 10rem;
+      img {
+        position: absolute;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    @include breakpoint(14rem down) {
+      min-height: 15rem;
+    }
+
+    .more-info {
+      position: absolute;
+      bottom: 1rem;
+      right: 1rem;
+      font-size: rem-calc(18px);
+      margin-bottom: 0;
+      margin-left: 1rem;
+
+      @include breakpoint(25rem down) {
+        font-size: rem-calc(12px);
+        padding: 0.5rem;
+      }
+    }
+  }
+}
