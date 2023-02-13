@@ -32,3 +32,9 @@ attendee
   eventSlug *String
   email **String
   encrypt true
+
+@tables-indexes
+attendee
+  email *String
+  projection all
+  name byEmail

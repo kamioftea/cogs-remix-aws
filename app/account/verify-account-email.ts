@@ -1,5 +1,5 @@
 import type { Email } from "~/utils/send-email.server";
-import type { User } from "./user-model.server";
+import type { User } from "~/account/user-model";
 
 const BASE_URL = process.env.BASE_URL ?? "http://localhost:3000";
 
@@ -15,7 +15,7 @@ export class VerifyAccountEmail implements Email {
     event?: string
   ) {
     this.subject = `Thank you for signing up for ${
-      event ?? "COGs Kings of War"
+      event ?? "COGS Kings of War"
     }.`;
 
     const verifyURL = new URL(`${BASE_URL}/account/verify/`);

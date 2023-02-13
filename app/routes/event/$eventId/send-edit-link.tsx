@@ -1,4 +1,5 @@
-import { ActionFunction, json } from "@remix-run/router";
+import type { ActionFunction, LoaderFunction } from "@remix-run/router";
+import { json, redirect } from "@remix-run/router";
 import invariant from "tiny-invariant";
 import { getTournamentBySlug } from "~/tournament/tournament-model.server";
 import * as React from "react";
@@ -12,15 +13,18 @@ import {
 } from "@remix-run/react";
 import { FiCheck } from "react-icons/fi";
 import ErrorPage, { GenericErrorPage } from "~/error-handling/error-page";
-import { TournamentLoaderData } from "~/routes/event/$eventId";
+import type { TournamentLoaderData } from "~/routes/event/$eventId";
 import * as yup from "yup";
-import { SchemaOf, ValidationError } from "yup";
+import type { SchemaOf } from "yup";
+import { ValidationError } from "yup";
 import { getYupErrorMessage } from "~/utils/validation";
 import { sendEmail } from "~/utils/send-email.server";
 import { getAttendeeKey } from "~/account/auth.server";
 import { getTournamentAttendee } from "~/tournament/attendee-model.server";
 import { EditAttendeeDetailsEmail } from "~/tournament/edit-attendee-details-email";
-import { Breadcrumb, CURRENT } from "~/utils/breadcrumbs";
+import type { Breadcrumb } from "~/utils/breadcrumbs";
+import { CURRENT } from "~/utils/breadcrumbs";
+import { getUser } from "~/account/session.server";
 
 const breadcrumbs: Breadcrumb[] = [
   { label: "Request Edit Link", url: CURRENT },
@@ -44,10 +48,23 @@ interface ActionData {
   email?: string;
 }
 
+export const loader: LoaderFunction = async ({ request, params }) => {
+  invariant(params.eventId, "From route");
+  const user = await getUser(request);
+  if (user) {
+    const attendee = await getTournamentAttendee(params.eventId, user.email);
+    return attendee
+      ? redirect(`/event/${params.eventId}/edit-details`)
+      : redirect(`/event/${params.eventId}/sign-up`);
+  }
+
+  return json({});
+};
+
 export const action: ActionFunction = async ({ request, params }) => {
   invariant(params.eventId, "From route");
   const tournament = await getTournamentBySlug(params.eventId);
-  if (!tournament || !tournament.rulesPack) {
+  if (!tournament || !tournament.eventPack) {
     throw new Response("No online rules pack for this event", { status: 404 });
   }
 
@@ -91,7 +108,7 @@ export const action: ActionFunction = async ({ request, params }) => {
     )
   );
 
-  return json<ActionData>({ emailSent: true });
+  return json<ActionData>({ emailSent: true, email: attendee.email });
 };
 
 export default function SendEditLinkPage() {
@@ -154,13 +171,18 @@ export default function SendEditLinkPage() {
         </label>
         <input type="submit" className="button primary" value="Request reset" />
         <p>
+          If you have an account you can{" "}
+          <Link to={`/account/login`}>Log In</Link> to edit your details without
+          needing a link.
+        </p>
+        <p>
           Don't need edit your details?{" "}
           <Link to={`/event/${tournament.slug}`}>
             Return to {tournament.title} event page.
           </Link>
         </p>
         <p>
-          Not yet registered?{" "}
+          Not yet registered for {tournament.title} ?{" "}
           <Link to={`/event/${tournament.slug}/sign-up`}>Sign up.</Link>
         </p>
       </Form>

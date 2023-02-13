@@ -5,6 +5,7 @@ import type {
 } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import {
+  Link,
   Links,
   LiveReload,
   Meta,
@@ -12,13 +13,17 @@ import {
   Scripts,
   ScrollRestoration,
   useCatch,
+  useLoaderData,
 } from "@remix-run/react";
 
 import stylesheetUrl from "./styles/globals.css";
 import { getUser } from "./account/session.server";
 import ErrorPage, { GenericErrorPage } from "~/error-handling/error-page";
 import type { PropsWithChildren } from "react";
-import { Breadcrumb, CURRENT } from "~/utils/breadcrumbs";
+import type { Breadcrumb } from "~/utils/breadcrumbs";
+import { CURRENT } from "~/utils/breadcrumbs";
+import type { User } from "~/account/user-model";
+import { Role } from "~/account/user-model";
 
 export const links: LinksFunction = () => {
   return [
@@ -28,14 +33,14 @@ export const links: LinksFunction = () => {
   ];
 };
 
-export const meta: MetaFunction = ({ location, data }) => ({
+export const meta: MetaFunction<LoaderData> = ({ location, data }) => ({
   charset: "utf-8",
   title: "Kings of War | Chesterfield Open Gaming Society",
   viewport: "width=device-width,initial-scale=1",
   "og:type": "website",
   "og:title": "Kings of War | Chesterfield Open Gaming Society",
-  "og:url": data.root_url + location.pathname,
-  "og:image": data.root_url + "/_static/images/cogs-og-image.png",
+  "og:url": data?.base_url + location.pathname,
+  "og:image": data?.base_url + "/_static/images/cogs-og-image.png",
   "og:image:type": "image/png",
   "og:image:alt": "Chesterfield Open Gaming Society logo",
 });
@@ -51,17 +56,21 @@ export const handle = {
 
 type LoaderData = {
   user: Awaited<ReturnType<typeof getUser>>;
-  root_url: string;
+  base_url: string;
 };
 
 export const loader: LoaderFunction = async ({ request }) => {
   return json<LoaderData>({
     user: await getUser(request),
-    root_url: process.env.ROOT_URL || "http://localhost:3000",
+    base_url: process.env.BASE_URL || "http://localhost:3000",
   });
 };
 
-function LayoutBoilerplate({ children }: PropsWithChildren) {
+interface BoilerplateProps extends PropsWithChildren {
+  user?: User | "NO_HEADER";
+}
+
+function LayoutBoilerplate({ user, children }: BoilerplateProps) {
   return (
     <html lang="en" className="h-full">
       <head>
@@ -69,6 +78,38 @@ function LayoutBoilerplate({ children }: PropsWithChildren) {
         <Links />
       </head>
       <body>
+        {user !== "NO_HEADER" && (
+          <header className="text-right">
+            {user ? (
+              <>
+                Logged in as {user.name} <Link to="/account">Account</Link> |{" "}
+                <form
+                  action="/account/logout"
+                  method="post"
+                  className="display-inline"
+                >
+                  <button
+                    type="submit"
+                    className="button clear link display-inline"
+                  >
+                    Logout
+                  </button>
+                </form>
+                {user.roles?.includes(Role.Admin) && (
+                  <>
+                    {" "}
+                    | <Link to={"/admin"}>Admin</Link>
+                  </>
+                )}
+              </>
+            ) : (
+              <>
+                Not logged in <Link to="/account/login">Sign Up</Link> |{" "}
+                <Link to="/account/login">Login</Link>
+              </>
+            )}
+          </header>
+        )}
         {children}
         <ScrollRestoration />
         <Scripts />
@@ -79,8 +120,10 @@ function LayoutBoilerplate({ children }: PropsWithChildren) {
 }
 
 export default function App() {
+  const { user } = useLoaderData<typeof loader>() ?? ({} as LoaderData);
+
   return (
-    <LayoutBoilerplate>
+    <LayoutBoilerplate user={user}>
       <Outlet />
     </LayoutBoilerplate>
   );
@@ -90,7 +133,7 @@ export function ErrorBoundary({ error }: { error: Error }) {
   console.error(error);
 
   return (
-    <LayoutBoilerplate>
+    <LayoutBoilerplate user={"NO_HEADER"}>
       <GenericErrorPage />
     </LayoutBoilerplate>
   );
@@ -101,9 +144,22 @@ export function CatchBoundary() {
 
   if (caught.status === 404) {
     return (
-      <LayoutBoilerplate>
+      <LayoutBoilerplate user={"NO_HEADER"}>
         <ErrorPage heading="Page not found">
           <p>Sorry the requested URL is not a page on this site.</p>
+        </ErrorPage>
+      </LayoutBoilerplate>
+    );
+  }
+
+  if (caught.status === 403) {
+    return (
+      <LayoutBoilerplate user={"NO_HEADER"}>
+        <ErrorPage heading="Not authorised">
+          <p>
+            The account you're logged in as does not have permission to access
+            this page
+          </p>
         </ErrorPage>
       </LayoutBoilerplate>
     );

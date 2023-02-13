@@ -19,14 +19,16 @@ import { getTournamentBySlug } from "~/tournament/tournament-model.server";
 import {
   createAttendee,
   getTournamentAttendee,
+  getTournamentAttendeesByEventSlug,
 } from "~/tournament/attendee-model.server";
 import { sendEmail } from "~/utils/send-email.server";
 import { VerifyAttendeeEmail } from "~/tournament/verify-attendee-email";
 import { getAttendeeKey } from "~/account/auth.server";
 import { ProcessAttendeeRegistrationEmail } from "~/tournament/process-attendee-registration-email";
-import { TournamentLoaderData } from "~/routes/event/$eventId";
+import type { TournamentLoaderData } from "~/routes/event/$eventId";
 import { useOptionalUser } from "~/utils";
-import { Breadcrumb, CURRENT } from "~/utils/breadcrumbs";
+import type { Breadcrumb } from "~/utils/breadcrumbs";
+import { CURRENT } from "~/utils/breadcrumbs";
 import { getUser } from "~/account/session.server";
 import { redirect } from "@remix-run/router";
 
@@ -67,6 +69,7 @@ interface ActionData {
   };
   attendeeCreated?: boolean;
   emailSent?: boolean;
+  isWaitList?: boolean;
 }
 
 export const action: ActionFunction = async ({ request, params }) => {
@@ -127,7 +130,14 @@ export const action: ActionFunction = async ({ request, params }) => {
     verified,
   });
 
-  if (approved && !verified) {
+  const attendees = await getTournamentAttendeesByEventSlug(tournament.slug);
+  const isWaitList =
+    tournament.maxAttendees != null &&
+    (attendees.findIndex((a) => a.email === registerData.email) ??
+      tournament.maxAttendees) >= tournament.maxAttendees;
+  let emailSent = false;
+
+  if (!isWaitList && approved && !verified) {
     const accessKey = await getAttendeeKey(registerData.email, tournament.slug);
 
     await sendEmail(
@@ -139,6 +149,8 @@ export const action: ActionFunction = async ({ request, params }) => {
         accessKey
       )
     );
+
+    emailSent = true;
   } else if (!verified) {
     await sendEmail(
       new ProcessAttendeeRegistrationEmail(
@@ -148,11 +160,14 @@ export const action: ActionFunction = async ({ request, params }) => {
         tournament.title
       )
     );
+
+    emailSent = true;
   }
 
   return json<ActionData>({
     attendeeCreated: true,
-    emailSent: !approved || !verified,
+    emailSent,
+    isWaitList,
   });
 };
 
@@ -160,7 +175,7 @@ export default function TournamentRegisterPage() {
   const nameRef = React.useRef<HTMLInputElement>(null);
   const emailRef = React.useRef<HTMLInputElement>(null);
 
-  const { errors, attendeeCreated, emailSent } = (useActionData() ??
+  const { errors, attendeeCreated, emailSent, isWaitList } = (useActionData() ??
     {}) as ActionData;
 
   const { tournament } = useRouteLoaderData(
@@ -177,6 +192,27 @@ export default function TournamentRegisterPage() {
     }
   }, [errors]);
 
+  if (attendeeCreated && isWaitList) {
+    return (
+      <>
+        <h2>You have been added to the wait list</h2>
+        <p>
+          Unfortunately we've reached the maximum number of players we can
+          comfortably fit in the venue.
+        </p>
+        <p>
+          Your name has been added to our wait list and we'll be in touch if
+          anyone drops out.
+        </p>
+        <p>
+          <Link to={`/event/${tournament.slug}`}>
+            Return to {tournament.title} event page.
+          </Link>
+        </p>
+      </>
+    );
+  }
+
   if (attendeeCreated === true) {
     return (
       <>
@@ -186,7 +222,18 @@ export default function TournamentRegisterPage() {
         <p className="lead">
           Thanks, your registration for {tournament.title} has been received.
         </p>
-
+        {isWaitList && (
+          <>
+            <p>
+              Unfortunately we've reached the maximum number of players we can
+              comfortably fit in the venue.
+            </p>
+            <p>
+              Your name has been added to our wait list and we'll be in touch if
+              anyone drops out.
+            </p>
+          </>
+        )}
         {emailSent && (
           <>
             <h3>What happens now?</h3>
@@ -198,23 +245,30 @@ export default function TournamentRegisterPage() {
             </p>
           </>
         )}
-        <h3>Payment</h3>
-        <p>
-          Tickets are priced at £15,{" "}
-          <a href="https://www.paypal.com/paypalme/KamiOfTea/15">
-            payable via PayPal
-          </a>
-          .
-        </p>
-        <p>
-          If you’d prefer to pay using a different payment method, please
-          contact <a href="mailto:jeff@goblinoid.co.uk">jeff@goblinoid.co.uk</a>
-          .
-        </p>
-        <p>
-          Tickets can be cancelled for a full refund until Thursday 30th March.
-          After this, we will offer a refund if we can fill your place.
-        </p>
+        {!isWaitList && (tournament.costInPounds ?? 0) > 0 && (
+          <>
+            <h3>Payment</h3>
+            <p>
+              Tickets are priced at £{tournament.costInPounds}
+              {tournament.payPalLink && (
+                <>
+                  , <a href={tournament.payPalLink}>payable via PayPal</a>
+                </>
+              )}
+              .
+            </p>
+            <p>
+              If you’d prefer to pay using a different payment method, please
+              contact{" "}
+              <a href="mailto:jeff@goblinoid.co.uk">jeff@goblinoid.co.uk</a>.
+            </p>
+            <p>
+              Tickets can be cancelled for a full refund until Thursday 30th
+              March. After this, we will offer a refund if we can fill your
+              place.
+            </p>
+          </>
+        )}
         <p>
           <Link to={`/event/${tournament.slug}`}>
             Return to {tournament.title} event page.
@@ -279,7 +333,7 @@ export default function TournamentRegisterPage() {
         <input type="submit" className="button primary" value="Register" />
         <p>
           Already registered?{" "}
-          <Link to={`/event/${tournament.slug}/edit-attendee`}>
+          <Link to={`/event/${tournament.slug}/edit-details`}>
             Update your details.
           </Link>
         </p>

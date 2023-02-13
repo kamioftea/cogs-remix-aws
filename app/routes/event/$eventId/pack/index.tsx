@@ -1,5 +1,5 @@
 import { useRouteLoaderData } from "@remix-run/react";
-import { TournamentLoaderData } from "~/routes/event/$eventId";
+import type { TournamentLoaderData } from "~/routes/event/$eventId";
 import { AiOutlineFilePdf } from "react-icons/ai";
 import { Fragment } from "react";
 

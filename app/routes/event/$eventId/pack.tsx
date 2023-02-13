@@ -1,12 +1,14 @@
 import { Link, Outlet, useRouteLoaderData } from "@remix-run/react";
-import { TournamentLoaderData } from "~/routes/event/$eventId";
-import { json, LinksFunction, LoaderFunction } from "@remix-run/node";
+import type { TournamentLoaderData } from "~/routes/event/$eventId";
+import type { LinksFunction, LoaderFunction } from "@remix-run/node";
+import { json } from "@remix-run/node";
 import invariant from "tiny-invariant";
 import { getTournamentBySlug } from "~/tournament/tournament-model.server";
 import { slugify } from "~/utils/slugify";
 import stylesheetUrl from "~/styles/side-nav.css";
-import { PackSectionLoaderData } from "~/routes/event/$eventId/pack/$sectionSlug";
-import { Breadcrumb, CURRENT } from "~/utils/breadcrumbs";
+import type { PackSectionLoaderData } from "~/routes/event/$eventId/pack/$sectionSlug";
+import type { Breadcrumb } from "~/utils/breadcrumbs";
+import { CURRENT } from "~/utils/breadcrumbs";
 import { FiChevronLeft } from "react-icons/fi";
 
 export const links: LinksFunction = () => {
@@ -17,7 +19,7 @@ export const loader: LoaderFunction = async ({ params }) => {
   invariant(params.eventId, "eventId not found");
 
   const tournament = await getTournamentBySlug(params.eventId);
-  if (!tournament || !tournament.rulesPack) {
+  if (!tournament || !tournament.eventPack) {
     throw new Response("No online rules pack for this event", { status: 404 });
   }
 
@@ -37,7 +39,7 @@ export default function EventPackLayout() {
     "routes/event/$eventId/pack/$sectionSlug"
   ) as PackSectionLoaderData | undefined;
 
-  invariant(tournament.rulesPack);
+  invariant(tournament.eventPack);
   const current = sectionData
     ? sectionData.section.slug ?? slugify(sectionData.section.title)
     : null;
@@ -52,7 +54,7 @@ export default function EventPackLayout() {
         >
           Event pack
         </Link>
-        {tournament.rulesPack.map(({ title, slug = slugify(title) }) => (
+        {tournament.eventPack.map(({ title, slug = slugify(title) }) => (
           <div key={slug}>
             <Link
               to={`./${slug}`}

@@ -17,8 +17,8 @@ import {
 import ErrorPage, { GenericErrorPage } from "~/error-handling/error-page";
 import { getTournamentBySlug } from "~/tournament/tournament-model.server";
 import invariant from "tiny-invariant";
+import type { Attendee } from "~/tournament/attendee-model.server";
 import {
-  Attendee,
   getTournamentAttendee,
   putAttendee,
 } from "~/tournament/attendee-model.server";
@@ -26,16 +26,18 @@ import {
   createUser,
   getUserByEmail,
   putUser,
-  Role,
-  User,
 } from "~/account/user-model.server";
 import { FiAlertCircle, FiCheckCircle } from "react-icons/fi";
 import { redirect } from "@remix-run/router";
 import { getUser } from "~/account/session.server";
 import * as yup from "yup";
-import { SchemaOf, ValidationError } from "yup";
+import type { SchemaOf } from "yup";
+import { ValidationError } from "yup";
 import { getYupErrorMessage } from "~/utils/validation";
-import { Breadcrumb, CURRENT } from "~/utils/breadcrumbs";
+import type { Breadcrumb } from "~/utils/breadcrumbs";
+import { CURRENT } from "~/utils/breadcrumbs";
+import type { User } from "~/account/user-model";
+import { Role } from "~/account/user-model";
 
 const BASE_URL = process.env.BASE_URL ?? "http://localhost:3000";
 
@@ -75,7 +77,6 @@ export const loader: LoaderFunction = async ({ request, params }) => {
     }
   }
 
-  console.log({ attendee, user });
   return json<LoaderData>({ attendee, user });
 };
 
@@ -95,15 +96,21 @@ interface ActionData {
 
 export const action: ActionFunction = async ({ request, params }) => {
   invariant(params.eventId, "From route");
-  console.log("action?");
-  const attendee = await validateAttendeeKey(request, params.eventId);
+  const user = await getUser(request);
+  const attendee = user
+    ? await getTournamentAttendee(params.eventId, user.email)
+    : await validateAttendeeKey(request, params.eventId);
+
+  if (!attendee) {
+    return redirect(`/event/${params.eventId}/sign-up`);
+  }
 
   const formData = Object.fromEntries(await request.formData());
 
   if (formData.hasOwnProperty("setupAccount")) {
     let user = await getUserByEmail(attendee.email);
     if (!user) {
-      user = await createUser(attendee.name, attendee.email);
+      user = await createUser(attendee.name, attendee.email, false);
     }
 
     if (!user.roles || user.roles.length === 0) {
@@ -147,8 +154,6 @@ export const action: ActionFunction = async ({ request, params }) => {
 };
 
 export default function EditAttendeePage() {
-  console.log("EditAttendeePage");
-
   const nameRef = React.useRef<HTMLInputElement>(null);
 
   const { attendee, user } = useLoaderData<typeof loader>();
@@ -189,37 +194,37 @@ export default function EditAttendeePage() {
           )}
         </label>
         <input type="submit" className="button primary" value="Update" />
-        {user ? (
+      </Form>
+      {user ? (
+        <p>
+          <FiCheckCircle className="text-success" /> Linked to account.{" "}
+          <Link to={"/account"}>View linked account</Link>
+        </p>
+      ) : (
+        <>
           <p>
-            <FiCheckCircle className="text-success" /> Linked to account.{" "}
-            <Link to={"/account"}>View linked account</Link>
+            <FiAlertCircle className="text-alert" /> Not linked to an account
           </p>
-        ) : (
-          <>
-            <p>
-              <FiAlertCircle className="text-alert" /> Not linked to an account
-            </p>
+          <form method="post">
             <p>
               If you would like to login to edit your attendee details in
               future,{" "}
-              <form method="post" className="display-inline">
-                <button
-                  type="submit"
-                  name="setupAccount"
-                  className="button clear link display-inline"
-                >
-                  you can setup a password
-                </button>
-              </form>
-              . Otherwise you can request another one-time link if you need to
+              <button
+                type="submit"
+                name="setupAccount"
+                className="button clear link display-inline"
+              >
+                you can setup a password.
+              </button>
+              Otherwise you can request another one-time link if you need to
               update them later.
             </p>
-          </>
-        )}
-        <p>
-          <Link to="../">Back to event page.</Link>
-        </p>
-      </Form>
+          </form>
+        </>
+      )}
+      <p>
+        <Link to="../">Back to event page.</Link>
+      </p>
     </>
   );
 }

@@ -6,17 +6,19 @@ import {
 } from "@remix-run/react";
 import { Fragment } from "react";
 import ErrorPage, { GenericErrorPage } from "~/error-handling/error-page";
-import { TournamentLoaderData } from "~/routes/event/$eventId";
+import type { TournamentLoaderData } from "~/routes/event/$eventId";
 import { AiOutlineFilePdf } from "react-icons/ai";
 import { useOptionalUser } from "~/utils";
-import { json, LoaderFunction } from "@remix-run/router";
-import { getTournamentAttendees } from "~/tournament/attendee-model.server";
+import type { LoaderFunction } from "@remix-run/router";
+import { json } from "@remix-run/router";
+import { getTournamentAttendeesByEventSlug } from "~/tournament/attendee-model.server";
 import invariant from "tiny-invariant";
-import { FiAlertCircle, FiCheckCircle } from "react-icons/fi";
+import { FiCheckCircle } from "react-icons/fi";
 import { getUser } from "~/account/session.server";
+import { getTournamentBySlug } from "~/tournament/tournament-model.server";
 
 interface LoaderData {
-  attendees: { name: string; paid: boolean }[];
+  attendees: { name: string; paid: boolean; verified: boolean }[];
   waitList: string[];
   userSignedUp: boolean;
 }
@@ -24,19 +26,19 @@ interface LoaderData {
 export const loader: LoaderFunction = async ({ request, params }) => {
   invariant(params.eventId, "From route");
   const user = await getUser(request);
-  const attendees = (await getTournamentAttendees(params.eventId)).sort(
-    (a, b) => a.created.getTime() - b.created.getTime()
-  );
+  const tournament = getTournamentBySlug(params.eventId);
+  invariant(tournament, "Checked in ../$eventId");
+  const attendees = await getTournamentAttendeesByEventSlug(params.eventId);
   const userSignedUp = !!user && attendees.some((a) => a.email === user.email);
 
   return json<LoaderData>({
     attendees: attendees
-      .slice(0, 20)
-      .filter((a) => a.verified)
-      .map((a) => ({ name: a.name, paid: a.paid })),
+      .slice(0, tournament.maxAttendees ?? attendees.length)
+      .filter((a) => a.approved)
+      .map((a) => ({ name: a.name, paid: a.paid, verified: a.verified })),
     waitList: attendees
-      .slice(20)
-      .filter((a) => a.verified)
+      .slice(tournament.maxAttendees ?? attendees.length)
+      .filter((a) => a.approved)
       .map((a) => a.name),
     userSignedUp,
   });
@@ -56,7 +58,7 @@ export default function EventLandingPage() {
     <div className="right-aside">
       <aside className="summary-box">
         <p>{tournament.description}</p>
-        {tournament.rulesPack && (
+        {tournament.eventPack && (
           <p>
             <Link to={"./pack"}>Read the event pack online.</Link>
           </p>
@@ -117,22 +119,6 @@ export default function EventLandingPage() {
             </>
           )}
           <h2>Attendees</h2>
-          <div className="callout warning">
-            <h3>
-              <FiAlertCircle /> Email verification delayed
-            </h3>
-            <p>
-              Sign ups will not show below until your email address has been
-              verified. This verification process relies on sending an email to
-              the address you registered with. We're waiting on approval from
-              our email provider to send these emails. This should be within 24
-              hours so by end of Monday 30th January.
-            </p>
-            <p>
-              Don't worry that nothing is showing. If you reached the
-              registration requested page, your place is secured.
-            </p>
-          </div>
           <table>
             <thead>
               <tr>

@@ -6,19 +6,11 @@ import { ProcessRegistrationEmail } from "~/account/process-registration-email";
 import { VerifyAccountEmail } from "~/account/verify-account-email";
 import { getResetKey } from "~/account/auth.server";
 import { v4 } from "uuid";
-
-export enum Role {
-  Admin = "Admin",
-  Registered = "Registered",
-}
+import type { User } from "~/account/user-model";
+import { Role } from "~/account/user-model";
 
 export const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
 
-export type User = {
-  email: string;
-  name?: string;
-  roles?: Role[];
-};
 export type Password = { password: string };
 export type Session = { sessionId: string; email: string; ttl: Date };
 
@@ -38,7 +30,7 @@ function userFromRecord(record: any): User {
 
 function sessionFromRecord(record: any): Session {
   return {
-    sessionId: record.id,
+    sessionId: record.sessionId,
     email: record.email,
     ttl: new Date(record.ttl),
   };
@@ -75,15 +67,22 @@ export async function isVerified(user: User): Promise<boolean> {
   return (await getUserPasswordByEmail(user.email)) !== null;
 }
 
-export async function createUser(name: User["name"], email: User["email"]) {
+export async function createUser(
+  name: User["name"],
+  email: User["email"],
+  shouldSendEmail: boolean = true
+) {
   const db = await arc.tables();
   let roles: Role[] = [];
-  if (email === ADMIN_EMAIL) {
-    roles = [Role.Admin];
-    const resetKey = await getResetKey(email);
-    await sendEmail(new VerifyAccountEmail(name, email, resetKey));
-  } else {
-    await sendEmail(new ProcessRegistrationEmail(name, email));
+
+  if (shouldSendEmail) {
+    if (email === ADMIN_EMAIL) {
+      roles = [Role.Admin];
+      const resetKey = await getResetKey(email);
+      await sendEmail(new VerifyAccountEmail(name, email, resetKey));
+    } else {
+      await sendEmail(new ProcessRegistrationEmail(name, email));
+    }
   }
 
   const data = {

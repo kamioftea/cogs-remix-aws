@@ -1,4 +1,8 @@
-import { renderMarkdownInline, unsafeRenderMarkdown } from "~/utils/markdown";
+import {
+  renderMarkdown,
+  renderMarkdownInline,
+  unsafeRenderMarkdown,
+} from "~/utils/markdown";
 
 export interface PackSection {
   title: string;
@@ -18,16 +22,21 @@ export interface Tournament {
   imageUrl: string;
   imageDescription: string;
   titlePosition?: string;
-  openGraph: Partial<OpenGraphMeta>;
-  rulesPack?: PackSection[];
+  openGraph: OpenGraphMeta;
+  eventPack?: PackSection[];
   rulesPdfUrl?: {
     base: string;
     name: string;
   };
+  costInPounds?: number;
+  payPalLink?: string;
+  maxAttendees?: number;
 }
 
 export interface OpenGraphMeta {
   imageUrl: string;
+  imageType?: string;
+  imageAlt: string;
 }
 
 export const tournaments: Tournament[] = [
@@ -41,6 +50,8 @@ export const tournaments: Tournament[] = [
                        image is in greyscale, but the elf force is monochrome yellow.`,
     openGraph: {
       imageUrl: "https://kow.c-o-g-s.org.uk/_static/images/cogs-of-war-og.png",
+      imageAlt:
+        "An army of abyssal dwarves besieges an icy fortress defended by fur-clad humans. Most of the image is in greyscale, but the elf force is monochrome yellow.",
     },
     description: `A one-day Kings of War singles tournament using the 3.5 edition rules.`,
     about: {
@@ -60,7 +71,7 @@ export const tournaments: Tournament[] = [
       ™ Mantic Games. The event image is [The Siege of Chill](https://www.manticgames.com/wallpapers/) © 
       Mantic Games. Chesterfield Open Gaming Society is not associated with Mantic Games in any way.`
     ),
-    rulesPack: [
+    eventPack: [
       {
         title: "Tournament organiser",
         content: unsafeRenderMarkdown(`
@@ -117,7 +128,7 @@ The optional rules for Allies **CAN** be used.
 You will be able to submit your list on the event website. Alternatively
 [email a pdf of your list to jeff@goblinoid.co.uk](
 mailto:jeff@goblinoid.co.uk). Your list should be submitted by 23:59 on 
-Sunday 16th March. 
+Sunday 16th April.
 
 Players will receive +3 tournament points if they submit on time. This 
 will reduce by one point per day or part-day since the submission time 
@@ -136,7 +147,7 @@ represents.`),
         content: unsafeRenderMarkdown(`
 - Your 1995 point army.
 - Three copies of your list.
-- A copy of the  3.5 edition Kings of War core rulebook.
+- A copy of the 3.5 edition Kings of War core rulebook.
 - Dice, tape measure, arc template, and tokens.
 - A chess clock (physical or app)`),
       },
@@ -286,6 +297,9 @@ more candidates.`),
       base: "https://static.goblinoid.co.uk/",
       name: "cogs-of-war-tournament-pack.pdf",
     },
+    costInPounds: 15,
+    payPalLink: "https://www.paypal.com/paypalme/KamiOfTea/15",
+    maxAttendees: 20,
   },
   {
     title: "Twilight Expansion",
@@ -298,22 +312,11 @@ more candidates.`),
     openGraph: {
       imageUrl:
         "https://kow.c-o-g-s.org.uk/_static/images/twilight-expansion-og.png",
+      imageAlt:
+        "A mighty army of skeleton warriors marches against a small force of elves. Most of the image is in greyscale, but the elf force is monochrome yellow.",
     },
-    signUpEnabled: false,
-    content: unsafeRenderMarkdown(`
-## Prepare for battle
-
-<p class="lead">
-  Announcing Twilight Expansion. A six-month-long escalation campaign using the Kings of War 3.5 edition rules.
-</p>
-
-The campaign will be played on the <abbr title="Chesterfield Open Gaming Society">COGS</abbr> club nights. We will start
-with a 500 point Ambush! game in January growing to 2300 points in June. Players will be encouraged to record the 
-narrative of their campaign force as the campaign unfolds.
-
-The full rules pack and sign-up will be available soon.    
-    `),
-    description: `A one-day Kings of War singles tournament using the 3.5 edition rules.`,
+    signUpEnabled: true,
+    description: `A monthly Kings of War campaign with escalating points and unit choices`,
     about: {
       Points: ["500 to 2300"],
       When: [
@@ -333,6 +336,186 @@ The full rules pack and sign-up will be available soon.
        ™ Mantic Games. The event image is [The Battle of Borath Lei](https://www.manticgames.com/wallpapers/) ©
        Mantic Games. Chesterfield Open Gaming Society is not associated with Mantic Games in any way. `
     ),
+    eventPack: [
+      {
+        title: "Campaign Schedule",
+        content: renderMarkdown(`
+You will pick a single force list to use in all of your campaign games. Each 
+month you will be paired with an opponent, and will play a game with the 
+following points values:
+
+| Month     | Points  | Army selection and composition |
+|-----------|---------|--------------------------------|
+| February  | 500     | Ambush                         |
+| March     | 750     | Ambush                         |
+| April     | 1000    | Standard                       |
+| May       | 1250    | Standard                       |
+| June      | 1500    | Standard                       |
+| July      | 1750    | Standard                       |
+| August    | 2000    | Standard                       |
+| September | 2300    | Standard                       |
+
+The first month's pairings will be random. The pairings and scenarios to be 
+played will be announced at the start of the month.
+        `),
+      },
+      {
+        title: "Territories and list building",
+        content: unsafeRenderMarkdown(`
+When picking your Kings of War force, you are limited by the territory you 
+control. Each territory will unlock one or more specific unit types from those 
+available in your chosen force list. When you claim a territory, you will choose
+which unit type it will unlock. 
+
+You may use any number / size of the unlocked unit types in your list, but must 
+still follow the standard rules for unlocking units, and the restrictions on 
+duplicates and unit types for that month’s points value. These are detailed in 
+the Kings of War 3.5 edition rulebook in the army selection and army composition
+sections. Check page 86 for ambush games, and pages 46 to 49 for standard games.
+
+You can use any number of magical artefacts using the normal rules. Formations
+can be taken in games that use standard army selection.
+
+Allied units can't be unlocked via territories, and therefore can't be included
+in your army.
+
+### Territories
+
+| Type          | Unlocks                                        | 
+|---------------|------------------------------------------------|
+| Base Camp     | Two standard unit types<br/>One hero unit type |
+| Cave          | One monster unit type                          | 
+| Mountain      | One titan unit type                            |
+| Forest        | One war machine unit type                      |
+| Farm          | One standard unit type                         |
+| Training Camp | One irregular or limited unit type             |
+
+A standard unit is any infantry. heavy infantry, large infantry, monstrous 
+infantry, cavalry, large cavalry, chariot, or swarm unit that is not irregular 
+or limited.
+
+At the start of the game you control one base camp and one other territory of 
+your choice. Each game you play allows you to control one extra territory that 
+is not a base camp. 
+
+### Example
+
+Alice has chosen Goblins as her force list. Alice selects Fleabag Riders, 
+Sharpsticks, and Wizzes as the unlocks from her Base Camp. She then selects a 
+forest for her second territory, and decides it will unlock Mawpup launchers. 
+For her first Kings of War game she will need to build a 500 point Ambush army 
+with just those units. She can have any number of Sharpstick regiments, and any
+number of Fleabag Rider troops regiments. She can take up to one Wiz and one 
+Mawpup launcher if she has at least two other units to unlock them due to the 
+maximum duplicates rule. 
+
+After the game she chooses to set up a training camp, unlocking Fleabag Rider 
+Sniffs. For her game in March she can take up to 750 points, and can take any 
+number of Fleabag Rider Sniff troops or regiments as long as she has enough 
+Sharpstick or Fleabag Rider units to unlock them. 
+
+In April the game will now be 1000 points using standard army selection and 
+composition. She chooses to claim a cave and unlock Winggits as flyers are no
+longer restricted. She can also now take her Sharpsticks as hordes or legions.
+        `),
+      },
+      {
+        title: "Scores and Ranking",
+        content: renderMarkdown(`
+Both Vanguard and Kings of War games will be scored out of maximum 13 points. 
+* Up to seven points from the scenario objectives.
+* Up to three points for the game result.
+* Up to three points for the amount of your opponent's force you routed.
+
+The precise kill point boundaries and objective scoring will be published with 
+the scenario announcement each month. If there are enough players that you will 
+not face every opponent then pairings will use Swiss ranking. Otherwise pairings
+will be random until everyone has faced each other, then any remaining games 
+will use Swiss ranking.
+        `),
+      },
+      {
+        title: "Sign up and February games",
+        content: unsafeRenderMarkdown(`
+It is intended that territory management and games result submissions will be 
+available online sometime in February. Until that is ready please [email results
+to Jeff Horton](mailto:jeff@goblinoid.co.uk).
+
+### February match ups
+
+These will be announced Sunday 12th February for those signed up by then, ready
+for the first organised evening on Monday 13th February. You can still sign up 
+and play later in the month, we'll reach out to arrange this with you when you 
+sign up.
+
+### February scenario
+
+<a href="https://static.goblinoid.co.uk/take-and-hold.pdf" 
+   download="take-and-hold.pdf"
+   class="button primary hollow">Download a pdf copy of this scenario</a>
+
+#### Take...
+_Your expeditions have entered the mists of the Twilight Glades. After a day of 
+slow progress you’ve decided to secure a base camp. As your scouts search for a 
+suitable spot, they encounter the vanguard of another expedition. You need to 
+secure a suitable glade._
+
+Before rolling off to choose sides, place an objective marker in the centre of 
+the board. Then each player places one objective marker. Roll off to see who 
+places their token first. 
+
+At the end of the game, each player scores one point for each objective marker 
+they control. Take a note of how many points each player has routed.
+
+#### ...and hold!
+
+_You’ve staked your claim, but your rival has brought in re-enforcements and is 
+still too close for comfort. To secure the area you need to drive them out now._
+
+Keep the terrain from the first game as is, but the deployment zones will now be 
+on the left and right flanks of the battlefield. Place one loot token in the 
+centre of the board.
+
+If one player held more objectives than their opponent in the ‘Take...’ scenario, 
+they will pick which side of the board will be their deployment zone, but their 
+opponent will deploy the first unit. 
+
+If the ‘Take...’ scenario was a draw, roll off to pick sides as normal.
+
+<figure>
+<img src="https://static.goblinoid.co.uk/take-and-hold-map.png" alt="The board map" />
+<figcaption>
+There are two scoring zones of 6” circles, centred in the middle of the board, 
+12” from the centre line. At the end of the game, players total the unit 
+strength of units with at least 50% of their footprint within each zone
+</figcaption>
+</figure>
+
+Players score:
+* **1 Point** if they hold the loot token.
+* **1 Point** if they have more unit strength than their opponent in the zone 
+  centred on the edge of their deployment zone.
+* **2 Points** if they have more unit strength than their opponent in the zone 
+  centred on the edge of their opponent’s deployment zone.
+  
+#### Campaign scoring
+
+Your campaign points total is:
+
+* The sum of your scores in the first and second game
+* One point for each game you won
+* One point if you won or drew in both games
+* Add up the total points of your opponent's units that were routed in both 
+  games:
+  
+| Total points routed | Campaign points |
+| ------------------- | --------------- |
+| 250+                | +1              |
+| 550+                | +2              |
+| 850+                | +3              |
+        `),
+      },
+    ],
   },
 ];
 

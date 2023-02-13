@@ -1,14 +1,23 @@
 @import "settings";
+@import "util/util";
 
 body {
   display: grid;
 
   grid-template:
-    "header header"
-    "sidebar main";
+    "banner account" 5rem
+    "sidebar main" 1fr
+    / 20rem 1fr;
 
-  grid-template-columns: 20rem 1fr;
-  grid-template-rows: 5rem 1fr;
+
+  @include breakpoint(small down) {
+    grid-template:
+      "account" 1.5rem
+      "banner" 3rem
+      "main" 1fr
+      "sidebar" auto
+    / 1fr;
+  }
 
   align-items: start;
   justify-items: start;
@@ -17,11 +26,20 @@ body {
 }
 
 header {
-  grid-area: header;
+  grid-area: account;
   width: 100%;
   max-width: 100%;
   place-self: start;
   min-height: 100%;
+}
+
+.banner {
+  grid-area: banner;
+  width: 100%;
+  max-width: 100%;
+  place-self: start;
+  min-height: 100%;
+  border-bottom: thin $primary-color solid;
 }
 
 nav.admin-sidebar {

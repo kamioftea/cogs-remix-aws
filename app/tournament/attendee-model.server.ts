@@ -1,6 +1,6 @@
 import arc from "@architect/functions";
 
-import type { User } from "~/account/user-model.server";
+import type { User } from "~/account/user-model";
 
 export type Attendee = {
   eventSlug: string;
@@ -35,7 +35,7 @@ export async function getTournamentAttendee(
   return result ? recordToAttendee(result) : null;
 }
 
-export async function getTournamentAttendees(
+export async function getTournamentAttendeesByEventSlug(
   eventSlug: Attendee["eventSlug"]
 ): Promise<Attendee[]> {
   const db = await arc.tables();
@@ -45,7 +45,29 @@ export async function getTournamentAttendees(
     ExpressionAttributeValues: { ":eventSlug": eventSlug },
   });
 
-  return result?.Items.map(recordToAttendee) ?? [];
+  return (
+    result?.Items.map(recordToAttendee).sort(
+      (a, b) => a.created.getTime() - b.created.getTime()
+    ) ?? []
+  );
+}
+
+export async function getTournamentAttendeesByEmail(
+  email: Attendee["email"]
+): Promise<Attendee[]> {
+  const db = await arc.tables();
+
+  const result = await db.attendee.query({
+    KeyConditionExpression: "email = :email",
+    ExpressionAttributeValues: { ":email": email },
+    IndexName: "byEmail",
+  });
+
+  return (
+    result?.Items.map(recordToAttendee).sort(
+      (a, b) => a.created.getTime() - b.created.getTime()
+    ) ?? []
+  );
 }
 
 export async function createAttendee({
@@ -87,4 +109,13 @@ export async function putAttendee(attendee: Attendee): Promise<Attendee> {
   });
 
   return recordToAttendee(result);
+}
+
+export async function deleteAttendee(
+  email: Attendee["email"],
+  eventSlug: Attendee["eventSlug"]
+) {
+  const db = await arc.tables();
+
+  await db.attendee.delete({ email, eventSlug });
 }

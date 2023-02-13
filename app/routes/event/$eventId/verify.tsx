@@ -12,8 +12,9 @@ import { getAttendeeKey, validateAttendeeKey } from "~/account/auth.server";
 import ErrorPage, { GenericErrorPage } from "~/error-handling/error-page";
 import { getTournamentBySlug } from "~/tournament/tournament-model.server";
 import invariant from "tiny-invariant";
-import { Attendee, putAttendee } from "~/tournament/attendee-model.server";
-import { TournamentLoaderData } from "~/routes/event/$eventId";
+import type { Attendee} from "~/tournament/attendee-model.server";
+import { putAttendee } from "~/tournament/attendee-model.server";
+import type { TournamentLoaderData } from "~/routes/event/$eventId";
 
 const BASE_URL = process.env.BASE_URL ?? "http://localhost:3000";
 

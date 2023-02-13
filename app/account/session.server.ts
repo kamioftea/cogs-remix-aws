@@ -1,12 +1,13 @@
 import { createCookieSessionStorage, redirect } from "@remix-run/node";
 import invariant from "tiny-invariant";
 
-import type { Role, Session, User } from "~/account/user-model.server";
+import type { Session } from "~/account/user-model.server";
 import {
   createSessionRecord,
   getSessionRecordById,
   getUserByEmail,
 } from "~/account/user-model.server";
+import type { Role, User } from "~/account/user-model";
 
 invariant(process.env.SESSION_SECRET, "SESSION_SECRET must be set");
 
@@ -40,7 +41,11 @@ async function getSession(request: Request): Promise<Session | null> {
   if (sessionId === undefined) return null;
 
   const session = await getSessionRecordById(sessionId);
-  return session && session.ttl.getTime() > Date.now() ? session : null;
+  if (!session || session.ttl.getTime() < Date.now()) {
+    throw await logout(request, request.url);
+  }
+
+  return session;
 }
 
 export async function getUser(request: Request): Promise<User | null> {
@@ -48,7 +53,11 @@ export async function getUser(request: Request): Promise<User | null> {
   if (!session) return null;
 
   const user = await getUserByEmail(session.email);
-  return user ?? null;
+  if (!user) {
+    throw await logout(request, request.url);
+  }
+
+  return user;
 }
 
 export async function requireUser(
@@ -96,9 +105,9 @@ export async function createUserSession({
   });
 }
 
-export async function logout(request: Request) {
+export async function logout(request: Request, redirectUrl?: string) {
   const session = await getSessionHeader(request);
-  return redirect("/", {
+  return redirect(redirectUrl ?? "/", {
     headers: {
       "Set-Cookie": await sessionStorage.destroySession(session),
     },

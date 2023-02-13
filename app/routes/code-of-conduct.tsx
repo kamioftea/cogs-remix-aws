@@ -1,5 +1,6 @@
-import { Breadcrumb, Breadcrumbs, CURRENT } from "~/utils/breadcrumbs";
-import { LinksFunction } from "@remix-run/node";
+import type { Breadcrumb} from "~/utils/breadcrumbs";
+import { Breadcrumbs, CURRENT } from "~/utils/breadcrumbs";
+import type { LinksFunction } from "@remix-run/node";
 import stylesheetUrl from "~/styles/index.css";
 
 export const links: LinksFunction = () => {

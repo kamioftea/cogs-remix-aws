@@ -1,5 +1,4 @@
 import { Link, useLoaderData } from "@remix-run/react";
-import { useOptionalUser } from "~/utils";
 import type { LinksFunction, LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { FiChevronRight } from "react-icons/fi";
@@ -24,25 +23,10 @@ export const loader: LoaderFunction = async () => {
 
 export default function Index() {
   // noinspection JSUnusedLocalSymbols
-  const user = useOptionalUser();
   const { tournaments } = useLoaderData<LoaderData>();
 
   return (
     <>
-      {user && (
-        <header>
-          Logged in as {user.name}{" "}
-          <form
-            action="/account/logout"
-            method="post"
-            className="display-inline"
-          >
-            <button type="submit" className="button clear link display-inline">
-              Logout
-            </button>
-          </form>
-        </header>
-      )}
       <section role="banner" className="cogs-header margin-bottom-1">
         <img
           src="/_static/images/logo.png"
@@ -133,7 +117,7 @@ export default function Index() {
         <p>
           Please arrange a game with an opponent beforehand, or come to one of
           our dedicated Kings of War evenings. The next of these is Monday 12th
-          December,
+          December,{" "}
           <a
             href="https://facebook.com/events/s/kow-1995pts1000pts/807563333639644/"
             target="_blank"

@@ -1,6 +1,6 @@
 import type { Email } from "~/utils/send-email.server";
 import type { Attendee } from "./attendee-model.server";
-import { Tournament } from "~/tournament/tournament-model.server";
+import type { Tournament } from "~/tournament/tournament-model.server";
 
 const BASE_URL = process.env.BASE_URL ?? "http://localhost:3000";
 

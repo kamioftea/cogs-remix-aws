@@ -1,4 +1,4 @@
-import { Breadcrumb } from "~/utils/breadcrumbs";
+import type { Breadcrumb } from "~/utils/breadcrumbs";
 import { Outlet } from "@remix-run/react";
 
 const breadcrumbs: Breadcrumb[] = [{ label: "Events" }];

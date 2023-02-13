@@ -1,5 +1,5 @@
 import type { Email } from "~/utils/send-email.server";
-import type { User } from "./user-model.server";
+import type { User } from "~/account/user-model";
 
 const BASE_URL = process.env.BASE_URL ?? "http://localhost:3000";
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL ?? "changeme@example.org";

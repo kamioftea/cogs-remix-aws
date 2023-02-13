@@ -1,5 +1,7 @@
-import { tournaments, Tournament } from "~/tournament/tournament-model.server";
-import { json, LoaderFunction } from "@remix-run/router";
+import type { Tournament } from "~/tournament/tournament-model.server";
+import { tournaments } from "~/tournament/tournament-model.server";
+import type { LoaderFunction } from "@remix-run/router";
+import { json } from "@remix-run/router";
 import { Link, useLoaderData } from "@remix-run/react";
 
 interface LoaderData {

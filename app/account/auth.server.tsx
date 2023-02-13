@@ -1,13 +1,11 @@
 import Iron from "@hapi/iron";
-import type { User } from "~/account/user-model.server";
 import { getUserByEmail } from "~/account/user-model.server";
 import { json } from "@remix-run/node";
 import { unsafeRenderMarkdown } from "~/utils/markdown";
-import {
-  Attendee,
-  getTournamentAttendee,
-} from "~/tournament/attendee-model.server";
+import type { Attendee } from "~/tournament/attendee-model.server";
+import { getTournamentAttendee } from "~/tournament/attendee-model.server";
 import invariant from "tiny-invariant";
+import type { User } from "~/account/user-model";
 
 const TOKEN_SECRET =
   process.env.TOKEN_SECRET || "change-me-to-a-32-character-or-longer-string";
@@ -50,7 +48,7 @@ You can request a new link using the [forgotten password form](/account/forgotte
 
 const attendeeMessage = (eventSlug: Attendee["eventSlug"]) =>
   unsafeRenderMarkdown(`
-You can request a new link using the [get edit link form](/event/${eventSlug}/edit-attendee).
+You can request a new link using the [get edit link form](/event/${eventSlug}/edit-details).
   `);
 
 async function validateToken(token: string): Promise<AccessToken> {
@@ -93,8 +91,6 @@ export async function validateAttendeeKey(
   eventSlug: Attendee["eventSlug"]
 ): Promise<Attendee> {
   const message = attendeeMessage(eventSlug);
-  console.log("validateAttendeeKey", eventSlug, message);
-
   const accessToken = await validateAccessKey(request, "attendee", message);
 
   invariant(accessToken.eventSlug, "Always set for attendee purpose");
@@ -151,7 +147,6 @@ export async function validateAccessKey(
 
   // Validate the purpose
   if (accessToken.purpose !== expectedPurpose) {
-    console.log(accessToken.purpose, expectedPurpose);
     throw json(
       {
         heading: "Access token was created for a different purpose",

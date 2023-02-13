@@ -10,7 +10,8 @@ import invariant from "tiny-invariant";
 import { Outlet, useCatch, useLoaderData } from "@remix-run/react";
 import stylesheetUrl from "~/styles/event.css";
 import ErrorPage, { GenericErrorPage } from "~/error-handling/error-page";
-import { Breadcrumb, Breadcrumbs, CURRENT } from "~/utils/breadcrumbs";
+import type { Breadcrumb } from "~/utils/breadcrumbs";
+import { Breadcrumbs, CURRENT } from "~/utils/breadcrumbs";
 
 export interface TournamentLoaderData {
   tournament: Tournament;
@@ -37,6 +38,10 @@ export const meta: MetaFunction = ({ data }) => {
   return {
     "og:description": tournament.description,
     "og:image": tournament.openGraph.imageUrl,
+    "og:image:alt": tournament.openGraph.imageAlt,
+    ...(tournament.openGraph.imageType
+      ? { "og:image:type": tournament.openGraph.imageType }
+      : {}),
   };
 };
 

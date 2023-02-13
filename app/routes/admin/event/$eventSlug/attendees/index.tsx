@@ -1,12 +1,16 @@
-import { json, LoaderFunction } from "@remix-run/router";
-import { useLoaderData } from "@remix-run/react";
+import type { LoaderFunction } from "@remix-run/router";
+import { json } from "@remix-run/router";
+import { Link, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
+import type { Attendee } from "~/tournament/attendee-model.server";
+import { getTournamentAttendeesByEventSlug } from "~/tournament/attendee-model.server";
 import {
-  Attendee,
-  getTournamentAttendees,
-} from "~/tournament/attendee-model.server";
-import { FiAlertCircle, FiAlertTriangle, FiCheckCircle } from "react-icons/fi";
-import { ReactNode } from "react";
+  FiAlertCircle,
+  FiAlertTriangle,
+  FiCheckCircle,
+  FiTrash,
+} from "react-icons/fi";
+import type { ReactNode } from "react";
 
 interface LoaderData {
   attendees: Attendee[];
@@ -18,7 +22,7 @@ export const loader: LoaderFunction = async ({ params }) => {
     `eventSlug not found in ${JSON.stringify(Object.keys(params))}`
   );
 
-  const attendees = await getTournamentAttendees(params.eventSlug);
+  const attendees = await getTournamentAttendeesByEventSlug(params.eventSlug);
 
   return json<LoaderData>({ attendees });
 };
@@ -60,15 +64,37 @@ function getApprovalLink(attendee: Attendee): ReactNode {
       action={`/admin/event/${attendee.eventSlug}/attendees/${attendee.email}/approve`}
       method="post"
     >
-      <button type="submit" className="button small">
+      <button type="submit" className="button clear link display-inline">
         {attendee.approved ? "Resend Verify Email" : "Approve"}
       </button>
     </form>
   );
 }
 
+function getDeleteLink(attendee: Attendee): ReactNode {
+  return (
+    <form
+      action={`/admin/event/${attendee.eventSlug}/attendees/${attendee.email}/delete`}
+      method="post"
+      className="display-inline"
+    >
+      <button
+        type="submit"
+        className="button clear link display-inline text-alert"
+      >
+        <FiTrash /> Delete
+      </button>
+    </form>
+  );
+}
+
 function getActions(attendee: Attendee): ReactNode {
-  return <>{getApprovalLink(attendee)}</>;
+  return (
+    <>
+      {getApprovalLink(attendee)}
+      {getDeleteLink(attendee)}
+    </>
+  );
 }
 
 export default function EventIndexPage() {
@@ -88,7 +114,13 @@ export default function EventIndexPage() {
         <tbody>
           {attendees.map((attendee: Attendee) => (
             <tr key={attendee.email}>
-              <td>{attendee.name}</td>
+              <td>
+                <Link
+                  to={`/admin/event/${attendee.eventSlug}/attendees/${attendee.email}`}
+                >
+                  {attendee.name}
+                </Link>
+              </td>
               <td>{attendee.email}</td>
               <td>{getStatusTag(attendee)}</td>
               <td>{getActions(attendee)}</td>
