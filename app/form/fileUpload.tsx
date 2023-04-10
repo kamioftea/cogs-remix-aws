@@ -98,7 +98,7 @@ const FileUploadImpl = ({
           {error && <div className="form-error">{error}</div>}
         </div>
       </div>
-      {downloadUrl && uploadId && filename && (
+      {downloadUrl && uploadId && uploadId === currentId && filename && (
         <a
           href={downloadUrl}
           download={filename}

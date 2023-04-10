@@ -3,11 +3,12 @@ import invariant from "tiny-invariant";
 import { getTournamentBySlug } from "~/tournament/tournament-model.server";
 import { getTournamentAttendeeBySlug } from "~/tournament/attendee-model.server";
 
-import { getSessionAttendee } from "~/account/session.server";
+import { getSessionAttendee, getUser } from "~/account/session.server";
 import { getUpload } from "~/upload/upload-model.server";
 import { getFile } from "~/upload/s3-file-manager.server";
 import ErrorPage, { GenericErrorPage } from "~/error-handling/error-page";
 import { useCatch } from "@remix-run/react";
+import { Role } from "~/account/user-model";
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   invariant(params.eventId, "From route");
@@ -26,10 +27,13 @@ export const loader: LoaderFunction = async ({ request, params }) => {
     throw new Response("Attendee not found", { status: 404 });
   }
 
+  const user = await getUser(request);
   const sessionAttendee = await getSessionAttendee(request, tournament.slug);
+
   if (
     !tournament.listsSubmissionClosed &&
-    sessionAttendee?.email !== attendee.email
+    sessionAttendee?.email !== attendee.email &&
+    !user?.roles?.includes(Role.Admin)
   ) {
     throw new Response("You do not have access to this army list", {
       status: 403,

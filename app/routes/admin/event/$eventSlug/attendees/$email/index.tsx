@@ -21,6 +21,7 @@ import { useEffect } from "react";
 import { sendEmail } from "~/utils/send-email.server";
 import { VerifyAttendeeEmail } from "~/tournament/verify-attendee-email";
 import { getAttendeeKey } from "~/account/auth.server";
+import { additionalFieldTypes } from "~/tournament/additional-fields";
 
 interface LoaderData {
   tournament: Tournament;
@@ -110,6 +111,16 @@ export const action: ActionFunction = async ({ request, params }) => {
     throw err;
   }
 
+  const additionalFields: Record<string, string> = {};
+  Object.values(tournament?.additionalFields ?? {}).forEach(({ name }) => {
+    const formDatum = formData[name];
+    additionalFields[name] = typeof formDatum === "string" ? formDatum : "";
+  });
+  attendee.additionalFields = {
+    ...(attendee.additionalFields ?? {}),
+    ...additionalFields,
+  };
+
   await putAttendee({ ...attendee, ...data });
 
   if (attendee.email != data.email) {
@@ -196,6 +207,17 @@ export default function ManageAttendeePage() {
           defaultChecked={attendee.paid}
           error_message={errors?.paid}
         />
+        {(tournament.additionalFields ?? []).map((spec) => (
+          <fieldset key={spec.name}>
+            <label htmlFor={spec.name}>{spec.label}</label>
+            {additionalFieldTypes[spec.type].input(
+              spec.name,
+              attendee?.additionalFields?.[spec.name] ?? "",
+              attendee.eventSlug,
+              attendee.slug
+            )}
+          </fieldset>
+        ))}
         <button type="submit" className="button primary">
           Update
         </button>

@@ -127,6 +127,7 @@ export const action: ActionFunction = async ({ request, params }) => {
   }
 
   attendee.name = data.name;
+
   const additionalFields: Record<string, string> = {};
   Object.values(tournament?.additionalFields ?? {})
     .filter((field) => !field.readonly)
@@ -195,17 +196,19 @@ export default function EditAttendeePage() {
             </span>
           )}
         </label>
-        {(tournament.additionalFields ?? []).map((spec) => (
-          <fieldset key={spec.name}>
-            <label htmlFor={spec.name}>{spec.label}</label>
-            {additionalFieldTypes[spec.type].input(
-              spec.name,
-              attendee?.additionalFields?.[spec.name] ?? "",
-              attendee.eventSlug,
-              attendee.slug
-            )}
-          </fieldset>
-        ))}
+        {(tournament.additionalFields ?? [])
+          .filter((spec) => !spec.readonly)
+          .map((spec) => (
+            <fieldset key={spec.name}>
+              <label htmlFor={spec.name}>{spec.label}</label>
+              {additionalFieldTypes[spec.type].input(
+                spec.name,
+                attendee?.additionalFields?.[spec.name] ?? "",
+                attendee.eventSlug,
+                attendee.slug
+              )}
+            </fieldset>
+          ))}
         <input type="submit" className="button primary" value="Update" />
       </Form>
       {user ? (
