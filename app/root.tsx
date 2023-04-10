@@ -17,7 +17,7 @@ import {
 } from "@remix-run/react";
 
 import stylesheetUrl from "./styles/globals.css";
-import { getUser } from "./account/session.server";
+import { getSessionEmail, getUser } from "./account/session.server";
 import ErrorPage, { GenericErrorPage } from "~/error-handling/error-page";
 import type { PropsWithChildren } from "react";
 import type { Breadcrumb } from "~/utils/breadcrumbs";
@@ -55,12 +55,14 @@ export const handle = {
 };
 
 type LoaderData = {
+  email: Awaited<ReturnType<typeof getSessionEmail>>;
   user: Awaited<ReturnType<typeof getUser>>;
   base_url: string;
 };
 
 export const loader: LoaderFunction = async ({ request }) => {
   return json<LoaderData>({
+    email: await getSessionEmail(request),
     user: await getUser(request),
     base_url: process.env.BASE_URL || "http://localhost:3000",
   });
@@ -68,9 +70,10 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 interface BoilerplateProps extends PropsWithChildren {
   user?: User | "NO_HEADER";
+  email?: string;
 }
 
-function LayoutBoilerplate({ user, children }: BoilerplateProps) {
+function LayoutBoilerplate({ user, email, children }: BoilerplateProps) {
   return (
     <html lang="en" className="h-full">
       <head>
@@ -80,7 +83,7 @@ function LayoutBoilerplate({ user, children }: BoilerplateProps) {
       <body>
         {user !== "NO_HEADER" && (
           <header className="text-right">
-            {user ? (
+            {user && (
               <>
                 Logged in as {user.name} <Link to="/account">Account</Link> |{" "}
                 <form
@@ -102,7 +105,25 @@ function LayoutBoilerplate({ user, children }: BoilerplateProps) {
                   </>
                 )}
               </>
-            ) : (
+            )}
+            {!user && email && (
+              <>
+                Logged in as attendee, email: {email}.{" "}
+                <form
+                  action="/account/logout"
+                  method="post"
+                  className="display-inline"
+                >
+                  <button
+                    type="submit"
+                    className="button clear link display-inline"
+                  >
+                    Logout
+                  </button>
+                </form>
+              </>
+            )}
+            {!user && !email && (
               <>
                 Not logged in <Link to="/account/login">Sign Up</Link> |{" "}
                 <Link to="/account/login">Login</Link>
@@ -120,10 +141,10 @@ function LayoutBoilerplate({ user, children }: BoilerplateProps) {
 }
 
 export default function App() {
-  const { user } = useLoaderData<typeof loader>() ?? ({} as LoaderData);
+  const { user, email } = useLoaderData<typeof loader>() ?? ({} as LoaderData);
 
   return (
-    <LayoutBoilerplate user={user}>
+    <LayoutBoilerplate user={user} email={email}>
       <Outlet />
     </LayoutBoilerplate>
   );

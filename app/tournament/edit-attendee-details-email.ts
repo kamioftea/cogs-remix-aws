@@ -18,7 +18,9 @@ export class EditAttendeeDetailsEmail implements Email {
   ) {
     this.subject = `Link to edit your details for ${tournamentTitle}.`;
 
-    const verifyURL = new URL(`${BASE_URL}/event/${eventSlug}/edit-details`);
+    const verifyURL = new URL(
+      `${BASE_URL}/event/${eventSlug}/login-as-attendee`
+    );
     verifyURL.searchParams.set("token", accessKey);
 
     this.html = `

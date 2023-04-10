@@ -86,7 +86,7 @@ $foundation-palette: (
   secondary: #cacaca,
   success: #459b28,
   warning: #ffae00,
-  alert: #cc4b37,
+  alert: #f8482b,
   info: #7cc3f6,
   dark: #0a0a0a,
 );
@@ -207,8 +207,8 @@ $blockquote-padding: rem-calc(9 20 0 19);
 $blockquote-border: 1px solid $medium-gray;
 $enable-cite-block: true;
 $keystroke-font: $font-family-monospace;
-$keystroke-color: $black;
-$keystroke-background: $light-gray;
+$keystroke-color: $light-gray;
+$keystroke-background: $dark-gray;
 $keystroke-padding: rem-calc(2 4 0);
 $keystroke-radius: $global-radius;
 $abbr-underline: 1px dashed $primary-color;
@@ -219,19 +219,19 @@ $abbr-underline: 1px dashed $primary-color;
 $lead-font-size: $global-font-size * 1.25;
 $lead-lineheight: 1.6;
 $subheader-lineheight: 1.4;
-$subheader-color: $dark-gray;
+$subheader-color: $medium-gray;
 $subheader-font-weight: $global-weight-normal;
 $subheader-margin-top: 0.2rem;
 $subheader-margin-bottom: 0.5rem;
 $stat-font-size: 2.5rem;
-$cite-color: $dark-gray;
+$cite-color: $medium-gray;
 $cite-font-size: rem-calc(13);
 $cite-pseudo-content: '\2014 \0020';
-$code-color: $black;
+$code-color: $light-gray;
 $code-font-family: $font-family-monospace;
 $code-font-weight: $global-weight-normal;
-$code-background: $light-gray;
-$code-border: 1px solid $medium-gray;
+$code-background: $dark-gray;
+$code-border: 1px solid lighten($dark-gray, 10%);
 $code-padding: rem-calc(2 5 1);
 $code-block-padding: 1rem;
 $code-block-margin-bottom: 1.5rem;
@@ -244,7 +244,7 @@ $abide-labels: true;
 $input-background-invalid: get-color(alert);
 $form-label-color-invalid: get-color(alert);
 $input-error-color: get-color(alert);
-$input-error-font-size: rem-calc(12);
+$input-error-font-size: rem-calc(15);
 $input-error-font-weight: $global-weight-bold;
 
 // 7. Accordion
@@ -453,14 +453,14 @@ $fieldset-margin: rem-calc(18 0);
 $legend-padding: rem-calc(0 3);
 $form-spacing: rem-calc(16);
 $helptext-color: $light-gray;
-$helptext-font-size: rem-calc(13);
+$helptext-font-size: rem-calc(16);
 $helptext-font-style: italic;
 $input-prefix-color: $black;
 $input-prefix-background: $light-gray;
 $input-prefix-border: 1px solid $medium-gray;
 $input-prefix-padding: 1rem;
 $form-label-color: $light-gray;
-$form-label-font-size: rem-calc(14);
+$form-label-font-size: rem-calc(16);
 $form-label-font-weight: $global-weight-normal;
 $form-label-line-height: 1.8;
 $select-background: $white;
@@ -469,7 +469,7 @@ $select-radius: $global-radius;
 $input-color: $black;
 $input-placeholder-color: $medium-gray;
 $input-font-family: inherit;
-$input-font-size: rem-calc(16);
+$input-font-size: rem-calc(18);
 $input-font-weight: $global-weight-normal;
 $input-line-height: $global-lineheight;
 $input-background: $white;

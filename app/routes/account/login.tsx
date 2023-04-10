@@ -1,19 +1,19 @@
 import type { ActionFunction, LoaderFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
-import { createUserSession, getSessionId } from "~/account/session.server";
+import { createUserSession, getUser } from "~/account/session.server";
 import * as React from "react";
+import { useEffect } from "react";
 import type { SchemaOf } from "yup";
-import { ValidationError } from "yup";
 import * as yup from "yup";
+import { ValidationError } from "yup";
 import { verifyLogin } from "~/account/user-model.server";
 import { safeRedirect } from "~/utils";
 import { Form, Link, useActionData } from "@remix-run/react";
-import { useEffect } from "react";
 import { getYupErrorMessage } from "~/utils/validation";
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const sessionId = await getSessionId(request);
-  if (sessionId) return redirect("/account");
+  const user = await getUser(request);
+  if (user) return redirect("/account");
   return json({});
 };
 

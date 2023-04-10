@@ -19,7 +19,7 @@ import { getTournamentBySlug } from "~/tournament/tournament-model.server";
 import {
   createAttendee,
   getTournamentAttendee,
-  getTournamentAttendeesByEventSlug,
+  listTournamentAttendeesByEventSlug,
 } from "~/tournament/attendee-model.server";
 import { sendEmail } from "~/utils/send-email.server";
 import { VerifyAttendeeEmail } from "~/tournament/verify-attendee-email";
@@ -130,7 +130,7 @@ export const action: ActionFunction = async ({ request, params }) => {
     verified,
   });
 
-  const attendees = await getTournamentAttendeesByEventSlug(tournament.slug);
+  const attendees = await listTournamentAttendeesByEventSlug(tournament.slug);
   const isWaitList =
     tournament.maxAttendees != null &&
     (attendees.findIndex((a) => a.email === registerData.email) ??

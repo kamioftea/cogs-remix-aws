@@ -33,8 +33,18 @@ attendee
   email **String
   encrypt true
 
+upload
+  id *String
+  encrypt true
+
 @tables-indexes
 attendee
   email *String
   projection all
   name byEmail
+
+attendee
+  eventSlug *String
+  slug **String
+  projection all
+  name bySlugs

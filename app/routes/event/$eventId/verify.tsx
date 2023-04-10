@@ -1,5 +1,5 @@
 import type { ActionFunction, LoaderFunction } from "@remix-run/node";
-import { json, redirect } from "@remix-run/node";
+import { json } from "@remix-run/node";
 import * as React from "react";
 import {
   Form,
@@ -8,15 +8,14 @@ import {
   useLoaderData,
   useRouteLoaderData,
 } from "@remix-run/react";
-import { getAttendeeKey, validateAttendeeKey } from "~/account/auth.server";
+import { validateAttendeeKey } from "~/account/auth.server";
 import ErrorPage, { GenericErrorPage } from "~/error-handling/error-page";
 import { getTournamentBySlug } from "~/tournament/tournament-model.server";
 import invariant from "tiny-invariant";
-import type { Attendee} from "~/tournament/attendee-model.server";
+import type { Attendee } from "~/tournament/attendee-model.server";
 import { putAttendee } from "~/tournament/attendee-model.server";
 import type { TournamentLoaderData } from "~/routes/event/$eventId";
-
-const BASE_URL = process.env.BASE_URL ?? "http://localhost:3000";
+import { createUserSession } from "~/account/session.server";
 
 interface LoaderData {
   attendee: Attendee;
@@ -40,11 +39,11 @@ export const action: ActionFunction = async ({ request, params }) => {
   attendee.verified = true;
   await putAttendee(attendee);
 
-  const editURL = new URL(`${BASE_URL}/event/${params.eventId}/edit-details`);
-  const accessKey = await getAttendeeKey(attendee.email, params.eventId);
-  editURL.searchParams.set("token", accessKey);
-
-  return redirect(editURL.toString());
+  return createUserSession({
+    request,
+    email: attendee.email,
+    redirectTo: `/event/${params.eventId}/edit-details`,
+  });
 };
 
 export default function VerifyAttendeePage() {
@@ -60,7 +59,7 @@ export default function VerifyAttendeePage() {
         <h2>Confirm email</h2>
         <p>
           This will confirm that {attendee.name} &lt;{attendee.email}&gt; is
-          attending ${tournament.title}
+          attending {tournament.title}
         </p>
         <p>
           <button type="submit" className="button primary">

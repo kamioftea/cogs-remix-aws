@@ -3,7 +3,7 @@ import { json } from "@remix-run/router";
 import { Link, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import type { Attendee } from "~/tournament/attendee-model.server";
-import { getTournamentAttendeesByEventSlug } from "~/tournament/attendee-model.server";
+import { listTournamentAttendeesByEventSlug } from "~/tournament/attendee-model.server";
 import {
   FiAlertCircle,
   FiAlertTriangle,
@@ -22,7 +22,7 @@ export const loader: LoaderFunction = async ({ params }) => {
     `eventSlug not found in ${JSON.stringify(Object.keys(params))}`
   );
 
-  const attendees = await getTournamentAttendeesByEventSlug(params.eventSlug);
+  const attendees = await listTournamentAttendeesByEventSlug(params.eventSlug);
 
   return json<LoaderData>({ attendees });
 };
@@ -107,6 +107,7 @@ export default function EventIndexPage() {
           <tr>
             <th>Name</th>
             <th>Email</th>
+            <th>Slug</th>
             <th>Status</th>
             <th>Actions</th>
           </tr>
@@ -122,6 +123,9 @@ export default function EventIndexPage() {
                 </Link>
               </td>
               <td>{attendee.email}</td>
+              <td>
+                <code>{attendee.slug}</code>
+              </td>
               <td>{getStatusTag(attendee)}</td>
               <td>{getActions(attendee)}</td>
             </tr>

@@ -111,9 +111,7 @@ export default function EventLandingPage() {
   );
 }
 
-export function ErrorBoundary({ error }: { error: Error }) {
-  console.error(error);
-
+export function ErrorBoundary() {
   return <GenericErrorPage />;
 }
 

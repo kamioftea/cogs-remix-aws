@@ -98,6 +98,14 @@ export const action: ActionFunction = async ({ request, params }) => {
     });
   }
 
+  if (!attendee.approved) {
+    return json<ActionData>({
+      errors: {
+        email: `The attendee for that email is awaiting admin approval.`,
+      },
+    });
+  }
+
   await sendEmail(
     new EditAttendeeDetailsEmail(
       attendee.name,
@@ -201,6 +209,5 @@ export function CatchBoundary() {
     );
   }
 
-  console.error(caught);
   return <GenericErrorPage />;
 }

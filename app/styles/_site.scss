@@ -193,4 +193,66 @@ figure {
   margin-bottom: $global-margin;
 }
 
+.dropzone-container {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 
+  .dropzone {
+    padding: 1rem;
+    border: thin $primary-color dashed;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    &.active {
+      border-style: solid;
+    }
+
+    &.reject {
+      border-color: $alert-color;
+    }
+
+    flex-grow: 1;
+    margin-right: 1rem;
+  }
+
+  .message {
+    margin: 0 1rem;
+    flex-grow: 1;
+  }
+
+  .button {
+    margin: 0;
+  }
+}
+
+.icon-spin {
+  animation: spin 2s infinite linear;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+.uploaded-file {
+  padding: 1rem;
+  border: thin $secondary-color solid;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .file-name {
+    flex-grow: 1;
+    margin: 0 1rem;
+  }
+
+  .button {
+    margin: 0;
+  }
+}

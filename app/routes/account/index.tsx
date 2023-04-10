@@ -4,8 +4,7 @@ import { getSessionId, getUser } from "~/account/session.server";
 import { useUser } from "~/utils";
 import type { Tournament } from "~/tournament/tournament-model.server";
 import { getTournamentBySlug } from "~/tournament/tournament-model.server";
-import { getTournamentAttendeesByEmail } from "~/tournament/attendee-model.server";
-import invariant from "tiny-invariant";
+import { listTournamentAttendeesByEmail } from "~/tournament/attendee-model.server";
 import { Link, useLoaderData } from "@remix-run/react";
 
 type PaymentStatus = "Paid" | "Unpaid" | "Free";
@@ -25,9 +24,9 @@ export const loader: LoaderFunction = async ({ request }) => {
   if (!sessionId) return redirect("/account/login");
 
   const user = await getUser(request);
-  invariant(user, "checked for session id");
+  if (!user) return redirect("/account/login");
 
-  const attendees = await getTournamentAttendeesByEmail(user.email);
+  const attendees = await listTournamentAttendeesByEmail(user.email);
   const signUps: SignUp[] = attendees.flatMap((attendee) => {
     const tournament = getTournamentBySlug(attendee.eventSlug);
     if (!tournament) {

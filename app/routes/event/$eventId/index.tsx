@@ -11,7 +11,7 @@ import { AiOutlineFilePdf } from "react-icons/ai";
 import { useOptionalUser } from "~/utils";
 import type { LoaderFunction } from "@remix-run/router";
 import { json } from "@remix-run/router";
-import { getTournamentAttendeesByEventSlug } from "~/tournament/attendee-model.server";
+import { listTournamentAttendeesByEventSlug } from "~/tournament/attendee-model.server";
 import invariant from "tiny-invariant";
 import { FiCheckCircle } from "react-icons/fi";
 import { getUser } from "~/account/session.server";
@@ -28,7 +28,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
   const user = await getUser(request);
   const tournament = getTournamentBySlug(params.eventId);
   invariant(tournament, "Checked in ../$eventId");
-  const attendees = await getTournamentAttendeesByEventSlug(params.eventId);
+  const attendees = await listTournamentAttendeesByEventSlug(params.eventId);
   const userSignedUp = !!user && attendees.some((a) => a.email === user.email);
 
   return json<LoaderData>({
@@ -176,9 +176,7 @@ export default function EventLandingPage() {
   );
 }
 
-export function ErrorBoundary({ error }: { error: Error }) {
-  console.error(error);
-
+export function ErrorBoundary() {
   return <GenericErrorPage />;
 }
 

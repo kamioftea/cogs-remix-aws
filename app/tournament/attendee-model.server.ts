@@ -1,26 +1,31 @@
 import arc from "@architect/functions";
 
 import type { User } from "~/account/user-model";
+import { slugify } from "~/utils/slugify";
 
 export type Attendee = {
   eventSlug: string;
   email: User["email"];
+  slug: string;
   name: string;
   approved: boolean;
   verified: boolean;
   paid: boolean;
   created: Date;
+  additionalFields: Record<string, string>;
 };
 
 function recordToAttendee(record: any): Attendee {
   return {
     eventSlug: record.eventSlug,
     email: record.email,
+    slug: record.slug,
     name: record.name,
     approved: record.approved,
     verified: record.verified,
     paid: record.paid,
     created: new Date(record.created),
+    additionalFields: record.additionalFields,
   };
 }
 
@@ -35,7 +40,7 @@ export async function getTournamentAttendee(
   return result ? recordToAttendee(result) : null;
 }
 
-export async function getTournamentAttendeesByEventSlug(
+export async function listTournamentAttendeesByEventSlug(
   eventSlug: Attendee["eventSlug"]
 ): Promise<Attendee[]> {
   const db = await arc.tables();
@@ -52,7 +57,7 @@ export async function getTournamentAttendeesByEventSlug(
   );
 }
 
-export async function getTournamentAttendeesByEmail(
+export async function listTournamentAttendeesByEmail(
   email: Attendee["email"]
 ): Promise<Attendee[]> {
   const db = await arc.tables();
@@ -70,6 +75,38 @@ export async function getTournamentAttendeesByEmail(
   );
 }
 
+export async function getTournamentAttendeeBySlug(
+  eventSlug: Attendee["eventSlug"],
+  slug: Attendee["slug"]
+): Promise<Attendee> {
+  const db = await arc.tables();
+
+  const result = await db.attendee.query({
+    KeyConditionExpression: "eventSlug = :eventSlug AND slug = :slug",
+    ExpressionAttributeValues: { ":eventSlug": eventSlug, ":slug": slug },
+    IndexName: "bySlugs",
+  });
+
+  return result?.Items.map(recordToAttendee)[0];
+}
+
+async function getUniqueSlug(name: string, eventSlug: string) {
+  let index = 0;
+  let slugExists;
+  let slug;
+
+  do {
+    slug = `${slugify(name)}${index > 0 ? `-${index}` : ""}`;
+
+    const result = await getTournamentAttendeeBySlug(eventSlug, slug);
+
+    slugExists = !!result;
+    index++;
+  } while (slugExists);
+
+  return slug;
+}
+
 export async function createAttendee({
   eventSlug,
   email,
@@ -82,9 +119,12 @@ export async function createAttendee({
 >): Promise<Attendee> {
   const db = await arc.tables();
 
+  let slug = await getUniqueSlug(name, eventSlug);
+
   const result = await db.attendee.put({
     eventSlug,
     email,
+    slug,
     name,
     approved,
     verified,
@@ -101,11 +141,13 @@ export async function putAttendee(attendee: Attendee): Promise<Attendee> {
   const result = await db.attendee.put({
     eventSlug: attendee.eventSlug,
     email: attendee.email,
+    slug: attendee.slug,
     name: attendee.name,
     approved: attendee.approved,
     verified: attendee.verified,
     paid: attendee.paid,
     created: attendee.created.getTime(),
+    additionalFields: attendee.additionalFields ?? {},
   });
 
   return recordToAttendee(result);

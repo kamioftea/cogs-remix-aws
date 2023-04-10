@@ -8,20 +8,14 @@ import {
   useActionData,
   useCatch,
   useLoaderData,
+  useRouteLoaderData,
 } from "@remix-run/react";
-import {
-  getAttendeeKey,
-  getResetKey,
-  validateAttendeeKey,
-} from "~/account/auth.server";
+import { getAttendeeKey, getResetKey } from "~/account/auth.server";
 import ErrorPage, { GenericErrorPage } from "~/error-handling/error-page";
 import { getTournamentBySlug } from "~/tournament/tournament-model.server";
 import invariant from "tiny-invariant";
 import type { Attendee } from "~/tournament/attendee-model.server";
-import {
-  getTournamentAttendee,
-  putAttendee,
-} from "~/tournament/attendee-model.server";
+import { putAttendee } from "~/tournament/attendee-model.server";
 import {
   createUser,
   getUserByEmail,
@@ -29,7 +23,7 @@ import {
 } from "~/account/user-model.server";
 import { FiAlertCircle, FiCheckCircle } from "react-icons/fi";
 import { redirect } from "@remix-run/router";
-import { getUser } from "~/account/session.server";
+import { getSessionAttendee, getUser } from "~/account/session.server";
 import * as yup from "yup";
 import type { SchemaOf } from "yup";
 import { ValidationError } from "yup";
@@ -38,8 +32,8 @@ import type { Breadcrumb } from "~/utils/breadcrumbs";
 import { CURRENT } from "~/utils/breadcrumbs";
 import type { User } from "~/account/user-model";
 import { Role } from "~/account/user-model";
-
-const BASE_URL = process.env.BASE_URL ?? "http://localhost:3000";
+import { TournamentLoaderData } from "~/routes/event/$eventId";
+import { additionalFieldTypes } from "~/tournament/additional-fields";
 
 interface LoaderData {
   attendee: Attendee;
@@ -57,25 +51,13 @@ export const loader: LoaderFunction = async ({ request, params }) => {
     throw new Response("Event not found", { status: 404 });
   }
 
-  let attendee: Attendee | null;
-  let user: User | null;
+  const attendee = await getSessionAttendee(request, tournament.slug);
 
-  const url = new URL(request.url);
-  const token = url.searchParams.get("token");
-
-  if (token) {
-    attendee = await validateAttendeeKey(request, tournament.slug);
-    user = await getUserByEmail(attendee.email);
-  } else {
-    user = await getUser(request);
-    if (!user) {
-      return redirect(`/event/${tournament.slug}/send-edit-link`);
-    }
-    attendee = await getTournamentAttendee(tournament.slug, user.email);
-    if (!attendee) {
-      return redirect(`/event/${tournament.slug}/sign-up`);
-    }
+  if (!attendee) {
+    return redirect(`/event/${params.eventId}/send-edit-link`);
   }
+
+  const user = await getUser(request);
 
   return json<LoaderData>({ attendee, user });
 };
@@ -95,14 +77,18 @@ interface ActionData {
 }
 
 export const action: ActionFunction = async ({ request, params }) => {
+  const BASE_URL = process.env.BASE_URL ?? "http://localhost:3000";
+
   invariant(params.eventId, "From route");
-  const user = await getUser(request);
-  const attendee = user
-    ? await getTournamentAttendee(params.eventId, user.email)
-    : await validateAttendeeKey(request, params.eventId);
+  const tournament = getTournamentBySlug(params.eventId);
+  if (!tournament) {
+    throw new Response("Event not found", { status: 404 });
+  }
+
+  const attendee = await getSessionAttendee(request, tournament?.slug);
 
   if (!attendee) {
-    return redirect(`/event/${params.eventId}/sign-up`);
+    return redirect(`/event/${params.eventId}/send-edit-link`);
   }
 
   const formData = Object.fromEntries(await request.formData());
@@ -141,6 +127,18 @@ export const action: ActionFunction = async ({ request, params }) => {
   }
 
   attendee.name = data.name;
+  const additionalFields: Record<string, string> = {};
+  Object.values(tournament?.additionalFields ?? {})
+    .filter((field) => !field.readonly)
+    .forEach(({ name }) => {
+      const formDatum = formData[name];
+      additionalFields[name] = typeof formDatum === "string" ? formDatum : "";
+    });
+  attendee.additionalFields = {
+    ...(attendee.additionalFields ?? {}),
+    ...additionalFields,
+  };
+
   await putAttendee(attendee);
 
   const urlBuilder = new URL(
@@ -154,9 +152,13 @@ export const action: ActionFunction = async ({ request, params }) => {
 };
 
 export default function EditAttendeePage() {
+  const { tournament } = useRouteLoaderData(
+    "routes/event/$eventId"
+  ) as TournamentLoaderData;
+
   const nameRef = React.useRef<HTMLInputElement>(null);
 
-  const { attendee, user } = useLoaderData<typeof loader>();
+  const { attendee, user } = useLoaderData<LoaderData>();
   const { errors } = (useActionData() ?? {}) as ActionData;
 
   useEffect(() => {
@@ -193,6 +195,17 @@ export default function EditAttendeePage() {
             </span>
           )}
         </label>
+        {(tournament.additionalFields ?? []).map((spec) => (
+          <fieldset key={spec.name}>
+            <label htmlFor={spec.name}>{spec.label}</label>
+            {additionalFieldTypes[spec.type].input(
+              spec.name,
+              attendee?.additionalFields?.[spec.name] ?? "",
+              attendee.eventSlug,
+              attendee.slug
+            )}
+          </fieldset>
+        ))}
         <input type="submit" className="button primary" value="Update" />
       </Form>
       {user ? (
@@ -240,6 +253,5 @@ export function CatchBoundary() {
     );
   }
 
-  console.error({ caught });
   return <GenericErrorPage />;
 }

@@ -155,6 +155,5 @@ export function CatchBoundary() {
     );
   }
 
-  console.error(caught);
   return <GenericErrorPage />;
 }

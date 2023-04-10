@@ -8,6 +8,10 @@ import {
   getUserByEmail,
 } from "~/account/user-model.server";
 import type { Role, User } from "~/account/user-model";
+import {
+  Attendee,
+  getTournamentAttendee,
+} from "~/tournament/attendee-model.server";
 
 invariant(process.env.SESSION_SECRET, "SESSION_SECRET must be set");
 
@@ -48,16 +52,30 @@ async function getSession(request: Request): Promise<Session | null> {
   return session;
 }
 
+export async function getSessionEmail(
+  request: Request
+): Promise<string | undefined> {
+  const session = await getSession(request);
+  return session?.email;
+}
+
 export async function getUser(request: Request): Promise<User | null> {
   const session = await getSession(request);
   if (!session) return null;
 
-  const user = await getUserByEmail(session.email);
-  if (!user) {
-    throw await logout(request, request.url);
-  }
+  return await getUserByEmail(session.email);
+}
 
-  return user;
+export async function getSessionAttendee(
+  request: Request,
+  eventSlug: string
+): Promise<Attendee | null> {
+  const session = await getSession(request);
+  if (!session) return null;
+
+  const attendee = await getTournamentAttendee(eventSlug, session.email);
+
+  return attendee?.approved ? attendee : null;
 }
 
 export async function requireUser(
@@ -83,20 +101,20 @@ export async function requireUser(
 export async function createUserSession({
   request,
   email,
-  remember,
+  remember = false,
   redirectTo,
 }: {
   request: Request;
   email: string;
-  remember: boolean;
-  redirectTo: string;
+  remember?: boolean;
+  redirectTo?: string;
 }) {
   const sessionHeader = await getSessionHeader(request);
   const maxAge = remember ? 60 * 60 * 24 * 365 : undefined;
   const ttl = maxAge ? new Date(1000 * maxAge) : undefined;
   const sessionId = await createSessionRecord(email, ttl);
   sessionHeader.set(USER_SESSION_KEY, sessionId);
-  return redirect(redirectTo, {
+  return redirect(redirectTo ?? "/", {
     headers: {
       "Set-Cookie": await sessionStorage.commitSession(sessionHeader, {
         maxAge,
