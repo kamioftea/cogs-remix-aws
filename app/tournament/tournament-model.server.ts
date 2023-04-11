@@ -131,14 +131,16 @@ core rulebook.
 
 The optional rules for Allies **CAN** be used.
 
-You will be able to submit your list on the event website. Alternatively
+You can submit your list on the <a href="/event/cogs-of-war/edit-details">
+edit details page</a>. Alternatively 
 [email a pdf of your list to jeff@goblinoid.co.uk](
 mailto:jeff@goblinoid.co.uk). Your list should be submitted by 23:59 on 
 Sunday 16th April.
 
 Players will receive +3 tournament points if they submit on time. This 
 will reduce by one point per day or part-day since the submission time 
-that has passed before the list is received.
+that has passed before the list is received, to a minimum of 0 if it is three
+or more days late.
 
 Part of the joy of wargaming is the spectacle of two armies clashing on the
 table-top. Please bring a fully painted and based army that fits with 

@@ -54,8 +54,8 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 const breadcrumbs: Breadcrumb[] = [
   {
     label: ({ data }) => {
-      const { attendee } = data as LoaderData;
-      return attendee.name;
+      const { attendee } = data ?? ({} as LoaderData);
+      return attendee?.name ?? "Not Found";
     },
     url: CURRENT,
   },
@@ -103,7 +103,7 @@ export function CatchBoundary() {
 
   if (caught.status === 404) {
     return (
-      <ErrorPage heading="Event not found">
+      <ErrorPage heading="Attendee not found">
         <p>Sorry, there is no attendee matching the requested URL.</p>
       </ErrorPage>
     );
