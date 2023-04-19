@@ -171,13 +171,12 @@ export interface AttendeeDisplayData {
   army_list?: string;
 }
 
-const attendeeToDisplayData = ({
+const attendeeToDisplayData = ({ name, additionalFields }: Attendee) => ({
   name,
-  additionalFields: { faction, allies, army_list } = {},
-}: Attendee) => ({
-  name,
-  faction: `${faction}${allies ? ` with allied ${allies}` : ""}`,
-  army_list: army_list,
+  faction: `${additionalFields?.faction}${
+    additionalFields?.allies ? ` with allied ${additionalFields.allies}` : ""
+  }`,
+  army_list: additionalFields?.army_list,
 });
 
 export async function attendeeDisplayDataBySlug(

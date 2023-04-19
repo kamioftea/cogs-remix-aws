@@ -118,12 +118,12 @@ export default function LoginAsAttendeePage() {
       <h2>{attendee.name}</h2>
       <dl>
         {tournament.additionalFields?.map((spec) => {
-          return attendee.additionalFields[spec.name] ? (
+          return attendee.additionalFields?.[spec.name] ? (
             <Fragment key={spec.name}>
               <dt>{spec.label}</dt>
               <dd>
                 {additionalFieldTypes[spec.type].profile(
-                  attendee.additionalFields[spec.name],
+                  attendee.additionalFields?.[spec.name],
                   attendee
                 )}
               </dd>
@@ -131,7 +131,7 @@ export default function LoginAsAttendeePage() {
           ) : null;
         })}
       </dl>
-      {games.length && (
+      {games.length ? (
         <>
           <h3>Games</h3>
           <table>
@@ -176,7 +176,7 @@ export default function LoginAsAttendeePage() {
             </tbody>
           </table>
         </>
-      )}
+      ) : null}
     </>
   );
 }
