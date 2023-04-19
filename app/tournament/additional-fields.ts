@@ -1,5 +1,5 @@
 import { armyListField } from "~/tournament/army-list-field";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import type { Attendee } from "~/tournament/attendee-model.server";
 import { scoreField } from "~/tournament/score-field";
 import { stringField } from "~/tournament/string-field";

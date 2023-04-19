@@ -1,20 +1,22 @@
-import { LoaderFunction } from "@remix-run/router";
+import type { LoaderFunction } from "@remix-run/router";
 import invariant from "tiny-invariant";
-import {
+import type {
   GameResult,
-  getGamesForRound,
-  PlayerGame,
-} from "~/tournament/player-game-model.server";
+  PlayerGame} from "~/tournament/player-game-model.server";
 import {
-  Attendee,
+  getGamesForRound
+} from "~/tournament/player-game-model.server";
+import type {
+  Attendee} from "~/tournament/attendee-model.server";
+import {
   listTournamentAttendeesByEventSlug,
 } from "~/tournament/attendee-model.server";
 import { json } from "@remix-run/node";
 import { Link, useLoaderData, useRouteLoaderData } from "@remix-run/react";
 import { sortBy } from "~/utils";
-import { ReactNode } from "react";
-import { TournamentLoaderData } from "~/routes/event/$eventId";
-import { RoundLoaderData } from "~/routes/event/$eventId/round/$roundIndex";
+import type { ReactNode } from "react";
+import type { TournamentLoaderData } from "~/routes/event/$eventId";
+import type { RoundLoaderData } from "~/routes/event/$eventId/round/$roundIndex";
 
 interface LoaderData {
   playerGames: PlayerGame[];

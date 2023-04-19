@@ -1,6 +1,6 @@
 import { renderMarkdownInline, unsafeRenderMarkdown } from "~/utils/markdown";
-import { AdditionalFieldType } from "~/tournament/additional-fields";
-import { Scenario } from "~/tournament/scenario/scenario";
+import type { AdditionalFieldType } from "~/tournament/additional-fields";
+import type { Scenario } from "~/tournament/scenario/scenario";
 import { Loot } from "~/tournament/scenario/loot";
 import { FoolsGold } from "~/tournament/scenario/fools-gold";
 import { Invade } from "~/tournament/scenario/invade";

@@ -32,7 +32,7 @@ import type { Breadcrumb } from "~/utils/breadcrumbs";
 import { CURRENT } from "~/utils/breadcrumbs";
 import type { User } from "~/account/user-model";
 import { Role } from "~/account/user-model";
-import { TournamentLoaderData } from "~/routes/event/$eventId";
+import type { TournamentLoaderData } from "~/routes/event/$eventId";
 import { additionalFieldTypes } from "~/tournament/additional-fields";
 
 interface LoaderData {

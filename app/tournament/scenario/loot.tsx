@@ -1,4 +1,4 @@
-import { Scenario } from "~/tournament/scenario/scenario";
+import type { Scenario } from "~/tournament/scenario/scenario";
 import { unsafeRenderMarkdown } from "~/utils/markdown";
 
 export const Loot: Scenario = {

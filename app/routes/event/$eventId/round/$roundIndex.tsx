@@ -1,10 +1,11 @@
 import type { Breadcrumb } from "~/utils/breadcrumbs";
 import { CURRENT } from "~/utils/breadcrumbs";
 import { Outlet, useLoaderData } from "@remix-run/react";
-import { json, LoaderFunction } from "@remix-run/node";
+import type { LoaderFunction } from "@remix-run/node";
+import { json } from "@remix-run/node";
 import invariant from "tiny-invariant";
 import { getTournamentBySlug } from "~/tournament/tournament-model.server";
-import { Scenario } from "~/tournament/scenario/scenario";
+import type { Scenario } from "~/tournament/scenario/scenario";
 
 export interface RoundLoaderData {
   roundIndex: number;

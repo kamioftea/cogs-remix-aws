@@ -1,4 +1,5 @@
-import { json, LoaderFunction } from "@remix-run/router";
+import type { LoaderFunction } from "@remix-run/router";
+import { json } from "@remix-run/router";
 import { getUpload } from "~/upload/upload-model.server";
 import invariant from "tiny-invariant";
 import { notFound } from "@hapi/boom";

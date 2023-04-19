@@ -1,18 +1,22 @@
 import { useLoaderData, Form } from "@remix-run/react";
-import { json, LoaderFunction } from "@remix-run/node";
+import type { LoaderFunction } from "@remix-run/node";
+import { json } from "@remix-run/node";
 import invariant from "tiny-invariant";
 import { getTournamentBySlug } from "~/tournament/tournament-model.server";
-import { Scenario } from "~/tournament/scenario/scenario";
+import type { Scenario } from "~/tournament/scenario/scenario";
+import type {
+  PlayerGame} from "~/tournament/player-game-model.server";
 import {
   getGamesForRound,
-  PlayerGame,
   populateRound,
   publishRound,
   savePlayerGame,
 } from "~/tournament/player-game-model.server";
-import { ActionFunction, redirect } from "@remix-run/router";
+import type { ActionFunction} from "@remix-run/router";
+import { redirect } from "@remix-run/router";
+import type {
+  Attendee} from "~/tournament/attendee-model.server";
 import {
-  Attendee,
   listTournamentAttendeesByEventSlug,
 } from "~/tournament/attendee-model.server";
 import { FiCheck } from "react-icons/fi";

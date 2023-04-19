@@ -19,7 +19,7 @@ function oneOf<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
-export const action: ActionFunction = async ({}) => {
+export const action: ActionFunction = async () => {
   assertNonProd();
 
   const admin_email = "jeff@goblinoid.co.uk";

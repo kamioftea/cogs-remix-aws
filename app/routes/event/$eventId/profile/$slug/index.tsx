@@ -1,15 +1,18 @@
-import { json, LoaderFunction } from "@remix-run/node";
+import type { LoaderFunction } from "@remix-run/node";
+import { json } from "@remix-run/node";
 import invariant from "tiny-invariant";
 import { getTournamentBySlug } from "~/tournament/tournament-model.server";
+import type {
+  Attendee} from "~/tournament/attendee-model.server";
 import {
-  Attendee,
   getTournamentAttendeeBySlug,
 } from "~/tournament/attendee-model.server";
 
 import { getSessionAttendee } from "~/account/session.server";
 import { useCatch, useLoaderData, useRouteLoaderData } from "@remix-run/react";
-import { TournamentLoaderData } from "~/routes/event/$eventId";
-import { Breadcrumb, CURRENT } from "~/utils/breadcrumbs";
+import type { TournamentLoaderData } from "~/routes/event/$eventId";
+import type { Breadcrumb} from "~/utils/breadcrumbs";
+import { CURRENT } from "~/utils/breadcrumbs";
 import { additionalFieldTypes } from "~/tournament/additional-fields";
 import * as React from "react";
 import { Fragment } from "react";

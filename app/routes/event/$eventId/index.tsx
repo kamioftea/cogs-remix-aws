@@ -4,7 +4,8 @@ import {
   useLoaderData,
   useRouteLoaderData,
 } from "@remix-run/react";
-import { Fragment, ReactNode } from "react";
+import type { ReactNode } from "react";
+import { Fragment } from "react";
 import ErrorPage, { GenericErrorPage } from "~/error-handling/error-page";
 import type { TournamentLoaderData } from "~/routes/event/$eventId";
 import { AiOutlineFilePdf } from "react-icons/ai";

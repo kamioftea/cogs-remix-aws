@@ -14,10 +14,8 @@ export const FileUpload = (props: FileUploadProps) => {
   // This is a super hacky work around to only render on the browser because
   // dropzone doesn't play nicely with SSR.
   const [shouldRender, setShouldRender] = useState<boolean>(false);
-  useEffect(
-    () => setShouldRender(typeof window !== "undefined"),
-    [typeof window]
-  );
+  const windowType = typeof window;
+  useEffect(() => setShouldRender(windowType !== "undefined"), [windowType]);
 
   return shouldRender ? <FileUploadImpl {...props} /> : null;
 };
@@ -70,7 +68,7 @@ const FileUploadImpl = ({
         .then((res) => res.json())
         .then((json: Upload) => setFilename(json.filename));
     }
-  }, [currentId]);
+  }, [currentId, uploadUrl]);
 
   const { getRootProps, getInputProps, isDragActive, isDragReject } =
     useDropzone({
@@ -104,6 +102,7 @@ const FileUploadImpl = ({
           download={filename}
           target={"_blank"}
           className="button primary"
+          rel="noreferrer"
         >
           <FiDownload /> Download
         </a>

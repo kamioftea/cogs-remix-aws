@@ -1,16 +1,20 @@
-import { json, LoaderFunction } from "@remix-run/node";
+import type { LoaderFunction } from "@remix-run/node";
+import { json } from "@remix-run/node";
 import invariant from "tiny-invariant";
+import type {
+  PlayerGame} from "~/tournament/player-game-model.server";
 import {
-  getPlayersByTable,
-  PlayerGame,
+  getPlayersByTable
 } from "~/tournament/player-game-model.server";
+import type {
+  Attendee} from "~/tournament/attendee-model.server";
 import {
-  Attendee,
   listTournamentAttendeesByEventSlug,
 } from "~/tournament/attendee-model.server";
 import { Link, useLoaderData, useRouteLoaderData } from "@remix-run/react";
-import { TournamentLoaderData } from "~/routes/event/$eventId";
-import { Breadcrumb, CURRENT } from "~/utils/breadcrumbs";
+import type { TournamentLoaderData } from "~/routes/event/$eventId";
+import type { Breadcrumb} from "~/utils/breadcrumbs";
+import { CURRENT } from "~/utils/breadcrumbs";
 import React, { Fragment } from "react";
 import { ArmyList } from "~/tournament/army-list-field";
 

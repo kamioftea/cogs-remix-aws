@@ -51,7 +51,7 @@ export const ArmyList = ({ uploadId, attendee }: ArmyListProps) => {
         href={`/event/${attendee.eventSlug}/profile/${attendee.slug}/army-list`}
         download={filename}
         target={"_blank"}
-        className="button primary"
+        className="button primary" rel="noreferrer"
       >
         <FiDownload /> Download
       </a>

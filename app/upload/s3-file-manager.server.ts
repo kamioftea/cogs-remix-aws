@@ -1,11 +1,12 @@
+import type {
+  PutObjectCommandInput} from "@aws-sdk/client-s3";
 import {
   GetObjectCommand,
   PutObjectCommand,
-  PutObjectCommandInput,
   S3Client,
 } from "@aws-sdk/client-s3";
 import { v4 } from "uuid";
-import { Upload } from "~/upload/upload-model.server";
+import type { Upload } from "~/upload/upload-model.server";
 
 export type SpacesAcl = "public-read" | "private";
 

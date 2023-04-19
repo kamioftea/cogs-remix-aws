@@ -8,8 +8,9 @@ import {
   getUserByEmail,
 } from "~/account/user-model.server";
 import type { Role, User } from "~/account/user-model";
+import type {
+  Attendee} from "~/tournament/attendee-model.server";
 import {
-  Attendee,
   getTournamentAttendee,
 } from "~/tournament/attendee-model.server";
 

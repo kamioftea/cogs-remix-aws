@@ -1,10 +1,12 @@
+import type {
+  ActionArgs} from "@remix-run/server-runtime";
 import {
-  ActionArgs,
   unstable_composeUploadHandlers,
   unstable_createMemoryUploadHandler,
   unstable_parseMultipartFormData,
 } from "@remix-run/server-runtime";
-import { json, LoaderFunction } from "@remix-run/router";
+import type { LoaderFunction } from "@remix-run/router";
+import { json } from "@remix-run/router";
 import { saveFile } from "~/upload/s3-file-manager.server";
 import { createUpload } from "~/upload/upload-model.server";
 

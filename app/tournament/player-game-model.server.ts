@@ -1,6 +1,7 @@
 import arc from "@architect/functions";
+import type {
+  Attendee} from "~/tournament/attendee-model.server";
 import {
-  Attendee,
   listTournamentAttendeesByEventSlug,
 } from "~/tournament/attendee-model.server";
 import { sortBy, toPairs } from "~/utils";
