@@ -1,24 +1,20 @@
-import { useLoaderData, Form } from "@remix-run/react";
+import { Form, useLoaderData } from "@remix-run/react";
 import type { LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import invariant from "tiny-invariant";
 import { getTournamentBySlug } from "~/tournament/tournament-model.server";
 import type { Scenario } from "~/tournament/scenario/scenario";
-import type {
-  PlayerGame} from "~/tournament/player-game-model.server";
+import type { PlayerGame } from "~/tournament/player-game-model.server";
 import {
   getGamesForRound,
   populateRound,
   publishRound,
   savePlayerGame,
 } from "~/tournament/player-game-model.server";
-import type { ActionFunction} from "@remix-run/router";
+import type { ActionFunction } from "@remix-run/router";
 import { redirect } from "@remix-run/router";
-import type {
-  Attendee} from "~/tournament/attendee-model.server";
-import {
-  listTournamentAttendeesByEventSlug,
-} from "~/tournament/attendee-model.server";
+import type { AttendeeDisplayData } from "~/tournament/attendee-model.server";
+import { attendeeDisplayDataBySlug } from "~/tournament/attendee-model.server";
 import { FiCheck } from "react-icons/fi";
 
 interface LoaderData {
@@ -26,7 +22,7 @@ interface LoaderData {
   scenario: Scenario;
   mapUrl: string;
   playerGames: PlayerGame[];
-  attendeesBySlug: Record<string, Attendee>;
+  attendeesBySlug: Record<string, AttendeeDisplayData>;
 }
 
 export const loader: LoaderFunction = async ({ params }) => {
@@ -50,12 +46,7 @@ export const loader: LoaderFunction = async ({ params }) => {
   const { scenario, mapUrl } = tournament.scenarios[roundIndex - 1];
 
   const playerGames = await getGamesForRound(tournament.slug, roundIndex - 1);
-  const attendeesBySlug = Object.fromEntries(
-    (await listTournamentAttendeesByEventSlug(tournament.slug)).map((a) => [
-      a.slug,
-      a,
-    ])
-  );
+  const attendeesBySlug = await attendeeDisplayDataBySlug(tournament.slug);
 
   return json<LoaderData>({
     roundIndex,

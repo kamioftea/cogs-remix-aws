@@ -2,15 +2,11 @@ import type { LoaderFunction } from "@remix-run/router";
 import invariant from "tiny-invariant";
 import type {
   GameResult,
-  PlayerGame} from "~/tournament/player-game-model.server";
-import {
-  getGamesForRound
+  PlayerGame,
 } from "~/tournament/player-game-model.server";
-import type {
-  Attendee} from "~/tournament/attendee-model.server";
-import {
-  listTournamentAttendeesByEventSlug,
-} from "~/tournament/attendee-model.server";
+import { getGamesForRound } from "~/tournament/player-game-model.server";
+import type { AttendeeDisplayData } from "~/tournament/attendee-model.server";
+import { attendeeDisplayDataBySlug } from "~/tournament/attendee-model.server";
 import { json } from "@remix-run/node";
 import { Link, useLoaderData, useRouteLoaderData } from "@remix-run/react";
 import { sortBy } from "~/utils";
@@ -20,7 +16,7 @@ import type { RoundLoaderData } from "~/routes/event/$eventId/round/$roundIndex"
 
 interface LoaderData {
   playerGames: PlayerGame[];
-  attendeesBySlug: Record<string, Attendee>;
+  attendeesBySlug: Record<string, AttendeeDisplayData>;
 }
 
 export const loader: LoaderFunction = async ({ params }) => {
@@ -36,12 +32,7 @@ export const loader: LoaderFunction = async ({ params }) => {
   const playerGames = (
     await getGamesForRound(params.eventId, roundIndex - 1)
   ).filter((pg) => pg.published);
-  const attendeesBySlug = Object.fromEntries(
-    (await listTournamentAttendeesByEventSlug(params.eventId)).map((a) => [
-      a.slug,
-      a,
-    ])
-  );
+  const attendeesBySlug = await attendeeDisplayDataBySlug(params.eventId);
 
   return json<LoaderData>({
     playerGames: playerGames,
@@ -81,7 +72,7 @@ export default function RoundIndexPage() {
 
   return (
     <>
-      <h2>Tables</h2>
+      <h3>Tables</h3>
       <table>
         <thead>
           <tr>
@@ -120,18 +111,13 @@ export default function RoundIndexPage() {
                       )}
                       <td>
                         <Link
-                          to={`/event/${tournament.slug}/profile/${
-                            attendeesBySlug[pg.attendeeSlug].slug
-                          }`}
+                          to={`/event/${tournament.slug}/profile/${pg.attendeeSlug}`}
                         >
                           {attendeesBySlug[pg.attendeeSlug]?.name ??
                             pg.attendeeSlug}
                           <br />
                           <small>
-                            {
-                              attendeesBySlug[pg.attendeeSlug]?.additionalFields
-                                ?.faction
-                            }
+                            {attendeesBySlug[pg.attendeeSlug]?.faction}
                           </small>
                         </Link>
                       </td>

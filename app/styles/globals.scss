@@ -1,5 +1,5 @@
-@import 'settings';
-@import 'foundation';
+@import "settings";
+@import "foundation";
 
 // Global styles
 @include foundation-global-styles;
@@ -60,7 +60,7 @@
 
 @each $name, $color in $foundation-palette {
   .text-#{$name} {
-    color: $color
+    color: $color;
   }
 }
 

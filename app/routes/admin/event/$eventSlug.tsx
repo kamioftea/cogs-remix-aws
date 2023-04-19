@@ -1,9 +1,6 @@
 import { Link, Outlet, useLoaderData } from "@remix-run/react";
-import type {
-  Tournament} from "~/tournament/tournament-model.server";
-import {
-  getTournamentBySlug
-} from "~/tournament/tournament-model.server";
+import type { Tournament } from "~/tournament/tournament-model.server";
+import { getTournamentBySlug } from "~/tournament/tournament-model.server";
 import type { LoaderFunction } from "@remix-run/router";
 import { json } from "@remix-run/router";
 import invariant from "tiny-invariant";

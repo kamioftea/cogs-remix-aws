@@ -368,6 +368,12 @@ more candidates.`),
         label: "Faction",
       },
       {
+        name: "allies",
+        type: "STRING",
+        readonly: true,
+        label: "Allies",
+      },
+      {
         name: "tournament_points",
         type: "SCORE",
         readonly: true,

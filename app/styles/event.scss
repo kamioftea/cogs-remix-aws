@@ -1,5 +1,5 @@
-@import 'settings';
-@import 'util/util';
+@import "settings";
+@import "util/util";
 
 .event-banner {
   display: grid;
@@ -14,7 +14,7 @@
   min-height: (min(rem-calc(557px), 58vw));
 
   grid-template:
-    "img   club"  max-content
+    "img   club" max-content
     "title title" auto
     / min(rem-calc(96px), 10vw) auto;
 
@@ -27,7 +27,8 @@
   }
 
   .club-name {
-    font-family: "Staatliches", "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+    font-family: "Staatliches", "Helvetica Neue", Helvetica, Roboto, Arial,
+      sans-serif;
     place-self: start start;
     grid-area: club;
     margin: 0;
@@ -58,29 +59,29 @@
         line-height: 1;
       }
 
-      font-family: "Wolfsbane", "Spectral", "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+      font-family: "Wolfsbane", "Spectral", "Helvetica Neue", Helvetica, Roboto,
+        Arial, sans-serif;
       color: $secondary-color;
     }
   }
 }
 
 main {
-  @include clearfix()
+  @include clearfix();
 }
 
 .right-aside {
   display: grid;
   grid-template:
     "content aside"
-     / 3fr 2fr;
+    / 3fr 2fr;
 
   @include breakpoint(small down) {
     grid-template:
       "aside"
-     "content"
-     / 1fr;
+      "content"
+      / 1fr;
   }
-
 
   .summary-box {
     border-top: thin $primary-color solid;

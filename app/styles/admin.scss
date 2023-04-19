@@ -9,20 +9,18 @@ body {
     "sidebar main" 1fr
     / 20rem 1fr;
 
-
   @include breakpoint(small down) {
     grid-template:
       "account" 1.5rem
       "banner" 3rem
       "main" 1fr
       "sidebar" auto
-    / 1fr;
+      / 1fr;
   }
 
   align-items: start;
   justify-items: start;
   grid-gap: $global-margin;
-
 }
 
 header {

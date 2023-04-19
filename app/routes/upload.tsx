@@ -1,5 +1,4 @@
-import type {
-  ActionArgs} from "@remix-run/server-runtime";
+import type { ActionArgs } from "@remix-run/server-runtime";
 import {
   unstable_composeUploadHandlers,
   unstable_createMemoryUploadHandler,

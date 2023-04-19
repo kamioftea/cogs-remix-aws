@@ -1,16 +1,17 @@
-@import 'util/util';
+@import "util/util";
 @import "settings";
 
 main {
   display: grid;
-  grid-template: "sidebar content"
-                  / rem-calc(250px) 1fr;
+  grid-template:
+    "sidebar content"
+    / rem-calc(250px) 1fr;
 
   @include breakpoint(small down) {
     grid-template:
       "content"
       "sidebar"
-    / 1fr
+      / 1fr;
   }
   grid-gap: $global-margin;
   place-content: start start;
@@ -23,7 +24,7 @@ nav.side-navigation {
 
   .button {
     text-align: left;
-  };
+  }
 }
 
 div.page-content {

@@ -3,7 +3,6 @@ import { FileUpload } from "~/form/fileUpload";
 import React, { useEffect, useState } from "react";
 import type { Upload } from "~/upload/upload-model.server";
 import { FiFileText, FiAlertCircle, FiDownload } from "react-icons/fi";
-import type { Attendee } from "~/tournament/attendee-model.server";
 
 interface ArmyListFileUploadProps {
   name: string;
@@ -28,10 +27,15 @@ const ArmyListFileUpload = ({
 
 interface ArmyListProps {
   uploadId: string;
-  attendee: Attendee;
+  eventSlug: string;
+  attendeeSlug: string;
 }
 
-export const ArmyList = ({ uploadId, attendee }: ArmyListProps) => {
+export const ArmyList = ({
+  uploadId,
+  eventSlug,
+  attendeeSlug,
+}: ArmyListProps) => {
   const [filename, setFilename] = useState<string | null>(null);
   useEffect(() => {
     if (!uploadId) {
@@ -48,10 +52,11 @@ export const ArmyList = ({ uploadId, attendee }: ArmyListProps) => {
       {uploadId ? <FiFileText size={"3em"} /> : <FiAlertCircle size={"3em"} />}
       <span className="file-name">{filename ?? "Loading..."}</span>
       <a
-        href={`/event/${attendee.eventSlug}/profile/${attendee.slug}/army-list`}
+        href={`/event/${eventSlug}/profile/${attendeeSlug}/army-list`}
         download={filename}
         target={"_blank"}
-        className="button primary" rel="noreferrer"
+        className="button primary"
+        rel="noreferrer"
       >
         <FiDownload /> Download
       </a>
@@ -68,6 +73,10 @@ export const armyListField: AdditionalField = {
     />
   ),
   profile: (value, attendee) => (
-    <ArmyList uploadId={value} attendee={attendee} />
+    <ArmyList
+      uploadId={value}
+      eventSlug={attendee.eventSlug}
+      attendeeSlug={attendee.slug}
+    />
   ),
 };

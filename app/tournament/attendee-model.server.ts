@@ -164,3 +164,29 @@ export async function deleteAttendee(
 
   await db.attendee.delete({ email, eventSlug });
 }
+
+export interface AttendeeDisplayData {
+  name: string;
+  faction: string;
+  army_list?: string;
+}
+
+const attendeeToDisplayData = ({
+  name,
+  additionalFields: { faction, allies, army_list } = {},
+}: Attendee) => ({
+  name,
+  faction: `${faction}${allies ? ` with allied ${allies}` : ""}`,
+  army_list: army_list,
+});
+
+export async function attendeeDisplayDataBySlug(
+  eventSlug: string
+): Promise<Record<string, AttendeeDisplayData>> {
+  return Object.fromEntries(
+    (await listTournamentAttendeesByEventSlug(eventSlug)).map((a) => [
+      a.slug,
+      attendeeToDisplayData(a),
+    ])
+  );
+}

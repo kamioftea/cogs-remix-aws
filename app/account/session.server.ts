@@ -8,11 +8,8 @@ import {
   getUserByEmail,
 } from "~/account/user-model.server";
 import type { Role, User } from "~/account/user-model";
-import type {
-  Attendee} from "~/tournament/attendee-model.server";
-import {
-  getTournamentAttendee,
-} from "~/tournament/attendee-model.server";
+import type { Attendee } from "~/tournament/attendee-model.server";
+import { getTournamentAttendee } from "~/tournament/attendee-model.server";
 
 invariant(process.env.SESSION_SECRET, "SESSION_SECRET must be set");
 

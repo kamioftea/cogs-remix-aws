@@ -59,3 +59,9 @@ playerGame
   tableNumber **Number
   projection all
   name byRoundTable
+
+playerGame
+  eventSlug *String
+  attendeeSlug **String
+  projection all
+  name byEventAttendee

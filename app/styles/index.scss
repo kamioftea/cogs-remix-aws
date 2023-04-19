@@ -1,5 +1,5 @@
-@import 'settings';
-@import 'util/util';
+@import "settings";
+@import "util/util";
 
 .cogs-header {
   display: grid;
@@ -40,7 +40,8 @@
   }
 
   .club-name {
-    font-family: "Staatliches", "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+    font-family: "Staatliches", "Helvetica Neue", Helvetica, Roboto, Arial,
+      sans-serif;
     align-self: start;
     grid-area: top;
     margin: 0;

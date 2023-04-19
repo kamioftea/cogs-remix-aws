@@ -26,7 +26,7 @@ th {
 
   &:focus {
     color: darken($primary-color, 10%);
-    border: 2px $primary-color
+    border: 2px $primary-color;
   }
 
   &.link {
@@ -45,11 +45,14 @@ th {
 
 @each $name, $color in $foundation-palette {
   .text-#{$name} {
-    color: darken($color, 10%)
+    color: darken($color, 10%);
   }
 }
 
-header, main, nav, footer {
+header,
+main,
+nav,
+footer {
   max-width: rem-calc(960px);
   margin: auto;
   padding: 0 0.25rem;
@@ -69,18 +72,29 @@ td > .button-group {
 }
 
 .spin {
-  animation:spin 4s linear infinite;
+  animation: spin 4s linear infinite;
 }
 
 @keyframes spin {
   100% {
-    transform:rotate(360deg);
+    transform: rotate(360deg);
   }
 }
 
-[type="text"], [type="password"], [type="date"], [type="datetime"], [type="datetime-local"],
-[type="month"], [type="week"], [type="email"], [type="number"], [type="search"], [type="tel"],
-[type="time"], [type="url"], [type="color"] {
+[type="text"],
+[type="password"],
+[type="date"],
+[type="datetime"],
+[type="datetime-local"],
+[type="month"],
+[type="week"],
+[type="email"],
+[type="number"],
+[type="search"],
+[type="tel"],
+[type="time"],
+[type="url"],
+[type="color"] {
   max-width: 25rem;
 }
 
@@ -104,12 +118,17 @@ td > .button-group {
 .inline {
   display: grid;
   grid-template-columns: 8rem auto;
-  grid-template-areas: "Left Right"
-                       "Below Below";
+  grid-template-areas:
+    "Left Right"
+    "Below Below";
   align-items: center;
   grid-gap: 0.5rem;
 
-  & > select, & > input, & > textarea, & > .form-error, & > .input-group {
+  & > select,
+  & > input,
+  & > textarea,
+  & > .form-error,
+  & > .input-group {
     margin: 0;
   }
 }
@@ -135,7 +154,8 @@ td > .button-group {
 }
 
 .input-group {
-  & > select, & > input {
+  & > select,
+  & > input {
     margin-bottom: 0;
   }
 }
@@ -173,7 +193,8 @@ footer {
 
 dl {
   dt {
-    font-family: "Wolfsbane", "Spectral", "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+    font-family: "Wolfsbane", "Spectral", "Helvetica Neue", Helvetica, Roboto,
+      Arial, sans-serif;
     color: $primary-color;
     font-size: rem-calc(24px);
     font-weight: normal;

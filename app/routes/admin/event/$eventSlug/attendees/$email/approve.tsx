@@ -1,4 +1,4 @@
-import type { ActionFunction, LoaderFunction} from "@remix-run/router";
+import type { ActionFunction, LoaderFunction } from "@remix-run/router";
 import { redirect } from "@remix-run/router";
 import {
   getTournamentAttendee,

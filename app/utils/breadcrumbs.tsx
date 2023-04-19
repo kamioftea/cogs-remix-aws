@@ -1,4 +1,4 @@
-import type { RouteMatch} from "@remix-run/react";
+import type { RouteMatch } from "@remix-run/react";
 import { useMatches } from "@remix-run/react";
 
 export const CURRENT = Symbol("CURRENT");

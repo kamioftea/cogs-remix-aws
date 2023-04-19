@@ -1,5 +1,4 @@
-import type {
-  PutObjectCommandInput} from "@aws-sdk/client-s3";
+import type { PutObjectCommandInput } from "@aws-sdk/client-s3";
 import {
   GetObjectCommand,
   PutObjectCommand,

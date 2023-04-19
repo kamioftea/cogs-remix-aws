@@ -1,9 +1,6 @@
 import arc from "@architect/functions";
-import type {
-  Attendee} from "~/tournament/attendee-model.server";
-import {
-  listTournamentAttendeesByEventSlug,
-} from "~/tournament/attendee-model.server";
+import type { Attendee } from "~/tournament/attendee-model.server";
+import { listTournamentAttendeesByEventSlug } from "~/tournament/attendee-model.server";
 import { sortBy, toPairs } from "~/utils";
 import { purgeUndefined } from "~/utils/purgeUndefined";
 
@@ -11,6 +8,7 @@ export type GameResult = "Win" | "Draw" | "Loss";
 
 export interface PlayerGame {
   eventRound: string;
+  eventSlug: string;
   roundIndex: number;
   tableNumber: number;
   attendeeSlug: string;
@@ -24,6 +22,7 @@ export interface PlayerGame {
 function recordToPlayerGame(result: any): PlayerGame {
   return {
     eventRound: result.eventRound,
+    eventSlug: result.eventSlug,
     roundIndex: result.roundIndex,
     tableNumber: result.tableNumber,
     attendeeSlug: result.attendeeSlug,
@@ -64,6 +63,7 @@ async function createPlayerGame(
 
   const playerGame: PlayerGame = {
     eventRound: `${attendee.eventSlug}--${roundIndex}`,
+    eventSlug: attendee.eventSlug,
     roundIndex,
     tableNumber: table,
     attendeeSlug: attendee.slug,
@@ -134,6 +134,25 @@ export async function getPlayersByTable(
       ":tableNumber": tableNumber,
     },
     IndexName: "byRoundTable",
+  });
+
+  return result?.Items.map(recordToPlayerGame);
+}
+
+export async function getGamesForAttendee(
+  eventSlug: string,
+  attendeeSlug: string
+): Promise<PlayerGame[]> {
+  const db = await arc.tables();
+
+  const result = await db.playerGame.query({
+    KeyConditionExpression:
+      "eventSlug = :eventSlug AND attendeeSlug = :attendeeSlug",
+    ExpressionAttributeValues: {
+      ":eventSlug": eventSlug,
+      ":attendeeSlug": attendeeSlug,
+    },
+    IndexName: "byEventAttendee",
   });
 
   return result?.Items.map(recordToPlayerGame);
