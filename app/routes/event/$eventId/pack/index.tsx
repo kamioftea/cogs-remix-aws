@@ -11,11 +11,11 @@ export default function EventPackLandingPage() {
   return (
     <>
       <h2>Event pack</h2>
-      {tournament.rulesPdfUrl && (
+      {tournament.eventPackPdfUrl && (
         <p>
           <a
-            href={`${tournament.rulesPdfUrl.base}${tournament.rulesPdfUrl.name}`}
-            download={tournament.rulesPdfUrl.name}
+            href={`${tournament.eventPackPdfUrl.base}${tournament.eventPackPdfUrl.name}`}
+            download={tournament.eventPackPdfUrl.name}
             className="button primary hollow"
           >
             <AiOutlineFilePdf /> Download the event pack in PDF format.

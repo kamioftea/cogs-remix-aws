@@ -6,6 +6,7 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 export const handler = createRequestHandler({
-  build,
+  //Seems to be annoyed I've removed tailwind and postcss - still works
+  build: build as any,
   mode: process.env.NODE_ENV,
 });

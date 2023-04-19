@@ -1,5 +1,9 @@
 import { renderMarkdownInline, unsafeRenderMarkdown } from "~/utils/markdown";
 import { AdditionalFieldType } from "~/tournament/additional-fields";
+import { Scenario } from "~/tournament/scenario/scenario";
+import { Loot } from "~/tournament/scenario/loot";
+import { FoolsGold } from "~/tournament/scenario/fools-gold";
+import { Invade } from "~/tournament/scenario/invade";
 
 interface AdditionalFieldSpec {
   type: AdditionalFieldType;
@@ -28,7 +32,11 @@ export interface Tournament {
   titlePosition?: string;
   openGraph: OpenGraphMeta;
   eventPack?: PackSection[];
-  rulesPdfUrl?: {
+  eventPackPdfUrl?: {
+    base: string;
+    name: string;
+  };
+  scenarioPdfUrl?: {
     base: string;
     name: string;
   };
@@ -37,6 +45,10 @@ export interface Tournament {
   maxAttendees?: number;
   additionalFields?: AdditionalFieldSpec[];
   listsSubmissionClosed?: boolean;
+  scenarios: {
+    scenario: Scenario;
+    mapUrl: string;
+  }[];
 }
 
 export interface OpenGraphMeta {
@@ -71,7 +83,7 @@ export const tournaments: Tournament[] = [
         "S41 7JH",
       ],
     },
-    signUpEnabled: true,
+    signUpEnabled: false,
     disclaimer: renderMarkdownInline(
       `Mantic® and Kings of War® and all associated names, characters, places, and things are copyright © and
       ™ Mantic Games. The event image is [The Siege of Chill](https://www.manticgames.com/wallpapers/) © 
@@ -144,11 +156,41 @@ or more days late.
 
 Part of the joy of wargaming is the spectacle of two armies clashing on the
 table-top. Please bring a fully painted and based army that fits with 
-the fantasy wargaming aesthetic. However we will not penalise players if
+the fantasy wargaming aesthetic. However, we will not penalise players if
 they have a good reason they can’t – no questions asked.
 
 It should be clear to your opponent what each unit in your army 
-represents.`),
+represents.
+
+Steve Pearson is our spare player. In the event that we have an odd number of 
+attendees, he'll use this list.
+
+<div class="uploaded-file">
+  <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round"
+       stroke-linejoin="round" height="3em" width="3em" xmlns="http://www.w3.org/2000/svg">
+    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+    <polyline points="14 2 14 8 20 8"></polyline>
+    <line x1="16" y1="13" x2="8" y2="13"></line>
+    <line x1="16" y1="17" x2="8" y2="17"></line>
+    <polyline points="10 9 9 9 8 9"></polyline>
+  </svg>
+  <span class="file-name">Cogs of War - Spare Player.pdf</span>
+  <a
+    href="https://static.goblinoid.co.uk/Cogs_Spare_Player.pdf"
+    download="Cogs_Spare_Player.pdf"
+    target="_blank"
+    class="button primary"
+  >
+    <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round"
+         stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+      <polyline points="7 10 12 15 17 10"></polyline>
+      <line x1="12" y1="15" x2="12" y2="3"></line>
+    </svg>
+    Download
+  </a>
+</div>
+`),
       },
       {
         title: "Things to bring with you",
@@ -301,9 +343,13 @@ distribute as they see fit, including casting multiple votes for one or
 more candidates.`),
       },
     ],
-    rulesPdfUrl: {
+    eventPackPdfUrl: {
       base: "https://static.goblinoid.co.uk/",
       name: "cogs-of-war-tournament-pack.pdf",
+    },
+    scenarioPdfUrl: {
+      base: "https://static.goblinoid.co.uk/",
+      name: "cogs-of-war-scenarios-and-scoring.pdf",
     },
     costInPounds: 15,
     payPalLink: "https://www.paypal.com/paypalme/KamiOfTea/15",
@@ -312,10 +358,46 @@ more candidates.`),
       {
         name: "army_list",
         type: "ARMY_LIST",
+        readonly: true,
         label: "Army list",
       },
+      {
+        name: "faction",
+        type: "STRING",
+        readonly: true,
+        label: "Faction",
+      },
+      {
+        name: "tournament_points",
+        type: "SCORE",
+        readonly: true,
+        label: "Tournament points",
+      },
+      {
+        name: "total_routed",
+        type: "SCORE",
+        readonly: true,
+        label: "Total routed",
+      },
     ],
-    listsSubmissionClosed: false,
+    listsSubmissionClosed: true,
+    scenarios: [
+      {
+        scenario: Loot,
+        mapUrl:
+          "https://static.goblinoid.co.uk/kow.c-o-g-s.org.uk/maps/Loot.png",
+      },
+      {
+        scenario: FoolsGold,
+        mapUrl:
+          "https://static.goblinoid.co.uk/kow.c-o-g-s.org.uk/maps/FoolsGold.png",
+      },
+      {
+        scenario: Invade,
+        mapUrl:
+          "https://static.goblinoid.co.uk/kow.c-o-g-s.org.uk/maps/Invade.png",
+      },
+    ],
   },
   //   {
   //     title: "Twilight Expansion",
@@ -445,7 +527,7 @@ more candidates.`),
   //
   // The precise kill point boundaries and objective scoring will be published with
   // the scenario announcement each month. If there are enough players that you will
-  // not face every opponent then pairings will use Swiss ranking. Otherwise pairings
+  // not face every opponent then pairings will use Swiss ranking. Otherwise, pairings
   // will be random until everyone has faced each other, then any remaining games
   // will use Swiss ranking.
   //         `),

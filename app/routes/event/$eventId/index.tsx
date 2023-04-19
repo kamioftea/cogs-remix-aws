@@ -4,11 +4,11 @@ import {
   useLoaderData,
   useRouteLoaderData,
 } from "@remix-run/react";
-import { Fragment } from "react";
+import { Fragment, ReactNode } from "react";
 import ErrorPage, { GenericErrorPage } from "~/error-handling/error-page";
 import type { TournamentLoaderData } from "~/routes/event/$eventId";
 import { AiOutlineFilePdf } from "react-icons/ai";
-import { useOptionalUser } from "~/utils";
+import { sortBy, useOptionalUser } from "~/utils";
 import type { LoaderFunction } from "@remix-run/router";
 import { json } from "@remix-run/router";
 import { listTournamentAttendeesByEventSlug } from "~/tournament/attendee-model.server";
@@ -18,7 +18,14 @@ import { getUser } from "~/account/session.server";
 import { getTournamentBySlug } from "~/tournament/tournament-model.server";
 
 interface LoaderData {
-  attendees: { name: string; paid: boolean; verified: boolean }[];
+  attendees: {
+    name: string;
+    paid: boolean;
+    verified: boolean;
+    slug: string;
+    tournament_points: number;
+    total_routed: number;
+  }[];
   waitList: string[];
   userSignedUp: boolean;
 }
@@ -35,7 +42,14 @@ export const loader: LoaderFunction = async ({ request, params }) => {
     attendees: attendees
       .slice(0, tournament.maxAttendees ?? attendees.length)
       .filter((a) => a.approved)
-      .map((a) => ({ name: a.name, paid: a.paid, verified: a.verified })),
+      .map(({ name, paid, verified, slug, additionalFields }) => ({
+        name,
+        paid,
+        verified,
+        slug,
+        tournament_points: parseInt(additionalFields?.tournament_points ?? "0"),
+        total_routed: parseInt(additionalFields?.total_routed ?? "0"),
+      })),
     waitList: attendees
       .slice(tournament.maxAttendees ?? attendees.length)
       .filter((a) => a.approved)
@@ -63,14 +77,25 @@ export default function EventLandingPage() {
             <Link to={"./pack"}>Read the event pack online.</Link>
           </p>
         )}
-        {tournament.rulesPdfUrl && (
+        {tournament.eventPackPdfUrl && (
           <p>
             <a
-              href={`${tournament.rulesPdfUrl.base}${tournament.rulesPdfUrl.name}`}
-              download={tournament.rulesPdfUrl.name}
+              href={`${tournament.eventPackPdfUrl.base}${tournament.eventPackPdfUrl.name}`}
+              download={tournament.eventPackPdfUrl.name}
               className="button primary hollow expanded"
             >
-              <AiOutlineFilePdf /> Download the event pack in PDF format.
+              <AiOutlineFilePdf /> Download the event pack PDF.
+            </a>
+          </p>
+        )}
+        {tournament.scenarioPdfUrl && (
+          <p>
+            <a
+              href={`${tournament.scenarioPdfUrl.base}${tournament.scenarioPdfUrl.name}`}
+              download={tournament.scenarioPdfUrl.name}
+              className="button primary hollow expanded"
+            >
+              <AiOutlineFilePdf /> Download the scoring pack PDF.
             </a>
           </p>
         )}
@@ -129,7 +154,13 @@ export default function EventLandingPage() {
             <tbody>
               {attendees.map((attendee, i) => (
                 <tr key={i}>
-                  <td>{attendee.name}</td>
+                  <td>
+                    <Link
+                      to={`/event/${tournament.slug}/profile/${attendee.slug}`}
+                    >
+                      {attendee.name}
+                    </Link>
+                  </td>
                   <td>
                     {attendee.paid && (
                       <span className="text-success">
@@ -167,6 +198,84 @@ export default function EventLandingPage() {
               </table>
             </>
           )}
+        </div>
+      )}
+      {tournament.listsSubmissionClosed && (
+        <div className="content">
+          <h2>Rounds</h2>
+          {tournament.scenarios.map((scenario, index) => (
+            <Link
+              key={index}
+              to={`/event/${tournament.slug}/round/${index + 1}`}
+              className="button primary hollow expanded"
+            >
+              Round {index + 1}: {scenario.scenario.name}
+            </Link>
+          ))}
+          <h2>Standings</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Tournament Points</th>
+                <th>Total Routed</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                attendees
+                  .sort(
+                    sortBy(
+                      (a) => -a.tournament_points,
+                      (a) => -a.total_routed,
+                      (a) => a.name
+                    )
+                  )
+                  .reduce<{
+                    prev_tp: number;
+                    prev_tr: number;
+                    index: number;
+                    rows: ReactNode[];
+                  }>(
+                    ({ prev_tp, prev_tr, index, rows }, attendee) => {
+                      const position =
+                        prev_tp === (attendee.tournament_points || 0) &&
+                        prev_tr === (attendee.total_routed || 0)
+                          ? ""
+                          : index + 1;
+
+                      return {
+                        prev_tp: attendee.tournament_points || 0,
+                        prev_tr: attendee.total_routed || 0,
+                        index: index + 1,
+                        rows: [
+                          ...rows,
+                          <tr key={attendee.slug}>
+                            <td>{position}</td>
+                            <td>
+                              <Link
+                                to={`/event/${tournament.slug}/profile/${attendee.slug}`}
+                              >
+                                {attendee.name}
+                              </Link>
+                            </td>
+                            <td>{attendee.tournament_points ?? 0}</td>
+                            <td>{attendee.total_routed ?? 0}</td>
+                          </tr>,
+                        ],
+                      };
+                    },
+                    {
+                      prev_tp: -1,
+                      prev_tr: -1,
+                      index: 0,
+                      rows: [],
+                    }
+                  ).rows
+              }
+            </tbody>
+          </table>
         </div>
       )}
       {tournament.content && (

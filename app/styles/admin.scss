@@ -42,6 +42,11 @@ header {
   border-bottom: thin $primary-color solid;
 }
 
+nav {
+  width: 100%;
+  max-width: 100%;
+}
+
 nav.admin-sidebar {
   grid-area: sidebar;
   width: 100%;

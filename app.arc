@@ -37,6 +37,11 @@ upload
   id *String
   encrypt true
 
+playerGame
+  eventRound *String
+  attendeeSlug **String
+  encrypt true
+
 @tables-indexes
 attendee
   email *String
@@ -48,3 +53,9 @@ attendee
   slug **String
   projection all
   name bySlugs
+
+playerGame
+  eventRound *String
+  tableNumber **Number
+  projection all
+  name byRoundTable

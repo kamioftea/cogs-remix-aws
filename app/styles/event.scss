@@ -101,3 +101,31 @@ main {
     grid-area: content;
   }
 }
+
+.map {
+  display: block;
+  max-width: 100%;
+  margin: 0 auto 1rem;
+}
+
+.matchup-container {
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: 1fr min-content 1fr;
+  place-content: center;
+  margin-bottom: 1rem;
+
+  @include breakpoint(small down) {
+    grid-template-columns: 1fr;
+  }
+
+  .player-card {
+    border: thin darken($primary-color, 20%) solid;
+    text-align: center;
+    padding: 1rem;
+  }
+
+  .vs {
+    align-self: center;
+  }
+}

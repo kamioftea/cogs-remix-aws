@@ -31,7 +31,7 @@ interface ArmyListProps {
   attendee: Attendee;
 }
 
-const ArmyList = ({ uploadId, attendee }: ArmyListProps) => {
+export const ArmyList = ({ uploadId, attendee }: ArmyListProps) => {
   const [filename, setFilename] = useState<string | null>(null);
   useEffect(() => {
     if (!uploadId) {

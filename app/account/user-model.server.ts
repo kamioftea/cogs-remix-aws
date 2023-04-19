@@ -181,3 +181,17 @@ export async function getSessionRecordById(
   if (record) return sessionFromRecord(record);
   return null;
 }
+
+export async function registerUserByEmail(
+  email: string,
+  roles: Role[] = [Role.Registered]
+) {
+  const user = await getUserByEmail(email);
+  if (!user) {
+    throw new Error("User with that email not found");
+  }
+
+  user.roles = [...new Set([...(user.roles ?? []), ...roles])];
+  await putUser(user);
+  return user;
+}

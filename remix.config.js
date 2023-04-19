@@ -23,6 +23,11 @@ module.exports = {
         "__tests/create-user",
         path.relative(appDir, "cypress/support/test-routes/create-user.ts")
       );
+
+      route(
+        "__tests/setup-tournament",
+        path.relative(appDir, "cypress/support/test-routes/setup-tournament.ts")
+      );
     });
   },
 };

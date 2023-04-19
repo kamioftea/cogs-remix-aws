@@ -125,7 +125,7 @@ function LayoutBoilerplate({ user, email, children }: BoilerplateProps) {
             )}
             {!user && !email && (
               <>
-                Not logged in <Link to="/account/login">Sign Up</Link> |{" "}
+                Not logged in <Link to="/account/register">Sign Up</Link> |{" "}
                 <Link to="/account/login">Login</Link>
               </>
             )}
@@ -179,7 +179,7 @@ export function CatchBoundary() {
         <ErrorPage heading="Not authorised">
           <p>
             The account you're logged in as does not have permission to access
-            this page
+            this page.
           </p>
         </ErrorPage>
       </LayoutBoilerplate>

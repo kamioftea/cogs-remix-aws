@@ -49,9 +49,16 @@ function getStatusTag(attendee: Attendee): ReactNode {
       );
     default:
       return (
-        <span className="label success hollow">
-          <FiCheckCircle /> Paid
-        </span>
+        <>
+          {attendee.additionalFields.army_list ? (
+            <span className="label success hollow">
+              <FiCheckCircle /> List
+            </span>
+          ) : null}
+          <span className="label success hollow">
+            <FiCheckCircle /> Paid
+          </span>
+        </>
       );
   }
 }

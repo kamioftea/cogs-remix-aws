@@ -2,6 +2,7 @@ import arc from "@architect/functions";
 
 import type { User } from "~/account/user-model";
 import { slugify } from "~/utils/slugify";
+import { purgeUndefined } from "~/utils/purgeUndefined";
 
 export type Attendee = {
   eventSlug: string;
@@ -138,17 +139,19 @@ export async function createAttendee({
 export async function putAttendee(attendee: Attendee): Promise<Attendee> {
   const db = await arc.tables();
 
-  const result = await db.attendee.put({
-    eventSlug: attendee.eventSlug,
-    email: attendee.email,
-    slug: attendee.slug,
-    name: attendee.name,
-    approved: attendee.approved,
-    verified: attendee.verified,
-    paid: attendee.paid,
-    created: attendee.created.getTime(),
-    additionalFields: attendee.additionalFields ?? {},
-  });
+  const result = await db.attendee.put(
+    purgeUndefined({
+      eventSlug: attendee.eventSlug,
+      email: attendee.email,
+      slug: attendee.slug,
+      name: attendee.name,
+      approved: attendee.approved,
+      verified: attendee.verified,
+      paid: attendee.paid,
+      created: attendee.created.getTime(),
+      additionalFields: attendee.additionalFields,
+    })
+  );
 
   return recordToAttendee(result);
 }
