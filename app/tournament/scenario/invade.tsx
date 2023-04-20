@@ -7,23 +7,19 @@ export const Invade: Scenario = {
   setup: renderMarkdown("No additional setup required."),
   scoring: renderMarkdown(`
 At the end of the battle players add up the total unit strength of units with 
-the majority of their footprint on their opponent's half of the board. The 
-player with the highest total wins.
+the majority of their footprint on their opponent’s half of the board. 
 
-If the combined total of both players' scoring unit strength is 7 or less, they
+If the combined total of both players’ scoring unit strength is 7 or less, they
 each score their total scoring unit strength as tournament points. If the 
 combined total is 8 or more, use the first of the following that applies.
 
-* If the players draw, they both score 3 tournament points.
-* If the losing player's unit strength total is zero, the winning player scores 
-  7 and the losing player scores 0.
-* If the losing player's player's unit strength total is less than one-third of 
-  the winning player's total, the winning player scores 6 and the losing player
-  scores 1.
-* If the losing player's player's unit strength total is less than two-thirds of 
-  the winning player's total, the winning player scores 5 and the losing player
-  scores 2.
-* Otherwise, the winning player scores 4 and the losing player scores 3.
+- If the players draw, they both score 3 tournament points. 
+- If the losing player’s unit strength total is zero, the players score 7 – 0. 
+- If the losing player’s unit strength total is less than one-third of the 
+  winner’s, the players score 6 – 1. 
+- If the losing player’s unit strength total is less than two-thirds of the 
+  winner’s, the players score 5 – 2. 
+- Otherwise, the players score 4 – 3. 
   `),
   scoreInputs: [
     {

@@ -4,23 +4,19 @@ import { unsafeRenderMarkdown } from "~/utils/markdown";
 export const Loot: Scenario = {
   name: "Loot",
   setup: unsafeRenderMarkdown(`
-Before rolling for sides, place a primary loot token in the centre of the board.
+Before rolling for sides, place a primary loot token in the
+centre of the board.
 
-Then each player places one secondary loot token on the centre line, at least 
-12" away from other loot counters and 3" away from blocking terrain including 
-the ege of the board. Roll off to see who places the first counter.
+Then each player places one secondary loot token on the
+centre line, at least 12" away from other loot counters
+and 3" away from blocking terrain including the edge of
+the board. Roll off to see who places the first counter.
 `),
   scoring: unsafeRenderMarkdown(`
-Each player scores the following:
+Players score the following at the end of the battle:
 
-* Score three victory points if they hold the primary loot token at the end
-  of the battle.
-* Score two victory points for each secondary loot token they hold at the
-  end of the battle.
-  
-The player with the most victory points wins.
-
-Players' tournament points are equal to their victory points.
+- Score 3 points if they hold the primary loot token.
+- Score 2 points for each secondary loot token they hold.
   `),
   scoreInputs: [
     {
