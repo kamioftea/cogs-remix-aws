@@ -71,6 +71,15 @@ export default function VotesPage() {
     [sportsVotes]
   );
 
+  // TODO: persist
+  const raffle = useMemo(
+    () =>
+      [...Object.values(attendees)]
+        .sort(sortBy(() => Math.random()))
+        .slice(0, 3),
+    [attendees]
+  );
+
   return (
     <>
       <h3>Best Army</h3>
@@ -87,6 +96,12 @@ export default function VotesPage() {
           <li>
             {attendees[slug]?.name ?? slug}: {votes}
           </li>
+        ))}
+      </ul>
+      <h3>Raffle</h3>
+      <ul>
+        {raffle.map(({ name }) => (
+          <li>{name}</li>
         ))}
       </ul>
     </>

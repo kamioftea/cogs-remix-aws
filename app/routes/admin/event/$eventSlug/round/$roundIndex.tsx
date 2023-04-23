@@ -84,7 +84,6 @@ export const action: ActionFunction = async ({ request, params }) => {
   }
 
   const formData = Object.fromEntries(await request.formData());
-  console.log(formData);
   invariant(typeof formData.action === "string", "roundIndex not found");
   switch (formData.action) {
     case "populate": {

@@ -210,34 +210,36 @@ export default function LoginAsAttendeePage() {
               </tr>
             </thead>
             <tbody>
-              {games.map(({ player, opponent }) => (
-                <tr key={player.roundIndex}>
-                  <td>
-                    <Link
-                      to={`/event/${tournament.slug}/round/${
-                        player.roundIndex + 1
-                      }/table/${player.tableNumber}`}
-                    >
-                      {tournament.scenarios[player.roundIndex]?.scenario.name}
-                    </Link>
-                  </td>
-                  <td>
-                    <Link
-                      to={`/event/${tournament.slug}/profile/${opponent.attendeeSlug}`}
-                    >
-                      {attendeesBySlug[opponent.attendeeSlug]?.name ??
-                        opponent.attendeeSlug}
-                      <br />
-                      <small>
-                        {attendeesBySlug[opponent.attendeeSlug]?.faction}
-                      </small>
-                    </Link>
-                  </td>
-                  <td>{player.outcome ?? "-"}</td>
-                  <td>{player.totalScore ?? "-"}</td>
-                  <td>{player.routedPoints ?? "-"}</td>
-                </tr>
-              ))}
+              {games
+                .sort(sortBy(({ player }) => player.roundIndex))
+                .map(({ player, opponent }) => (
+                  <tr key={player.roundIndex}>
+                    <td>
+                      <Link
+                        to={`/event/${tournament.slug}/round/${
+                          player.roundIndex + 1
+                        }/table/${player.tableNumber}`}
+                      >
+                        {tournament.scenarios[player.roundIndex]?.scenario.name}
+                      </Link>
+                    </td>
+                    <td>
+                      <Link
+                        to={`/event/${tournament.slug}/profile/${opponent.attendeeSlug}`}
+                      >
+                        {attendeesBySlug[opponent.attendeeSlug]?.name ??
+                          opponent.attendeeSlug}
+                        <br />
+                        <small>
+                          {attendeesBySlug[opponent.attendeeSlug]?.faction}
+                        </small>
+                      </Link>
+                    </td>
+                    <td>{player.outcome ?? "-"}</td>
+                    <td>{player.totalScore ?? "-"}</td>
+                    <td>{player.routedPoints ?? "-"}</td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </>

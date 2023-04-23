@@ -104,7 +104,8 @@ export async function populateRound(eventSlug: string, roundIndex: number) {
   toAssign.sort(
     sortBy(
       (a) => -parseInt(a.additionalFields?.tournament_points || "0"),
-      (a) => -parseInt(a.additionalFields?.totalrouted || "0"),
+      (a) => -parseInt(a.additionalFields?.total_routed || "0"),
+      (a) => parseInt(a.additionalFields?.total_attrition || "0"),
       () => Math.random()
     )
   );
@@ -253,11 +254,11 @@ export async function updateScoresForTable(
   await putPlayerGame(playerA);
   await putPlayerGame(playerB);
 
-  await updateScoresForAttendee(playerA);
-  await updateScoresForAttendee(playerB);
+  await updateScoresForAttendee(playerA, playerB.routedPoints ?? 0);
+  await updateScoresForAttendee(playerB, playerA.routedPoints ?? 0);
 }
 
-async function updateScoresForAttendee(game: PlayerGame) {
+async function updateScoresForAttendee(game: PlayerGame, attrition: number) {
   const attendee = await getTournamentAttendeeBySlug(
     game.eventSlug,
     game.attendeeSlug
@@ -273,11 +274,23 @@ async function updateScoresForAttendee(game: PlayerGame) {
   attendee.routedPerRound = attendee.routedPerRound ?? [];
   attendee.routedPerRound[game.roundIndex] = game.routedPoints ?? 0;
 
+  attendee.attritionPerRound = attendee.attritionPerRound ?? [];
+  attendee.attritionPerRound[game.roundIndex] = attrition ?? 0;
+
   attendee.additionalFields["tournament_points"] = attendee.scoresPerRound
-    .reduce((acc, num) => acc + num, attendee.bonusPoints ?? 0)
+    .reduce(
+      (acc, num) => acc + num,
+      attendee.additionalFields["bonus_points"]
+        ? parseInt(attendee.additionalFields["bonus_points"])
+        : 0
+    )
     .toString();
 
   attendee.additionalFields["total_routed"] = attendee.routedPerRound
+    .reduce((acc, num) => acc + num, 0)
+    .toString();
+
+  attendee.additionalFields["total_attrition"] = attendee.attritionPerRound
     .reduce((acc, num) => acc + num, 0)
     .toString();
 

@@ -51,6 +51,7 @@ export interface Tournament {
     roundEnd?: string;
   }[];
   pointsLimit?: number;
+  kowMastersEventId?: number;
 }
 
 export interface OpenGraphMeta {
@@ -387,6 +388,24 @@ more candidates.`),
         readonly: true,
         label: "Total routed",
       },
+      {
+        name: "total_attrition",
+        type: "SCORE",
+        readonly: true,
+        label: "Total attrition",
+      },
+      {
+        name: "bonus_points",
+        type: "SCORE",
+        readonly: true,
+        label: "Bonus points",
+      },
+      {
+        name: "awards",
+        type: "STRING",
+        readonly: true,
+        label: "Awards",
+      },
     ],
     listsSubmissionClosed: true,
     scenarios: [
@@ -406,9 +425,11 @@ more candidates.`),
         scenario: Invade,
         mapUrl:
           "https://static.goblinoid.co.uk/kow.c-o-g-s.org.uk/maps/Invade.png",
+        roundEnd: "2023-04-23 17:25:00",
       },
     ],
     pointsLimit: 1995,
+    kowMastersEventId: 298,
   },
   //   {
   //     title: "Twilight Expansion",

@@ -16,6 +16,7 @@ export type Attendee = {
   additionalFields: Record<string, string>;
   scoresPerRound?: number[];
   routedPerRound?: number[];
+  attritionPerRound?: number[];
   bonusPoints?: number;
   paintBallot?: Record<string, number>;
   sportsBallot?: Record<string, number>;
@@ -34,6 +35,7 @@ function recordToAttendee(record: any): Attendee {
     additionalFields: record.additionalFields,
     scoresPerRound: record.scoresPerRound,
     routedPerRound: record.routedPerRound,
+    attritionPerRound: record.attritionPerRound,
     bonusPoints: record.bonusPoints,
     paintBallot: record.paintBallot,
     sportsBallot: record.sportsBallot,
@@ -162,6 +164,7 @@ export async function putAttendee(attendee: Attendee): Promise<Attendee> {
       additionalFields: attendee.additionalFields,
       scoresPerRound: attendee.scoresPerRound ?? [],
       routedPerRound: attendee.routedPerRound ?? [],
+      attritionPerRound: attendee.attritionPerRound ?? [],
       bonusPoints: attendee.bonusPoints ?? 0,
       paintBallot: attendee.paintBallot ?? {},
       sportsBallot: attendee.sportsBallot ?? {},

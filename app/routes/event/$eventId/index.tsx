@@ -26,6 +26,7 @@ interface LoaderData {
     slug: string;
     tournament_points: number;
     total_routed: number;
+    total_attrition: number;
   }[];
   waitList: string[];
   userSignedUp: boolean;
@@ -53,6 +54,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
         slug,
         tournament_points: parseInt(additionalFields?.tournament_points ?? "0"),
         total_routed: parseInt(additionalFields?.total_routed ?? "0"),
+        total_attrition: parseInt(additionalFields?.total_attrition ?? "0"),
       })),
     waitList: attendees
       .slice(tournament.maxAttendees ?? attendees.length)
@@ -251,6 +253,7 @@ export default function EventLandingPage() {
                     sortBy(
                       (a) => -a.tournament_points,
                       (a) => -a.total_routed,
+                      (a) => a.total_attrition,
                       (a) => a.name
                     )
                   )

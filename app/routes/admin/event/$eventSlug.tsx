@@ -37,7 +37,14 @@ export default function EventLayout() {
             |{" "}
           </Fragment>
         ))}
-        <Link to={`/admin/event/${tournament.slug}/votes`}>Votes</Link>
+        <Link to={`/admin/event/${tournament.slug}/votes`}>Votes</Link> |{" "}
+        <a
+          href={`/admin/event/${tournament.slug}/masters-csv`}
+          target="_blank"
+          download={`${tournament.slug}-final-standings.csv`}
+        >
+          Download Results Submission
+        </a>
       </nav>
       <Outlet />
     </>
