@@ -10,6 +10,7 @@ export interface FormInputProps {
   autoComplete?: string;
   defaultValue?: string;
   error_message?: string;
+  max?: string | number;
 }
 
 export default function FormInput({
@@ -21,6 +22,7 @@ export default function FormInput({
   autoComplete,
   defaultValue,
   error_message,
+  max,
 }: FormInputProps) {
   return (
     <label className={error_message ? "is-invalid-label" : undefined}>
@@ -30,7 +32,15 @@ export default function FormInput({
         aria-invalid={error_message ? true : undefined}
         aria-describedby={`${name}-error`}
         className={error_message ? "is-invalid-input" : undefined}
-        {...{ name, type, required, autoFocus, autoComplete, defaultValue }}
+        {...{
+          name,
+          type,
+          required,
+          autoFocus,
+          autoComplete,
+          defaultValue,
+          max,
+        }}
       />
       {error_message && (
         <span className="form-error is-visible" id={`${name}-error`}>

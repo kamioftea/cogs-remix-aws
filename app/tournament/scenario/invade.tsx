@@ -28,9 +28,9 @@ combined total is 8 or more, use the first of the following that applies.
       type: "number",
     },
   ],
-  tournamentPointFunction(player_inputs, opponent_updates): number {
+  tournamentPointFunction(player_inputs, opponent_inputs): number {
     const player_us = player_inputs["unit_strength"] ?? 0;
-    const opponent_us = opponent_updates["unit_strength"] ?? 0;
+    const opponent_us = opponent_inputs["unit_strength"] ?? 0;
     return normaliseScore(player_us, opponent_us);
   },
 };

@@ -14,6 +14,11 @@ export type Attendee = {
   paid: boolean;
   created: Date;
   additionalFields: Record<string, string>;
+  scoresPerRound?: number[];
+  routedPerRound?: number[];
+  bonusPoints?: number;
+  paintBallot?: Record<string, number>;
+  sportsBallot?: Record<string, number>;
 };
 
 function recordToAttendee(record: any): Attendee {
@@ -27,6 +32,11 @@ function recordToAttendee(record: any): Attendee {
     paid: record.paid,
     created: new Date(record.created),
     additionalFields: record.additionalFields,
+    scoresPerRound: record.scoresPerRound,
+    routedPerRound: record.routedPerRound,
+    bonusPoints: record.bonusPoints,
+    paintBallot: record.paintBallot,
+    sportsBallot: record.sportsBallot,
   };
 }
 
@@ -150,6 +160,11 @@ export async function putAttendee(attendee: Attendee): Promise<Attendee> {
       paid: attendee.paid,
       created: attendee.created.getTime(),
       additionalFields: attendee.additionalFields,
+      scoresPerRound: attendee.scoresPerRound ?? [],
+      routedPerRound: attendee.routedPerRound ?? [],
+      bonusPoints: attendee.bonusPoints ?? 0,
+      paintBallot: attendee.paintBallot ?? {},
+      sportsBallot: attendee.sportsBallot ?? {},
     })
   );
 

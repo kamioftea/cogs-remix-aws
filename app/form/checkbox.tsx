@@ -1,5 +1,6 @@
 import type { InputHTMLAttributes } from "react";
 import * as React from "react";
+import { purgeUndefined } from "~/utils/purgeUndefined";
 
 export interface FormCheckboxProps {
   label: string;
@@ -10,6 +11,8 @@ export interface FormCheckboxProps {
   autoComplete?: string;
   defaultChecked?: boolean;
   error_message?: string;
+  checkedValue?: string | number;
+  uncheckedValue?: string | number;
 }
 
 export default function FormCheckbox({
@@ -20,16 +23,28 @@ export default function FormCheckbox({
   autoComplete,
   defaultChecked,
   error_message,
+  checkedValue,
+  uncheckedValue,
 }: FormCheckboxProps) {
   return (
     <label className={error_message ? "is-invalid-label" : undefined}>
+      {uncheckedValue != null && (
+        <input type="hidden" value={uncheckedValue} name={name} />
+      )}
       <input
         id={name}
         type="checkbox"
         aria-invalid={error_message ? true : undefined}
         aria-describedby={`${name}-error`}
         className={error_message ? "is-invalid-input" : undefined}
-        {...{ name, required, autoFocus, autoComplete, defaultChecked }}
+        {...purgeUndefined({
+          name,
+          required,
+          autoFocus,
+          autoComplete,
+          defaultChecked,
+          value: checkedValue ?? undefined,
+        })}
       />
       {label}
       {error_message && (

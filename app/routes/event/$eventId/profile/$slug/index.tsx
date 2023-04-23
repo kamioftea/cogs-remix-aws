@@ -9,6 +9,7 @@ import type {
 import {
   attendeeDisplayDataBySlug,
   getTournamentAttendeeBySlug,
+  putAttendee,
 } from "~/tournament/attendee-model.server";
 
 import { getSessionAttendee } from "~/account/session.server";
@@ -31,6 +32,10 @@ import {
   getPlayersByTable,
 } from "~/tournament/player-game-model.server";
 import { sortBy } from "~/utils";
+import { FiInfo } from "react-icons/fi";
+import { SportsVotes } from "~/routes/event/$eventId/profile/$slug/sportsVotes";
+import { PaintVotes } from "~/routes/event/$eventId/profile/$slug/paintVotes";
+import { ActionFunction } from "@remix-run/router";
 
 interface LoaderData {
   attendee: Attendee;
@@ -66,16 +71,18 @@ export const loader: LoaderFunction = async ({ request, params }) => {
     attendee.slug
   );
   const games = await Promise.all(
-    attendeeGames.map(async (player) => {
-      const opponent = (
-        await getPlayersByTable(
-          player.eventSlug,
-          player.roundIndex,
-          player.tableNumber
-        )
-      ).filter((g) => g.attendeeSlug !== player.attendeeSlug)[0];
-      return { player, opponent };
-    })
+    attendeeGames
+      .filter((game) => game.published)
+      .map(async (player) => {
+        const opponent = (
+          await getPlayersByTable(
+            player.eventSlug,
+            player.roundIndex,
+            player.tableNumber
+          )
+        ).filter((g) => g.attendeeSlug !== player.attendeeSlug)[0];
+        return { player, opponent };
+      })
   );
   games.sort(sortBy(({ player }) => player.tableNumber));
 
@@ -84,6 +91,8 @@ export const loader: LoaderFunction = async ({ request, params }) => {
       ...attendee,
       email: "",
       ...(additionalFieldsPublic ? {} : { additionalFields: {} }),
+      sportsBallot: {},
+      paintBallot: {},
     },
     games,
     attendeesBySlug: await attendeeDisplayDataBySlug(tournament.slug),
@@ -104,18 +113,74 @@ export const handle = {
   breadcrumbs,
 };
 
+export const action: ActionFunction = async ({ request, params }) => {
+  invariant(params.eventId, "From route");
+  invariant(params.slug, "From route");
+
+  const tournament = getTournamentBySlug(params.eventId);
+  if (!tournament) {
+    throw new Response("Event not found", { status: 404 });
+  }
+
+  const attendee = await getSessionAttendee(request, params.eventId);
+  if (!attendee || attendee.slug !== params.slug) {
+    throw new Response("Not authorised", { status: 403 });
+  }
+
+  const formData = Object.fromEntries(await request.formData());
+  const ballot = Object.fromEntries(
+    Object.entries(formData).flatMap(([k, v]) => {
+      const [, slug] = k.match(/^vote\[([^\]]+)]$/) || [];
+      return slug && v.toString().match(/^\d+$/)
+        ? [[slug, parseInt(v.toString())]]
+        : [];
+    })
+  );
+
+  if (formData.type === "paint") {
+    attendee.paintBallot = ballot;
+    await putAttendee(attendee);
+  }
+
+  if (formData.type === "sports") {
+    attendee.sportsBallot = ballot;
+    await putAttendee(attendee);
+  }
+
+  return null;
+};
+
 export default function LoginAsAttendeePage() {
   const { attendee, games, attendeesBySlug } = useLoaderData<
     typeof loader
   >() as LoaderData;
 
-  const { tournament } = useRouteLoaderData(
+  const { tournament, currentAttendee } = useRouteLoaderData(
     "routes/event/$eventId"
   ) as TournamentLoaderData;
 
   return (
     <>
       <h2>{attendee.name}</h2>
+      {currentAttendee?.slug === attendee.slug && (
+        <>
+          <h3>Voting</h3>
+          <div className="callout secondary">
+            <p>
+              <FiInfo /> These votes will only be visible to you.
+            </p>
+          </div>
+          <PaintVotes
+            attendee={currentAttendee}
+            attendeesBySlug={attendeesBySlug}
+          />
+          <SportsVotes
+            attendee={currentAttendee}
+            games={games}
+            attendeesBySlug={attendeesBySlug}
+          />
+        </>
+      )}
       <dl>
         {tournament.additionalFields?.map((spec) => {
           return attendee.additionalFields?.[spec.name] ? (
@@ -168,7 +233,7 @@ export default function LoginAsAttendeePage() {
                       </small>
                     </Link>
                   </td>
-                  <td>{player.result ?? "-"}</td>
+                  <td>{player.outcome ?? "-"}</td>
                   <td>{player.totalScore ?? "-"}</td>
                   <td>{player.routedPoints ?? "-"}</td>
                 </tr>

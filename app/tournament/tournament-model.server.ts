@@ -49,6 +49,7 @@ export interface Tournament {
     scenario: Scenario;
     mapUrl: string;
   }[];
+  pointsLimit?: number;
 }
 
 export interface OpenGraphMeta {
@@ -404,6 +405,7 @@ more candidates.`),
           "https://static.goblinoid.co.uk/kow.c-o-g-s.org.uk/maps/Invade.png",
       },
     ],
+    pointsLimit: 1995,
   },
   //   {
   //     title: "Twilight Expansion",

@@ -24,8 +24,8 @@ import {
 import { FiAlertCircle, FiCheckCircle } from "react-icons/fi";
 import { redirect } from "@remix-run/router";
 import { getSessionAttendee, getUser } from "~/account/session.server";
-import * as yup from "yup";
 import type { SchemaOf } from "yup";
+import * as yup from "yup";
 import { ValidationError } from "yup";
 import { getYupErrorMessage } from "~/utils/validation";
 import type { Breadcrumb } from "~/utils/breadcrumbs";

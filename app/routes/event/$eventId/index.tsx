@@ -15,7 +15,7 @@ import { json } from "@remix-run/router";
 import { listTournamentAttendeesByEventSlug } from "~/tournament/attendee-model.server";
 import invariant from "tiny-invariant";
 import { FiCheckCircle } from "react-icons/fi";
-import { getUser } from "~/account/session.server";
+import { getSessionAttendee, getUser } from "~/account/session.server";
 import { getTournamentBySlug } from "~/tournament/tournament-model.server";
 
 interface LoaderData {
@@ -29,15 +29,18 @@ interface LoaderData {
   }[];
   waitList: string[];
   userSignedUp: boolean;
+  loggedIn: boolean;
 }
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   invariant(params.eventId, "From route");
-  const user = await getUser(request);
   const tournament = getTournamentBySlug(params.eventId);
   invariant(tournament, "Checked in ../$eventId");
+  const currentAttendee = await getSessionAttendee(request, tournament.slug);
+  const user = await getUser(request);
   const attendees = await listTournamentAttendeesByEventSlug(params.eventId);
-  const userSignedUp = !!user && attendees.some((a) => a.email === user.email);
+  const userSignedUp = !!currentAttendee;
+  const loggedIn = !!currentAttendee || !!user;
 
   return json<LoaderData>({
     attendees: attendees
@@ -56,6 +59,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
       .filter((a) => a.approved)
       .map((a) => a.name),
     userSignedUp,
+    loggedIn,
   });
 };
 
@@ -64,7 +68,7 @@ export default function EventLandingPage() {
     "routes/event/$eventId"
   ) as TournamentLoaderData;
 
-  const { attendees, waitList, userSignedUp } = useLoaderData<
+  const { attendees, waitList, userSignedUp, loggedIn } = useLoaderData<
     typeof loader
   >() as LoaderData;
   const user = useOptionalUser();
@@ -203,6 +207,23 @@ export default function EventLandingPage() {
       )}
       {tournament.listsSubmissionClosed && (
         <div className="content">
+          {userSignedUp && (
+            <>
+              You are attending this tournament. You can{" "}
+              <Link to={`/event/${tournament.slug}/edit-details`}>
+                edit your details.
+              </Link>
+            </>
+          )}
+          {!userSignedUp && !loggedIn && (
+            <>
+              If you are attending this tournament you can{" "}
+              <Link to={`/event/${tournament.slug}/send-edit-link`}>
+                request a link to sign-in
+              </Link>
+              .
+            </>
+          )}
           <h2>Rounds</h2>
           {tournament.scenarios.map((scenario, index) => (
             <Link

@@ -12,12 +12,15 @@ import stylesheetUrl from "~/styles/event.css";
 import ErrorPage, { GenericErrorPage } from "~/error-handling/error-page";
 import type { Breadcrumb } from "~/utils/breadcrumbs";
 import { Breadcrumbs, CURRENT } from "~/utils/breadcrumbs";
+import { getSessionAttendee } from "~/account/session.server";
+import type { Attendee } from "~/tournament/attendee-model.server";
 
 export interface TournamentLoaderData {
   tournament: Tournament;
+  currentAttendee: Attendee | null;
 }
 
-export const loader: LoaderFunction = async ({ params }) => {
+export const loader: LoaderFunction = async ({ request, params }) => {
   invariant(params.eventId, "eventId not found");
 
   const tournament = await getTournamentBySlug(params.eventId);
@@ -25,7 +28,9 @@ export const loader: LoaderFunction = async ({ params }) => {
     throw new Response("Event not found", { status: 404 });
   }
 
-  return json<TournamentLoaderData>({ tournament });
+  const currentAttendee = await getSessionAttendee(request, tournament.slug);
+
+  return json<TournamentLoaderData>({ tournament, currentAttendee });
 };
 
 export const links: LinksFunction = () => {

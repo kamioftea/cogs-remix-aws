@@ -1,7 +1,7 @@
 import type { LoaderFunction } from "@remix-run/router";
 import invariant from "tiny-invariant";
 import type {
-  GameResult,
+  GameOutcome,
   PlayerGame,
 } from "~/tournament/player-game-model.server";
 import { getGamesForRound } from "~/tournament/player-game-model.server";
@@ -40,7 +40,7 @@ export const loader: LoaderFunction = async ({ params }) => {
   });
 };
 
-function resultToOrder(result: GameResult | undefined): number {
+function resultToOrder(result: GameOutcome | undefined): number {
   switch (result) {
     case "Win":
       return 0;
@@ -89,7 +89,7 @@ export default function RoundIndexPage() {
               .sort(
                 sortBy(
                   (pg) => pg.tableNumber,
-                  (pg) => resultToOrder(pg.result),
+                  (pg) => resultToOrder(pg.outcome),
                   (pg) => -(pg.routedPoints ?? 0),
                   (pg) => pg.attendeeSlug
                 )
@@ -121,7 +121,7 @@ export default function RoundIndexPage() {
                           </small>
                         </Link>
                       </td>
-                      <td>{pg.result ?? "-"}</td>
+                      <td>{pg.outcome ?? "-"}</td>
                       <td>{pg.totalScore ?? "-"}</td>
                       <td>{pg.routedPoints ?? "-"}</td>
                     </tr>,
