@@ -8,6 +8,7 @@ export interface VoteInputProps {
   fixedOptions?: boolean;
   votes: Record<string, number>;
   setVotes: (votes: Record<string, number>) => void;
+  name?: string;
 }
 
 export const VoteInput = ({
@@ -16,6 +17,7 @@ export const VoteInput = ({
   votes,
   fixedOptions = false,
   setVotes,
+  name,
 }: VoteInputProps) => {
   const updateVote = useCallback(
     (slug: string, delta: number) => {
@@ -57,15 +59,27 @@ export const VoteInput = ({
             <div className="votee">{options[slug]}</div>
             <div className="vote-input">
               <button
+                type="button"
                 className={`button small${
                   voteCount > 0 ? " primary" : " secondary disabled"
                 }`}
-                onClick={() => voteCount > 0 && updateVote(slug, -1)}
+                onClick={(e) => {
+                  e.preventDefault();
+                  return voteCount > 0 && updateVote(slug, -1);
+                }}
               >
                 -
               </button>
+              {name && (
+                <input
+                  type="hidden"
+                  name={`${name}[${slug}]`}
+                  value={voteCount}
+                />
+              )}
               <span className="lead">{voteCount}</span>
               <button
+                type="button"
                 className={`button small${
                   totalVotes < 7 ? " primary" : " secondary disabled"
                 }`}
@@ -75,8 +89,12 @@ export const VoteInput = ({
               </button>
               {!fixedOptions && (
                 <button
+                  type="button"
                   className="button small alert"
-                  onClick={() => deleteVote(slug)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    deleteVote(slug);
+                  }}
                 >
                   <FiTrash />
                 </button>

@@ -400,6 +400,7 @@ more candidates.`),
         scenario: FoolsGold,
         mapUrl:
           "https://static.goblinoid.co.uk/kow.c-o-g-s.org.uk/maps/FoolsGold.png",
+        roundEnd: "2023-04-23 15:05:00",
       },
       {
         scenario: Invade,

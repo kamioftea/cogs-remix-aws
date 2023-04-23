@@ -105,8 +105,9 @@ const CountdownTimer = ({ deadlineStr }: CountdownTimerProps) => {
   useEffect(() => {
     const interval = setInterval(() => {
       const now = dayjs();
-      if (now >= deadline) {
-        setCurrentPeriod("Round ended");
+      if (now.isAfter(deadline)) {
+        setCurrentPeriod("Round over");
+        return;
       }
 
       const hours = deadline.diff(now, "hours");

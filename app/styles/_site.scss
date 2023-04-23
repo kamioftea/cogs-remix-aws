@@ -288,3 +288,31 @@ figure {
     }
   }
 }
+
+.vote-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  place-items: center start;
+
+  .votee {
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+  }
+
+  .vote-input {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+  }
+
+  .button {
+    margin: 0;
+  }
+
+  .votee:nth-child(4n-3), .vote-input:nth-child(4n-2) {
+    background: #1f1f1f;
+  }
+}

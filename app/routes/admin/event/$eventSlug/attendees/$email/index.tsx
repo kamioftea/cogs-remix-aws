@@ -7,6 +7,7 @@ import type { Attendee } from "~/tournament/attendee-model.server";
 import {
   deleteAttendee,
   getTournamentAttendee,
+  listTournamentAttendeesByEventSlug,
   putAttendee,
 } from "~/tournament/attendee-model.server";
 import { useActionData, useLoaderData } from "@remix-run/react";
@@ -17,15 +18,17 @@ import { ValidationError } from "yup";
 import * as yup from "yup";
 import { getYupErrorMessage } from "~/utils/validation";
 import FormCheckbox from "~/form/checkbox";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { sendEmail } from "~/utils/send-email.server";
 import { VerifyAttendeeEmail } from "~/tournament/verify-attendee-email";
 import { getAttendeeKey } from "~/account/auth.server";
 import { additionalFieldTypes } from "~/tournament/additional-fields";
+import { VoteInput } from "~/tournament/vote-input";
 
 interface LoaderData {
   tournament: Tournament;
   attendee: Attendee;
+  voteOptions: Record<string, string>;
 }
 
 export const loader: LoaderFunction = async ({ params }) => {
@@ -41,7 +44,13 @@ export const loader: LoaderFunction = async ({ params }) => {
     throw new Response("Event attendee not found", { status: 404 });
   }
 
-  return json<LoaderData>({ tournament, attendee });
+  const voteOptions = Object.fromEntries(
+    (await listTournamentAttendeesByEventSlug(eventSlug))
+      .filter((a) => a.slug !== attendee.slug)
+      .map((a) => [a.slug, a.name])
+  );
+
+  return json<LoaderData>({ tournament, attendee, voteOptions });
 };
 
 interface ActionData {
@@ -121,6 +130,32 @@ export const action: ActionFunction = async ({ request, params }) => {
     ...additionalFields,
   };
 
+  attendee.paintBallot = Object.entries(formData)
+    .flatMap(([k, votes]) => {
+      const [, slug] = k.match(/^paint-votes\[([^\]]+)]$/) ?? [];
+      return slug ? [{ slug, votes: parseInt(votes.toString()) }] : [];
+    })
+    .reduce<Record<string, number>>(
+      (acc, { slug, votes }) => ({
+        ...acc,
+        [slug]: (acc[slug] ?? 0) + votes,
+      }),
+      {}
+    );
+
+  attendee.sportsBallot = Object.entries(formData)
+    .flatMap(([k, votes]) => {
+      const [, slug] = k.match(/^sports-votes\[([^\]]+)]$/) ?? [];
+      return slug ? [{ slug, votes: parseInt(votes.toString()) }] : [];
+    })
+    .reduce<Record<string, number>>(
+      (acc, { slug, votes }) => ({
+        ...acc,
+        [slug]: (acc[slug] ?? 0) + votes,
+      }),
+      {}
+    );
+
   await putAttendee({ ...attendee, ...data });
 
   if (attendee.email != data.email) {
@@ -144,7 +179,9 @@ export const action: ActionFunction = async ({ request, params }) => {
 };
 
 export default function ManageAttendeePage() {
-  const { attendee, tournament } = useLoaderData<typeof loader>() as LoaderData;
+  const { attendee, tournament, voteOptions } = useLoaderData<
+    typeof loader
+  >() as LoaderData;
 
   const nameRef = React.useRef<HTMLInputElement>(null);
   const emailRef = React.useRef<HTMLInputElement>(null);
@@ -167,6 +204,14 @@ export default function ManageAttendeePage() {
       paidRef.current?.focus();
     }
   }, [errors]);
+
+  const [paintVotes, setPaintVotes] = useState<Record<string, number>>({});
+  const [sportsVotes, setSportsVotes] = useState<Record<string, number>>({});
+
+  useEffect(() => {
+    setPaintVotes(attendee.paintBallot ?? {});
+    setSportsVotes(attendee.sportsBallot ?? {});
+  }, [attendee]);
 
   return (
     <>
@@ -218,6 +263,20 @@ export default function ManageAttendeePage() {
             )}
           </fieldset>
         ))}
+        <VoteInput
+          title={"Best Army"}
+          options={voteOptions}
+          votes={paintVotes}
+          setVotes={setPaintVotes}
+          name="paint-votes"
+        />
+        <VoteInput
+          title={"Best Sports"}
+          options={voteOptions}
+          votes={sportsVotes}
+          setVotes={setSportsVotes}
+          name="sports-votes"
+        />
         <button type="submit" className="button primary">
           Update
         </button>

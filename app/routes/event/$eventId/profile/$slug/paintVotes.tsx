@@ -41,7 +41,9 @@ export const PaintVotes = ({ attendee, attendeesBySlug }: PaintsVotesProps) => {
   const options = useMemo(
     () =>
       Object.fromEntries(
-        Object.entries(attendeesBySlug).map(([slug, { name }]) => [slug, name])
+        Object.entries(attendeesBySlug)
+          .filter(([slug]) => slug !== attendee.slug)
+          .map(([slug, { name }]) => [slug, name])
       ),
     [attendeesBySlug]
   );
