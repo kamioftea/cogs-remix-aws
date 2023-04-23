@@ -158,3 +158,34 @@ main {
     background: #1f1f1f;
   }
 }
+
+.round-table {
+  tbody tr:nth-child(2n), thead tr {
+    border-bottom: thin $primary-color solid;
+  }
+
+  tbody tr:nth-child(2n-1) {
+    border-bottom: thin darken($primary-color, 20%) solid;
+  }
+}
+
+.round-page-wrapper {
+
+  @include breakpoint(xxlarge up) {
+    display: grid;
+    grid-gap: 3rem;
+    grid-template-columns: 1fr 1fr;
+  }
+
+}
+
+main {
+  @include breakpoint(xxlarge up) {
+    max-width: 120rem;
+  }
+}
+
+.round-timer {
+  font-size: 10rem;
+  text-align: center;
+}

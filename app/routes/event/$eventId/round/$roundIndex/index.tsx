@@ -73,7 +73,7 @@ export default function RoundIndexPage() {
   return (
     <>
       <h3>Tables</h3>
-      <table>
+      <table className="round-table">
         <thead>
           <tr>
             <th>Table</th>

@@ -48,6 +48,7 @@ export interface Tournament {
   scenarios: {
     scenario: Scenario;
     mapUrl: string;
+    roundEnd?: string;
   }[];
   pointsLimit?: number;
 }
@@ -393,6 +394,7 @@ more candidates.`),
         scenario: Loot,
         mapUrl:
           "https://static.goblinoid.co.uk/kow.c-o-g-s.org.uk/maps/Loot.png",
+        roundEnd: "2023-04-23 12:15:00",
       },
       {
         scenario: FoolsGold,
