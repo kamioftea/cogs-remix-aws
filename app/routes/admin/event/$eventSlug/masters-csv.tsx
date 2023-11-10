@@ -58,6 +58,7 @@ export const loader: LoaderFunction = async ({ params }) => {
           outcomes["Draw"],
           outcomes["Loss"],
           attendee.additionalFields?.["total_routed"],
+          `https://kow.c-o-g-s.org.uk/event/${tournament.slug}/profile/${attendee.slug}/army-list`,
           ...[
             ...(attendee.additionalFields?.["awards"] ?? "").split(/\s*,\s*/),
             ...["", ""],
@@ -68,12 +69,12 @@ export const loader: LoaderFunction = async ({ params }) => {
       })
   );
 
-  const body = `KoW Masters Results Submission Form,,,,,,,,,,
-Event ID,${tournament.kowMastersEventId},,,,,,,,,
-Event Name,${tournament.title},,,,,,,,,
-,,,,,,,,,,
-,,,,,,,,Awards (non-podium),,
-Rank,Player Name,Faction,Allies,Wins,Draws,Losses,Kill Points,Award 1,Award 2,Award 3
+  const body = `KoW Masters Results Submission Form,,,,,,,,,,,
+Event ID,${tournament.kowMastersEventId},,,,,,,,,,
+Event Name,${tournament.title},,,,,,,,,,
+,,,,,,,,,,,
+,,,,,,,,,Awards (non-podium),,
+Rank,Player Name,Faction,Allies,Wins,Draws,Losses,Kill Points,Army List,Award 1,Award 2,Award 3
 ${rows.join("\n")}
 `;
 
