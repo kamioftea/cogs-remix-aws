@@ -2,7 +2,7 @@ import type { ActionFunction, LoaderFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { getSessionId } from "~/account/session.server";
 import * as React from "react";
-import type { SchemaOf } from "yup";
+import type { ObjectSchema } from "yup";
 import { ValidationError } from "yup";
 import * as yup from "yup";
 import { getUserByEmail } from "~/account/user-model.server";
@@ -23,7 +23,7 @@ interface RegisterData {
   email: string;
 }
 
-const schema: SchemaOf<RegisterData> = yup.object().shape({
+const schema: ObjectSchema<RegisterData> = yup.object().shape({
   name: yup.string().required(),
   email: yup.string().email().required(),
 });
@@ -64,7 +64,11 @@ export const action: ActionFunction = async ({ request }) => {
     );
   }
 
+  console.log({registerData});
+
   await createUser(registerData.name, registerData.email);
+
+  console.log('created')
 
   return json<ActionData>({ accountCreated: true });
 };

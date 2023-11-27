@@ -16,3 +16,5 @@ sam.yaml
 
 /.idea
 /cogs-remix.iml
+/server/metafile.js.json
+/server/metafile.server.json

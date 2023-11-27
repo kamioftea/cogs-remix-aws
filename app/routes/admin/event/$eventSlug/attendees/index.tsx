@@ -105,7 +105,7 @@ function getActions(attendee: Attendee): ReactNode {
 }
 
 export default function EventIndexPage() {
-  const { attendees } = useLoaderData<typeof loader>();
+  const { attendees } = useLoaderData<typeof loader>() as LoaderData;
 
   return (
     <>

@@ -3,6 +3,7 @@ import { faker } from "@faker-js/faker";
 describe("smoke tests", () => {
   it("should allow you to register and login", () => {
     const loginForm = {
+      name: faker.person.fullName(),
       email: `${faker.internet.userName()}@example.com`,
       password: faker.internet.password(),
     };
@@ -11,12 +12,16 @@ describe("smoke tests", () => {
     cy.visitAndCheck("/");
     cy.findByRole("link", { name: /sign up/i }).click();
 
+    cy.findByRole("textbox", { name: /name/i }).type(loginForm.name);
     cy.findByRole("textbox", { name: /email/i }).type(loginForm.email);
-    cy.findByLabelText(/password/i).type(loginForm.password);
-    cy.findByRole("button", { name: /create account/i }).click();
+    cy.findByRole("button", { name: /register/i }).click().wait(500);
 
-    cy.findByRole("link", { name: /notes/i }).click();
-    cy.findByRole("button", { name: /logout/i }).click();
-    cy.findByRole("link", { name: /log in/i });
+    cy.request('POST', `/__tests/validate-user-and-redirect/${encodeURIComponent(loginForm.email)}`)
+      .then(res => cy.visit(res.body.redirect));
+
+    cy.findByLabelText(/new password/i ).type(loginForm.password);
+    cy.findByRole("button", { name: /Set password/i }).click().wait(500);
+
+    cy.findByText(/logged in as/i ).should('contain.text', loginForm.name)
   });
 });

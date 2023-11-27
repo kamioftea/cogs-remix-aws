@@ -15,7 +15,7 @@ import { FiCheck } from "react-icons/fi";
 import ErrorPage, { GenericErrorPage } from "~/error-handling/error-page";
 import type { TournamentLoaderData } from "~/routes/event/$eventId";
 import * as yup from "yup";
-import type { SchemaOf } from "yup";
+import type { ObjectSchema } from "yup";
 import { ValidationError } from "yup";
 import { getYupErrorMessage } from "~/utils/validation";
 import { sendEmail } from "~/utils/send-email.server";
@@ -36,7 +36,7 @@ interface RequestData {
   email: string;
 }
 
-const schema: SchemaOf<RequestData> = yup.object().shape({
+const schema: ObjectSchema<RequestData> = yup.object().shape({
   email: yup.string().email().required(),
 });
 

@@ -24,7 +24,7 @@ import {
 import { FiAlertCircle, FiCheckCircle } from "react-icons/fi";
 import { redirect } from "@remix-run/router";
 import { getSessionAttendee, getUser } from "~/account/session.server";
-import type { SchemaOf } from "yup";
+import type { ObjectSchema } from "yup";
 import * as yup from "yup";
 import { ValidationError } from "yup";
 import { getYupErrorMessage } from "~/utils/validation";
@@ -66,7 +66,7 @@ interface EditDetailsData {
   name: string;
 }
 
-const schema: SchemaOf<EditDetailsData> = yup.object().shape({
+const schema: ObjectSchema<EditDetailsData> = yup.object().shape({
   name: yup.string().required(),
 });
 

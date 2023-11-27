@@ -3,15 +3,14 @@ import { json, redirect } from "@remix-run/node";
 import * as React from "react";
 import { useEffect } from "react";
 import * as yup from "yup";
-import type { SchemaOf } from "yup";
+import type { ObjectSchema } from "yup";
 import { ValidationError } from "yup";
 import { setUserPassword } from "~/account/user-model.server";
 import {
   Form,
   Link,
   useActionData,
-  useCatch,
-  useLoaderData,
+  useLoaderData, useRouteError, isRouteErrorResponse
 } from "@remix-run/react";
 import { getYupErrorMessage } from "~/utils/validation";
 import { validateResetKey } from "~/account/auth.server";
@@ -34,7 +33,7 @@ interface VerifyData {
   password: string;
 }
 
-const schema: SchemaOf<VerifyData> = yup.object().shape({
+const schema: ObjectSchema<VerifyData> = yup.object().shape({
   password: yup.string().min(10).required(),
 });
 
@@ -125,9 +124,9 @@ export default function AccountRegisterPage() {
 }
 
 export function CatchBoundary() {
-  const caught = useCatch();
+  const caught = useRouteError();
 
-  if (caught.data.heading && caught.data.message) {
+  if (isRouteErrorResponse(caught)) {
     return (
       <ErrorPage heading={caught.data.heading}>
         <div dangerouslySetInnerHTML={{ __html: caught.data.message }} />

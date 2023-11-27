@@ -2,11 +2,11 @@ import type { ActionFunction, LoaderFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import * as React from "react";
 import { useEffect } from "react";
-import type { SchemaOf } from "yup";
+import type { ObjectSchema } from "yup";
 import * as yup from "yup";
 import { ValidationError } from "yup";
 import { ADMIN_EMAIL, getUserByEmail } from "~/account/user-model.server";
-import { Form, Link, useActionData, useCatch } from "@remix-run/react";
+import { Form, isRouteErrorResponse, Link, useActionData, useRouteError } from "@remix-run/react";
 import { getYupErrorMessage } from "~/utils/validation";
 import { getResetKey } from "~/account/auth.server";
 import { getSessionId } from "~/account/session.server";
@@ -28,7 +28,7 @@ interface RequestData {
   email: string;
 }
 
-const schema: SchemaOf<RequestData> = yup.object().shape({
+const schema: ObjectSchema<RequestData> = yup.object().shape({
   email: yup.string().email().required(),
 });
 
@@ -145,9 +145,9 @@ export default function ResetPasswordPage() {
 }
 
 export function CatchBoundary() {
-  const caught = useCatch();
+  const caught = useRouteError();
 
-  if (caught.data.heading && caught.data.message) {
+  if (isRouteErrorResponse(caught)) {
     return (
       <ErrorPage heading={caught.data.heading}>
         <div dangerouslySetInnerHTML={{ __html: caught.data.message }} />

@@ -1,6 +1,7 @@
 import type { InputHTMLAttributes } from "react";
 import * as React from "react";
 import { purgeUndefined } from "~/utils/purgeUndefined";
+import * as yup from "yup";
 
 export interface FormCheckboxProps {
   label: string;
@@ -54,4 +55,11 @@ export default function FormCheckbox({
       )}
     </label>
   );
+}
+
+export function checkboxSchema() {
+  return yup
+    .mixed<boolean>()
+    .transform((s) => s === "on")
+    .default(false);
 }

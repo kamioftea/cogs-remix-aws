@@ -8,22 +8,23 @@ import {
   deleteAttendee,
   getTournamentAttendee,
   listTournamentAttendeesByEventSlug,
-  putAttendee,
+  putAttendee
 } from "~/tournament/attendee-model.server";
 import { useActionData, useLoaderData } from "@remix-run/react";
 import * as React from "react";
+import { useEffect, useState } from "react";
 import FormInput from "~/form/input";
-import type { SchemaOf } from "yup";
-import { ValidationError } from "yup";
+import type { ObjectSchema } from "yup";
 import * as yup from "yup";
+import { ValidationError } from "yup";
 import { getYupErrorMessage } from "~/utils/validation";
 import FormCheckbox from "~/form/checkbox";
-import { useEffect, useState } from "react";
 import { sendEmail } from "~/utils/send-email.server";
 import { VerifyAttendeeEmail } from "~/tournament/verify-attendee-email";
 import { getAttendeeKey } from "~/account/auth.server";
 import { additionalFieldTypes } from "~/tournament/additional-fields";
 import { VoteInput } from "~/tournament/vote-input";
+import { checkboxSchema } from "~/form/checkbox";
 
 interface LoaderData {
   tournament: Tournament;
@@ -67,21 +68,12 @@ interface UpdateData {
   paid: Attendee["paid"];
 }
 
-const schema: SchemaOf<UpdateData> = yup.object().shape({
+const schema: ObjectSchema<UpdateData> = yup.object().shape({
   name: yup.string().required(),
   email: yup.string().email().required(),
-  approved: yup
-    .mixed()
-    .transform((s) => s === "on")
-    .default(false),
-  verified: yup
-    .mixed()
-    .transform((s) => s === "on")
-    .default(false),
-  paid: yup
-    .mixed()
-    .transform((s) => s === "on")
-    .default(false),
+  approved: checkboxSchema(),
+  verified: checkboxSchema(),
+  paid: checkboxSchema(),
 });
 
 export const action: ActionFunction = async ({ request, params }) => {

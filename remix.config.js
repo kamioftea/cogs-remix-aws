@@ -28,6 +28,11 @@ module.exports = {
         "__tests/setup-tournament",
         path.relative(appDir, "cypress/support/test-routes/setup-tournament.ts")
       );
+
+      route(
+        "__tests/validate-user-and-redirect/:email",
+        path.relative(appDir, "cypress/support/test-routes/validate-user-and-redirect.ts")
+      );
     });
   },
 };

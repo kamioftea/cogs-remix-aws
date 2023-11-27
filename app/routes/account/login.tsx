@@ -3,13 +3,14 @@ import { json, redirect } from "@remix-run/node";
 import { createUserSession, getUser } from "~/account/session.server";
 import * as React from "react";
 import { useEffect } from "react";
-import type { SchemaOf } from "yup";
+import type { ObjectSchema } from "yup";
 import * as yup from "yup";
 import { ValidationError } from "yup";
 import { verifyLogin } from "~/account/user-model.server";
 import { safeRedirect } from "~/utils";
 import { Form, Link, useActionData } from "@remix-run/react";
 import { getYupErrorMessage } from "~/utils/validation";
+import { checkboxSchema } from "~/form/checkbox";
 
 export const loader: LoaderFunction = async ({ request }) => {
   const user = await getUser(request);
@@ -24,10 +25,10 @@ interface LoginData {
   redirectTo: string;
 }
 
-const schema: SchemaOf<LoginData> = yup.object().shape({
+const schema: ObjectSchema<LoginData> = yup.object().shape({
   email: yup.string().email().required(),
   password: yup.string().min(10).required(),
-  remember: yup.mixed().transform((s) => s === "on"),
+  remember: checkboxSchema(),
   redirectTo: yup
     .string()
     .default("/account")

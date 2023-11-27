@@ -2,7 +2,7 @@ import type { ActionFunction, LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import * as React from "react";
 import { useEffect } from "react";
-import type { SchemaOf } from "yup";
+import type { ObjectSchema } from "yup";
 import * as yup from "yup";
 import { ValidationError } from "yup";
 import { getUserByEmail, isVerified } from "~/account/user-model.server";
@@ -40,7 +40,7 @@ interface SignUpData {
 export const loader: LoaderFunction = async ({ request, params }) => {
   invariant(params.eventId, "eventId not found");
 
-  const tournament = await getTournamentBySlug(params.eventId);
+  const tournament = getTournamentBySlug(params.eventId);
   if (!tournament) {
     throw new Response("Event not found", { status: 404 });
   }
@@ -57,7 +57,7 @@ const breadcrumbs: Breadcrumb[] = [{ label: "Sign Up", url: CURRENT }];
 
 export const handle = { breadcrumbs };
 
-const schema: SchemaOf<SignUpData> = yup.object().shape({
+const schema: ObjectSchema<SignUpData> = yup.object().shape({
   name: yup.string().required(),
   email: yup.string().email().required(),
 });
@@ -75,7 +75,7 @@ interface ActionData {
 export const action: ActionFunction = async ({ request, params }) => {
   invariant(params.eventId, "eventId not found");
 
-  const tournament = await getTournamentBySlug(params.eventId);
+  const tournament = getTournamentBySlug(params.eventId);
 
   if (!tournament) {
     throw new Response("Tournament not found", { status: 404 });

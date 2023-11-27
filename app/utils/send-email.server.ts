@@ -1,8 +1,4 @@
-import type {
-  SendEmailCommandInput,
-  SendEmailCommandOutput,
-  Body,
-} from "@aws-sdk/client-ses";
+import type { SendEmailCommandInput, Body, } from "@aws-sdk/client-ses";
 import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
 
 const client = new SESClient({ region: "eu-west-2" });
@@ -25,7 +21,11 @@ function toContent(data: string) {
   };
 }
 
-export function sendEmail(email: Email): Promise<SendEmailCommandOutput> {
+export async function sendEmail(email: Email): Promise<void> {
+  if(process.env.NODE_ENV === 'development') {
+    return;
+  }
+
   const body: Body = {};
   if (email.html) {
     body.Html = toContent(email.html);
@@ -48,5 +48,7 @@ export function sendEmail(email: Email): Promise<SendEmailCommandOutput> {
     },
   };
 
-  return client.send(new SendEmailCommand(params));
+  await client.send(new SendEmailCommand(params));
+
+  return;
 }
