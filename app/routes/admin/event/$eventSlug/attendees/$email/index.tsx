@@ -18,13 +18,13 @@ import type { ObjectSchema } from "yup";
 import * as yup from "yup";
 import { ValidationError } from "yup";
 import { getYupErrorMessage } from "~/utils/validation";
-import FormCheckbox from "~/form/checkbox";
+import FormCheckbox, { checkboxSchema } from "~/form/checkbox";
 import { sendEmail } from "~/utils/send-email.server";
 import { VerifyAttendeeEmail } from "~/tournament/verify-attendee-email";
 import { getAttendeeKey } from "~/account/auth.server";
 import { additionalFieldTypes } from "~/tournament/additional-fields";
 import { VoteInput } from "~/tournament/vote-input";
-import { checkboxSchema } from "~/form/checkbox";
+
 
 interface LoaderData {
   tournament: Tournament;

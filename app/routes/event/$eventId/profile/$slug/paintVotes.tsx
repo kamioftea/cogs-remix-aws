@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { VoteInput } from "~/tournament/vote-input";
-import {
+import type {
   Attendee,
   AttendeeDisplayData,
 } from "~/tournament/attendee-model.server";
@@ -45,7 +45,7 @@ export const PaintVotes = ({ attendee, attendeesBySlug }: PaintsVotesProps) => {
           .filter(([slug]) => slug !== attendee.slug)
           .map(([slug, { name }]) => [slug, name])
       ),
-    [attendeesBySlug]
+    [attendee.slug, attendeesBySlug]
   );
 
   return (

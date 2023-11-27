@@ -1,4 +1,5 @@
-import { ActionFunction, json } from "@remix-run/node";
+import type { ActionFunction} from "@remix-run/node";
+import { json } from "@remix-run/node";
 import { assertNonProd } from "./helpers/assert-non-prod";
 import invariant from "tiny-invariant";
 import { registerUserByEmail } from "~/account/user-model.server";

@@ -24,15 +24,17 @@ import {
 import type { TournamentLoaderData } from "~/routes/event/$eventId";
 import type { Breadcrumb } from "~/utils/breadcrumbs";
 import { CURRENT } from "~/utils/breadcrumbs";
-import React, { Fragment, ReactNode, useMemo } from "react";
+import type { ReactNode} from "react";
+import React, { Fragment, useMemo } from "react";
 import { ArmyList } from "~/tournament/army-list-field";
-import { RoundLoaderData } from "~/routes/event/$eventId/round/$roundIndex";
+import type { RoundLoaderData } from "~/routes/event/$eventId/round/$roundIndex";
 import {
   ScoreInputField,
   ScoreInputValue,
 } from "~/tournament/scenario/scenario";
 import FormInput from "~/form/input";
-import { ActionFunction, redirect } from "@remix-run/router";
+import type { ActionFunction} from "@remix-run/router";
+import { redirect } from "@remix-run/router";
 import { getSessionAttendee } from "~/account/session.server";
 import ErrorPage, { GenericErrorPage } from "~/error-handling/error-page";
 import { getTournamentBySlug } from "~/tournament/tournament-model.server";
@@ -205,7 +207,7 @@ export default function RoundIndexPage() {
             ""
           ),
       }),
-      [scenario, playerGames]
+      [currentAttendee?.slug, scenario, tournament.pointsLimit]
     );
 
   if ((playerGames || []).length === 0) {

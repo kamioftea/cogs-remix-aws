@@ -5,11 +5,11 @@ import * as React from "react";
 import type { ObjectSchema } from "yup";
 import { ValidationError } from "yup";
 import * as yup from "yup";
-import { getUserByEmail } from "~/account/user-model.server";
+import { getUserByEmail , createUser } from "~/account/user-model.server";
 import { Form, Link, useActionData } from "@remix-run/react";
 import { useEffect } from "react";
 import { getYupErrorMessage } from "~/utils/validation";
-import { createUser } from "~/account/user-model.server";
+
 import { FiCheck } from "react-icons/fi";
 
 export const loader: LoaderFunction = async ({ request }) => {

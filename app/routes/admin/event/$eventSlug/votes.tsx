@@ -1,6 +1,8 @@
-import { json, LoaderFunction } from "@remix-run/router";
+import type { LoaderFunction } from "@remix-run/router";
+import { json } from "@remix-run/router";
+import type {
+  AttendeeDisplayData} from "~/tournament/attendee-model.server";
 import {
-  AttendeeDisplayData,
   attendeeDisplayDataBySlug,
   listTournamentAttendeesByEventSlug,
 } from "~/tournament/attendee-model.server";
@@ -85,7 +87,7 @@ export default function VotesPage() {
       <h3>Best Army</h3>
       <ul>
         {paintRanking.map(([slug, votes]) => (
-          <li>
+          <li key={slug}>
             {attendees[slug]?.name ?? slug}: {votes}
           </li>
         ))}
@@ -93,7 +95,7 @@ export default function VotesPage() {
       <h3>Best Sports</h3>
       <ul>
         {sportRanking.map(([slug, votes]) => (
-          <li>
+          <li key={slug}>
             {attendees[slug]?.name ?? slug}: {votes}
           </li>
         ))}
@@ -101,7 +103,7 @@ export default function VotesPage() {
       <h3>Raffle</h3>
       <ul>
         {raffle.map(({ name }) => (
-          <li>{name}</li>
+          <li key={name}>{name}</li>
         ))}
       </ul>
     </>

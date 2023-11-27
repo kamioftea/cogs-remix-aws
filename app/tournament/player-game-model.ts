@@ -1,4 +1,4 @@
-import { PlayerGame } from "~/tournament/player-game-model.server";
+import type { PlayerGame } from "~/tournament/player-game-model.server";
 
 export function getOutcomeBonus(outcome: PlayerGame["outcome"]): number {
   switch (outcome) {

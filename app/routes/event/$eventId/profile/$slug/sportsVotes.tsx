@@ -1,11 +1,11 @@
 import * as React from "react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { VoteInput } from "~/tournament/vote-input";
-import {
+import type {
   Attendee,
   AttendeeDisplayData,
 } from "~/tournament/attendee-model.server";
-import { PlayerGame } from "~/tournament/player-game-model.server";
+import type { PlayerGame } from "~/tournament/player-game-model.server";
 
 interface SportsVotesProps {
   attendee: Attendee;

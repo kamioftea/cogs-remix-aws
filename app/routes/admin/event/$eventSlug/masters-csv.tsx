@@ -5,8 +5,9 @@ import ErrorPage, { GenericErrorPage } from "~/error-handling/error-page";
 import { useCatch } from "@remix-run/react";
 import { listTournamentAttendeesByEventSlug } from "~/tournament/attendee-model.server";
 import { sortBy } from "~/utils";
+import type {
+  GameOutcome} from "~/tournament/player-game-model.server";
 import {
-  GameOutcome,
   getGamesForAttendee,
 } from "~/tournament/player-game-model.server";
 

@@ -35,7 +35,7 @@ import { sortBy } from "~/utils";
 import { FiInfo } from "react-icons/fi";
 import { SportsVotes } from "~/routes/event/$eventId/profile/$slug/sportsVotes";
 import { PaintVotes } from "~/routes/event/$eventId/profile/$slug/paintVotes";
-import { ActionFunction } from "@remix-run/router";
+import type { ActionFunction } from "@remix-run/router";
 
 interface LoaderData {
   attendee: Attendee;
