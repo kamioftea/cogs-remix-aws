@@ -105,6 +105,7 @@ jobs:
   deploy:
     needs: [lint, typecheck, vitest, cypress]
     runs-on: ubuntu-latest
+    environment: AWS Deployment
 
     steps:
       - name: ⬇️ Checkout repo
