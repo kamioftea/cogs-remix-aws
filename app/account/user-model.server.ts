@@ -96,8 +96,6 @@ export async function createUser(
   const user = await getUserByEmail(email);
   invariant(user, `User not found after being created. This should not happen`);
 
-  console.log(user)
-
   return user;
 }
 

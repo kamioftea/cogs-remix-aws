@@ -35,8 +35,6 @@ export async function getAccessKey(
   purpose: AccessToken["purpose"],
   eventSlug?: Attendee["eventSlug"]
 ): Promise<string> {
-  console.log(TOKEN_SECRET)
-
   return await Iron.seal(
     { email, purpose, eventSlug, createdAt: Date.now() },
     TOKEN_SECRET,

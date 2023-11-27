@@ -13,8 +13,6 @@ export const action: ActionFunction = async ({ params }) => {
   const { email } = params;
   invariant(email, "From route");
 
-  console.log({email})
-
   try {
     await registerUserByEmail(email);
   } catch (err) {
@@ -25,7 +23,6 @@ export const action: ActionFunction = async ({ params }) => {
   const verifyURL = new URL(`${BASE_URL}/account/verify/`);
   verifyURL.searchParams.set("token", resetKey);
 
-  console.log({ verifyURL, email })
   return json({redirect: verifyURL.toString()});
 }
 

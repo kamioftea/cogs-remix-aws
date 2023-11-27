@@ -64,11 +64,7 @@ export const action: ActionFunction = async ({ request }) => {
     );
   }
 
-  console.log({registerData});
-
   await createUser(registerData.name, registerData.email);
-
-  console.log('created')
 
   return json<ActionData>({ accountCreated: true });
 };
