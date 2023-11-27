@@ -1,7 +1,7 @@
 import { useMatches } from "@remix-run/react";
 import { useMemo } from "react";
 
-import type { User } from "~/models/user.server";
+import type { User } from "~/account/user-model";
 
 const DEFAULT_REDIRECT = "/";
 
@@ -68,4 +68,43 @@ export function useUser(): User {
 
 export function validateEmail(email: unknown): email is string {
   return typeof email === "string" && email.length > 3 && email.includes("@");
+}
+
+export function sortBy<T>(
+  ...lenses: ((t: T) => number | string)[]
+): (a: T, b: T) => number {
+  return (a: T, b: T) => {
+    for (const lens of lenses) {
+      const resA = lens(a);
+      const resB = lens(b);
+      if (resA === resB) {
+        continue;
+      }
+
+      if (typeof resA === "number" && typeof resB === "number") {
+        return resA - resB;
+      }
+      if (typeof resA === "string" && typeof resB === "string") {
+        return resA.localeCompare(resB);
+      }
+
+      throw new Error("Lens must return a consistent type");
+    }
+
+    return 0;
+  };
+}
+
+export function toPairs<T>(arr: T[]): [T, T][] {
+  const chunks: [T, T][] = [];
+  function iter([a, b, ...rest]: T[]): void {
+    chunks.push([a, b]);
+    if (rest.length > 0) {
+      iter(rest);
+    }
+  }
+
+  iter(arr);
+
+  return chunks;
 }

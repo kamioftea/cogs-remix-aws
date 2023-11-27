@@ -1,0 +1,62 @@
+@import "settings";
+@import "util/util";
+
+body {
+  display: grid;
+
+  grid-template:
+    "banner account" 5rem
+    "sidebar main" 1fr
+    / 20rem 1fr;
+
+  @include breakpoint(small down) {
+    grid-template:
+      "account" 1.5rem
+      "banner" 3rem
+      "main" 1fr
+      "sidebar" auto
+      / 1fr;
+  }
+
+  align-items: start;
+  justify-items: start;
+  grid-gap: $global-margin;
+}
+
+header {
+  grid-area: account;
+  width: 100%;
+  max-width: 100%;
+  place-self: start;
+  min-height: 100%;
+}
+
+.banner {
+  grid-area: banner;
+  width: 100%;
+  max-width: 100%;
+  place-self: start;
+  min-height: 100%;
+  border-bottom: thin $primary-color solid;
+}
+
+nav {
+  width: 100%;
+  max-width: 100%;
+}
+
+nav.admin-sidebar {
+  grid-area: sidebar;
+  width: 100%;
+  max-width: 100%;
+  place-self: start;
+  min-height: 100%;
+}
+
+main {
+  grid-area: main;
+  width: 100%;
+  max-width: 100%;
+  place-self: stretch;
+  min-height: 100%;
+}
