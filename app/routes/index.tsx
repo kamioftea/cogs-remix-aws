@@ -9,10 +9,16 @@ import { tournaments } from "~/tournament/tournament-model.server";
 import { Fragment, useMemo } from "react";
 import { Breadcrumbs } from "~/utils/breadcrumbs";
 import { Predicate, sortBy } from "~/utils";
+import { ClubNight, clubNights } from "~/club_night/club_night_model.server";
 import dayjs from "dayjs";
+
+import advancedFormat from "dayjs/plugin/advancedFormat";
+
+dayjs.extend(advancedFormat);
 
 interface LoaderData {
   tournaments: Tournament[];
+  club_night: ClubNight | undefined;
 }
 
 export const links: LinksFunction = () => {
@@ -20,7 +26,11 @@ export const links: LinksFunction = () => {
 };
 
 export const loader: LoaderFunction = async () => {
-  return json<LoaderData>({ tournaments });
+  const now = dayjs().startOf("day");
+  let club_night =
+    clubNights.sort(sortBy(cn => cn.date))
+              .find(cn => !dayjs(cn.date).isBefore(now));
+  return json<LoaderData>({ tournaments, club_night });
 };
 
 function TournamentCard({ tournament }: { tournament: Tournament }) {
@@ -64,7 +74,7 @@ function TournamentCard({ tournament }: { tournament: Tournament }) {
 
 export default function Index() {
   // noinspection JSUnusedLocalSymbols
-  const { tournaments } = useLoaderData<LoaderData>() as LoaderData;
+  const { tournaments, club_night } = useLoaderData<LoaderData>() as LoaderData;
 
   const [upcoming, previous] = useMemo(() => {
     const now = dayjs().endOf("day");
@@ -142,16 +152,24 @@ export default function Index() {
 
         <p>
           Please arrange a game with an opponent beforehand, or come to one of
-          our dedicated Kings of War evenings. The next of these is Monday 12th
-          December,{" "}
-          <a
-            href="https://facebook.com/events/s/kow-1995pts1000pts/807563333639644/"
-            target="_blank"
-            rel="noreferrer"
-          >
-            see the Facebook event
-          </a>{" "}
-          for more details.
+          our dedicated Kings of War evenings.{" "}
+          {club_night
+           ? <>
+             The next of these is {dayjs(club_night.date).format("dddd Do MMMM")},{" "}
+             <a
+               href={club_night.facebook_event_url}
+               target="_blank"
+               rel="noreferrer"
+             >
+               see the Facebook event
+             </a>{" "}
+             for more details.
+           </>
+           : <>
+             These will be published as{" "}
+             <a href="https://www.facebook.com/groups/main.cogs/events">COGs Facebook group events</a>.
+           </>
+          }
         </p>
 
         <p>
