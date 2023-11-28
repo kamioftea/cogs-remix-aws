@@ -63,6 +63,20 @@
         Arial, sans-serif;
       color: $secondary-color;
     }
+
+    .date-line {
+      font-size: rem-calc(48px);
+      line-height: 1;
+
+      @include breakpoint(rem-calc(720px) down) {
+        font-size: rem-calc(24px);
+        line-height: 1;
+      }
+
+      font-family: "Wolfsbane", "Spectral", "Helvetica Neue", Helvetica, Roboto,
+        Arial, sans-serif;
+      color: $secondary-color;
+    }
   }
 }
 

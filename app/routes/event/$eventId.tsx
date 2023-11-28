@@ -14,6 +14,10 @@ import type { Breadcrumb } from "~/utils/breadcrumbs";
 import { Breadcrumbs, CURRENT } from "~/utils/breadcrumbs";
 import { getSessionAttendee } from "~/account/session.server";
 import type { Attendee } from "~/tournament/attendee-model.server";
+import dayjs from "dayjs";
+
+import advancedFormat from "dayjs/plugin/advancedFormat";
+dayjs.extend(advancedFormat)
 
 export interface TournamentLoaderData {
   tournament: Tournament;
@@ -90,6 +94,9 @@ export default function EventLandingPage() {
         >
           <h1>{tournament.title}</h1>
           <p className="subtitle">{tournament.subtitle}</p>
+          {tournament.date && <p className="date-line">
+            {dayjs(tournament.date).format("Do MMMM YYYY")}
+          </p> }
         </div>
       </header>
 
