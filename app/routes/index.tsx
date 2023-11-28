@@ -6,8 +6,10 @@ import { FiChevronRight } from "react-icons/fi";
 import stylesheetUrl from "~/styles/index.css";
 import type { Tournament } from "~/tournament/tournament-model.server";
 import { tournaments } from "~/tournament/tournament-model.server";
-import { Fragment } from "react";
+import { Fragment, useMemo } from "react";
 import { Breadcrumbs } from "~/utils/breadcrumbs";
+import { Predicate, sortBy } from "~/utils";
+import dayjs from "dayjs";
 
 interface LoaderData {
   tournaments: Tournament[];
@@ -21,9 +23,62 @@ export const loader: LoaderFunction = async () => {
   return json<LoaderData>({ tournaments });
 };
 
+function TournamentCard({ tournament }: { tournament: Tournament }) {
+  return (
+    <Fragment>
+      <Link
+        to={`/event/${tournament.slug}`}
+        aria-labelledby={`${tournament.slug}-find-out-more`}
+      >
+        <section
+          aria-labelledby={`${tournament.slug}-heading`}
+          className="event"
+        >
+          <img
+            src={`/_static/images/${tournament.imageUrl}`}
+            alt={tournament.imageDescription}
+            role="presentation"
+          />
+          <h3
+            id="{{ event.data.title | kebabCase }}-heading"
+            className="event-title"
+          >
+            {tournament.title}
+            <br />
+            <small>{tournament.subtitle}</small>
+          </h3>
+          <button
+            className="button more-info"
+            id={`${tournament.slug}-find-out-more`}
+            type="button"
+            tabIndex={-1}
+          >
+            {tournament.title} event page
+            <FiChevronRight />
+          </button>
+        </section>
+      </Link>
+    </Fragment>
+  );
+}
+
 export default function Index() {
   // noinspection JSUnusedLocalSymbols
-  const { tournaments } = useLoaderData<LoaderData>();
+  const { tournaments } = useLoaderData<LoaderData>() as LoaderData;
+
+  const [upcoming, previous] = useMemo(() => {
+    const now = dayjs().endOf("day");
+    const predicate = new Predicate<Tournament>((tournament) => {
+      return dayjs(tournament.date ?? now).isAfter(now);
+    });
+    const [upcoming, previous] = predicate.partition(tournaments);
+
+    const sortByDate = sortBy<Tournament>((t) => (t.date ?? now).unix());
+    upcoming.sort(sortByDate);
+    previous.sort(sortByDate);
+
+    return [upcoming, previous];
+  }, [tournaments]);
 
   return (
     <>
@@ -45,45 +100,16 @@ export default function Index() {
           first edition, and it is one of the most common games played at the
           club.
         </p>
-        <h2>Upcoming Events</h2>
-        <div className="upcoming-events">
-          {tournaments.map((tournament) => (
-            <Fragment key={tournament.slug}>
-              <Link
-                to={`/event/${tournament.slug}`}
-                aria-labelledby={`${tournament.slug}-find-out-more`}
-              >
-                <section
-                  aria-labelledby={`${tournament.slug}-heading`}
-                  className="event"
-                >
-                  <img
-                    src={`/_static/images/${tournament.imageUrl}`}
-                    alt={tournament.imageDescription}
-                    role="presentation"
-                  />
-                  <h3
-                    id="{{ event.data.title | kebabCase }}-heading"
-                    className="event-title"
-                  >
-                    {tournament.title}
-                    <br />
-                    <small>{tournament.subtitle}</small>
-                  </h3>
-                  <button
-                    className="button more-info"
-                    id={`${tournament.slug}-find-out-more`}
-                    type="button"
-                    tabIndex={-1}
-                  >
-                    {tournament.title} event page
-                    <FiChevronRight />
-                  </button>
-                </section>
-              </Link>
-            </Fragment>
-          ))}
-        </div>
+        {upcoming.length > 0 && (
+          <>
+            <h2>Upcoming Events</h2>
+            <div className="event-card-list">
+              {upcoming.map((tournament) => (
+                <TournamentCard tournament={tournament} key={tournament.slug} />
+              ))}
+            </div>
+          </>
+        )}
 
         <h2>Club Nights</h2>
         <p>
@@ -139,6 +165,17 @@ export default function Index() {
           </a>{" "}
           to keep up-to-date with what's going on at the club.
         </p>
+
+        {previous.length > 0 && (
+          <>
+            <h2>Past Events</h2>
+            <div className="event-card-list">
+              {previous.map((tournament) => (
+                <TournamentCard tournament={tournament} key={tournament.slug} />
+              ))}
+            </div>
+          </>
+        )}
       </main>
 
       <footer>

@@ -4,6 +4,8 @@ import type { Scenario } from "~/tournament/scenario/scenario";
 import { Loot } from "~/tournament/scenario/loot";
 import { FoolsGold } from "~/tournament/scenario/fools-gold";
 import { Invade } from "~/tournament/scenario/invade";
+import dayjs from "dayjs";
+import type { Dayjs } from "dayjs";
 
 interface AdditionalFieldSpec {
   type: AdditionalFieldType;
@@ -22,6 +24,7 @@ export interface Tournament {
   title: string;
   subtitle: string;
   slug: string;
+  date?: Dayjs;
   description: string;
   about?: Record<string, string[]>;
   content?: string;
@@ -62,10 +65,11 @@ export interface OpenGraphMeta {
 
 export const tournaments: Tournament[] = [
   {
-    title: "Cogs of War",
+    title: "Cogs of War 2023",
     subtitle: "A Kings of War Tournament",
     slug: "cogs-of-war",
     titlePosition: "min(4.25rem, 8vw)",
+    date: dayjs("2023-04-23"),
     imageUrl: "cogs-of-war.png",
     imageDescription: `An army of abyssal dwarves besieges an icy fortress defended by fur-clad humans. Most of the 
                        image is in greyscale, but the elf force is monochrome yellow.`,
@@ -90,7 +94,7 @@ export const tournaments: Tournament[] = [
     disclaimer: renderMarkdownInline(
       `Mantic® and Kings of War® and all associated names, characters, places, and things are copyright © and
       ™ Mantic Games. The event image is [The Siege of Chill](https://www.manticgames.com/wallpapers/) © 
-      Mantic Games. Chesterfield Open Gaming Society is not associated with Mantic Games in any way.`
+      Mantic Games. Chesterfield Open Gaming Society is not associated with Mantic Games in any way.`,
     ),
     eventPack: [
       {
@@ -650,7 +654,7 @@ more candidates.`),
 ];
 
 const tournamentsBySlug = Object.fromEntries(
-  tournaments.map((e) => [e.slug, e])
+  tournaments.map((e) => [e.slug, e]),
 );
 
 export function getTournamentBySlug(slug: string): Tournament | undefined {
