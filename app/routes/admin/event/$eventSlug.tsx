@@ -41,10 +41,17 @@ export default function EventLayout() {
         <a
           href={`/admin/event/${tournament.slug}/masters-csv`}
           target="_blank"
-          download={`${tournament.slug}-final-standings.csv`} rel="noreferrer"
+          download={`${tournament.slug}-final-standings.csv`}
+          rel="noreferrer"
         >
           Download Results Submission
-        </a>
+        </a>{" "}
+        |{" "}
+        <Link
+          to={`/admin/event/${tournament.slug}/attendees/clear-non-user-emails`}
+        >
+          Clear non-user emails
+        </Link>
       </nav>
       <Outlet />
     </>

@@ -8,7 +8,6 @@ import { getTournamentBySlug } from "~/tournament/tournament-model.server";
 import type { Scenario } from "~/tournament/scenario/scenario";
 import { useEffect, useMemo, useState } from "react";
 import dayjs from "dayjs";
-import { clearInterval } from "timers";
 
 export interface RoundLoaderData {
   roundIndex: number;
@@ -114,11 +113,11 @@ const CountdownTimer = ({ deadlineStr }: CountdownTimerProps) => {
       const minutes = deadline.diff(now, "minutes") % 60;
       const seconds = deadline.diff(now, "seconds") % 60;
       setCurrentPeriod(
-        `${hours.toString()} : ${leftPad(minutes)} : ${leftPad(seconds)}`
+        `${hours.toString()} : ${leftPad(minutes)} : ${leftPad(seconds)}`,
       );
     });
 
-    return () => clearInterval(interval);
+    return () => window.clearInterval(interval);
   }, [deadline]);
 
   return <div className="round-timer">{currentPeriod}</div>;

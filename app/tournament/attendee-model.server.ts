@@ -44,7 +44,7 @@ function recordToAttendee(record: any): Attendee {
 
 export async function getTournamentAttendee(
   eventSlug: Attendee["eventSlug"],
-  email: Attendee["email"]
+  email: Attendee["email"],
 ): Promise<Attendee | null> {
   const db = await arc.tables();
 
@@ -54,7 +54,7 @@ export async function getTournamentAttendee(
 }
 
 export async function listTournamentAttendeesByEventSlug(
-  eventSlug: Attendee["eventSlug"]
+  eventSlug: Attendee["eventSlug"],
 ): Promise<Attendee[]> {
   const db = await arc.tables();
 
@@ -65,13 +65,13 @@ export async function listTournamentAttendeesByEventSlug(
 
   return (
     result?.Items.map(recordToAttendee).sort(
-      (a, b) => a.created.getTime() - b.created.getTime()
+      (a, b) => a.created.getTime() - b.created.getTime(),
     ) ?? []
   );
 }
 
 export async function listTournamentAttendeesByEmail(
-  email: Attendee["email"]
+  email: Attendee["email"],
 ): Promise<Attendee[]> {
   const db = await arc.tables();
 
@@ -83,14 +83,14 @@ export async function listTournamentAttendeesByEmail(
 
   return (
     result?.Items.map(recordToAttendee).sort(
-      (a, b) => a.created.getTime() - b.created.getTime()
+      (a, b) => a.created.getTime() - b.created.getTime(),
     ) ?? []
   );
 }
 
 export async function getTournamentAttendeeBySlug(
   eventSlug: Attendee["eventSlug"],
-  slug: Attendee["slug"]
+  slug: Attendee["slug"],
 ): Promise<Attendee> {
   const db = await arc.tables();
 
@@ -168,7 +168,7 @@ export async function putAttendee(attendee: Attendee): Promise<Attendee> {
       bonusPoints: attendee.bonusPoints ?? 0,
       paintBallot: attendee.paintBallot ?? {},
       sportsBallot: attendee.sportsBallot ?? {},
-    })
+    }),
   );
 
   return recordToAttendee(result);
@@ -176,7 +176,7 @@ export async function putAttendee(attendee: Attendee): Promise<Attendee> {
 
 export async function deleteAttendee(
   email: Attendee["email"],
-  eventSlug: Attendee["eventSlug"]
+  eventSlug: Attendee["eventSlug"],
 ) {
   const db = await arc.tables();
 
@@ -198,12 +198,12 @@ const attendeeToDisplayData = ({ name, additionalFields }: Attendee) => ({
 });
 
 export async function attendeeDisplayDataBySlug(
-  eventSlug: string
+  eventSlug: string,
 ): Promise<Record<string, AttendeeDisplayData>> {
   return Object.fromEntries(
     (await listTournamentAttendeesByEventSlug(eventSlug)).map((a) => [
       a.slug,
       attendeeToDisplayData(a),
-    ])
+    ]),
   );
 }

@@ -15,7 +15,7 @@ export const action: ActionFunction = async ({ params }) => {
   invariant(eventSlug && email, "From route");
   const tournament = getTournamentBySlug(eventSlug);
   if (!tournament) {
-    throw new Response("Tournament attendee not found", { status: 404 });
+    throw new Response("Tournament not found", { status: 404 });
   }
 
   const attendee = await getTournamentAttendee(eventSlug, email);
@@ -33,8 +33,8 @@ export const action: ActionFunction = async ({ params }) => {
       attendee.email,
       eventSlug,
       tournament.title,
-      accessKey
-    )
+      accessKey,
+    ),
   );
 
   return redirect(`/admin/event/${eventSlug}/attendees`);
