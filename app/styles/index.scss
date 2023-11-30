@@ -60,7 +60,7 @@
   }
 }
 
-.upcoming-events {
+.event-card-list {
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: 1rem;
@@ -120,6 +120,8 @@
       font-size: rem-calc(18px);
       margin-bottom: 0;
       margin-left: 1rem;
+
+      border: thin $primary-color solid;
 
       @include breakpoint(25rem down) {
         font-size: rem-calc(12px);
