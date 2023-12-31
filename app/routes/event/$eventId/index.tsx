@@ -152,6 +152,7 @@ export default function EventLandingPage() {
               {!user && (
                 <p>
                   Already signed up?{" "}
+                  <Link to={"/account/login"}>Login</Link> or{" "}
                   <Link to={"./send-edit-link"}>
                     Request a link to edit your details
                   </Link>
