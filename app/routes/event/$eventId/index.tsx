@@ -120,6 +120,16 @@ export default function EventLandingPage() {
             ))}
           </dl>
         )}
+        {tournament.kowMastersEventId && <p>
+          <a href={`https://kowmasters.com/index.php?p=event&i=${tournament.kowMastersEventId}`}>
+            KoW Masters event page.
+          </a>
+        </p>}
+        {tournament.manticCompanionEventId && <p>
+          <a href={`https://companion.manticgames.com/kings-of-war-events/?event=${tournament.manticCompanionEventId}`}>
+            Mantic companion event page.
+          </a>
+        </p>}
       </aside>
       {tournament.signUpEnabled && (
         <div className="content">
