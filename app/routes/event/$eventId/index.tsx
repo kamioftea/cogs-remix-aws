@@ -24,6 +24,7 @@ interface LoaderData {
     paid: boolean;
     verified: boolean;
     slug: string;
+    list_submitted: boolean;
     tournament_points: number;
     total_routed: number;
     total_attrition: number;
@@ -52,6 +53,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
         paid,
         verified,
         slug,
+        list_submitted: !!additionalFields?.army_list,
         tournament_points: parseInt(additionalFields?.tournament_points ?? "0"),
         total_routed: parseInt(additionalFields?.total_routed ?? "0"),
         total_attrition: parseInt(additionalFields?.total_attrition ?? "0"),
@@ -183,6 +185,11 @@ export default function EventLandingPage() {
                     {attendee.paid && (
                       <span className="text-success">
                         <FiCheckCircle /> Paid
+                      </span>
+                    )}
+                    {attendee.list_submitted && (
+                      <span className="text-success">
+                        <FiCheckCircle /> List
                       </span>
                     )}
                   </td>
