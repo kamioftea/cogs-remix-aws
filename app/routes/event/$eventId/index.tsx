@@ -188,9 +188,12 @@ export default function EventLandingPage() {
                       </span>
                     )}
                     {attendee.list_submitted && (
-                      <span className="text-success">
-                        <FiCheckCircle /> List
-                      </span>
+                      <>
+                        {attendee.paid && " "}
+                        <span className="text-success">
+                          <FiCheckCircle /> List
+                        </span>
+                      </>
                     )}
                   </td>
                 </tr>

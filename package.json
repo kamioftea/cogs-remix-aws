@@ -71,7 +71,7 @@
     "cross-env": "^7.0.3",
     "cypress": "^13.5.0",
     "esbuild": "^0.19.5",
-    "eslint": "^8.54.0",
+    "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-cypress": "^2.15.1",
     "foundation-sites": "^6.8.1",

@@ -1,5 +1,5 @@
 import { Link } from "@remix-run/react";
-import { ActionFunction } from "@remix-run/router";
+import type { ActionFunction } from "@remix-run/router";
 import invariant from "tiny-invariant";
 import { getTournamentBySlug } from "~/tournament/tournament-model.server";
 import {

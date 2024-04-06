@@ -9,7 +9,8 @@ import { tournaments } from "~/tournament/tournament-model.server";
 import { Fragment, useMemo } from "react";
 import { Breadcrumbs } from "~/utils/breadcrumbs";
 import { Predicate, sortBy } from "~/utils";
-import { ClubNight, clubNights } from "~/club_night/club_night_model.server";
+import type { ClubNight } from "~/club_night/club_night_model.server";
+import { clubNights } from "~/club_night/club_night_model.server";
 import dayjs from "dayjs";
 
 import advancedFormat from "dayjs/plugin/advancedFormat";
@@ -29,7 +30,7 @@ export const loader: LoaderFunction = async () => {
   const now = dayjs().startOf("day");
   let club_night =
     clubNights.sort(sortBy(cn => cn.date))
-              .find(cn => !dayjs(cn.date).isBefore(now));
+      .find(cn => !dayjs(cn.date).isBefore(now));
   return json<LoaderData>({ tournaments, club_night });
 };
 
@@ -154,21 +155,21 @@ export default function Index() {
           Please arrange a game with an opponent beforehand, or come to one of
           our dedicated Kings of War evenings.{" "}
           {club_night
-           ? <>
-             The next of these is {dayjs(club_night.date).format("dddd Do MMMM")},{" "}
-             <a
-               href={club_night.facebook_event_url}
-               target="_blank"
-               rel="noreferrer"
-             >
-               see the Facebook event
-             </a>{" "}
-             for more details.
-           </>
-           : <>
-             These will be published as{" "}
-             <a href="https://www.facebook.com/groups/main.cogs/events">COGs Facebook group events</a>.
-           </>
+            ? <>
+              The next of these is {dayjs(club_night.date).format("dddd Do MMMM")},{" "}
+              <a
+                href={club_night.facebook_event_url}
+                target="_blank"
+                rel="noreferrer"
+              >
+                see the Facebook event
+              </a>{" "}
+              for more details.
+            </>
+            : <>
+              These will be published as{" "}
+              <a href="https://www.facebook.com/groups/main.cogs/events">COGs Facebook group events</a>.
+            </>
           }
         </p>
 
