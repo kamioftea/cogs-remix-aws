@@ -1,5 +1,4 @@
 import type { Scenario } from "~/tournament/scenario/scenario";
-import { normaliseScore } from "~/tournament/scenario/scenario";
 import { renderMarkdown } from "~/utils/markdown";
 
 export const Control: Scenario = {

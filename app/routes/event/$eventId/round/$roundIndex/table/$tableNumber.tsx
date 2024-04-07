@@ -207,7 +207,7 @@ export default function RoundIndexPage() {
             ""
           ),
       }),
-      [currentAttendee?.slug, scenario, tournament.pointsLimit]
+      [currentAttendee?.slug, scenario, tournament]
     );
 
   if ((playerGames || []).length === 0) {
