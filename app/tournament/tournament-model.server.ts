@@ -6,6 +6,9 @@ import { FoolsGold } from "~/tournament/scenario/fools-gold";
 import { Invade } from "~/tournament/scenario/invade";
 import dayjs from "dayjs";
 import type { Dayjs } from "dayjs";
+import { Plunder } from "~/tournament/scenario/plunder";
+import { Control } from "~/tournament/scenario/control";
+import { Pillage } from "~/tournament/scenario/pillage";
 
 interface AdditionalFieldSpec {
   type: AdditionalFieldType;
@@ -53,6 +56,11 @@ export interface Tournament {
     mapUrl: string;
     roundEnd?: string;
   }[];
+  bonusPoints?: {
+    win?: number,
+    draw?: number,
+    loss?: number,
+  }
   pointsLimit?: number;
   kowMastersEventId?: number;
   manticCompanionEventId?: number;
@@ -468,7 +476,7 @@ more candidates.`),
         "S41 7JH",
       ],
     },
-    signUpEnabled: true,
+    signUpEnabled: false,
     disclaimer: renderMarkdownInline(
       `Mantic® and Kings of War® and all associated names, characters, places, and things
        are copyright © and ™ Mantic Games. The event image is [The Battle of Borath Lei](
@@ -553,7 +561,7 @@ attendees. His list will be published prior to the submission deadline.
       {
         title: "Things to bring with you",
         content: unsafeRenderMarkdown(`
-- Your 1995 point army.
+- Your 1995 point army. 
 - Three copies of your list.
 - Dice, tape measure, arc template, and tokens.
 - A chess clock (physical or app)`),
@@ -757,8 +765,29 @@ more candidates.`),
         label: "Awards",
       },
     ],
-    listsSubmissionClosed: false,
-    scenarios: [],
+    listsSubmissionClosed: true,
+    scenarios: [
+      {
+        scenario: Plunder,
+        mapUrl: "https://static.goblinoid.co.uk/kow.c-o-g-s.org.uk/maps/Plunder.png"
+      },
+      {
+        scenario: Control,
+        mapUrl: "https://static.goblinoid.co.uk/kow.c-o-g-s.org.uk/maps/Control.png"
+      },
+      {
+        scenario: Pillage,
+        mapUrl: "https://static.goblinoid.co.uk/kow.c-o-g-s.org.uk/maps/Pillage.png"
+      },
+    ],
+    scenarioPdfUrl: {
+      base: "https://static.goblinoid.co.uk/",
+      name: "cogs-of-war-2024-scenarios-and-scoring.pdf",
+    },
+    bonusPoints: {
+      win: 5,
+      draw: 2,
+    },
     pointsLimit: 1995,
     kowMastersEventId: 369,
     manticCompanionEventId: 249,

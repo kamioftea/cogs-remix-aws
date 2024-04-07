@@ -182,7 +182,7 @@ export default function RoundIndexPage() {
         "Scenario points": (game) => game.scenarioScore ?? "-",
         Outcome: (game) => game.outcome ?? "-",
         "Bonus for outcome": (game) =>
-          game.outcome != null ? getOutcomeBonus(game.outcome) : "-",
+          game.outcome != null ? getOutcomeBonus(game.outcome, tournament) : "-",
         "Total points routed": (game) =>
           !game.locked && game.attendeeSlug === currentAttendee?.slug ? (
             <FormInput
@@ -207,7 +207,7 @@ export default function RoundIndexPage() {
             ""
           ),
       }),
-      [currentAttendee?.slug, scenario, tournament.pointsLimit]
+      [currentAttendee?.slug, scenario, tournament]
     );
 
   if ((playerGames || []).length === 0) {
