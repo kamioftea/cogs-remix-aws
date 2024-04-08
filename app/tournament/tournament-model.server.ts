@@ -51,6 +51,13 @@ export interface Tournament {
   maxAttendees?: number;
   additionalFields?: AdditionalFieldSpec[];
   listsSubmissionClosed?: boolean;
+  sparePlayer?: {
+    name: string,
+    listPdfUrl: {
+      base: string,
+      name: string,
+    }
+  },
   scenarios: {
     scenario: Scenario;
     mapUrl: string;
@@ -766,6 +773,13 @@ more candidates.`),
       },
     ],
     listsSubmissionClosed: true,
+    sparePlayer: {
+      name: "Steve Pearson",
+      listPdfUrl: {
+        base: "https://static.goblinoid.co.uk/",
+        name: "cogs-of-war-2024-spare-player-list.pdf"
+      }
+    },
     scenarios: [
       {
         scenario: Plunder,
