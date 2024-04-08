@@ -322,6 +322,23 @@ export default function EventLandingPage() {
               }
             </tbody>
           </table>
+          {tournament.sparePlayer &&
+            <>
+              <p>
+                The spare player for this tournament is
+                {tournament.sparePlayer.name}.
+              </p>
+              <p>
+                <a
+                  href={`${tournament.sparePlayer.listPdfUrl.base}${tournament.sparePlayer.listPdfUrl.name}`}
+                  download={tournament.sparePlayer.listPdfUrl.name}
+                  className="button primary hollow expanded"
+                >
+                  <AiOutlineFilePdf /> Download the spare player's list PDF.
+                </a>
+              </p>
+            </>
+          }
         </div>
       )}
       {tournament.content && (
