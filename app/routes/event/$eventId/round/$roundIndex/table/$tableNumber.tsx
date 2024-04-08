@@ -6,11 +6,11 @@ import {
   getGamesForAttendee,
   getPlayersByTable,
   putPlayerGame,
-  updateScoresForTable,
+  updateScoresForTable
 } from "~/tournament/player-game-model.server";
 import {
   getOutcomeBonus,
-  getRoutedBonus,
+  getRoutedBonus
 } from "~/tournament/player-game-model";
 import type { AttendeeDisplayData } from "~/tournament/attendee-model.server";
 import { attendeeDisplayDataBySlug } from "~/tournament/attendee-model.server";
@@ -19,21 +19,21 @@ import {
   Link,
   useCatch,
   useLoaderData,
-  useRouteLoaderData,
+  useRouteLoaderData
 } from "@remix-run/react";
 import type { TournamentLoaderData } from "~/routes/event/$eventId";
 import type { Breadcrumb } from "~/utils/breadcrumbs";
 import { CURRENT } from "~/utils/breadcrumbs";
-import type { ReactNode} from "react";
+import type { ReactNode } from "react";
 import React, { Fragment, useMemo } from "react";
 import { ArmyList } from "~/tournament/army-list-field";
 import type { RoundLoaderData } from "~/routes/event/$eventId/round/$roundIndex";
 import {
   ScoreInputField,
-  ScoreInputValue,
+  ScoreInputValue
 } from "~/tournament/scenario/scenario";
 import FormInput from "~/form/input";
-import type { ActionFunction} from "@remix-run/router";
+import type { ActionFunction } from "@remix-run/router";
 import { redirect } from "@remix-run/router";
 import { getSessionAttendee } from "~/account/session.server";
 import ErrorPage, { GenericErrorPage } from "~/error-handling/error-page";
@@ -69,7 +69,7 @@ export const loader: LoaderFunction = async ({ params }) => {
   return json<LoaderData>({
     playerGames: playerGames,
     attendeesBySlug,
-    tableNumber,
+    tableNumber
   });
 };
 
@@ -79,8 +79,8 @@ const breadcrumbs: Breadcrumb[] = [
       const { tableNumber } = data as LoaderData;
       return `Table ${tableNumber}`;
     },
-    url: CURRENT,
-  },
+    url: CURRENT
+  }
 ];
 
 export const handle = { breadcrumbs };
@@ -126,7 +126,7 @@ export const action: ActionFunction = async ({ request, params }) => {
           input.name,
           (formData[input.name]?.toString() ?? "").match(/^\d+$/)
             ? parseInt(formData[input.name].toString())
-            : undefined,
+            : undefined
         ];
       })
       .filter(([, v]) => v != undefined)
@@ -145,17 +145,14 @@ export const action: ActionFunction = async ({ request, params }) => {
 };
 
 export default function RoundIndexPage() {
-  const { playerGames, attendeesBySlug, tableNumber } = useLoaderData<
-    typeof loader
-  >() as LoaderData;
+  const { playerGames, attendeesBySlug, tableNumber } =
+    useLoaderData<typeof loader>() as LoaderData;
 
-  const { tournament, currentAttendee } = useRouteLoaderData(
-    "routes/event/$eventId"
-  ) as TournamentLoaderData;
+  const { tournament, currentAttendee } =
+    useRouteLoaderData("routes/event/$eventId") as TournamentLoaderData;
 
-  const { roundIndex } = useRouteLoaderData(
-    "routes/event/$eventId/round/$roundIndex"
-  ) as RoundLoaderData;
+  const { roundIndex } =
+    useRouteLoaderData("routes/event/$eventId/round/$roundIndex") as RoundLoaderData;
 
   const scenario = tournament.scenarios[roundIndex - 1].scenario;
 
@@ -176,7 +173,7 @@ export default function RoundIndexPage() {
                   scoreInput={input}
                   value={game.scoreBreakdown?.[input.name]}
                 />
-              ),
+              )
           ])
         ),
         "Scenario points": (game) => game.scenarioScore ?? "-",
@@ -205,7 +202,7 @@ export default function RoundIndexPage() {
             </button>
           ) : (
             ""
-          ),
+          )
       }),
       [currentAttendee?.slug, scenario, tournament]
     );
@@ -249,24 +246,24 @@ export default function RoundIndexPage() {
       <Form method="POST">
         <table>
           <thead>
-            <tr>
-              <th></th>
-              {playerGames.map((game) => (
-                <th key={game.attendeeSlug}>
-                  {attendeesBySlug[game.attendeeSlug].name}
-                </th>
-              ))}
-            </tr>
+          <tr>
+            <th></th>
+            {playerGames.map((game) => (
+              <th key={game.attendeeSlug}>
+                {attendeesBySlug[game.attendeeSlug].name}
+              </th>
+            ))}
+          </tr>
           </thead>
           <tbody>
-            {Object.entries(scoreTableRows).map(([label, cellBuilder]) => (
-              <tr key={label}>
-                <td>{label}</td>
-                {playerGames.map((game) => (
-                  <td key={game.attendeeSlug}>{cellBuilder(game)}</td>
-                ))}
-              </tr>
-            ))}
+          {Object.entries(scoreTableRows).map(([label, cellBuilder]) => (
+            <tr key={label}>
+              <td>{label}</td>
+              {playerGames.map((game) => (
+                <td key={game.attendeeSlug}>{cellBuilder(game)}</td>
+              ))}
+            </tr>
+          ))}
           </tbody>
         </table>
       </Form>
