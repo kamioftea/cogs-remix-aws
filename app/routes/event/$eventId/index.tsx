@@ -325,7 +325,7 @@ export default function EventLandingPage() {
           {tournament.sparePlayer &&
             <>
               <p>
-                The spare player for this tournament is
+                The spare player for this tournament is{' '}
                 {tournament.sparePlayer.name}.
               </p>
               <p>
