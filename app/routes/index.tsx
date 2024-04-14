@@ -80,7 +80,7 @@ export default function Index() {
   const [upcoming, previous] = useMemo(() => {
     const now = dayjs().startOf("day");
     const predicate = new Predicate<Tournament>((tournament) => {
-      return now.isAfter(dayjs(tournament.date ?? now).endOf("day"), 'second');
+      return now.isBefore(dayjs(tournament.date ?? now).endOf("day"), 'second');
     });
     const [upcoming, previous] = predicate.partition(tournaments);
 

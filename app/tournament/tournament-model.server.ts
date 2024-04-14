@@ -53,6 +53,7 @@ export interface Tournament {
   listsSubmissionClosed?: boolean;
   sparePlayer?: {
     name: string,
+    email: string,
     listPdfUrl: {
       base: string,
       name: string,
@@ -775,6 +776,7 @@ more candidates.`),
     listsSubmissionClosed: true,
     sparePlayer: {
       name: "Steve Pearson",
+      email: "jammystavros@hotmail.com",
       listPdfUrl: {
         base: "https://static.goblinoid.co.uk/",
         name: "cogs-of-war-2024-spare-player-list.pdf"

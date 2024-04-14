@@ -66,6 +66,7 @@ interface UpdateData {
   approved: Attendee["approved"];
   verified: Attendee["verified"];
   paid: Attendee["paid"];
+  present: Attendee["present"];
 }
 
 const schema: ObjectSchema<UpdateData> = yup.object().shape({
@@ -74,6 +75,7 @@ const schema: ObjectSchema<UpdateData> = yup.object().shape({
   approved: checkboxSchema(),
   verified: checkboxSchema(),
   paid: checkboxSchema(),
+  present: checkboxSchema(),
 });
 
 export const action: ActionFunction = async ({ request, params }) => {
@@ -104,6 +106,7 @@ export const action: ActionFunction = async ({ request, params }) => {
             approved: getYupErrorMessage("approved", err),
             verified: getYupErrorMessage("verified", err),
             paid: getYupErrorMessage("paid", err),
+            present: getYupErrorMessage("present", err),
           },
         },
         400
@@ -180,6 +183,7 @@ export default function ManageAttendeePage() {
   const approvedRef = React.useRef<HTMLInputElement>(null);
   const verifiedRef = React.useRef<HTMLInputElement>(null);
   const paidRef = React.useRef<HTMLInputElement>(null);
+  const presentRef = React.useRef<HTMLInputElement>(null);
 
   const { errors } = (useActionData() ?? {}) as ActionData;
 
@@ -194,6 +198,8 @@ export default function ManageAttendeePage() {
       verifiedRef.current?.focus();
     } else if (errors?.paid) {
       paidRef.current?.focus();
+    } else if (errors?.present) {
+      presentRef.current?.focus();
     }
   }, [errors]);
 
@@ -243,6 +249,12 @@ export default function ManageAttendeePage() {
           name="paid"
           defaultChecked={attendee.paid}
           error_message={errors?.paid}
+        />
+        <FormCheckbox
+          label="Present"
+          name="present"
+          defaultChecked={attendee.present}
+          error_message={errors?.present}
         />
         {(tournament.additionalFields ?? []).map((spec) => (
           <fieldset key={spec.name}>

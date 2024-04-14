@@ -7,13 +7,16 @@ import { listTournamentAttendeesByEventSlug } from "~/tournament/attendee-model.
 import {
   FiAlertCircle,
   FiAlertTriangle,
-  FiCheckCircle,
-  FiTrash,
+  FiCheckCircle, FiPlus,
+  FiTrash
 } from "react-icons/fi";
 import type { ReactNode } from "react";
+import type { Tournament } from "~/tournament/tournament-model.server";
+import { getTournamentBySlug } from "~/tournament/tournament-model.server";
 
 interface LoaderData {
   attendees: Attendee[];
+  tournament: Tournament;
 }
 
 export const loader: LoaderFunction = async ({ params }) => {
@@ -23,8 +26,10 @@ export const loader: LoaderFunction = async ({ params }) => {
   );
 
   const attendees = await listTournamentAttendeesByEventSlug(params.eventSlug);
+  const tournament = getTournamentBySlug(params.eventSlug);
+  invariant(tournament, "by route")
 
-  return json<LoaderData>({ attendees });
+  return json<LoaderData>({ attendees, tournament });
 };
 
 function getStatusTag(attendee: Attendee): ReactNode {
@@ -56,7 +61,7 @@ function getStatusTag(attendee: Attendee): ReactNode {
             </span>
           ) : null}
           <span className="label success hollow">
-            <FiCheckCircle /> Paid
+            <FiCheckCircle /> {attendee.present ? 'Present' : 'Paid'}
           </span>
         </>
       );
@@ -73,6 +78,22 @@ function getApprovalLink(attendee: Attendee): ReactNode {
     >
       <button type="submit" className="button clear link display-inline">
         {attendee.approved ? "Resend Verify Email" : "Approve"}
+      </button>
+    </form>
+  );
+}
+
+function getPresentLink(attendee: Attendee): ReactNode {
+  if (!(attendee.approved && attendee.verified)) return null;
+  if (attendee.present) return null;
+
+  return (
+    <form
+      action={`/admin/event/${attendee.eventSlug}/attendees/${attendee.email}/present`}
+      method="post"
+    >
+      <button type="submit" className="button clear link display-inline">
+        Present
       </button>
     </form>
   );
@@ -99,29 +120,44 @@ function getActions(attendee: Attendee): ReactNode {
   return (
     <>
       {getApprovalLink(attendee)}
+      {getPresentLink(attendee)}
       {getDeleteLink(attendee)}
     </>
   );
 }
 
 export default function EventIndexPage() {
-  const { attendees } = useLoaderData<typeof loader>() as LoaderData;
+  const { attendees, tournament } = useLoaderData<typeof loader>() as LoaderData;
 
   return (
     <>
+      {tournament.sparePlayer && !attendees.find(a => a.email === tournament.sparePlayer?.email) &&
+        <form
+          action={`/admin/event/${tournament.slug}/attendees/add-spare-player`}
+          method="post"
+          className="display-inline"
+        >
+          <button
+            type="submit"
+            className="button primary"
+          >
+            <FiPlus /> Add spare player
+          </button>
+        </form>
+      }
       <table>
         <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Slug</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Slug</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
         </thead>
         <tbody>
-          {attendees.map((attendee: Attendee) => (
-            <tr key={attendee.email}>
+        {attendees.map((attendee: Attendee) => (
+          <tr key={attendee.email}>
               <td>
                 <Link
                   to={`/admin/event/${attendee.eventSlug}/attendees/${attendee.email}`}

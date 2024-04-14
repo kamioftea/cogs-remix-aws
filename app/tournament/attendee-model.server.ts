@@ -12,6 +12,7 @@ export type Attendee = {
   approved: boolean;
   verified: boolean;
   paid: boolean;
+  present: boolean;
   created: Date;
   additionalFields: Record<string, string>;
   scoresPerRound?: number[];
@@ -31,6 +32,7 @@ function recordToAttendee(record: any): Attendee {
     approved: record.approved,
     verified: record.verified,
     paid: record.paid,
+    present: record.present ?? false,
     created: new Date(record.created),
     additionalFields: record.additionalFields,
     scoresPerRound: record.scoresPerRound,
@@ -160,6 +162,7 @@ export async function putAttendee(attendee: Attendee): Promise<Attendee> {
       approved: attendee.approved,
       verified: attendee.verified,
       paid: attendee.paid,
+      present: attendee.present,
       created: attendee.created.getTime(),
       additionalFields: attendee.additionalFields,
       scoresPerRound: attendee.scoresPerRound ?? [],
