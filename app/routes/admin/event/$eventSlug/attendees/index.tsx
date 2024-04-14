@@ -152,6 +152,8 @@ export default function EventIndexPage() {
           <th>Email</th>
           <th>Slug</th>
           <th>Status</th>
+          <th>Army</th>
+          <th>Sports</th>
           <th>Actions</th>
         </tr>
         </thead>
@@ -170,6 +172,8 @@ export default function EventIndexPage() {
                 <code>{attendee.slug}</code>
               </td>
               <td>{getStatusTag(attendee)}</td>
+              <td>{Object.values(attendee.paintBallot ?? {}).reduce((acc, score) => acc + score, 0)}</td>
+              <td>{Object.values(attendee.sportsBallot ?? {}).reduce((acc, score) => acc + score, 0)}</td>
               <td>{getActions(attendee)}</td>
             </tr>
           ))}

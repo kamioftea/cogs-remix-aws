@@ -796,6 +796,7 @@ more candidates.`),
       {
         scenario: Pillage,
         mapUrl: "https://static.goblinoid.co.uk/kow.c-o-g-s.org.uk/maps/Pillage.png",
+        roundEnd: "2024-04-14 17:30:00"
       },
     ],
     scenarioPdfUrl: {
