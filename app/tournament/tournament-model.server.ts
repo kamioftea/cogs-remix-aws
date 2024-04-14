@@ -785,15 +785,16 @@ more candidates.`),
     scenarios: [
       {
         scenario: Plunder,
-        mapUrl: "https://static.goblinoid.co.uk/kow.c-o-g-s.org.uk/maps/Plunder.png"
+        mapUrl: "https://static.goblinoid.co.uk/kow.c-o-g-s.org.uk/maps/Plunder.png",
+        roundEnd: "2024-04-14 12:30:00"
       },
       {
         scenario: Control,
-        mapUrl: "https://static.goblinoid.co.uk/kow.c-o-g-s.org.uk/maps/Control.png"
+        mapUrl: "https://static.goblinoid.co.uk/kow.c-o-g-s.org.uk/maps/Control.png",
       },
       {
         scenario: Pillage,
-        mapUrl: "https://static.goblinoid.co.uk/kow.c-o-g-s.org.uk/maps/Pillage.png"
+        mapUrl: "https://static.goblinoid.co.uk/kow.c-o-g-s.org.uk/maps/Pillage.png",
       },
     ],
     scenarioPdfUrl: {
