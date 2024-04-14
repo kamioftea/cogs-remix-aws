@@ -10,6 +10,7 @@
     "dev:arc": "node ./dev sandbox",
     "dev:css": "npm run generate:css -- --watch",
     "dev:remix": "cross-env SKIP_EMAIL=\"skip\" remix watch",
+    "xdev:setup": "curl -X POST --location \"http://localhost:3000/__tests/setup-tournament\"",
     "format": "prettier --write .",
     "generate:css": "sass -Inode_modules/foundation-sites/scss app/styles",
     "lint": "eslint --cache --cache-location ./node_modules/.cache/eslint .",

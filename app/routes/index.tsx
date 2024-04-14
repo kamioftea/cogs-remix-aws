@@ -84,7 +84,7 @@ export default function Index() {
     });
     const [upcoming, previous] = predicate.partition(tournaments);
 
-    const sortByDate = sortBy<Tournament>((t) => (t.date ?? now).unix());
+    const sortByDate = sortBy<Tournament>((t) => (t.date ? dayjs(t.date) : now).unix());
     upcoming.sort(sortByDate);
     previous.sort(sortByDate);
 
