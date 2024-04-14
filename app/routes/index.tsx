@@ -78,9 +78,9 @@ export default function Index() {
   const { tournaments, club_night } = useLoaderData<LoaderData>() as LoaderData;
 
   const [upcoming, previous] = useMemo(() => {
-    const now = dayjs().endOf("day");
+    const now = dayjs().startOf("day");
     const predicate = new Predicate<Tournament>((tournament) => {
-      return dayjs(tournament.date ?? now).isAfter(now);
+      return now.isAfter(dayjs(tournament.date ?? now).endOf("day"), 'second');
     });
     const [upcoming, previous] = predicate.partition(tournaments);
 
