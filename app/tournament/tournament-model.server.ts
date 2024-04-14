@@ -791,6 +791,7 @@ more candidates.`),
       {
         scenario: Control,
         mapUrl: "https://static.goblinoid.co.uk/kow.c-o-g-s.org.uk/maps/Control.png",
+        roundEnd: "2024-04-14 15:15:00"
       },
       {
         scenario: Pillage,
