@@ -37,7 +37,7 @@ export const action: ActionFunction = async () => {
   await Promise.all(
     Array.from({ length: 16 }, (_, i) => i + 1).map(async (i) => {
       const attendee = await createAttendee({
-        eventSlug: tournaments[0].slug,
+        eventSlug: tournaments[1].slug,
         email: `testAttendee${i}@example.org`,
         name: `Test Attendee ${i}`,
         verified: true,
