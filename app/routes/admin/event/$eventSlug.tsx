@@ -47,6 +47,14 @@ export default function EventLayout() {
           Download Results Submission
         </a>{" "}
         |{" "}
+        <a
+          href={`/admin/event/${tournament.slug}/masters-zip`}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Download Lists
+        </a>{" "}
+        |{" "}
         <Link
           to={`/admin/event/${tournament.slug}/attendees/clear-non-user-emails`}
         >

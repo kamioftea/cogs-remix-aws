@@ -2,6 +2,7 @@ import { useMatches } from "@remix-run/react";
 import { useMemo } from "react";
 
 import type { User } from "~/account/user-model";
+import * as cheerio from "cheerio";
 
 const DEFAULT_REDIRECT = "/";
 
@@ -124,4 +125,23 @@ export class Predicate<T> {
       [[], []],
     );
   }
+}
+
+export async function fetchMastersPlayerIdLookup(season: number): Promise<Record<string, string>> {
+  const html = await fetch(`https://kowmasters.com/index.php?p=leaderboard&s=${season}`)
+    .then(res => res.text());
+
+  const $ = cheerio.load(html);
+  return Object.fromEntries(
+    [
+      ...$("tbody")
+        .find("tr > td:nth-child(2) > a")
+        .map(function(_, elem) {
+            const $elem = $(elem)
+            const url = new URL($elem.attr("href")!, "https://example.com");
+            return [[$elem.text().toLocaleLowerCase(), url.searchParams.get("i")]];
+          }
+        )
+    ]
+  );
 }
