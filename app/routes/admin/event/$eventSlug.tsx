@@ -41,8 +41,8 @@ export default function EventLayout() {
         <a
           href={`/admin/event/${tournament.slug}/masters-csv`}
           target="_blank"
-          download={`${tournament.slug}-final-standings.csv`}
           rel="noreferrer"
+          download={`${tournament.slug}-final-standings.csv`}
         >
           Download Results Submission
         </a>{" "}
@@ -51,6 +51,7 @@ export default function EventLayout() {
           href={`/admin/event/${tournament.slug}/masters-zip`}
           target="_blank"
           rel="noreferrer"
+          download={`${tournament.slug}-lists.zip`}
         >
           Download Lists
         </a>{" "}

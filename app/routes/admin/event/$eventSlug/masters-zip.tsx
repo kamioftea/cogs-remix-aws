@@ -2,17 +2,12 @@ import type { LoaderFunction } from "@remix-run/node";
 import invariant from "tiny-invariant";
 import { getTournamentBySlug } from "~/tournament/tournament-model.server";
 import ErrorPage, { GenericErrorPage } from "~/error-handling/error-page";
-import { useCatch, useLoaderData } from "@remix-run/react";
+import { useCatch } from "@remix-run/react";
 import { listTournamentAttendeesByEventSlug } from "~/tournament/attendee-model.server";
 import { fetchMastersPlayerIdLookup } from "~/utils";
-import { json } from "@remix-run/router";
-import { useEffect, useState } from "react";
-import { BlobWriter, HttpReader, ZipWriter } from "@zip.js/zip.js";
-
-interface LoaderData {
-  lists: { filename: string, url: string }[];
-  zipFilename: string;
-}
+import AdmZip from "adm-zip";
+import { getUpload } from "~/upload/upload-model.server";
+import { getFile } from "~/upload/s3-file-manager.server";
 
 export const loader: LoaderFunction = async ({ params }) => {
   invariant(params.eventSlug, "From route");
@@ -34,55 +29,29 @@ export const loader: LoaderFunction = async ({ params }) => {
       .filter(attendee => !!attendee.additionalFields.army_list)
       .map(attendee => ({
         filename: `${lookup[attendee.name.toLowerCase().trim()] ?? attendee.slug}.pdf`,
-        url: `/event/${tournament.slug}/profile/${attendee.slug}/army-list`
+        list: attendee.additionalFields.army_list!
       }));
 
-  return json<LoaderData>({
-    lists,
-    zipFilename: `${tournament.slug}-lists.zip`
+  const zip = new AdmZip();
+
+  for(let {filename, list} of lists) {
+    const upload = await getUpload(list);
+    if(!upload) continue;
+
+    const file = await getFile(upload.key);
+    if(!file) continue
+
+    zip.addFile(filename, Buffer.from(await file.transformToByteArray()))
+  }
+
+  return new Response(zip.toBuffer(), {
+    status: 200,
+    headers: {
+      "Content-Type": "application/zip",
+      "Content-Disposition": `attachment; filename="${tournament.slug}-lists.zip"`,
+    },
   });
 };
-
-async function getZipFileBlob(lists: LoaderData["lists"], setCount: (n: number) => void) {
-  const zipWriter = new ZipWriter(new BlobWriter("application/zip"), { bufferedWrite: true });
-  let count = 0;
-  for(let { filename, url } of lists) {
-    await zipWriter.add(filename, new HttpReader(url));
-    setCount(++count);
-  }
-  return await zipWriter.close();
-}
-
-export default function MastersZipPage() {
-  const { lists, zipFilename } = useLoaderData<typeof loader>() as LoaderData;
-  const [zipUrl, setZipUrl] = useState<string | null>(null);
-  const [count, setCount] = useState(0)
-
-  useEffect(() => {
-    let objectUrl: string | null = null
-    getZipFileBlob(lists, setCount)
-      .then(blob => {
-        objectUrl = URL.createObjectURL(blob);
-        setZipUrl(objectUrl)
-      });
-
-    return () => {
-      if (objectUrl) {
-        //URL.revokeObjectURL(objectUrl);
-      }
-    };
-  }, [lists]);
-
-  return <>
-    {zipUrl
-      ? <a href={zipUrl} download={zipFilename}>Download ZIP</a>
-      : <p>Loading {count} of {lists.length}</p>
-    }
-    <p>
-      <a href={"../"}>Back to event admin</a>
-    </p>
-  </>;
-}
 
 export function ErrorBoundary() {
   return <GenericErrorPage />;
