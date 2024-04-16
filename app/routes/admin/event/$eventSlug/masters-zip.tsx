@@ -2,19 +2,12 @@ import type { LoaderFunction } from "@remix-run/node";
 import invariant from "tiny-invariant";
 import { getTournamentBySlug } from "~/tournament/tournament-model.server";
 import ErrorPage, { GenericErrorPage } from "~/error-handling/error-page";
-import { useCatch, useLoaderData } from "@remix-run/react";
+import { useCatch } from "@remix-run/react";
 import { listTournamentAttendeesByEventSlug } from "~/tournament/attendee-model.server";
 import { fetchMastersPlayerIdLookup } from "~/utils";
-import { json } from "@remix-run/router";
-import { useEffect, useState } from "react";
 import AdmZip from "adm-zip";
 import { getUpload } from "~/upload/upload-model.server";
 import { getFile } from "~/upload/s3-file-manager.server";
-
-interface LoaderData {
-  lists: { filename: string, url: string }[];
-  zipFilename: string;
-}
 
 export const loader: LoaderFunction = async ({ params }) => {
   invariant(params.eventSlug, "From route");
