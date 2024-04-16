@@ -70,6 +70,7 @@ export interface Tournament {
     loss?: number,
   }
   pointsLimit?: number;
+  kowMastersSeason: number;
   kowMastersEventId?: number;
   manticCompanionEventId?: number;
 }
@@ -451,6 +452,7 @@ more candidates.`),
     ],
     pointsLimit: 1995,
     kowMastersEventId: 298,
+    kowMastersSeason: 8,
   },
   {
     title: "Cogs of War 2024",
@@ -809,6 +811,7 @@ more candidates.`),
     },
     pointsLimit: 1995,
     kowMastersEventId: 369,
+    kowMastersSeason: 9,
     manticCompanionEventId: 249,
   }
 ];
