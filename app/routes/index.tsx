@@ -168,7 +168,7 @@ export default function Index() {
             </>
             : <>
               These will be published as{" "}
-              <a href="https://www.facebook.com/groups/main.cogs/events">COGs Facebook group events</a>.
+              <a href="https://www.facebook.com/groups/main.cogs/events">COGS Facebook group events</a>.
             </>
           }
         </p>
