@@ -43,12 +43,14 @@ export const loader: LoaderFunction = async ({ params }) => {
   });
 };
 
-async function getZipFileBlob(lists: LoaderData["lists"]) {
-  const zipWriter = new ZipWriter(new BlobWriter("application/zip"));
+async function getZipFileBlob(lists: LoaderData["lists"], setCount: (n: number) => void) {
+  const zipWriter = new ZipWriter(new BlobWriter("application/zip"), { bufferedWrite: true });
+  let count = 0;
   for(let { filename, url } of lists) {
     await zipWriter.add(filename, new HttpReader(url));
+    setCount(++count);
   }
-  return zipWriter.close();
+  return await zipWriter.close();
 }
 
 export default function MastersZipPage() {
@@ -58,17 +60,15 @@ export default function MastersZipPage() {
 
   useEffect(() => {
     let objectUrl: string | null = null
-    let count = 0;
-    getZipFileBlob(lists)
+    getZipFileBlob(lists, setCount)
       .then(blob => {
         objectUrl = URL.createObjectURL(blob);
         setZipUrl(objectUrl)
-        setCount(++count);
       });
 
     return () => {
       if (objectUrl) {
-        URL.revokeObjectURL(objectUrl);
+        //URL.revokeObjectURL(objectUrl);
       }
     };
   }, [lists]);
