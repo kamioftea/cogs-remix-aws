@@ -45,24 +45,25 @@ export const loader: LoaderFunction = async ({ params }) => {
 
 async function getZipFileBlob(lists: LoaderData["lists"]) {
   const zipWriter = new ZipWriter(new BlobWriter("application/zip"));
-  await Promise.all(
-    lists.map(({ filename, url }) =>
-      zipWriter.add(filename, new HttpReader(url))
-    )
-  );
+  for(let { filename, url } of lists) {
+    await zipWriter.add(filename, new HttpReader(url));
+  }
   return zipWriter.close();
 }
 
 export default function MastersZipPage() {
   const { lists, zipFilename } = useLoaderData<typeof loader>() as LoaderData;
   const [zipUrl, setZipUrl] = useState<string | null>(null);
+  const [count, setCount] = useState(0)
 
   useEffect(() => {
     let objectUrl: string | null = null
+    let count = 0;
     getZipFileBlob(lists)
       .then(blob => {
         objectUrl = URL.createObjectURL(blob);
         setZipUrl(objectUrl)
+        setCount(++count);
       });
 
     return () => {
@@ -75,7 +76,7 @@ export default function MastersZipPage() {
   return <>
     {zipUrl
       ? <a href={zipUrl} download={zipFilename}>Download ZIP</a>
-      : <p>Loading</p>
+      : <p>Loading {count} of {lists.length}</p>
     }
     <p>
       <a href={"../"}>Back to event admin</a>
