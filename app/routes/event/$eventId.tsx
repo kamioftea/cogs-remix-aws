@@ -91,7 +91,7 @@ export default function EventLandingPage() {
         </span>
         <div
           className="title-wrapper"
-          style={{ marginLeft: tournament.titlePositionX ?? "0", marginTop: tournament.titlePositionY ?? "0" }}
+          style={{ marginLeft: tournament.titlePositionX ?? "0", ...(tournament.titleStyles ?? {}) }}
         >
           <h1>{tournament.title}</h1>
           <p className="subtitle">{tournament.subtitle}</p>

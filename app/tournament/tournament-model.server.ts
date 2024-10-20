@@ -36,7 +36,7 @@ export interface Tournament {
   imageUrl: string;
   imageDescription: string;
   titlePositionX?: string;
-  titlePositionY?: string;
+  titleStyles?: Record<string, string>;
   openGraph: OpenGraphMeta;
   eventPack?: PackSection[];
   eventPackPdfUrl?: {
@@ -820,6 +820,7 @@ more candidates.`)
     subtitle: "A Kings of War Tournament",
     slug: "cogs-of-war-2025",
     titlePositionX: "1rem",
+    titleStyles: {"align-self": "end"},
     date: dayjs("2025-04-06"),
     imageUrl: "cogs-of-war-2025.png",
     imageDescription: "A naiad and a succubus clash with an armies in the background." +
@@ -875,6 +876,7 @@ More info and sign-ups will be available soon.`
     subtitle: "A Kings of War Speed Tournament",
     slug: "clockwork-2025",
     titlePositionX: "1rem",
+    titleStyles: {"align-self": "end"},
     date: dayjs("2025-11-16"),
     imageUrl: "clockwork-2025.png",
     imageDescription:
