@@ -819,8 +819,7 @@ more candidates.`)
     title: "Cogs of War 2025",
     subtitle: "A Kings of War Tournament",
     slug: "cogs-of-war-2025",
-    titlePositionX: "2rem",
-    titlePositionY: "9rem",
+    titlePositionX: "1rem",
     date: dayjs("2025-04-06"),
     imageUrl: "cogs-of-war-2025.png",
     imageDescription: "A naiad and a succubus clash with an armies in the background." +
@@ -867,16 +866,15 @@ More info and sign-ups will be available soon.`
       draw: 2
     },
     pointsLimit: 1995,
-    //kowMastersEventId: 369,
+    kowMastersEventId: 430,
     kowMastersSeason: 10,
-    //manticCompanionEventId: 249
+    manticCompanionEventId: 424
   },
   {
     title: "Clockwork 2025",
     subtitle: "A Kings of War Speed Tournament",
     slug: "clockwork-2025",
     titlePositionX: "1rem",
-    titlePositionY: "12rem",
     date: dayjs("2025-11-16"),
     imageUrl: "clockwork-2025.png",
     imageDescription:
@@ -930,9 +928,9 @@ More info and sign-ups will be available soon.
     scenarios: [],
     maxAttendees: 24,
     pointsLimit: 1000,
-    //kowMastersEventId: 369,
+    kowMastersEventId: 431,
     kowMastersSeason: 10,
-    //manticCompanionEventId: 249
+    manticCompanionEventId: 425
   }
 ];
 
