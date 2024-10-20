@@ -7,6 +7,7 @@ import { json } from "@remix-run/node";
 import type { Tournament } from "~/tournament/tournament-model.server";
 import { getTournamentBySlug } from "~/tournament/tournament-model.server";
 import invariant from "tiny-invariant";
+// noinspection JSDeprecatedSymbols
 import { Outlet, useCatch, useLoaderData } from "@remix-run/react";
 import stylesheetUrl from "~/styles/event.css";
 import ErrorPage, { GenericErrorPage } from "~/error-handling/error-page";
@@ -90,7 +91,7 @@ export default function EventLandingPage() {
         </span>
         <div
           className="title-wrapper"
-          style={{ marginLeft: tournament.titlePosition ?? "0" }}
+          style={{ marginLeft: tournament.titlePositionX ?? "0", marginTop: tournament.titlePositionY ?? "0" }}
         >
           <h1>{tournament.title}</h1>
           <p className="subtitle">{tournament.subtitle}</p>
@@ -128,6 +129,7 @@ export function ErrorBoundary() {
 }
 
 export function CatchBoundary() {
+  // noinspection JSDeprecatedSymbols
   const caught = useCatch();
 
   if (caught.status === 404) {

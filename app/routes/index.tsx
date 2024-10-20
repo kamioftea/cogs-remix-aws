@@ -189,7 +189,7 @@ export default function Index() {
           <>
             <h2>Past Events</h2>
             <div className="event-card-list">
-              {previous.map((tournament) => (
+              {previous.reverse().map((tournament) => (
                 <TournamentCard tournament={tournament} key={tournament.slug} />
               ))}
             </div>
