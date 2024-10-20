@@ -860,6 +860,7 @@ Cogs of War will be returning for its third year.
 
 More info and sign-ups will be available soon.`
     ),
+    scenarios: [],
     maxAttendees: 20,
     bonusPoints: {
       win: 5,
@@ -867,7 +868,7 @@ More info and sign-ups will be available soon.`
     },
     pointsLimit: 1995,
     //kowMastersEventId: 369,
-    //kowMastersSeason: 10,
+    kowMastersSeason: 10,
     //manticCompanionEventId: 249
   },
   {
@@ -926,10 +927,11 @@ and limited time on the clock:
 More info and sign-ups will be available soon.
 `
     ),
+    scenarios: [],
     maxAttendees: 24,
     pointsLimit: 1000,
     //kowMastersEventId: 369,
-    //kowMastersSeason: 10,
+    kowMastersSeason: 10,
     //manticCompanionEventId: 249
   }
 ];
