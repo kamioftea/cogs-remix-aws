@@ -897,7 +897,7 @@ More info and sign-ups will be available soon.`
       " in time.",
     about: {
       What: ["24 players, 1000 points, 5 games"],
-      When: ["11th November 2025, 10:00 until 17:45"],
+      When: ["16th November 2025, 10:00 until 17:45"],
       Where: [
         "The Parish Centre",
         "Stonegravels",
