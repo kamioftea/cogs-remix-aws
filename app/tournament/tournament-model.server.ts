@@ -866,7 +866,7 @@ More info and sign-ups will be available soon.`
       draw: 2
     },
     pointsLimit: 1995,
-    kowMastersEventId: 430,
+    kowMastersEventId: 431,
     kowMastersSeason: 10,
     manticCompanionEventId: 424
   },
@@ -928,7 +928,7 @@ More info and sign-ups will be available soon.
     scenarios: [],
     maxAttendees: 24,
     pointsLimit: 1000,
-    kowMastersEventId: 431,
+    kowMastersEventId: 430,
     kowMastersSeason: 10,
     manticCompanionEventId: 425
   }
