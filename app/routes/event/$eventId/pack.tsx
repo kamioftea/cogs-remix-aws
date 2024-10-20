@@ -1,4 +1,4 @@
-import { Link, Outlet, useRouteLoaderData } from "@remix-run/react";
+import { Link, Outlet, useCatch, useRouteLoaderData } from "@remix-run/react";
 import type { TournamentLoaderData } from "~/routes/event/$eventId";
 import type { LinksFunction, LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
@@ -10,6 +10,7 @@ import type { PackSectionLoaderData } from "~/routes/event/$eventId/pack/$sectio
 import type { Breadcrumb } from "~/utils/breadcrumbs";
 import { CURRENT } from "~/utils/breadcrumbs";
 import { FiChevronLeft } from "react-icons/fi";
+import { GenericErrorPage } from "~/error-handling/error-page";
 
 export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: stylesheetUrl }];
@@ -78,4 +79,24 @@ export default function EventPackLayout() {
       </div>
     </>
   );
+}
+
+export function ErrorBoundary() {
+  return <GenericErrorPage />;
+}
+
+export function CatchBoundary() {
+  const caught = useCatch();
+
+  if (caught.status === 404) {
+    return (
+      <div className="span-nav">
+        <h2>Rules pack not available</h2>
+        <p>The rules pack for this event is not available yet.</p>
+        <Link to={'..'}>Back to event page.</Link>
+      </div>
+    );
+  }
+
+  throw new Error(`Unexpected caught response with status: ${caught.status}`);
 }
