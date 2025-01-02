@@ -24,24 +24,25 @@ export const loader: LoaderFunction = async ({ params }) => {
   const attendees = await listTournamentAttendeesByEventSlug(params.eventSlug);
   const lookup = await fetchMastersPlayerIdLookup(tournament.kowMastersSeason);
 
-  const lists =
-    attendees
-      .filter(attendee => !!attendee.additionalFields.army_list)
-      .map(attendee => ({
-        filename: `${lookup[attendee.name.toLowerCase().trim()] ?? attendee.slug}.pdf`,
-        list: attendee.additionalFields.army_list!
-      }));
+  const lists = attendees
+    .filter((attendee) => !!attendee.additionalFields.army_list)
+    .map((attendee) => ({
+      filename: `${
+        lookup[attendee.name.toLowerCase().trim()] ?? attendee.slug
+      }.pdf`,
+      list: attendee.additionalFields.army_list!,
+    }));
 
   const zip = new AdmZip();
 
-  for(let {filename, list} of lists) {
+  for (let { filename, list } of lists) {
     const upload = await getUpload(list);
-    if(!upload) continue;
+    if (!upload) continue;
 
     const file = await getFile(upload.key);
-    if(!file) continue
+    if (!file) continue;
 
-    zip.addFile(filename, Buffer.from(await file.transformToByteArray()))
+    zip.addFile(filename, Buffer.from(await file.transformToByteArray()));
   }
 
   return new Response(zip.toBuffer(), {

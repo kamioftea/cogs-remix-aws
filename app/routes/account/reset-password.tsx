@@ -6,7 +6,13 @@ import type { ObjectSchema } from "yup";
 import * as yup from "yup";
 import { ValidationError } from "yup";
 import { ADMIN_EMAIL, getUserByEmail } from "~/account/user-model.server";
-import { Form, isRouteErrorResponse, Link, useActionData, useRouteError } from "@remix-run/react";
+import {
+  Form,
+  isRouteErrorResponse,
+  Link,
+  useActionData,
+  useRouteError,
+} from "@remix-run/react";
 import { getYupErrorMessage } from "~/utils/validation";
 import { getResetKey } from "~/account/auth.server";
 import { getSessionId } from "~/account/session.server";
@@ -56,7 +62,7 @@ export const action: ActionFunction = async ({ request }) => {
             email: getYupErrorMessage("email", err),
           },
         },
-        400
+        400,
       );
     }
     throw err;
@@ -72,7 +78,11 @@ export const action: ActionFunction = async ({ request }) => {
   }
 
   await sendEmail(
-    new ResetPasswordEmail(user.name, user.email, await getResetKey(user.email))
+    new ResetPasswordEmail(
+      user.name,
+      user.email,
+      await getResetKey(user.email),
+    ),
   );
 
   return json<ActionData>({ emailSent: true });

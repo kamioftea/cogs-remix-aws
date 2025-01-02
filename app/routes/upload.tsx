@@ -38,12 +38,12 @@ export const action = async ({ request }: ActionArgs) => {
       return upload.id;
     },
     // fallback to memory for everything else
-    unstable_createMemoryUploadHandler()
+    unstable_createMemoryUploadHandler(),
   );
 
   const formData = await unstable_parseMultipartFormData(
     request,
-    uploadHandler
+    uploadHandler,
   );
 
   const uploadId = formData.get("file");

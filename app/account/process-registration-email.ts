@@ -13,7 +13,7 @@ export class ProcessRegistrationEmail implements Email {
     this.subject = `${name}<${email}> has registered for COGS Kings of War.`;
 
     const processURL = new URL(
-      `${BASE_URL}/admin/users/process-registration/${email}`
+      `${BASE_URL}/admin/users/process-registration/${email}`,
     );
 
     this.html = `<p>

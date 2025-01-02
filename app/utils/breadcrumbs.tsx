@@ -22,7 +22,7 @@ export function Breadcrumbs() {
         match.handle?.breadcrumbs.map((breadcrumb: Breadcrumb) => ({
           breadcrumb,
           match,
-        })) ?? []
+        })) ?? [],
     );
   const last = breadcrumbMatches.slice(-1)[0];
   const rest = breadcrumbMatches.slice(0, -1);

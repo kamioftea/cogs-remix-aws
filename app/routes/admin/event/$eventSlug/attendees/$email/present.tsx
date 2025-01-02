@@ -1,6 +1,9 @@
 import type { ActionFunction, LoaderFunction } from "@remix-run/router";
 import { redirect } from "@remix-run/router";
-import { getTournamentAttendee, putAttendee } from "~/tournament/attendee-model.server";
+import {
+  getTournamentAttendee,
+  putAttendee,
+} from "~/tournament/attendee-model.server";
 import invariant from "tiny-invariant";
 import { getTournamentBySlug } from "~/tournament/tournament-model.server";
 

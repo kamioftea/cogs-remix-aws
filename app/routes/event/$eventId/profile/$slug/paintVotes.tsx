@@ -20,7 +20,7 @@ export const PaintVotes = ({ attendee, attendeesBySlug }: PaintsVotesProps) => {
       const formData = new FormData();
       formData.set("type", "paint");
       Object.entries(votes ?? {}).forEach(([slug, voteCount]) =>
-        formData.set(`vote[${slug}]`, voteCount.toString())
+        formData.set(`vote[${slug}]`, voteCount.toString()),
       );
       fetch(`/event/${attendee.eventSlug}/profile/${attendee.slug}`, {
         method: "post",
@@ -31,7 +31,7 @@ export const PaintVotes = ({ attendee, attendeesBySlug }: PaintsVotesProps) => {
         }
       });
     },
-    [attendee]
+    [attendee],
   );
 
   useEffect(() => {
@@ -43,9 +43,9 @@ export const PaintVotes = ({ attendee, attendeesBySlug }: PaintsVotesProps) => {
       Object.fromEntries(
         Object.entries(attendeesBySlug)
           .filter(([slug]) => slug !== attendee.slug)
-          .map(([slug, { name }]) => [slug, name])
+          .map(([slug, { name }]) => [slug, name]),
       ),
-    [attendee.slug, attendeesBySlug]
+    [attendee.slug, attendeesBySlug],
   );
 
   return (

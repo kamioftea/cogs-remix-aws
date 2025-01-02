@@ -54,7 +54,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 
   const attendee = await getTournamentAttendeeBySlug(
     tournament.slug,
-    params.slug
+    params.slug,
   );
   if (!attendee) {
     throw new Response("Attendee not found", { status: 404 });
@@ -68,7 +68,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 
   const attendeeGames = await getGamesForAttendee(
     attendee.eventSlug,
-    attendee.slug
+    attendee.slug,
   );
   const games = await Promise.all(
     attendeeGames
@@ -78,11 +78,11 @@ export const loader: LoaderFunction = async ({ request, params }) => {
           await getPlayersByTable(
             player.eventSlug,
             player.roundIndex,
-            player.tableNumber
+            player.tableNumber,
           )
         ).filter((g) => g.attendeeSlug !== player.attendeeSlug)[0];
         return { player, opponent };
-      })
+      }),
   );
   games.sort(sortBy(({ player }) => player.tableNumber));
 
@@ -134,7 +134,7 @@ export const action: ActionFunction = async ({ request, params }) => {
       return slug && v.toString().match(/^\d+$/)
         ? [[slug, parseInt(v.toString())]]
         : [];
-    })
+    }),
   );
 
   if (formData.type === "paint") {
@@ -156,7 +156,7 @@ export default function LoginAsAttendeePage() {
   >() as LoaderData;
 
   const { tournament, currentAttendee } = useRouteLoaderData(
-    "routes/event/$eventId"
+    "routes/event/$eventId",
   ) as TournamentLoaderData;
 
   return (
@@ -189,7 +189,7 @@ export default function LoginAsAttendeePage() {
               <dd>
                 {additionalFieldTypes[spec.type].profile(
                   attendee.additionalFields?.[spec.name],
-                  attendee
+                  attendee,
                 )}
               </dd>
             </Fragment>

@@ -100,59 +100,59 @@ export const action: ActionFunction = async ({ request, params }) => {
     }
     case "update": {
       await Promise.all(
-        (
-          await getGamesForRound(tournament.slug, roundIndex - 1)
-        ).map(async (game) => {
-          let updated = false;
-          let scores = false;
-          let tableNumber = parseInt(
-            formData[`tableNumber[${game.attendeeSlug}]`].toString()
-          );
-          if (tableNumber && tableNumber !== game.tableNumber) {
-            game.tableNumber = tableNumber;
-            updated = true;
-          }
-
-          if (
-            formData["attendee_slug"] &&
-            game.attendeeSlug === formData["attendee_slug"]
-          ) {
-            const { scenario } = tournament.scenarios[roundIndex - 1];
-            game.scoreBreakdown = Object.fromEntries(
-              scenario.scoreInputs
-                .map((input) => {
-                  return [
-                    input.name,
-                    (formData[input.name]?.toString() ?? "").match(/^\d+$/)
-                      ? parseInt(formData[input.name].toString())
-                      : undefined,
-                  ];
-                })
-                .filter(([, v]) => v != undefined)
+        (await getGamesForRound(tournament.slug, roundIndex - 1)).map(
+          async (game) => {
+            let updated = false;
+            let scores = false;
+            let tableNumber = parseInt(
+              formData[`tableNumber[${game.attendeeSlug}]`].toString(),
             );
+            if (tableNumber && tableNumber !== game.tableNumber) {
+              game.tableNumber = tableNumber;
+              updated = true;
+            }
 
-            game.routedPoints = (
-              formData["routed_points"]?.toString() ?? ""
-            ).match(/^\d+$/)
-              ? parseInt(formData["routed_points"].toString())
-              : undefined;
+            if (
+              formData["attendee_slug"] &&
+              game.attendeeSlug === formData["attendee_slug"]
+            ) {
+              const { scenario } = tournament.scenarios[roundIndex - 1];
+              game.scoreBreakdown = Object.fromEntries(
+                scenario.scoreInputs
+                  .map((input) => {
+                    return [
+                      input.name,
+                      (formData[input.name]?.toString() ?? "").match(/^\d+$/)
+                        ? parseInt(formData[input.name].toString())
+                        : undefined,
+                    ];
+                  })
+                  .filter(([, v]) => v != undefined),
+              );
 
-            game.locked = true;
-            scores = true;
-          }
+              game.routedPoints = (
+                formData["routed_points"]?.toString() ?? ""
+              ).match(/^\d+$/)
+                ? parseInt(formData["routed_points"].toString())
+                : undefined;
 
-          if (updated || scores) {
-            await putPlayerGame(game);
-          }
+              game.locked = true;
+              scores = true;
+            }
 
-          if (scores) {
-            await updateScoresForTable(
-              game.eventSlug,
-              game.roundIndex,
-              game.tableNumber
-            );
-          }
-        })
+            if (updated || scores) {
+              await putPlayerGame(game);
+            }
+
+            if (scores) {
+              await updateScoresForTable(
+                game.eventSlug,
+                game.roundIndex,
+                game.tableNumber,
+              );
+            }
+          },
+        ),
       );
 
       break;

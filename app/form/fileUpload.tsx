@@ -55,7 +55,7 @@ const FileUploadImpl = ({
         .catch((err) => setError(err?.message ?? "Failed to upload image"))
         .finally(() => setIsUploading(false));
     },
-    [uploadUrl, setCurrentId, setError]
+    [uploadUrl, setCurrentId, setError],
   );
 
   useEffect(() => setCurrentId(uploadId ?? null), [uploadId]);

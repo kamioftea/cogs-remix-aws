@@ -28,8 +28,8 @@ export const SportsVotes = ({
         games.map((game) => [
           game.opponent.attendeeSlug,
           sportsBallot?.[game.opponent.attendeeSlug] ?? 0,
-        ])
-      )
+        ]),
+      ),
     );
   }, [sportsBallot, games]);
 
@@ -38,7 +38,7 @@ export const SportsVotes = ({
       const formData = new FormData();
       formData.set("type", "sports");
       Object.entries(votes ?? {}).forEach(([slug, voteCount]) =>
-        formData.set(`vote[${slug}]`, voteCount.toString())
+        formData.set(`vote[${slug}]`, voteCount.toString()),
       );
       fetch(`/event/${attendee.eventSlug}/profile/${attendee.slug}`, {
         method: "post",
@@ -49,15 +49,15 @@ export const SportsVotes = ({
         }
       });
     },
-    [attendee]
+    [attendee],
   );
 
   const options = useMemo(
     () =>
       Object.fromEntries(
-        Object.entries(attendeesBySlug).map(([slug, { name }]) => [slug, name])
+        Object.entries(attendeesBySlug).map(([slug, { name }]) => [slug, name]),
       ),
-    [attendeesBySlug]
+    [attendeesBySlug],
   );
 
   if (games.length < 3) {

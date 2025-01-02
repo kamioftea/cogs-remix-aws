@@ -120,7 +120,7 @@ export const action: ActionFunction = async ({ request, params }) => {
             name: getYupErrorMessage("name", err),
           },
         },
-        400
+        400,
       );
     }
     throw err;
@@ -143,18 +143,18 @@ export const action: ActionFunction = async ({ request, params }) => {
   await putAttendee(attendee);
 
   const urlBuilder = new URL(
-    `${BASE_URL}/event/${params.eventId}/edit-details`
+    `${BASE_URL}/event/${params.eventId}/edit-details`,
   );
   urlBuilder.searchParams.set(
     "token",
-    await getAttendeeKey(attendee.email, params.eventId)
+    await getAttendeeKey(attendee.email, params.eventId),
   );
   return redirect(urlBuilder.toString());
 };
 
 export default function EditAttendeePage() {
   const { tournament } = useRouteLoaderData(
-    "routes/event/$eventId"
+    "routes/event/$eventId",
   ) as TournamentLoaderData;
 
   const nameRef = React.useRef<HTMLInputElement>(null);
@@ -205,7 +205,7 @@ export default function EditAttendeePage() {
                 spec.name,
                 attendee?.additionalFields?.[spec.name] ?? "",
                 attendee.eventSlug,
-                attendee.slug
+                attendee.slug,
               )}
             </fieldset>
           ))}

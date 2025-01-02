@@ -35,10 +35,10 @@ export const links: LinksFunction = () => {
 
 export const meta: MetaFunction<LoaderData> = ({ location, data }) => ({
   charset: "utf-8",
-  title: "Kings of War | Chesterfield Open Gaming Society",
+  title: "Organised play | Chesterfield Open Gaming Society",
   viewport: "width=device-width,initial-scale=1",
   "og:type": "website",
-  "og:title": "Kings of War | Chesterfield Open Gaming Society",
+  "og:title": "Organised play | Chesterfield Open Gaming Society",
   "og:url": data?.base_url + location.pathname,
   "og:image": data?.base_url + "/_static/images/cogs-og-image.png",
   "og:image:type": "image/png",
@@ -47,7 +47,7 @@ export const meta: MetaFunction<LoaderData> = ({ location, data }) => ({
 
 const breadcrumbs: Breadcrumb[] = [
   { label: "Home", url: "https://www.c-o-g-s.org.uk" },
-  { label: "Kings of War", url: CURRENT },
+  { label: "Organised play", url: CURRENT },
 ];
 
 export const handle = {

@@ -9,7 +9,7 @@ export interface AdditionalField {
     name: string,
     value: string,
     eventSlug: string,
-    attendeeSlug: string
+    attendeeSlug: string,
   ) => ReactNode;
   profile: (value: string, attendee: Attendee) => ReactNode;
 }

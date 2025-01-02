@@ -1,4 +1,4 @@
-import type { ActionFunction} from "@remix-run/node";
+import type { ActionFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { assertNonProd } from "./helpers/assert-non-prod";
 import invariant from "tiny-invariant";
@@ -23,7 +23,7 @@ export const action: ActionFunction = async ({ params }) => {
   const verifyURL = new URL(`${BASE_URL}/account/verify/`);
   verifyURL.searchParams.set("token", resetKey);
 
-  return json({redirect: verifyURL.toString()});
-}
+  return json({ redirect: verifyURL.toString() });
+};
 
 export default null;

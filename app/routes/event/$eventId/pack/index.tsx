@@ -5,7 +5,7 @@ import { Fragment } from "react";
 
 export default function EventPackLandingPage() {
   const { tournament } = useRouteLoaderData(
-    "routes/event/$eventId"
+    "routes/event/$eventId",
   ) as TournamentLoaderData;
 
   return (

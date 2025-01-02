@@ -8,7 +8,7 @@ import {
   deleteAttendee,
   getTournamentAttendee,
   listTournamentAttendeesByEventSlug,
-  putAttendee
+  putAttendee,
 } from "~/tournament/attendee-model.server";
 import { useActionData, useLoaderData } from "@remix-run/react";
 import * as React from "react";
@@ -24,7 +24,6 @@ import { VerifyAttendeeEmail } from "~/tournament/verify-attendee-email";
 import { getAttendeeKey } from "~/account/auth.server";
 import { additionalFieldTypes } from "~/tournament/additional-fields";
 import { VoteInput } from "~/tournament/vote-input";
-
 
 interface LoaderData {
   tournament: Tournament;
@@ -48,7 +47,7 @@ export const loader: LoaderFunction = async ({ params }) => {
   const voteOptions = Object.fromEntries(
     (await listTournamentAttendeesByEventSlug(eventSlug))
       .filter((a) => a.slug !== attendee.slug)
-      .map((a) => [a.slug, a.name])
+      .map((a) => [a.slug, a.name]),
   );
 
   return json<LoaderData>({ tournament, attendee, voteOptions });
@@ -109,7 +108,7 @@ export const action: ActionFunction = async ({ request, params }) => {
             present: getYupErrorMessage("present", err),
           },
         },
-        400
+        400,
       );
     }
     throw err;
@@ -135,7 +134,7 @@ export const action: ActionFunction = async ({ request, params }) => {
         ...acc,
         [slug]: (acc[slug] ?? 0) + votes,
       }),
-      {}
+      {},
     );
 
   attendee.sportsBallot = Object.entries(formData)
@@ -148,7 +147,7 @@ export const action: ActionFunction = async ({ request, params }) => {
         ...acc,
         [slug]: (acc[slug] ?? 0) + votes,
       }),
-      {}
+      {},
     );
 
   await putAttendee({ ...attendee, ...data });
@@ -165,8 +164,8 @@ export const action: ActionFunction = async ({ request, params }) => {
         attendee.email,
         eventSlug,
         tournament.title,
-        accessKey
-      )
+        accessKey,
+      ),
     );
   }
 
@@ -263,7 +262,7 @@ export default function ManageAttendeePage() {
               spec.name,
               attendee?.additionalFields?.[spec.name] ?? "",
               attendee.eventSlug,
-              attendee.slug
+              attendee.slug,
             )}
           </fieldset>
         ))}

@@ -7,8 +7,9 @@ import { listTournamentAttendeesByEventSlug } from "~/tournament/attendee-model.
 import {
   FiAlertCircle,
   FiAlertTriangle,
-  FiCheckCircle, FiPlus,
-  FiTrash
+  FiCheckCircle,
+  FiPlus,
+  FiTrash,
 } from "react-icons/fi";
 import type { ReactNode } from "react";
 import type { Tournament } from "~/tournament/tournament-model.server";
@@ -22,12 +23,12 @@ interface LoaderData {
 export const loader: LoaderFunction = async ({ params }) => {
   invariant(
     params.eventSlug,
-    `eventSlug not found in ${JSON.stringify(Object.keys(params))}`
+    `eventSlug not found in ${JSON.stringify(Object.keys(params))}`,
   );
 
   const attendees = await listTournamentAttendeesByEventSlug(params.eventSlug);
   const tournament = getTournamentBySlug(params.eventSlug);
-  invariant(tournament, "by route")
+  invariant(tournament, "by route");
 
   return json<LoaderData>({ attendees, tournament });
 };
@@ -61,7 +62,7 @@ function getStatusTag(attendee: Attendee): ReactNode {
             </span>
           ) : null}
           <span className="label success hollow">
-            <FiCheckCircle /> {attendee.present ? 'Present' : 'Paid'}
+            <FiCheckCircle /> {attendee.present ? "Present" : "Paid"}
           </span>
         </>
       );
@@ -127,39 +128,39 @@ function getActions(attendee: Attendee): ReactNode {
 }
 
 export default function EventIndexPage() {
-  const { attendees, tournament } = useLoaderData<typeof loader>() as LoaderData;
+  const { attendees, tournament } = useLoaderData<
+    typeof loader
+  >() as LoaderData;
 
   return (
     <>
-      {tournament.sparePlayer && !attendees.find(a => a.email === tournament.sparePlayer?.email) &&
-        <form
-          action={`/admin/event/${tournament.slug}/attendees/add-spare-player`}
-          method="post"
-          className="display-inline"
-        >
-          <button
-            type="submit"
-            className="button primary"
+      {tournament.sparePlayer &&
+        !attendees.find((a) => a.email === tournament.sparePlayer?.email) && (
+          <form
+            action={`/admin/event/${tournament.slug}/attendees/add-spare-player`}
+            method="post"
+            className="display-inline"
           >
-            <FiPlus /> Add spare player
-          </button>
-        </form>
-      }
+            <button type="submit" className="button primary">
+              <FiPlus /> Add spare player
+            </button>
+          </form>
+        )}
       <table>
         <thead>
-        <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Slug</th>
-          <th>Status</th>
-          <th>Army</th>
-          <th>Sports</th>
-          <th>Actions</th>
-        </tr>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Slug</th>
+            <th>Status</th>
+            <th>Army</th>
+            <th>Sports</th>
+            <th>Actions</th>
+          </tr>
         </thead>
         <tbody>
-        {attendees.map((attendee: Attendee) => (
-          <tr key={attendee.email}>
+          {attendees.map((attendee: Attendee) => (
+            <tr key={attendee.email}>
               <td>
                 <Link
                   to={`/admin/event/${attendee.eventSlug}/attendees/${attendee.email}`}
@@ -172,8 +173,18 @@ export default function EventIndexPage() {
                 <code>{attendee.slug}</code>
               </td>
               <td>{getStatusTag(attendee)}</td>
-              <td>{Object.values(attendee.paintBallot ?? {}).reduce((acc, score) => acc + score, 0)}</td>
-              <td>{Object.values(attendee.sportsBallot ?? {}).reduce((acc, score) => acc + score, 0)}</td>
+              <td>
+                {Object.values(attendee.paintBallot ?? {}).reduce(
+                  (acc, score) => acc + score,
+                  0,
+                )}
+              </td>
+              <td>
+                {Object.values(attendee.sportsBallot ?? {}).reduce(
+                  (acc, score) => acc + score,
+                  0,
+                )}
+              </td>
               <td>{getActions(attendee)}</td>
             </tr>
           ))}

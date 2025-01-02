@@ -19,17 +19,18 @@ player must declare which zone it is in.
   scoreInputs: [
     {
       name: "primary_zone",
-      label: "Do you control the central zone in your opponent's half of the board?",
+      label:
+        "Do you control the central zone in your opponent's half of the board?",
       type: "boolean",
     },
     {
       name: "other_zones",
       label: "How many other zones do you control?",
       type: "number",
-      max: 5
-    }
+      max: 5,
+    },
   ],
   tournamentPointFunction(player_inputs): number {
-    return (player_inputs.primary_zone ? 2 : 0) + player_inputs.other_zones
+    return (player_inputs.primary_zone ? 2 : 0) + player_inputs.other_zones;
   },
 };

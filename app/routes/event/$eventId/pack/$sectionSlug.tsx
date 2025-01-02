@@ -23,7 +23,7 @@ export const loader: LoaderFunction = async ({ params }) => {
   }
 
   const section = tournament.eventPack.find(
-    (section) => section.slug ?? slugify(section.title) === params.sectionSlug
+    (section) => section.slug ?? slugify(section.title) === params.sectionSlug,
   );
 
   if (!section) {
@@ -38,7 +38,7 @@ export const loader: LoaderFunction = async ({ params }) => {
       headers: {
         "Cache-Control": `max-age=${60 * 60 * 24}`,
       },
-    }
+    },
   );
 };
 

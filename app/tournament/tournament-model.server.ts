@@ -53,23 +53,23 @@ export interface Tournament {
   additionalFields?: AdditionalFieldSpec[];
   listsSubmissionClosed?: boolean;
   sparePlayer?: {
-    name: string,
-    email: string,
+    name: string;
+    email: string;
     listPdfUrl: {
-      base: string,
-      name: string,
-    }
-  },
+      base: string;
+      name: string;
+    };
+  };
   scenarios: {
     scenario: Scenario;
     mapUrl: string;
     roundEnd?: string;
   }[];
   bonusPoints?: {
-    win?: number,
-    draw?: number,
-    loss?: number,
-  }
+    win?: number;
+    draw?: number;
+    loss?: number;
+  };
   pointsLimit?: number;
   kowMastersSeason: number;
   kowMastersEventId?: number;
@@ -95,7 +95,7 @@ export const tournaments: Tournament[] = [
     openGraph: {
       imageUrl: "https://kow.c-o-g-s.org.uk/_static/images/cogs-of-war-og.png",
       imageAlt:
-        "An army of abyssal dwarves besieges an icy fortress defended by fur-clad humans. Most of the image is in greyscale, but the elf force is monochrome yellow."
+        "An army of abyssal dwarves besieges an icy fortress defended by fur-clad humans. Most of the image is in greyscale, but the elf force is monochrome yellow.",
     },
     description: `A one-day Kings of War singles tournament using the 3.5 edition rules.`,
     about: {
@@ -106,14 +106,14 @@ export const tournaments: Tournament[] = [
         "Stonegravels",
         "91 Sheffield Road",
         "Chesterfield",
-        "S41 7JH"
-      ]
+        "S41 7JH",
+      ],
     },
     signUpEnabled: false,
     disclaimer: renderMarkdownInline(
       `Mantic® and Kings of War® and all associated names, characters, places, and things are copyright © and
       ™ Mantic Games. The event image is [The Siege of Chill](https://www.manticgames.com/wallpapers/) © 
-      Mantic Games. Chesterfield Open Gaming Society is not associated with Mantic Games in any way.`
+      Mantic Games. Chesterfield Open Gaming Society is not associated with Mantic Games in any way.`,
     ),
     eventPack: [
       {
@@ -121,7 +121,7 @@ export const tournaments: Tournament[] = [
         content: unsafeRenderMarkdown(`
 The tournament organiser for this event is Jeff Horton. If you have 
 questions or feedback, please email Jeff at 
-[jeff@goblinoid.co.uk](mailto:jeff@goblinoid.co.uk).`)
+[jeff@goblinoid.co.uk](mailto:jeff@goblinoid.co.uk).`),
       },
       {
         title: "Tickets",
@@ -136,7 +136,7 @@ If you’d prefer to pay using a different payment method, please contact
 the tournament organiser.
 
 Tickets can be cancelled for a full refund until Thursday 30th March. 
-After this, we will offer a refund if we can fill your place.`)
+After this, we will offer a refund if we can fill your place.`),
       },
       {
         title: "Inclusivity and accessibility",
@@ -158,7 +158,7 @@ associated social media.
 Please read the [full code of conduct](
 https://kow.c-o-g-s.org.uk/code-of-conduct) for more details.
 
-Thank you.`)
+Thank you.`),
       },
       {
         title: "Preparation",
@@ -216,7 +216,7 @@ attendees, he'll use this list.
     Download
   </a>
 </div>
-`)
+`),
       },
       {
         title: "Things to bring with you",
@@ -225,7 +225,7 @@ attendees, he'll use this list.
 - Three copies of your list.
 - A copy of the 3.5 edition Kings of War core rulebook.
 - Dice, tape measure, arc template, and tokens.
-- A chess clock (physical or app)`)
+- A chess clock (physical or app)`),
       },
       {
         title: "Location",
@@ -246,7 +246,7 @@ accessibility needs or a quick get-away.
  
 There is a bus stop just outside the venue. If you are coming by train, 
 please get in contact as we should be able to arrange a lift to the 
-centre from Chesterfield station.`)
+centre from Chesterfield station.`),
       },
       {
         title: "Food and drink",
@@ -260,7 +260,7 @@ distance. We will endeavour to provide a list and menus on the event
 website nearer the time.
 
 A selection of soft drinks and snacks will be available to purchase 
-during the event.`)
+during the event.`),
       },
       {
         title: "Schedule",
@@ -281,7 +281,7 @@ queries, etc.
 | Awards       | 17:15      |
 | Close        | 17:30      |
 
-The schedule may need to be adjusted on the day.`)
+The schedule may need to be adjusted on the day.`),
       },
       {
         title: "Playing the games",
@@ -311,7 +311,7 @@ to complete these moves quickly.
 If there are enough pauses during a game that you predict the round time
 will end before both players have finished, please inform the tournament 
 organiser as soon as possible so that this can be resolved fairly for 
-both players.`)
+both players.`),
       },
       {
         title: "Scenarios and scoring",
@@ -345,7 +345,7 @@ enemy units you routed during the game.
 
 Players will therefore score up to thirteen tournament points per round. 
 With three list submission points, the maximum available tournament 
-score is 42.`)
+score is 42.`),
       },
       {
         title: "Awards",
@@ -366,16 +366,16 @@ with the lower ranking in the tournament scores.
 
 For both categories, players will receive seven total votes they can
 distribute as they see fit, including casting multiple votes for one or 
-more candidates.`)
-      }
+more candidates.`),
+      },
     ],
     eventPackPdfUrl: {
       base: "https://static.goblinoid.co.uk/",
-      name: "cogs-of-war-tournament-pack.pdf"
+      name: "cogs-of-war-tournament-pack.pdf",
     },
     scenarioPdfUrl: {
       base: "https://static.goblinoid.co.uk/",
-      name: "cogs-of-war-scenarios-and-scoring.pdf"
+      name: "cogs-of-war-scenarios-and-scoring.pdf",
     },
     costInPounds: 15,
     payPalLink: "https://www.paypal.com/paypalme/KamiOfTea/15",
@@ -385,50 +385,50 @@ more candidates.`)
         name: "army_list",
         type: "ARMY_LIST",
         readonly: true,
-        label: "Army list"
+        label: "Army list",
       },
       {
         name: "faction",
         type: "STRING",
         readonly: true,
-        label: "Faction"
+        label: "Faction",
       },
       {
         name: "allies",
         type: "STRING",
         readonly: true,
-        label: "Allies"
+        label: "Allies",
       },
       {
         name: "tournament_points",
         type: "SCORE",
         readonly: true,
-        label: "Tournament points"
+        label: "Tournament points",
       },
       {
         name: "total_routed",
         type: "SCORE",
         readonly: true,
-        label: "Total routed"
+        label: "Total routed",
       },
       {
         name: "total_attrition",
         type: "SCORE",
         readonly: true,
-        label: "Total attrition"
+        label: "Total attrition",
       },
       {
         name: "bonus_points",
         type: "SCORE",
         readonly: true,
-        label: "Bonus points"
+        label: "Bonus points",
       },
       {
         name: "awards",
         type: "STRING",
         readonly: true,
-        label: "Awards"
-      }
+        label: "Awards",
+      },
     ],
     listsSubmissionClosed: true,
     scenarios: [
@@ -436,24 +436,24 @@ more candidates.`)
         scenario: Loot,
         mapUrl:
           "https://static.goblinoid.co.uk/kow.c-o-g-s.org.uk/maps/Loot.png",
-        roundEnd: "2023-04-23 12:15:00"
+        roundEnd: "2023-04-23 12:15:00",
       },
       {
         scenario: FoolsGold,
         mapUrl:
           "https://static.goblinoid.co.uk/kow.c-o-g-s.org.uk/maps/FoolsGold.png",
-        roundEnd: "2023-04-23 15:05:00"
+        roundEnd: "2023-04-23 15:05:00",
       },
       {
         scenario: Invade,
         mapUrl:
           "https://static.goblinoid.co.uk/kow.c-o-g-s.org.uk/maps/Invade.png",
-        roundEnd: "2023-04-23 17:25:00"
-      }
+        roundEnd: "2023-04-23 17:25:00",
+      },
     ],
     pointsLimit: 1995,
     kowMastersEventId: 298,
-    kowMastersSeason: 8
+    kowMastersSeason: 8,
   },
   {
     title: "Cogs of War 2024",
@@ -462,17 +462,19 @@ more candidates.`)
     titlePositionX: "min(12.75rem, 25vw)",
     date: dayjs("2024-04-14"),
     imageUrl: "cogs-of-war-2024.png",
-    imageDescription: "A mighty army of skeleton warriors marches against a " +
+    imageDescription:
+      "A mighty army of skeleton warriors marches against a " +
       "small force of elves. Most of the image is in greyscale, but the elf " +
       "force is monochrome yellow.",
     openGraph: {
-      imageUrl: "https://kow.c-o-g-s.org.uk/_static/images/cogs-of-war-2024-og.png",
+      imageUrl:
+        "https://kow.c-o-g-s.org.uk/_static/images/cogs-of-war-2024-og.png",
       imageAlt:
         "A mighty army of skeleton warriors marches against a small force of elves. " +
         "Most of the image is in greyscale, but the elf force is monochrome yellow. " +
-        "Superimposed on top of this is the COGS logo and the text \"Chesterfield " +
+        'Superimposed on top of this is the COGS logo and the text "Chesterfield ' +
         "Open Gaming Society Presents Cogs of War 2024, A Kings of War Tournament, " +
-        "14th April 2024\""
+        '14th April 2024"',
     },
     description: `A one-day Kings of War singles tournament using the 3.5 edition rules and the 
     Clash of Kings 2024 updates.`,
@@ -484,15 +486,15 @@ more candidates.`)
         "Stonegravels",
         "91 Sheffield Road",
         "Chesterfield",
-        "S41 7JH"
-      ]
+        "S41 7JH",
+      ],
     },
     signUpEnabled: false,
     disclaimer: renderMarkdownInline(
       `Mantic® and Kings of War® and all associated names, characters, places, and things
        are copyright © and ™ Mantic Games. The event image is [The Battle of Borath Lei](
        https://www.manticgames.com/wallpapers/) © Mantic Games. Chesterfield Open Gaming Society is
-       not associated with Mantic Games in any way.`
+       not associated with Mantic Games in any way.`,
     ),
     eventPack: [
       {
@@ -500,7 +502,7 @@ more candidates.`)
         content: unsafeRenderMarkdown(`
 The tournament organiser for this event is Jeff Horton. If you have 
 questions or feedback, please email Jeff at 
-[jeff@goblinoid.co.uk](mailto:jeff@goblinoid.co.uk).`)
+[jeff@goblinoid.co.uk](mailto:jeff@goblinoid.co.uk).`),
       },
       {
         title: "Tickets",
@@ -515,7 +517,7 @@ If you’d prefer to pay using a different payment method, please contact
 the tournament organiser.
 
 Tickets can be cancelled for a full refund until Thursday 22nd March. 
-After this, we will offer a refund if we can fill your place.`)
+After this, we will offer a refund if we can fill your place.`),
       },
       {
         title: "Inclusivity and accessibility",
@@ -537,7 +539,7 @@ associated social media.
 Please read the [full code of conduct](
 https://kow.c-o-g-s.org.uk/code-of-conduct) for more details.
 
-Thank you.`)
+Thank you.`),
       },
       {
         title: "Preparation",
@@ -567,7 +569,7 @@ It should be clear to your opponent what each unit in your army represents.
 
 Steve Pearson is our spare player in the event that we have an odd number of 
 attendees. His list will be published prior to the submission deadline.
-`)
+`),
       },
       {
         title: "Things to bring with you",
@@ -575,7 +577,7 @@ attendees. His list will be published prior to the submission deadline.
 - Your 1995 point army. 
 - Three copies of your list.
 - Dice, tape measure, arc template, and tokens.
-- A chess clock (physical or app)`)
+- A chess clock (physical or app)`),
       },
       {
         title: "Location",
@@ -596,7 +598,7 @@ accessibility needs or a quick get-away.
  
 There is a bus stop just outside the venue. If you are coming by train, 
 please get in contact as we should be able to arrange a lift to the 
-centre from Chesterfield station.`)
+centre from Chesterfield station.`),
       },
       {
         title: "Food and drink",
@@ -610,7 +612,7 @@ distance. We will endeavour to provide a list and menus on the event
 website nearer the time.
 
 A selection of soft drinks and snacks will be available to purchase 
-during the event.`)
+during the event.`),
       },
       {
         title: "Schedule",
@@ -631,7 +633,7 @@ queries, etc.
 | Awards       | 17:30      |
 | Close        | 17:45      |
 
-The schedule may need to be adjusted on the day.`)
+The schedule may need to be adjusted on the day.`),
       },
       {
         title: "Playing the games",
@@ -661,7 +663,7 @@ to complete these moves quickly.
 If there are enough pauses during a game that you predict the round time
 will end before both players have finished, please inform the tournament 
 organiser as soon as possible so that this can be resolved fairly for 
-both players.`)
+both players.`),
       },
       {
         title: "Scenarios and scoring",
@@ -695,7 +697,7 @@ enemy units you routed during the game.
 
 Players will therefore score up to fifteen tournament points per round. 
 With three list submission points, the maximum available tournament 
-score is 48.`)
+score is 48.`),
       },
       {
         title: "Awards",
@@ -716,12 +718,12 @@ with the lower ranking in the tournament scores.
 
 For both categories, players will receive seven total votes they can
 distribute as they see fit, including casting multiple votes for one or 
-more candidates.`)
-      }
+more candidates.`),
+      },
     ],
     eventPackPdfUrl: {
       base: "/_static/pdf/",
-      name: "cogs-of-war-2024-tournament-pack.pdf"
+      name: "cogs-of-war-2024-tournament-pack.pdf",
     },
     costInPounds: 18,
     payPalLink: "https://www.paypal.com/paypalme/KamiOfTea/18",
@@ -731,50 +733,50 @@ more candidates.`)
         name: "army_list",
         type: "ARMY_LIST",
         readonly: true,
-        label: "Army list"
+        label: "Army list",
       },
       {
         name: "faction",
         type: "STRING",
         readonly: true,
-        label: "Faction"
+        label: "Faction",
       },
       {
         name: "allies",
         type: "STRING",
         readonly: true,
-        label: "Allies"
+        label: "Allies",
       },
       {
         name: "tournament_points",
         type: "SCORE",
         readonly: true,
-        label: "Tournament points"
+        label: "Tournament points",
       },
       {
         name: "total_routed",
         type: "SCORE",
         readonly: true,
-        label: "Total routed"
+        label: "Total routed",
       },
       {
         name: "total_attrition",
         type: "SCORE",
         readonly: true,
-        label: "Total attrition"
+        label: "Total attrition",
       },
       {
         name: "bonus_points",
         type: "SCORE",
         readonly: true,
-        label: "Bonus points"
+        label: "Bonus points",
       },
       {
         name: "awards",
         type: "STRING",
         readonly: true,
-        label: "Awards"
-      }
+        label: "Awards",
+      },
     ],
     listsSubmissionClosed: true,
     sparePlayer: {
@@ -782,57 +784,62 @@ more candidates.`)
       email: "jammystavros@hotmail.com",
       listPdfUrl: {
         base: "https://static.goblinoid.co.uk/",
-        name: "cogs-of-war-2024-spare-player-list.pdf"
-      }
+        name: "cogs-of-war-2024-spare-player-list.pdf",
+      },
     },
     scenarios: [
       {
         scenario: Plunder,
-        mapUrl: "https://static.goblinoid.co.uk/kow.c-o-g-s.org.uk/maps/Plunder.png",
-        roundEnd: "2024-04-14 12:30:00"
+        mapUrl:
+          "https://static.goblinoid.co.uk/kow.c-o-g-s.org.uk/maps/Plunder.png",
+        roundEnd: "2024-04-14 12:30:00",
       },
       {
         scenario: Control,
-        mapUrl: "https://static.goblinoid.co.uk/kow.c-o-g-s.org.uk/maps/Control.png",
-        roundEnd: "2024-04-14 15:15:00"
+        mapUrl:
+          "https://static.goblinoid.co.uk/kow.c-o-g-s.org.uk/maps/Control.png",
+        roundEnd: "2024-04-14 15:15:00",
       },
       {
         scenario: Pillage,
-        mapUrl: "https://static.goblinoid.co.uk/kow.c-o-g-s.org.uk/maps/Pillage.png",
-        roundEnd: "2024-04-14 17:40:00"
-      }
+        mapUrl:
+          "https://static.goblinoid.co.uk/kow.c-o-g-s.org.uk/maps/Pillage.png",
+        roundEnd: "2024-04-14 17:40:00",
+      },
     ],
     scenarioPdfUrl: {
       base: "https://static.goblinoid.co.uk/",
-      name: "cogs-of-war-2024-scenarios-and-scoring.pdf"
+      name: "cogs-of-war-2024-scenarios-and-scoring.pdf",
     },
     bonusPoints: {
       win: 5,
-      draw: 2
+      draw: 2,
     },
     pointsLimit: 1995,
     kowMastersEventId: 369,
     kowMastersSeason: 9,
-    manticCompanionEventId: 249
+    manticCompanionEventId: 249,
   },
   {
     title: "Cogs of War 2025",
     subtitle: "A Kings of War Tournament",
     slug: "cogs-of-war-2025",
     titlePositionX: "1rem",
-    titleStyles: {"align-self": "end"},
+    titleStyles: { "align-self": "end" },
     date: dayjs("2025-04-06"),
     imageUrl: "cogs-of-war-2025.png",
-    imageDescription: "A naiad and a succubus clash with an armies in the background." +
+    imageDescription:
+      "A naiad and a succubus clash with an armies in the background." +
       " Most of the image is in greyscale, but the naiad is monochrome yellow.",
     openGraph: {
-      imageUrl: "https://kow.c-o-g-s.org.uk/_static/images/cogs-of-war-2025-og.png",
+      imageUrl:
+        "https://kow.c-o-g-s.org.uk/_static/images/cogs-of-war-2025-og.png",
       imageAlt:
         "A naiad and a succubus clash with an armies in the background." +
         "Most of the image is in greyscale, but the naiad is monochrome yellow. " +
-        "Superimposed on top of this is the COGS logo and the text \"Chesterfield " +
+        'Superimposed on top of this is the COGS logo and the text "Chesterfield ' +
         "Open Gaming Society Presents Cogs of War 2025, A Kings of War Tournament, " +
-        "6th April 2025\""
+        '6th April 2025"',
     },
     description: `A one-day Kings of War singles tournament using the 3.5 edition rules and the 
     Clash of Kings 2025 updates.`,
@@ -844,39 +851,39 @@ more candidates.`)
         "Stonegravels",
         "91 Sheffield Road",
         "Chesterfield",
-        "S41 7JH"
-      ]
+        "S41 7JH",
+      ],
     },
     signUpEnabled: false,
     disclaimer: renderMarkdownInline(
       `Mantic® and Kings of War® and all associated names, characters, places, and things
        are copyright © and ™ Mantic Games. The original event image © Mantic Games. 
-       Chesterfield Open Gaming Society is not associated with Mantic Games in any way.`
+       Chesterfield Open Gaming Society is not associated with Mantic Games in any way.`,
     ),
     content: unsafeRenderMarkdown(
-`## Save the date
+      `## Save the date
 
 Cogs of War will be returning for its third year. 
 
-More info and sign-ups will be available soon.`
+More info and sign-ups will be available soon.`,
     ),
     scenarios: [],
     maxAttendees: 20,
     bonusPoints: {
       win: 5,
-      draw: 2
+      draw: 2,
     },
     pointsLimit: 1995,
     kowMastersEventId: 431,
     kowMastersSeason: 10,
-    manticCompanionEventId: 424
+    manticCompanionEventId: 424,
   },
   {
     title: "Clockwork 2025",
     subtitle: "A Kings of War Speed Tournament",
     slug: "clockwork-2025",
     titlePositionX: "1rem",
-    titleStyles: {"align-self": "end"},
+    titleStyles: { "align-self": "end" },
     date: dayjs("2025-11-16"),
     imageUrl: "clockwork-2025.png",
     imageDescription:
@@ -885,16 +892,18 @@ More info and sign-ups will be available soon.`
       "is in greyscale, but the front line of the orc force is in monochrome" +
       "yellow.",
     openGraph: {
-      imageUrl: "https://kow.c-o-g-s.org.uk/_static/images/cogs-of-war-2025-og.png",
+      imageUrl:
+        "https://kow.c-o-g-s.org.uk/_static/images/cogs-of-war-2025-og.png",
       imageAlt:
         "A riftforged orc army led by a Stormbringer on Helstrike Manticore clashes" +
         "with a halfling army let by a Muster captain on Aralez. Most of the image" +
         "is in greyscale, but the front line of the orc force is in monochrome" +
         "yellow. Superimposed on top of this is the COGS logo and the text " +
-        "\"Chesterfield Open Gaming Society Presents Clockwork 2025, A Kings of " +
-        "War Speed Tournament, 16th November 2025\""
+        '"Chesterfield Open Gaming Society Presents Clockwork 2025, A Kings of ' +
+        'War Speed Tournament, 16th November 2025"',
     },
-    description: "A one-day Kings of War speed tournament. We're planning to" +
+    description:
+      "A one-day Kings of War speed tournament. We're planning to" +
       " use the 2026 version of the Kings of War rules if they are available" +
       " in time.",
     about: {
@@ -905,17 +914,17 @@ More info and sign-ups will be available soon.`
         "Stonegravels",
         "91 Sheffield Road",
         "Chesterfield",
-        "S41 7JH"
-      ]
+        "S41 7JH",
+      ],
     },
     signUpEnabled: false,
     disclaimer: renderMarkdownInline(
       `Mantic® and Kings of War® and all associated names, characters, places, and things
        are copyright © and ™ Mantic Games. The original event image © Mantic Games. 
-       Chesterfield Open Gaming Society is not associated with Mantic Games in any way.`
+       Chesterfield Open Gaming Society is not associated with Mantic Games in any way.`,
     ),
     content: unsafeRenderMarkdown(
-`## Save the date
+      `## Save the date
 
 New for 2025, we will be running a clocks of war style tournament with smaller forces
 and limited time on the clock:
@@ -925,19 +934,19 @@ and limited time on the clock:
 * Game five: 15 minutes per player
 
 More info and sign-ups will be available soon.
-`
+`,
     ),
     scenarios: [],
     maxAttendees: 24,
     pointsLimit: 1000,
     kowMastersEventId: 430,
     kowMastersSeason: 10,
-    manticCompanionEventId: 425
-  }
+    manticCompanionEventId: 425,
+  },
 ];
 
 const tournamentsBySlug = Object.fromEntries(
-  tournaments.map((e) => [e.slug, e])
+  tournaments.map((e) => [e.slug, e]),
 );
 
 export function getTournamentBySlug(slug: string): Tournament | undefined {

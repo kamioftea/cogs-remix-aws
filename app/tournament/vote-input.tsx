@@ -23,16 +23,16 @@ export const VoteInput = ({
     (slug: string, delta: number) => {
       setVotes({ ...votes, [slug]: (votes[slug] ?? 0) + delta });
     },
-    [setVotes, votes]
+    [setVotes, votes],
   );
 
   const deleteVote = useCallback(
     (slug: string) => {
       setVotes(
-        Object.fromEntries(Object.entries(votes).filter(([k]) => k !== slug))
+        Object.fromEntries(Object.entries(votes).filter(([k]) => k !== slug)),
       );
     },
-    [ setVotes,votes]
+    [setVotes, votes],
   );
 
   const addVote = useCallback(
@@ -42,12 +42,12 @@ export const VoteInput = ({
         [slug]: 0,
       });
     },
-    [setVotes, votes]
+    [setVotes, votes],
   );
 
   const totalVotes = useMemo(
     () => Object.values(votes).reduce((acc, num) => acc + num, 0),
-    [votes]
+    [votes],
   );
 
   return (

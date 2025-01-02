@@ -80,7 +80,7 @@ export const action: ActionFunction = async ({ request, params }) => {
             email: getYupErrorMessage("email", err),
           },
         },
-        400
+        400,
       );
     }
     throw err;
@@ -88,7 +88,7 @@ export const action: ActionFunction = async ({ request, params }) => {
 
   const attendee = await getTournamentAttendee(
     tournament.slug,
-    requestData.email
+    requestData.email,
   );
   if (!attendee) {
     return json<ActionData>({
@@ -112,8 +112,8 @@ export const action: ActionFunction = async ({ request, params }) => {
       attendee.email,
       tournament.slug,
       tournament.title,
-      await getAttendeeKey(attendee.email, tournament.slug)
-    )
+      await getAttendeeKey(attendee.email, tournament.slug),
+    ),
   );
 
   return json<ActionData>({ emailSent: true, email: attendee.email });
@@ -122,7 +122,7 @@ export const action: ActionFunction = async ({ request, params }) => {
 export default function SendEditLinkPage() {
   const emailRef = React.useRef<HTMLInputElement>(null);
   const { tournament } = useRouteLoaderData(
-    "routes/event/$eventId"
+    "routes/event/$eventId",
   ) as TournamentLoaderData;
 
   const { errors, emailSent, email } = (useActionData() ?? {}) as ActionData;

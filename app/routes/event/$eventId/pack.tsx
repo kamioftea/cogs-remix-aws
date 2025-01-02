@@ -33,11 +33,11 @@ export const handle = { breadcrumbs };
 
 export default function EventPackLayout() {
   const { tournament } = useRouteLoaderData(
-    "routes/event/$eventId"
+    "routes/event/$eventId",
   ) as TournamentLoaderData;
 
   const sectionData = useRouteLoaderData(
-    "routes/event/$eventId/pack/$sectionSlug"
+    "routes/event/$eventId/pack/$sectionSlug",
   ) as PackSectionLoaderData | undefined;
 
   invariant(tournament.eventPack);
@@ -93,7 +93,7 @@ export function CatchBoundary() {
       <div className="span-nav">
         <h2>Rules pack not available</h2>
         <p>The rules pack for this event is not available yet.</p>
-        <Link to={'..'}>Back to event page.</Link>
+        <Link to={".."}>Back to event page.</Link>
       </div>
     );
   }

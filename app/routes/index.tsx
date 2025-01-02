@@ -28,9 +28,9 @@ export const links: LinksFunction = () => {
 
 export const loader: LoaderFunction = async () => {
   const now = dayjs().startOf("day");
-  let club_night =
-    clubNights.sort(sortBy(cn => cn.date))
-      .find(cn => !dayjs(cn.date).isBefore(now));
+  let club_night = clubNights
+    .sort(sortBy((cn) => cn.date))
+    .find((cn) => !dayjs(cn.date).isBefore(now));
   return json<LoaderData>({ tournaments, club_night });
 };
 
@@ -80,11 +80,13 @@ export default function Index() {
   const [upcoming, previous] = useMemo(() => {
     const now = dayjs().startOf("day");
     const predicate = new Predicate<Tournament>((tournament) => {
-      return now.isBefore(dayjs(tournament.date ?? now).endOf("day"), 'second');
+      return now.isBefore(dayjs(tournament.date ?? now).endOf("day"), "second");
     });
     const [upcoming, previous] = predicate.partition(tournaments);
 
-    const sortByDate = sortBy<Tournament>((t) => (t.date ? dayjs(t.date) : now).unix());
+    const sortByDate = sortBy<Tournament>((t) =>
+      (t.date ? dayjs(t.date) : now).unix(),
+    );
     upcoming.sort(sortByDate);
     previous.sort(sortByDate);
 
@@ -100,7 +102,7 @@ export default function Index() {
           className="logo"
         />
         <span className="h1 club-name">Chesterfield Open Gaming Society</span>
-        <h1>Kings of War</h1>
+        <h1>Organised play</h1>
       </section>
 
       <Breadcrumbs />
@@ -121,6 +123,39 @@ export default function Index() {
             </div>
           </>
         )}
+        <h2>Campaigns</h2>
+        <div className="event-card-list">
+          <Link
+            to={`/campaign/moonstone`}
+            aria-labelledby={`moonstone-find-out-more`}
+          >
+            <section aria-labelledby={`moonstone-heading`} className="event">
+              <img
+                src={`/_static/images/moonstone-campaign.png`}
+                alt={
+                  "Jayda shooting her bow in a thorny forest, whilst being" +
+                  " beset by fairies. The image is monochrome, except Jayda" +
+                  " and two prominent fairies are highlighted in Yellow."
+                }
+                role="presentation"
+              />
+              <h3 id="moonstone-heading" className="event-title">
+                Into the Forsaken Forest
+                <br />
+                <small>A Moonstone escalation campaign</small>
+              </h3>
+              <button
+                className="button more-info"
+                id={`moonstone-find-out-more`}
+                type="button"
+                tabIndex={-1}
+              >
+                Into the Forsaken Forest campaign page
+                <FiChevronRight />
+              </button>
+            </section>
+          </Link>
+        </div>
 
         <h2>Club Nights</h2>
         <p>
@@ -154,9 +189,10 @@ export default function Index() {
         <p>
           Please arrange a game with an opponent beforehand, or come to one of
           our dedicated Kings of War evenings.{" "}
-          {club_night
-            ? <>
-              The next of these is {dayjs(club_night.date).format("dddd Do MMMM")},{" "}
+          {club_night ? (
+            <>
+              The next of these is{" "}
+              {dayjs(club_night.date).format("dddd Do MMMM")},{" "}
               <a
                 href={club_night.facebook_event_url}
                 target="_blank"
@@ -166,11 +202,15 @@ export default function Index() {
               </a>{" "}
               for more details.
             </>
-            : <>
+          ) : (
+            <>
               These will be published as{" "}
-              <a href="https://www.facebook.com/groups/main.cogs/events">COGS Facebook group events</a>.
+              <a href="https://www.facebook.com/groups/main.cogs/events">
+                COGS Facebook group events
+              </a>
+              .
             </>
-          }
+          )}
         </p>
 
         <p>

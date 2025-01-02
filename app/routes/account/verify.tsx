@@ -10,7 +10,9 @@ import {
   Form,
   Link,
   useActionData,
-  useLoaderData, useRouteError, isRouteErrorResponse
+  useLoaderData,
+  useRouteError,
+  isRouteErrorResponse,
 } from "@remix-run/react";
 import { getYupErrorMessage } from "~/utils/validation";
 import { validateResetKey } from "~/account/auth.server";
@@ -61,7 +63,7 @@ export const action: ActionFunction = async ({ request }) => {
             password: getYupErrorMessage("password", err),
           },
         },
-        400
+        400,
       );
     }
     throw err;

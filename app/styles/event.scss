@@ -146,7 +146,8 @@ main {
 }
 
 .round-table {
-  tbody tr:nth-child(2n), thead tr {
+  tbody tr:nth-child(2n),
+  thead tr {
     border-bottom: thin $primary-color solid;
   }
 
@@ -156,13 +157,11 @@ main {
 }
 
 .round-page-wrapper {
-
   @include breakpoint(xxlarge up) {
     display: grid;
     grid-gap: 3rem;
     grid-template-columns: 1fr 1fr;
   }
-
 }
 
 main {
