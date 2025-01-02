@@ -5,11 +5,8 @@ import ErrorPage, { GenericErrorPage } from "~/error-handling/error-page";
 import { useCatch } from "@remix-run/react";
 import { listTournamentAttendeesByEventSlug } from "~/tournament/attendee-model.server";
 import { sortBy } from "~/utils";
-import type {
-  GameOutcome} from "~/tournament/player-game-model.server";
-import {
-  getGamesForAttendee,
-} from "~/tournament/player-game-model.server";
+import type { GameOutcome } from "~/tournament/player-game-model.server";
+import { getGamesForAttendee } from "~/tournament/player-game-model.server";
 
 function toCSVCell(contents: string | number | undefined = ""): string {
   if (contents.toString().match(/[",\n]/m)) {
@@ -39,15 +36,15 @@ export const loader: LoaderFunction = async ({ params }) => {
         sortBy(
           (a) => -parseInt(a.additionalFields?.tournament_points || "0"),
           (a) => -parseInt(a.additionalFields?.total_routed || "0"),
-          (a) => parseInt(a.additionalFields?.total_attrition || "0")
-        )
+          (a) => parseInt(a.additionalFields?.total_attrition || "0"),
+        ),
       )
       .map(async (attendee, index) => {
         const games = await getGamesForAttendee(tournament.slug, attendee.slug);
         const outcomes = games.reduce<Record<GameOutcome, number>>(
           (acc, { outcome }) =>
             outcome ? { ...acc, [outcome]: acc[outcome] + 1 } : acc,
-          { Win: 0, Draw: 0, Loss: 0 }
+          { Win: 0, Draw: 0, Loss: 0 },
         );
 
         return [
@@ -67,7 +64,7 @@ export const loader: LoaderFunction = async ({ params }) => {
         ]
           .map(toCSVCell)
           .join(",");
-      })
+      }),
   );
 
   const body = `KoW Masters Results Submission Form,,,,,,,,,,,

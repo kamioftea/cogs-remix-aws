@@ -69,7 +69,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 
 export default function EventLandingPage() {
   const { tournament } = useRouteLoaderData(
-    "routes/event/$eventId"
+    "routes/event/$eventId",
   ) as TournamentLoaderData;
 
   const { attendees, waitList, userSignedUp, loggedIn } = useLoaderData<
@@ -122,16 +122,24 @@ export default function EventLandingPage() {
             ))}
           </dl>
         )}
-        {tournament.kowMastersEventId && <p>
-          <a href={`https://kowmasters.com/index.php?p=event&i=${tournament.kowMastersEventId}`}>
-            KoW Masters event page.
-          </a>
-        </p>}
-        {tournament.manticCompanionEventId && <p>
-          <a href={`https://companion.manticgames.com/kings-of-war-events/?event=${tournament.manticCompanionEventId}`}>
-            Mantic companion event page.
-          </a>
-        </p>}
+        {tournament.kowMastersEventId && (
+          <p>
+            <a
+              href={`https://kowmasters.com/index.php?p=event&i=${tournament.kowMastersEventId}`}
+            >
+              KoW Masters event page.
+            </a>
+          </p>
+        )}
+        {tournament.manticCompanionEventId && (
+          <p>
+            <a
+              href={`https://companion.manticgames.com/kings-of-war-events/?event=${tournament.manticCompanionEventId}`}
+            >
+              Mantic companion event page.
+            </a>
+          </p>
+        )}
       </aside>
       {tournament.signUpEnabled && (
         <div className="content">
@@ -153,8 +161,7 @@ export default function EventLandingPage() {
               </p>
               {!user && (
                 <p>
-                  Already signed up?{" "}
-                  <Link to={"/account/login"}>Login</Link> or{" "}
+                  Already signed up? <Link to={"/account/login"}>Login</Link> or{" "}
                   <Link to={"./send-edit-link"}>
                     Request a link to edit your details
                   </Link>
@@ -275,8 +282,8 @@ export default function EventLandingPage() {
                       (a) => -a.tournament_points,
                       (a) => -a.total_routed,
                       (a) => a.total_attrition,
-                      (a) => a.name
-                    )
+                      (a) => a.name,
+                    ),
                   )
                   .reduce<{
                     prev_tp: number;
@@ -317,15 +324,15 @@ export default function EventLandingPage() {
                       prev_tr: -1,
                       index: 0,
                       rows: [],
-                    }
+                    },
                   ).rows
               }
             </tbody>
           </table>
-          {tournament.sparePlayer &&
+          {tournament.sparePlayer && (
             <>
               <p>
-                The spare player for this tournament is{' '}
+                The spare player for this tournament is{" "}
                 {tournament.sparePlayer.name}.
               </p>
               <p>
@@ -338,7 +345,7 @@ export default function EventLandingPage() {
                 </a>
               </p>
             </>
-          }
+          )}
         </div>
       )}
       {tournament.content && (

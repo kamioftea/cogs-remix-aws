@@ -9,7 +9,7 @@ export default defineConfig({
         baseUrl: `http://localhost:${port}`,
         video: !process.env.CI,
         screenshotOnRunFailure: !process.env.CI,
-        supportFile: 'cypress/support/e2e.ts'
+        supportFile: "cypress/support/e2e.ts",
       };
 
       // To use this:

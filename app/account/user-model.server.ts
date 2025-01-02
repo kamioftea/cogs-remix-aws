@@ -37,7 +37,7 @@ function sessionFromRecord(record: any): Session {
 }
 
 export async function getUserByEmail(
-  email: User["email"]
+  email: User["email"],
 ): Promise<User | null> {
   const db = await arc.tables();
   const result = await db.user.query({
@@ -70,7 +70,7 @@ export async function isVerified(user: User): Promise<boolean> {
 export async function createUser(
   name: User["name"],
   email: User["email"],
-  shouldSendEmail: boolean = true
+  shouldSendEmail: boolean = true,
 ) {
   const db = await arc.tables();
   let roles: Role[] = [];
@@ -101,7 +101,7 @@ export async function createUser(
 
 export async function setUserPassword(
   email: User["email"],
-  password: Password["password"]
+  password: Password["password"],
 ) {
   const db = await arc.tables();
 
@@ -130,7 +130,7 @@ export async function deleteUser(email: User["email"]) {
 
 export async function verifyLogin(
   email: User["email"],
-  password: Password["password"]
+  password: Password["password"],
 ) {
   const userPassword = await getUserPasswordByEmail(email);
 
@@ -153,7 +153,7 @@ export async function verifyLogin(
 
 export async function createSessionRecord(
   email: User["email"],
-  ttl?: Date
+  ttl?: Date,
 ): Promise<string> {
   const db = await arc.tables();
   const sessionId = v4();
@@ -168,7 +168,7 @@ export async function createSessionRecord(
 }
 
 export async function getSessionRecordById(
-  sessionId: Session["sessionId"]
+  sessionId: Session["sessionId"],
 ): Promise<Session | null> {
   const db = await arc.tables();
   const result = await db.session.query({
@@ -184,7 +184,7 @@ export async function getSessionRecordById(
 
 export async function registerUserByEmail(
   email: string,
-  roles: Role[] = [Role.Registered]
+  roles: Role[] = [Role.Registered],
 ) {
   const user = await getUserByEmail(email);
   if (!user) {

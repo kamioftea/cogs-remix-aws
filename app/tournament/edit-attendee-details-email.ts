@@ -14,12 +14,12 @@ export class EditAttendeeDetailsEmail implements Email {
     email: Attendee["email"],
     eventSlug: Attendee["eventSlug"],
     tournamentTitle: Tournament["title"],
-    accessKey: string
+    accessKey: string,
   ) {
     this.subject = `Link to edit your details for ${tournamentTitle}.`;
 
     const verifyURL = new URL(
-      `${BASE_URL}/event/${eventSlug}/login-as-attendee`
+      `${BASE_URL}/event/${eventSlug}/login-as-attendee`,
     );
     verifyURL.searchParams.set("token", accessKey);
 

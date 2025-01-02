@@ -2,7 +2,7 @@ import type { ValidationError } from "yup";
 
 export function getYupErrorMessage(
   path: string,
-  error: ValidationError
+  error: ValidationError,
 ): string | undefined {
   if (error.path === path) return error.errors.join("; ");
   const subErrors = error.inner.flatMap((subError) => {

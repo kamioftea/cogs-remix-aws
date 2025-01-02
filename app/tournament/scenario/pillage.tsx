@@ -22,6 +22,6 @@ At the end of the battle score one point for each objective marker you control.
     },
   ],
   tournamentPointFunction(player_inputs): number {
-    return player_inputs.objectives
+    return player_inputs.objectives;
   },
 };

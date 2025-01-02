@@ -12,7 +12,7 @@ export class VerifyAccountEmail implements Email {
     name: User["name"],
     email: User["email"],
     resetKey: string,
-    event?: string
+    event?: string,
   ) {
     this.subject = `Thank you for signing up for ${
       event ?? "COGS Kings of War"

@@ -25,7 +25,7 @@ export async function getResetKey(email: User["email"]): Promise<string> {
 
 export async function getAttendeeKey(
   email: Attendee["email"],
-  eventSlug: Attendee["eventSlug"]
+  eventSlug: Attendee["eventSlug"],
 ): Promise<string> {
   return getAccessKey(email, "attendee", eventSlug);
 }
@@ -33,12 +33,12 @@ export async function getAttendeeKey(
 export async function getAccessKey(
   email: AccessToken["email"],
   purpose: AccessToken["purpose"],
-  eventSlug?: Attendee["eventSlug"]
+  eventSlug?: Attendee["eventSlug"],
 ): Promise<string> {
   return await Iron.seal(
     { email, purpose, eventSlug, createdAt: Date.now() },
     TOKEN_SECRET,
-    Iron.defaults
+    Iron.defaults,
   );
 }
 
@@ -56,7 +56,7 @@ async function validateToken(token: string): Promise<AccessToken> {
     return (await Iron.unseal(
       token,
       TOKEN_SECRET,
-      Iron.defaults
+      Iron.defaults,
     )) as AccessToken;
   } catch (err) {
     throw json(
@@ -64,7 +64,7 @@ async function validateToken(token: string): Promise<AccessToken> {
         heading: "Failed to read reset token",
         message: loginMessage,
       },
-      { status: 400 }
+      { status: 400 },
     );
   }
 }
@@ -79,7 +79,7 @@ export async function validateResetKey(request: Request): Promise<User> {
         heading: "Reset token is not for an active user",
         message: loginMessage,
       },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -88,7 +88,7 @@ export async function validateResetKey(request: Request): Promise<User> {
 
 export async function validateAttendeeKey(
   request: Request,
-  eventSlug: Attendee["eventSlug"]
+  eventSlug: Attendee["eventSlug"],
 ): Promise<Attendee> {
   const message = attendeeMessage(eventSlug);
   const accessToken = await validateAccessKey(request, "attendee", message);
@@ -97,7 +97,7 @@ export async function validateAttendeeKey(
 
   const attendee = await getTournamentAttendee(
     accessToken.eventSlug,
-    accessToken.email
+    accessToken.email,
   );
   if (!attendee) {
     throw json(
@@ -105,7 +105,7 @@ export async function validateAttendeeKey(
         heading: "Access token is not for an active attendee",
         message: loginMessage,
       },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -115,7 +115,7 @@ export async function validateAttendeeKey(
 export async function validateAccessKey(
   request: Request,
   expectedPurpose: AccessToken["purpose"],
-  message: string
+  message: string,
 ): Promise<AccessToken> {
   const url = new URL(request.url);
   const token = url.searchParams.get("token");
@@ -126,7 +126,7 @@ export async function validateAccessKey(
         heading: "Access token was missing",
         message,
       },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -141,7 +141,7 @@ export async function validateAccessKey(
         heading: "Access token has expired",
         message,
       },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -152,7 +152,7 @@ export async function validateAccessKey(
         heading: "Access token was created for a different purpose",
         message,
       },
-      { status: 400 }
+      { status: 400 },
     );
   }
 

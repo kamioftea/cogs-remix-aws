@@ -50,7 +50,7 @@ function recordToPlayerGame(result: any): PlayerGame {
 
 export async function getGamesForRound(
   eventSlug: string,
-  roundIndex: number
+  roundIndex: number,
 ): Promise<PlayerGame[]> {
   const db = await arc.tables();
 
@@ -63,7 +63,7 @@ export async function getGamesForRound(
     result?.Items.map(recordToPlayerGame).sort((a, b) =>
       a.tableNumber != b.tableNumber
         ? a.tableNumber - b.tableNumber
-        : a.attendeeSlug.localeCompare(b.attendeeSlug)
+        : a.attendeeSlug.localeCompare(b.attendeeSlug),
     ) ?? []
   );
 }
@@ -71,7 +71,7 @@ export async function getGamesForRound(
 async function createPlayerGame(
   attendee: Attendee,
   roundIndex: number,
-  table: number
+  table: number,
 ): Promise<PlayerGame> {
   const db = await arc.tables();
 
@@ -98,7 +98,7 @@ export async function populateRound(eventSlug: string, roundIndex: number) {
       Math.max(maxTable, gamePlayer.tableNumber),
       toAssign.filter((a) => a.slug !== gamePlayer.attendeeSlug),
     ],
-    [0, attendees]
+    [0, attendees],
   );
 
   toAssign.sort(
@@ -106,8 +106,8 @@ export async function populateRound(eventSlug: string, roundIndex: number) {
       (a) => -parseInt(a.additionalFields?.tournament_points || "0"),
       (a) => -parseInt(a.additionalFields?.total_routed || "0"),
       (a) => parseInt(a.additionalFields?.total_attrition || "0"),
-      () => Math.random()
-    )
+      () => Math.random(),
+    ),
   );
 
   toPairs(toAssign).forEach(([a, b]) => {
@@ -124,8 +124,8 @@ export async function publishRound(eventSlug: string, roundIndex: number) {
 
   await Promise.all(
     existing.map((pg) =>
-      db.playerGame.put(purgeUndefined({ ...pg, published: true }))
-    )
+      db.playerGame.put(purgeUndefined({ ...pg, published: true })),
+    ),
   );
 }
 
@@ -136,8 +136,8 @@ export async function lockRound(eventSlug: string, roundIndex: number) {
 
   await Promise.all(
     existing.map((pg) =>
-      db.playerGame.put(purgeUndefined({ ...pg, locked: true }))
-    )
+      db.playerGame.put(purgeUndefined({ ...pg, locked: true })),
+    ),
   );
 }
 
@@ -150,7 +150,7 @@ export async function putPlayerGame(game: PlayerGame) {
 export async function getPlayersByTable(
   eventSlug: string,
   roundIndex: number,
-  tableNumber: number
+  tableNumber: number,
 ): Promise<PlayerGame[]> {
   const db = await arc.tables();
 
@@ -169,7 +169,7 @@ export async function getPlayersByTable(
 
 export async function getGamesForAttendee(
   eventSlug: string,
-  attendeeSlug: string
+  attendeeSlug: string,
 ): Promise<PlayerGame[]> {
   const db = await arc.tables();
 
@@ -189,7 +189,7 @@ export async function getGamesForAttendee(
 export async function updateScoresForTable(
   eventSlug: string,
   roundIndex: number,
-  tableNumber: number
+  tableNumber: number,
 ) {
   const tournament = getTournamentBySlug(eventSlug);
   if (!tournament) {
@@ -200,7 +200,7 @@ export async function updateScoresForTable(
   const [playerA, playerB] = await getPlayersByTable(
     eventSlug,
     roundIndex,
-    tableNumber
+    tableNumber,
   );
 
   const enteredA =
@@ -218,11 +218,11 @@ export async function updateScoresForTable(
 
   const scenarioScoreA = scenario.tournamentPointFunction(
     playerA.scoreBreakdown,
-    playerB.scoreBreakdown
+    playerB.scoreBreakdown,
   );
   const scenarioScoreB = scenario.tournamentPointFunction(
     playerB.scoreBreakdown,
-    playerA.scoreBreakdown
+    playerA.scoreBreakdown,
   );
 
   const toOutcomes: () => [GameOutcome, GameOutcome] = () => {
@@ -261,7 +261,7 @@ export async function updateScoresForTable(
 async function updateScoresForAttendee(game: PlayerGame, attrition: number) {
   const attendee = await getTournamentAttendeeBySlug(
     game.eventSlug,
-    game.attendeeSlug
+    game.attendeeSlug,
   );
 
   if (!attendee) {
@@ -282,7 +282,7 @@ async function updateScoresForAttendee(game: PlayerGame, attrition: number) {
       (acc, num) => acc + num,
       attendee.additionalFields["bonus_points"]
         ? parseInt(attendee.additionalFields["bonus_points"])
-        : 0
+        : 0,
     )
     .toString();
 

@@ -14,7 +14,7 @@ export class ProcessAttendeeRegistrationEmail implements Email {
     name: Attendee["name"],
     email: Attendee["email"],
     slug: Tournament["slug"],
-    title: Tournament["title"]
+    title: Tournament["title"],
   ) {
     this.subject = `${name}<${email}> has registered for ${title}.`;
 

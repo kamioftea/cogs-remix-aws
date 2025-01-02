@@ -31,7 +31,9 @@ Players score the following at the end of the battle:
     },
   ],
   tournamentPointFunction(player_inputs): number {
-    return player_inputs.primary_loot_counters * 2
-      + player_inputs.other_loot_counters;
+    return (
+      player_inputs.primary_loot_counters * 2 +
+      player_inputs.other_loot_counters
+    );
   },
 };

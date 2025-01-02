@@ -20,7 +20,7 @@ export const action: ActionFunction = async ({ params }) => {
     name: tournament.sparePlayer.name,
     email: tournament.sparePlayer.email,
     approved: true,
-    verified: true
+    verified: true,
   });
 
   return redirect(`/admin/event/${eventSlug}/attendees`);

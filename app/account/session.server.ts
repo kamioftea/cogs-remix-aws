@@ -32,7 +32,7 @@ export async function getSessionHeader(request: Request) {
 }
 
 export async function getSessionId(
-  request: Request
+  request: Request,
 ): Promise<Session["sessionId"] | undefined> {
   const session = await getSessionHeader(request);
   return session.get(USER_SESSION_KEY);
@@ -51,7 +51,7 @@ async function getSession(request: Request): Promise<Session | null> {
 }
 
 export async function getSessionEmail(
-  request: Request
+  request: Request,
 ): Promise<string | undefined> {
   const session = await getSession(request);
   return session?.email;
@@ -66,7 +66,7 @@ export async function getUser(request: Request): Promise<User | null> {
 
 export async function getSessionAttendee(
   request: Request,
-  eventSlug: string
+  eventSlug: string,
 ): Promise<Attendee | null> {
   const session = await getSession(request);
   if (!session) return null;
@@ -78,7 +78,7 @@ export async function getSessionAttendee(
 
 export async function requireUser(
   request: Request,
-  roles?: Role[]
+  roles?: Role[],
 ): Promise<User> {
   const user = await getUser(request);
 

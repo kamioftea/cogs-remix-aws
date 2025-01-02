@@ -18,7 +18,7 @@ import type { Attendee } from "~/tournament/attendee-model.server";
 import dayjs from "dayjs";
 
 import advancedFormat from "dayjs/plugin/advancedFormat";
-dayjs.extend(advancedFormat)
+dayjs.extend(advancedFormat);
 
 export interface TournamentLoaderData {
   tournament: Tournament;
@@ -91,13 +91,18 @@ export default function EventLandingPage() {
         </span>
         <div
           className="title-wrapper"
-          style={{ marginLeft: tournament.titlePositionX ?? "0", ...(tournament.titleStyles ?? {}) }}
+          style={{
+            marginLeft: tournament.titlePositionX ?? "0",
+            ...(tournament.titleStyles ?? {}),
+          }}
         >
           <h1>{tournament.title}</h1>
           <p className="subtitle">{tournament.subtitle}</p>
-          {tournament.date && <p className="date-line">
-            {dayjs(tournament.date).format("Do MMMM YYYY")}
-          </p> }
+          {tournament.date && (
+            <p className="date-line">
+              {dayjs(tournament.date).format("Do MMMM YYYY")}
+            </p>
+          )}
         </div>
       </header>
 

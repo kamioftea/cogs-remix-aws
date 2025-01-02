@@ -9,7 +9,7 @@ export interface Scenario {
   scoreInputs: ScoreInput[];
   tournamentPointFunction: (
     player_inputs: Record<string, number>,
-    opponent_inputs: Record<string, number>
+    opponent_inputs: Record<string, number>,
   ) => number;
 }
 

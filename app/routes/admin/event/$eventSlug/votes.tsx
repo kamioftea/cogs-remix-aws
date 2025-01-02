@@ -1,7 +1,6 @@
 import type { LoaderFunction } from "@remix-run/router";
 import { json } from "@remix-run/router";
-import type {
-  AttendeeDisplayData} from "~/tournament/attendee-model.server";
+import type { AttendeeDisplayData } from "~/tournament/attendee-model.server";
 import {
   attendeeDisplayDataBySlug,
   listTournamentAttendeesByEventSlug,
@@ -28,7 +27,7 @@ export const loader: LoaderFunction = async ({ params }) => {
         ...acc,
         [slug]: (acc[slug] ?? 0) + votes,
       }),
-      {}
+      {},
     );
   const sportsVotes = attendees
     .flatMap((attendee) => Object.entries(attendee.sportsBallot ?? {}))
@@ -37,7 +36,7 @@ export const loader: LoaderFunction = async ({ params }) => {
         ...acc,
         [slug]: (acc[slug] ?? 0) + votes,
       }),
-      {}
+      {},
     );
 
   return json<LoaderData>({
@@ -56,10 +55,10 @@ export default function VotesPage() {
       Object.entries(paintVotes).sort(
         sortBy(
           ([, v]) => -v,
-          ([k]) => k
-        )
+          ([k]) => k,
+        ),
       ),
-    [paintVotes]
+    [paintVotes],
   );
 
   const sportRanking = useMemo(
@@ -67,10 +66,10 @@ export default function VotesPage() {
       Object.entries(sportsVotes).sort(
         sortBy(
           ([, v]) => -v,
-          ([k]) => k
-        )
+          ([k]) => k,
+        ),
       ),
-    [sportsVotes]
+    [sportsVotes],
   );
 
   // TODO: persist
@@ -79,7 +78,7 @@ export default function VotesPage() {
       [...Object.values(attendees)]
         .sort(sortBy(() => Math.random()))
         .slice(0, 3),
-    [attendees]
+    [attendees],
   );
 
   return (

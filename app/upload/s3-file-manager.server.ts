@@ -21,7 +21,7 @@ const s3Client = new S3Client({
 export async function saveFile(
   contents: PutObjectCommandInput["Body"],
   extension: string | undefined,
-  acl: SpacesAcl = "private"
+  acl: SpacesAcl = "private",
 ): Promise<Pick<Upload, "id" | "key" | "staticUrl">> {
   const id = v4();
   const key = `${process.env.SPACES_FOLDER ?? "image-upload"}/${id}${
@@ -52,7 +52,7 @@ export async function getFile(key: string) {
     new GetObjectCommand({
       Bucket: process.env.SPACES_BUCKET ?? "default",
       Key: key,
-    })
+    }),
   );
 
   return response.Body;

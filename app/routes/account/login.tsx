@@ -56,7 +56,7 @@ export const action: ActionFunction = async ({ request }) => {
             password: getYupErrorMessage("password", err),
           },
         },
-        400
+        400,
       );
     }
     throw err;
@@ -67,7 +67,7 @@ export const action: ActionFunction = async ({ request }) => {
   if (!user) {
     return json<ActionData>(
       { errors: { email: "Invalid email or password" } },
-      { status: 400 }
+      { status: 400 },
     );
   }
 

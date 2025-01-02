@@ -5,7 +5,7 @@ import * as React from "react";
 import type { ObjectSchema } from "yup";
 import { ValidationError } from "yup";
 import * as yup from "yup";
-import { getUserByEmail , createUser } from "~/account/user-model.server";
+import { getUserByEmail, createUser } from "~/account/user-model.server";
 import { Form, Link, useActionData } from "@remix-run/react";
 import { useEffect } from "react";
 import { getYupErrorMessage } from "~/utils/validation";
@@ -50,7 +50,7 @@ export const action: ActionFunction = async ({ request }) => {
             email: getYupErrorMessage("email", err),
           },
         },
-        400
+        400,
       );
     }
     throw err;
@@ -60,7 +60,7 @@ export const action: ActionFunction = async ({ request }) => {
   if (user) {
     return json<ActionData>(
       { errors: { email: "A user with that email has already registered" } },
-      { status: 400 }
+      { status: 400 },
     );
   }
 

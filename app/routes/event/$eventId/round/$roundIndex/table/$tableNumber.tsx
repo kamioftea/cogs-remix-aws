@@ -6,11 +6,11 @@ import {
   getGamesForAttendee,
   getPlayersByTable,
   putPlayerGame,
-  updateScoresForTable
+  updateScoresForTable,
 } from "~/tournament/player-game-model.server";
 import {
   getOutcomeBonus,
-  getRoutedBonus
+  getRoutedBonus,
 } from "~/tournament/player-game-model";
 import type { AttendeeDisplayData } from "~/tournament/attendee-model.server";
 import { attendeeDisplayDataBySlug } from "~/tournament/attendee-model.server";
@@ -19,7 +19,7 @@ import {
   Link,
   useCatch,
   useLoaderData,
-  useRouteLoaderData
+  useRouteLoaderData,
 } from "@remix-run/react";
 import type { TournamentLoaderData } from "~/routes/event/$eventId";
 import type { Breadcrumb } from "~/utils/breadcrumbs";
@@ -30,7 +30,7 @@ import { ArmyList } from "~/tournament/army-list-field";
 import type { RoundLoaderData } from "~/routes/event/$eventId/round/$roundIndex";
 import {
   ScoreInputField,
-  ScoreInputValue
+  ScoreInputValue,
 } from "~/tournament/scenario/scenario";
 import FormInput from "~/form/input";
 import type { ActionFunction } from "@remix-run/router";
@@ -69,7 +69,7 @@ export const loader: LoaderFunction = async ({ params }) => {
   return json<LoaderData>({
     playerGames: playerGames,
     attendeesBySlug,
-    tableNumber
+    tableNumber,
   });
 };
 
@@ -79,8 +79,8 @@ const breadcrumbs: Breadcrumb[] = [
       const { tableNumber } = data as LoaderData;
       return `Table ${tableNumber}`;
     },
-    url: CURRENT
-  }
+    url: CURRENT,
+  },
 ];
 
 export const handle = { breadcrumbs };
@@ -107,14 +107,14 @@ export const action: ActionFunction = async ({ request, params }) => {
 
   const playerGames = await getGamesForAttendee(tournament.slug, attendee.slug);
   const game = playerGames.find(
-    (pg) => pg.roundIndex === roundIndex && pg.tableNumber === tableNumber
+    (pg) => pg.roundIndex === roundIndex && pg.tableNumber === tableNumber,
   );
   if (!game) {
     return redirect(`/event/${params.eventId}/round/${roundIndex + 1}`);
   }
   if (game.locked) {
     return redirect(
-      `/event/${params.eventId}/round/${roundIndex + 1}/table/${tableNumber}`
+      `/event/${params.eventId}/round/${roundIndex + 1}/table/${tableNumber}`,
     );
   }
 
@@ -126,14 +126,14 @@ export const action: ActionFunction = async ({ request, params }) => {
           input.name,
           (formData[input.name]?.toString() ?? "").match(/^\d+$/)
             ? parseInt(formData[input.name].toString())
-            : undefined
+            : undefined,
         ];
       })
-      .filter(([, v]) => v != undefined)
+      .filter(([, v]) => v != undefined),
   );
 
   game.routedPoints = (formData["routed_points"]?.toString() ?? "").match(
-    /^\d+$/
+    /^\d+$/,
   )
     ? parseInt(formData["routed_points"].toString())
     : undefined;
@@ -145,14 +145,17 @@ export const action: ActionFunction = async ({ request, params }) => {
 };
 
 export default function RoundIndexPage() {
-  const { playerGames, attendeesBySlug, tableNumber } =
-    useLoaderData<typeof loader>() as LoaderData;
+  const { playerGames, attendeesBySlug, tableNumber } = useLoaderData<
+    typeof loader
+  >() as LoaderData;
 
-  const { tournament, currentAttendee } =
-    useRouteLoaderData("routes/event/$eventId") as TournamentLoaderData;
+  const { tournament, currentAttendee } = useRouteLoaderData(
+    "routes/event/$eventId",
+  ) as TournamentLoaderData;
 
-  const { roundIndex } =
-    useRouteLoaderData("routes/event/$eventId/round/$roundIndex") as RoundLoaderData;
+  const { roundIndex } = useRouteLoaderData(
+    "routes/event/$eventId/round/$roundIndex",
+  ) as RoundLoaderData;
 
   const scenario = tournament.scenarios[roundIndex - 1].scenario;
 
@@ -173,13 +176,15 @@ export default function RoundIndexPage() {
                   scoreInput={input}
                   value={game.scoreBreakdown?.[input.name]}
                 />
-              )
-          ])
+              ),
+          ]),
         ),
         "Scenario points": (game) => game.scenarioScore ?? "-",
         Outcome: (game) => game.outcome ?? "-",
         "Bonus for outcome": (game) =>
-          game.outcome != null ? getOutcomeBonus(game.outcome, tournament) : "-",
+          game.outcome != null
+            ? getOutcomeBonus(game.outcome, tournament)
+            : "-",
         "Total points routed": (game) =>
           !game.locked && game.attendeeSlug === currentAttendee?.slug ? (
             <FormInput
@@ -202,9 +207,9 @@ export default function RoundIndexPage() {
             </button>
           ) : (
             ""
-          )
+          ),
       }),
-      [currentAttendee?.slug, scenario, tournament]
+      [currentAttendee?.slug, scenario, tournament],
     );
 
   if ((playerGames || []).length === 0) {
@@ -246,24 +251,24 @@ export default function RoundIndexPage() {
       <Form method="POST">
         <table>
           <thead>
-          <tr>
-            <th></th>
-            {playerGames.map((game) => (
-              <th key={game.attendeeSlug}>
-                {attendeesBySlug[game.attendeeSlug].name}
-              </th>
-            ))}
-          </tr>
-          </thead>
-          <tbody>
-          {Object.entries(scoreTableRows).map(([label, cellBuilder]) => (
-            <tr key={label}>
-              <td>{label}</td>
+            <tr>
+              <th></th>
               {playerGames.map((game) => (
-                <td key={game.attendeeSlug}>{cellBuilder(game)}</td>
+                <th key={game.attendeeSlug}>
+                  {attendeesBySlug[game.attendeeSlug].name}
+                </th>
               ))}
             </tr>
-          ))}
+          </thead>
+          <tbody>
+            {Object.entries(scoreTableRows).map(([label, cellBuilder]) => (
+              <tr key={label}>
+                <td>{label}</td>
+                {playerGames.map((game) => (
+                  <td key={game.attendeeSlug}>{cellBuilder(game)}</td>
+                ))}
+              </tr>
+            ))}
           </tbody>
         </table>
       </Form>

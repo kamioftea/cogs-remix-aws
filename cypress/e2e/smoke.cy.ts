@@ -14,14 +14,24 @@ describe("smoke tests", () => {
 
     cy.findByRole("textbox", { name: /name/i }).type(loginForm.name);
     cy.findByRole("textbox", { name: /email/i }).type(loginForm.email);
-    cy.findByRole("button", { name: /register/i }).click().wait(500);
+    cy.findByRole("button", { name: /register/i })
+      .click()
+      .wait(500);
 
-    cy.request('POST', `/__tests/validate-user-and-redirect/${encodeURIComponent(loginForm.email)}`)
-      .then(res => cy.visit(res.body.redirect.replace('http://localhost:3000/', '/')));
+    cy.request(
+      "POST",
+      `/__tests/validate-user-and-redirect/${encodeURIComponent(
+        loginForm.email,
+      )}`,
+    ).then((res) =>
+      cy.visit(res.body.redirect.replace("http://localhost:3000/", "/")),
+    );
 
-    cy.findByLabelText(/new password/i ).type(loginForm.password);
-    cy.findByRole("button", { name: /Set password/i }).click().wait(500);
+    cy.findByLabelText(/new password/i).type(loginForm.password);
+    cy.findByRole("button", { name: /Set password/i })
+      .click()
+      .wait(500);
 
-    cy.findByText(/logged in as/i ).should('contain.text', loginForm.name)
+    cy.findByText(/logged in as/i).should("contain.text", loginForm.name);
   });
 });

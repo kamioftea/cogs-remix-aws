@@ -48,7 +48,7 @@ export const action: ActionFunction = async ({ request, params }) => {
 
 export default function VerifyAttendeePage() {
   const { tournament } = useRouteLoaderData(
-    "routes/event/$eventId"
+    "routes/event/$eventId",
   ) as TournamentLoaderData;
 
   const { attendee } = useLoaderData<typeof loader>();

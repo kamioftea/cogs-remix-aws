@@ -55,7 +55,7 @@ export const action: ActionFunction = async () => {
           ]),
         },
       });
-    })
+    }),
   );
 
   return json({ success: true });

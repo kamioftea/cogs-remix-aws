@@ -21,7 +21,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 
   const attendee = await getTournamentAttendeeBySlug(
     tournament.slug,
-    params.slug
+    params.slug,
   );
   if (!attendee) {
     throw new Response("Attendee not found", { status: 404 });

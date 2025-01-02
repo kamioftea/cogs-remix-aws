@@ -312,7 +312,8 @@ figure {
     margin: 0;
   }
 
-  .votee:nth-child(4n-3), .vote-input:nth-child(4n-2) {
+  .votee:nth-child(4n-3),
+  .vote-input:nth-child(4n-2) {
     background: #1f1f1f;
   }
 }

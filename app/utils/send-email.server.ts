@@ -1,4 +1,4 @@
-import type { SendEmailCommandInput, Body, } from "@aws-sdk/client-ses";
+import type { SendEmailCommandInput, Body } from "@aws-sdk/client-ses";
 import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
 
 const client = new SESClient({ region: "eu-west-2" });
@@ -22,7 +22,7 @@ function toContent(data: string) {
 }
 
 export async function sendEmail(email: Email): Promise<void> {
-  if(process.env.NODE_ENV === 'development') {
+  if (process.env.NODE_ENV === "development") {
     return;
   }
 

@@ -59,11 +59,11 @@ export default function RoundIndexPage() {
   >() as LoaderData;
 
   const { tournament } = useRouteLoaderData(
-    "routes/event/$eventId"
+    "routes/event/$eventId",
   ) as TournamentLoaderData;
 
   const { roundIndex } = useRouteLoaderData(
-    "routes/event/$eventId/round/$roundIndex"
+    "routes/event/$eventId/round/$roundIndex",
   ) as RoundLoaderData;
 
   if ((playerGames || []).length === 0) {
@@ -91,8 +91,8 @@ export default function RoundIndexPage() {
                   (pg) => pg.tableNumber,
                   (pg) => resultToOrder(pg.outcome),
                   (pg) => -(pg.routedPoints ?? 0),
-                  (pg) => pg.attendeeSlug
-                )
+                  (pg) => pg.attendeeSlug,
+                ),
               )
               .reduce<{ prevTable: number; rows: ReactNode[] }>(
                 ({ prevTable, rows }, pg) => ({
@@ -127,7 +127,7 @@ export default function RoundIndexPage() {
                     </tr>,
                   ],
                 }),
-                { prevTable: 0, rows: [] }
+                { prevTable: 0, rows: [] },
               ).rows
           }
         </tbody>

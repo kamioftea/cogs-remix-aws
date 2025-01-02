@@ -21,17 +21,23 @@ module.exports = {
 
       route(
         "__tests/create-user",
-        path.relative(appDir, "cypress/support/test-routes/create-user.ts")
+        path.relative(appDir, "cypress/support/test-routes/create-user.ts"),
       );
 
       route(
         "__tests/setup-tournament",
-        path.relative(appDir, "cypress/support/test-routes/setup-tournament.ts")
+        path.relative(
+          appDir,
+          "cypress/support/test-routes/setup-tournament.ts",
+        ),
       );
 
       route(
         "__tests/validate-user-and-redirect/:email",
-        path.relative(appDir, "cypress/support/test-routes/validate-user-and-redirect.ts")
+        path.relative(
+          appDir,
+          "cypress/support/test-routes/validate-user-and-redirect.ts",
+        ),
       );
     });
   },

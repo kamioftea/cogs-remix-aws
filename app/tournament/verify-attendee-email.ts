@@ -14,7 +14,7 @@ export class VerifyAttendeeEmail implements Email {
     email: Attendee["email"],
     eventSlug: Attendee["eventSlug"],
     tournamentTitle: Tournament["title"],
-    accessKey: string
+    accessKey: string,
   ) {
     this.subject = `Thank you for signing up for ${tournamentTitle}.`;
 

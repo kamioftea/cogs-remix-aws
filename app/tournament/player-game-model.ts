@@ -1,7 +1,10 @@
 import type { PlayerGame } from "~/tournament/player-game-model.server";
 import type { Tournament } from "~/tournament/tournament-model.server";
 
-export function getOutcomeBonus(outcome: PlayerGame["outcome"], tournament: Tournament): number {
+export function getOutcomeBonus(
+  outcome: PlayerGame["outcome"],
+  tournament: Tournament,
+): number {
   switch (outcome) {
     case "Win":
       return tournament.bonusPoints?.win ?? 3;

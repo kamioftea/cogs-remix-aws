@@ -95,7 +95,7 @@ export const action: ActionFunction = async ({ request, params }) => {
             email: getYupErrorMessage("email", err),
           },
         },
-        400
+        400,
       );
     }
     throw err;
@@ -103,7 +103,7 @@ export const action: ActionFunction = async ({ request, params }) => {
 
   const attendee = await getTournamentAttendee(
     tournament.slug,
-    registerData.email
+    registerData.email,
   );
 
   if (attendee) {
@@ -114,7 +114,7 @@ export const action: ActionFunction = async ({ request, params }) => {
             "An attendee with that email has already registered for this event",
         },
       },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -146,8 +146,8 @@ export const action: ActionFunction = async ({ request, params }) => {
         registerData.email,
         tournament.slug,
         tournament.title,
-        accessKey
-      )
+        accessKey,
+      ),
     );
 
     emailSent = true;
@@ -157,8 +157,8 @@ export const action: ActionFunction = async ({ request, params }) => {
         registerData.name,
         registerData.email,
         tournament.slug,
-        tournament.title
-      )
+        tournament.title,
+      ),
     );
 
     emailSent = true;
@@ -179,7 +179,7 @@ export default function TournamentRegisterPage() {
     {}) as ActionData;
 
   const { tournament } = useRouteLoaderData(
-    "routes/event/$eventId"
+    "routes/event/$eventId",
   ) as TournamentLoaderData;
 
   const user = useOptionalUser();
