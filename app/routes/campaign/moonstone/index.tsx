@@ -2,8 +2,9 @@ export default function Index() {
   return (
     <>
       <p className="lead">
-        Starting January 2025 we'll be running a monthly Moonstone gaming
-        evening and escalation campaign on 2nd Mondays.
+        Starting January 2025 Chesterfield Open Gaming Society will be running a
+        Moonstone gaming evening and escalation campaign on the 2nd Monday of
+        each month.
       </p>
       <p>
         Participants will pick a faction and a starting roster of models that
@@ -81,6 +82,13 @@ export default function Index() {
       <p>
         As well as adding one new model each month, you may optionally swap an
         existing model in your roster for another each month.
+      </p>
+      <p>
+        You can follow the{" "}
+        <a href="https://www.facebook.com/events/620020453712316/620021343712227">
+          Facebook event
+        </a>{" "}
+        for updates.
       </p>
       <p>
         We will decide in June if the campaign will be continued, or a new one
