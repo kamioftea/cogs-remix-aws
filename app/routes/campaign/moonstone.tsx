@@ -19,6 +19,24 @@ export const handle = {
   breadcrumbs,
 };
 
+export const meta: MetaFunction = () => {
+  return {
+    title:
+      "Into the Forsaken Forest - a Moonstone escalation campaign" +
+      " | Organised play" +
+      " | Chesterfield Open Gaming Society",
+    "og:description":
+      "Starting January 2025 Chesterfield Open Gaming Society will be running" +
+      " a Moonstone gaming evening and escalation campaign on the 2nd" +
+      " Monday of each month.",
+    "og:image": "/_static/images/moonstone-campaign-og.png",
+    "og:image:alt":
+      "Jayda shooting her bow in a thorny forest, whilst being" +
+      " beset by fairies. The image is monochrome, except Jayda" +
+      " and two prominent fairies are highlighted in Yellow.",
+  };
+};
+
 export default function MoonstoneCampaign() {
   return (
     <>

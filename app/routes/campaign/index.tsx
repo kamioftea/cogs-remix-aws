@@ -33,7 +33,11 @@ export default function MoonstoneCampaign() {
             <section aria-labelledby={`moonstone-heading`} className="event">
               <img
                 src={`/_static/images/moonstone-campaign.png`}
-                alt={"Moonstone campaign banner image"}
+                alt={
+                  "Jayda shooting her bow in a thorny forest, whilst being" +
+                  " beset by fairies. The image is monochrome, except Jayda" +
+                  " and two prominent fairies are highlighted in Yellow."
+                }
                 role="presentation"
               />
               <h3 id="moonstone-heading" className="event-title">
