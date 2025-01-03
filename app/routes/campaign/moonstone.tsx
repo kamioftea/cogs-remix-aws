@@ -1,6 +1,6 @@
 import type { Breadcrumb } from "~/utils/breadcrumbs";
 import { Breadcrumbs, CURRENT } from "~/utils/breadcrumbs";
-import type { LinksFunction } from "@remix-run/node";
+import type { LinksFunction, MetaFunction } from "@remix-run/node";
 import stylesheetUrl from "~/styles/event.css";
 import { Outlet } from "@remix-run/react";
 
