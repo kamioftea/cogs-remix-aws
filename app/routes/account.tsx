@@ -25,7 +25,7 @@ export default function AccountLayout() {
             <a href="https://www.c-o-g-s.org.uk/">Home</a>
           </li>
           <li>
-            <Link to="/">Kings of War</Link>
+            <Link to="/">Organised play</Link>
           </li>
           <li>
             <span className="show-for-sr">Current: </span>Account Management

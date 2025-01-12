@@ -20,11 +20,13 @@ export const handle = {
 };
 
 export const meta: MetaFunction = () => {
+  let title =
+    "Into the Forsaken Forest - a Moonstone escalation campaign" +
+    " | Organised play" +
+    " | Chesterfield Open Gaming Society";
   return {
-    title:
-      "Into the Forsaken Forest - a Moonstone escalation campaign" +
-      " | Organised play" +
-      " | Chesterfield Open Gaming Society",
+    title,
+    "og:title": title,
     "og:description":
       "Starting January 2025 Chesterfield Open Gaming Society will be running" +
       " a Moonstone gaming evening and escalation campaign on the 2nd" +

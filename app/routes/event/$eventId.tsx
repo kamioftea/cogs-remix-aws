@@ -47,6 +47,7 @@ export const meta: MetaFunction = ({ data }) => {
 
   return {
     title: `${tournament.title} | Organised play | Chesterfield Open Gaming Society`,
+    "og:title": `${tournament.title} | Organised play | Chesterfield Open Gaming Society`,
     "og:description": tournament.description,
     "og:image": tournament.openGraph.imageUrl,
     "og:image:alt": tournament.openGraph.imageAlt,
