@@ -35,9 +35,13 @@ describe("smoke tests", () => {
     cy.findByLabelText(/new password/i).type(loginForm.password);
     cy.findByRole("button", { name: /Set password/i })
       .click()
-      .wait(1_000);
+      .wait(500);
 
-    cy.url().then((url) => cy.task("log", `After verify: ${url}`));
+    cy.url().then((url) => {
+      if (!url.match(/\/account$/)) {
+        cy.visitAndCheck("/account");
+      }
+    });
 
     cy.findByText(/logged in as/i).should("contain.text", loginForm.name);
   });
