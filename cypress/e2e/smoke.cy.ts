@@ -23,14 +23,25 @@ describe("smoke tests", () => {
       `/__tests/validate-user-and-redirect/${encodeURIComponent(
         loginForm.email,
       )}`,
-    ).then((res) =>
-      cy.visit(res.body.redirect.replace("http://localhost:3000/", "/")),
-    );
+    ).then((res) => {
+      const redirectUrl = res.body.redirect.replace(
+        /http:\/\/localhost:(3000|8811)\//,
+        "/",
+      );
+      cy.task("log", `Received redirect to ${redirectUrl}`);
+      return cy.visit(redirectUrl);
+    });
 
     cy.findByLabelText(/new password/i).type(loginForm.password);
     cy.findByRole("button", { name: /Set password/i })
       .click()
       .wait(500);
+
+    cy.url().then((url) => {
+      if (!url.match(/\/account$/)) {
+        cy.visitAndCheck("/account");
+      }
+    });
 
     cy.findByText(/logged in as/i).should("contain.text", loginForm.name);
   });

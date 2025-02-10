@@ -1,12 +1,19 @@
 import { Breadcrumbs } from "~/utils/breadcrumbs";
 import type { LinksFunction } from "@remix-run/node";
-import stylesheetUrl from "~/styles/index.css";
 import React from "react";
 import { Link } from "@remix-run/react";
 import { FiChevronRight } from "react-icons/fi";
 
+import indexStylesheetUrl from "~/styles/index.css";
+import eventStylesheetUrl from "~/styles/event.css";
+import stylesheetUrl from "~/styles/campaign.css";
+
 export const links: LinksFunction = () => {
-  return [{ rel: "stylesheet", href: stylesheetUrl }];
+  return [
+    { rel: "stylesheet", href: indexStylesheetUrl },
+    { rel: "stylesheet", href: eventStylesheetUrl },
+    { rel: "stylesheet", href: stylesheetUrl },
+  ];
 };
 
 export default function MoonstoneCampaign() {

@@ -1,11 +1,18 @@
 import type { Breadcrumb } from "~/utils/breadcrumbs";
 import { Breadcrumbs, CURRENT } from "~/utils/breadcrumbs";
 import type { LinksFunction, MetaFunction } from "@remix-run/node";
-import stylesheetUrl from "~/styles/event.css";
 import { Outlet } from "@remix-run/react";
 
+import indexStylesheetUrl from "~/styles/index.css";
+import eventStylesheetUrl from "~/styles/event.css";
+import stylesheetUrl from "~/styles/campaign.css";
+
 export const links: LinksFunction = () => {
-  return [{ rel: "stylesheet", href: stylesheetUrl }];
+  return [
+    { rel: "stylesheet", href: indexStylesheetUrl },
+    { rel: "stylesheet", href: eventStylesheetUrl },
+    { rel: "stylesheet", href: stylesheetUrl },
+  ];
 };
 
 const breadcrumbs: Breadcrumb[] = [
@@ -85,6 +92,10 @@ export default function MoonstoneCampaign() {
           Wolfsbane II font ©
           <a href="https://www.iconian.com/index.html">Iconian Fonts</a>{" "}
           licenced for non-commercial use.
+        </p>
+        <p className="disclaimer">
+          Character stat cards and faction logos ©
+          <a href="https://www.moonstonethegame.com/">Goblin King Games</a>.
         </p>
       </footer>
     </>
