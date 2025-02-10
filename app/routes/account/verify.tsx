@@ -56,6 +56,7 @@ export const action: ActionFunction = async ({ request }) => {
   try {
     verifyData = await schema.validate(formData, { abortEarly: false });
   } catch (err) {
+    console.log("validate form data", err);
     if (ValidationError.isError(err)) {
       return json<ActionData>(
         {

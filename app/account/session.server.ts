@@ -112,6 +112,7 @@ export async function createUserSession({
   const ttl = maxAge ? new Date(1000 * maxAge) : undefined;
   const sessionId = await createSessionRecord(email, ttl);
   sessionHeader.set(USER_SESSION_KEY, sessionId);
+  console.log("redirecting", redirectTo);
   return redirect(redirectTo ?? "/", {
     headers: {
       "Set-Cookie": await sessionStorage.commitSession(sessionHeader, {
