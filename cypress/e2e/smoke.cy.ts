@@ -23,9 +23,15 @@ describe("smoke tests", () => {
       `/__tests/validate-user-and-redirect/${encodeURIComponent(
         loginForm.email,
       )}`,
-    ).then((res) =>
-      cy.visit(res.body.redirect.replace("http://localhost:3000/", "/")),
-    );
+    ).then((res) => {
+      const redirectUrl = res.body.redirect.replace(
+        /http:\/\/localhost:(3000|8811)\//,
+        "/",
+      );
+      cy.log(`Received redirect to ${redirectUrl}`);
+      cy.wait(500);
+      return cy.visit(redirectUrl);
+    });
 
     cy.findByLabelText(/new password/i).type(loginForm.password);
     cy.findByRole("button", { name: /Set password/i })
