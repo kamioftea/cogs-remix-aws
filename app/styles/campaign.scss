@@ -1,0 +1,92 @@
+@import "settings";
+@import "util/util";
+
+.faction-image-small {
+  width: 32px;
+
+}
+
+.player-page-wrapper {
+  background-position: top right;
+  background-repeat: no-repeat;
+  background-size: 25%;
+
+  .game-list {
+    width: 75%;
+  }
+}
+
+.card-grid {
+  display: grid;
+  grid-gap: 0.5rem;
+  grid-template-columns: 1fr;
+  margin-bottom: 0.5rem;
+
+  @include breakpoint(medium up) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .stat-card {
+    img {
+      cursor: pointer;
+      width: 100%;
+    }
+  }
+}
+
+.game-row {
+  display: grid;
+
+  grid-gap: 1rem;
+
+  grid-template-columns: auto;
+
+  .player-cell:last-of-type {
+    margin-bottom: 1rem;
+  }
+
+  @include breakpoint(medium up) {
+    grid-template-columns: min-content 1fr max-content 1fr;
+
+    .player-cell:last-of-type {
+      margin-bottom: 0;
+      flex-direction: row-reverse;
+    }
+  }
+
+  margin-bottom: 0.5rem;
+
+  &:hover .player-cell {
+    background-color: rgba($secondary-color, 0.05);
+  }
+
+  .table-number, .vs {
+    place-self: center center;
+    text-align: center;
+    color: $secondary-color;
+  }
+
+  .faction-img {
+    min-width: 32px;
+  }
+
+  .player-cell {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+
+    padding: 0.5rem 1rem;
+    border: thin $dark-gray solid;
+
+    .name {
+      flex-grow: 1;
+      width: 100%;
+      text-align: center;
+    }
+
+    .moonstones {
+      font-size: 200%;
+    }
+  }
+}
