@@ -28,8 +28,7 @@ describe("smoke tests", () => {
         /http:\/\/localhost:(3000|8811)\//,
         "/",
       );
-      cy.log(`Received redirect to ${redirectUrl}`);
-      cy.wait(500);
+      cy.task("log", `Received redirect to ${redirectUrl}`);
       return cy.visit(redirectUrl);
     });
 
@@ -37,6 +36,8 @@ describe("smoke tests", () => {
     cy.findByRole("button", { name: /Set password/i })
       .click()
       .wait(500);
+
+    cy.task("log", `After verify: ${cy.url()}`);
 
     cy.findByText(/logged in as/i).should("contain.text", loginForm.name);
   });
