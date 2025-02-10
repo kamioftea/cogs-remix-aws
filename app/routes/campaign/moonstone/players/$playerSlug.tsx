@@ -35,13 +35,14 @@ export const loader: LoaderFunction = async ({ params }) => {
           playerSlug,
           player,
         };
-        const [opponentsSlug, opponentsGameData]: AugmentedGame =
-          Object.entries(playerGames).find(
-            ([slug, { table }]) =>
-              table === playersGame.table && slug !== playerSlug,
-          );
+        const [opponentsSlug, opponentsGameData] = Object.entries(
+          playerGames,
+        ).find(
+          ([slug, { table }]) =>
+            table === playersGame.table && slug !== playerSlug,
+        )!;
 
-        const opponentsGame = {
+        const opponentsGame: AugmentedGame = {
           ...opponentsGameData,
           playerSlug: opponentsSlug,
           player: players[opponentsSlug],

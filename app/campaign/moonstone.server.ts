@@ -1,4 +1,4 @@
-import type { Player, Character } from "~/campaign/moonstone";
+import type { Player, Character, PlayerGame } from "~/campaign/moonstone";
 
 export const characters: { [key: string]: Character } = {
   Antonia: {
@@ -213,7 +213,7 @@ export const players: Record<string, Player> = {
   },
 };
 
-export const games: { [key: string]: { [key: string]: Game } } = {
+export const games: { [key: string]: { [key: string]: PlayerGame } } = {
   february: {
     phillip: {
       table: 1,
