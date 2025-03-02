@@ -4,11 +4,21 @@ export type Character = {
   moveId: string;
 };
 
+export type RosterCharacter = {
+  cardId: string;
+  joined: string;
+  moonstones: number;
+  kills: number;
+  deaths: number;
+};
+
 export type Player = {
   name: string;
   faction?: "Commonwealth" | "Dominion" | "Leshavult" | "Shades";
-  characters: { cardId: string; joined: string }[];
-  moonstones: number;
+  characters: RosterCharacter[];
+  moonstones?: number;
+  kills?: number;
+  deaths?: number;
 };
 
 export type PlayerGame = {
