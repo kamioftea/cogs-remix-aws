@@ -87,6 +87,15 @@ export default function Index() {
           existing model in your roster for another each month.
         </p>
         <p>
+          As the campaign progresses we will start introducing the campaign
+          cards as noted on the table. You can download a PDF of current cards
+          from the
+          <a href="https://www.moonstonethegame.com/downloads">
+            Moonstone downloads page
+          </a>
+          .
+        </p>
+        <p>
           You can follow the{" "}
           <a href="https://www.facebook.com/events/620020453712316/620021343712227">
             Facebook event
@@ -112,8 +121,8 @@ export default function Index() {
           encouraged to use the official Moonstone models, this is by no means
           required. You can use proxies or standees as long as it is clear to
           your opponent which model is which. Please make sure you also bring
-          the relevant stat cards for the models in your roster. These can be
-          downloaded from{" "}
+          the relevant stat cards for the models in your roster, along with any
+          upgrade and campaign cards. These can be downloaded from{" "}
           <a href="https://www.moonstonethegame.com/downloads">
             the Moonstone downloads page
           </a>{" "}
@@ -137,6 +146,9 @@ export default function Index() {
         </p>
         <p>
           <Link to="./games/february">February Games</Link>
+        </p>
+        <p>
+          <Link to="./games/march">March Games</Link>
         </p>
       </aside>
     </div>

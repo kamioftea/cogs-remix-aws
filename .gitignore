@@ -7,6 +7,7 @@ preferences.arc
 sam.json
 sam.yaml
 .env
+*.tsbuildinfo
 
 /cypress/screenshots
 /cypress/videos

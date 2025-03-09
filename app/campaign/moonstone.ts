@@ -10,6 +10,7 @@ export type RosterCharacter = {
   moonstones: number;
   kills: number;
   deaths: number;
+  upgrade?: string;
 };
 
 export type Player = {
