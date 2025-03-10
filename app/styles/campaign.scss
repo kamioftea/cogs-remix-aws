@@ -16,6 +16,12 @@
   }
 }
 
+.columns-half {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem;
+}
+
 .card-grid {
   display: grid;
   grid-gap: 0.5rem;
