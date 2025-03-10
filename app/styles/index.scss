@@ -1,6 +1,15 @@
 @import "settings";
 @import "util/util";
 
+.dl-horizontal {
+  display: grid;
+
+  grid-template-columns: min-content 1fr;
+  grid-gap: .25rem 1rem;
+  align-items: center;
+
+}
+
 .cogs-header {
   display: grid;
   max-width: rem-calc(960px);

@@ -16,6 +16,12 @@
   }
 }
 
+.columns-half {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem;
+}
+
 .card-grid {
   display: grid;
   grid-gap: 0.5rem;
@@ -23,7 +29,7 @@
   margin-bottom: 0.5rem;
 
   @include breakpoint(medium up) {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
   }
 
   .stat-card {

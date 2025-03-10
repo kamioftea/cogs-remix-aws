@@ -69,7 +69,7 @@ export default function Index() {
               <td>9th June</td>
               <td>8</td>
               <td>6*</td>
-              <td></td>
+              <td>Final, game pairings will be based on standings</td>
             </tr>
           </tbody>
         </table>
@@ -87,6 +87,15 @@ export default function Index() {
           existing model in your roster for another each month.
         </p>
         <p>
+          As the campaign progresses we will start introducing the campaign
+          cards as noted on the table. You can download a PDF of current cards
+          from the
+          <a href="https://www.moonstonethegame.com/downloads">
+            Moonstone downloads page
+          </a>
+          .
+        </p>
+        <p>
           You can follow the{" "}
           <a href="https://www.facebook.com/events/620020453712316/620021343712227">
             Facebook event
@@ -97,6 +106,20 @@ export default function Index() {
           We will decide in June if the campaign will be continued, or a new one
           started for July onwards.
         </p>
+        <p>
+          Games will be drawn randomly for all months, except the final in June.
+          You will not be randomly paired with someone you have played before,
+          but you may end up playing someone you've previously played in the
+          final.
+        </p>
+        <p>
+          Most kills, then least deaths are used as tie-breakers for players who
+          have collected the same number of moonstones. A model is scored as a
+          kill/death if it is slain at least once. Models that are summoned do
+          not count for kill/death scores. Models that are resurrected only
+          count the first time they are slain. If a model dies due to friendly
+          damage (e.g. a catastrophy) it counts as a death, but not a kill.
+        </p>
         <h2>Taking part</h2>
         <p>
           If you want to take part, please see Jeff in person at a club night,
@@ -104,16 +127,15 @@ export default function Index() {
           <a href="mailto:jeff@goblinoid.co.uk">jeff@goblinoid.co.uk</a>. Please
           include your name, chosen faction, and starting roster. As January is
           for friendly games, the rosters can be submitted any time before 6pm
-          on Sunday 9th February. After then, please submit added models by 6pm
-          the day before the campaign evening.
+          on Sunday 9th February.
         </p>
         <p>
           We want this campaign to be accessible as possible. Whilst you are
           encouraged to use the official Moonstone models, this is by no means
           required. You can use proxies or standees as long as it is clear to
           your opponent which model is which. Please make sure you also bring
-          the relevant stat cards for the models in your roster. These can be
-          downloaded from{" "}
+          the relevant stat cards for the models in your roster, along with any
+          upgrade and campaign cards. These can be downloaded from{" "}
           <a href="https://www.moonstonethegame.com/downloads">
             the Moonstone downloads page
           </a>{" "}
@@ -129,6 +151,139 @@ export default function Index() {
           the campaign. Please ask on the campaigns facebook events if there are
           models you would be interested in borrowing.
         </p>
+        <h2>Machination</h2>
+        <p>
+          From April onwards players will get campaign cards each game and
+          opportunities to support or sabotage two other players, other than
+          their opponent that week.
+        </p>
+        <p>
+          You start with a base of two campaign cards. If you receive support
+          you get three cards, if you are sabotaged you get one. If multiple
+          people support you, earn an extra machination point for each support
+          after the first.
+        </p>
+        <p>
+          You select your campaign cards for the game after starting table edges
+          have been determined, but before any models are deployed. Each
+          campaign card may only be selected once by each player in the entire
+          campaign.
+        </p>
+        <p>
+          After the games have been completed you will earn machination points
+          based the results of the games you machinated. Top- and bottom-tier
+          are the two places at the top and bottom of the the standings, all
+          others are middle-tier.
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>Support</th>
+              <th>They win</th>
+              <th>They lose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>Top-tier</th>
+              <td>
+                <small>
+                  <i>You gain</i>
+                </small>{" "}
+                1 MP
+              </td>
+              <td>
+                <small>
+                  <i>You lose</i>
+                </small>{" "}
+                -2 MP
+              </td>
+            </tr>
+            <tr>
+              <th>Middle-tier</th>
+              <td>
+                <small>
+                  <i>You gain</i>
+                </small>{" "}
+                1 MP
+              </td>
+              <td>
+                <small>
+                  <i>You lose</i>
+                </small>{" "}
+                -1 MP
+              </td>
+            </tr>
+            <tr>
+              <th>Bottom-tier</th>
+              <td>
+                <small>
+                  <i>You gain</i>
+                </small>{" "}
+                1 MP
+              </td>
+              <td>-</td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <thead>
+            <tr>
+              <th>Sabotage</th>
+              <th>They win</th>
+              <th>They lose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>Top-tier</th>
+              <td>-</td>
+              <td>
+                <small>
+                  <i>You gain</i>
+                </small>{" "}
+                1 MP
+              </td>
+            </tr>
+            <tr>
+              <th>Middle-tier</th>
+              <td>
+                <small>
+                  <i>You lose</i>
+                </small>{" "}
+                -1 MP
+              </td>
+              <td>
+                <small>
+                  <i>You gain</i>
+                </small>{" "}
+                1 MP
+              </td>
+            </tr>
+            <tr>
+              <th>Bottom-tier</th>
+              <td>
+                <small>
+                  <i>You lose</i>
+                </small>{" "}
+                -1 MP
+              </td>
+              <td>-</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>
+          Machination points are added to number of moonstones collected to give
+          your total score in the campaign.
+        </p>
+        <p>
+          To facilitate machinations, roster changes should be submitted 1 week
+          before the next campaign evening, e.g for April, by Monday 7th April.
+          Then, any machinations should be submitted the night before the
+          campaign evening, e.g. by midnight 13th April. If machinations are not
+          submitted, it will be assumed you decided not to intervene in any
+          games.
+        </p>
       </div>
       <aside className="summary-box">
         <h2>Campaign details</h2>
@@ -137,6 +292,9 @@ export default function Index() {
         </p>
         <p>
           <Link to="./games/february">February Games</Link>
+        </p>
+        <p>
+          <Link to="./games/march">March Games</Link>
         </p>
       </aside>
     </div>

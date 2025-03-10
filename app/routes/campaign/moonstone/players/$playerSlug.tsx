@@ -94,18 +94,49 @@ export default function PlayerPage() {
       </div>
       <h3>Roster</h3>
       <div className="card-grid">
-        {player.characters.map(({ cardId }) => {
-          const character = characters[cardId];
+        {player.characters.map(
+          ({ cardId, joined, kills, deaths, moonstones, upgrade }) => {
+            const character = characters[cardId];
 
-          return (
-            <StatCard
-              key={cardId}
-              cardId={character?.cardId}
-              moveId={character?.moveId}
-              name={character?.name}
-            />
-          );
-        })}
+            return (
+              <>
+                <div className="character-info">
+                  <h4>{character.name}</h4>
+                  <dl className="dl-horizontal">
+                    <dt>Joined</dt>
+                    <dd>{joined}</dd>
+
+                    <dt>Moonstones</dt>
+                    <dd>{moonstones}</dd>
+
+                    <dt>Kills</dt>
+                    <dd>{kills}</dd>
+
+                    <dt>Deaths</dt>
+                    <dd>{deaths}</dd>
+                  </dl>
+                </div>
+                <StatCard
+                  key={cardId}
+                  cardId={character?.cardId}
+                  moveId={character?.moveId}
+                  name={character?.name}
+                />
+                <div className="stat-card">
+                  {upgrade && (
+                    <img
+                      src={`/_static/images/campaign-card/${upgrade.replace(
+                        /\s+/,
+                        "",
+                      )}.png`}
+                      alt={upgrade}
+                    />
+                  )}
+                </div>
+              </>
+            );
+          },
+        )}
       </div>
     </div>
   );
