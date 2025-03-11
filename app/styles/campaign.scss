@@ -52,7 +52,7 @@
   }
 
   @include breakpoint(medium up) {
-    grid-template-columns: min-content 1fr max-content 1fr;
+    grid-template-columns: 5rem 1fr max-content 1fr;
 
     .player-cell:last-of-type {
       margin-bottom: 0;
