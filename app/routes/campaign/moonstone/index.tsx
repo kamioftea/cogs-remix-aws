@@ -55,7 +55,7 @@ export default function Index() {
               <td>6</td>
               <td>5</td>
               <td>
-                From now on, players get combat cards and two machinations as
+                From now on, players get campaign cards and two machinations as
                 per the Arising campaign rules.
               </td>
             </tr>
@@ -164,10 +164,10 @@ export default function Index() {
           after the first.
         </p>
         <p>
-          You select your campaign cards for the game after starting table edges
-          have been determined, but before any models are deployed. Each
-          campaign card may only be selected once by each player in the entire
-          campaign.
+          You select your campaign cards for the game before the roll to decide
+          who is the early bird. Each campaign card may only be played in one
+          game by each player in the entire campaign. You can reselect a card if
+          you elected not to play it when previously selected.
         </p>
         <p>
           After the games have been completed you will earn machination points
