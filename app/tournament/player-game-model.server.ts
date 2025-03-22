@@ -110,11 +110,13 @@ export async function populateRound(eventSlug: string, roundIndex: number) {
     ),
   );
 
-  toPairs(toAssign).forEach(([a, b]) => {
-    maxTable = maxTable + 1;
-    a && (await createPlayerGame(a, roundIndex, maxTable));
-    b && (await createPlayerGame(b, roundIndex, maxTable));
-  });
+  await Promise.all(
+    toPairs(toAssign).map(async ([a, b]) => {
+      maxTable = maxTable + 1;
+      a && (await createPlayerGame(a, roundIndex, maxTable));
+      b && (await createPlayerGame(b, roundIndex, maxTable));
+    }),
+  );
 }
 
 export async function publishRound(eventSlug: string, roundIndex: number) {
