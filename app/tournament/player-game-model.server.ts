@@ -112,8 +112,8 @@ export async function populateRound(eventSlug: string, roundIndex: number) {
 
   toPairs(toAssign).forEach(([a, b]) => {
     maxTable = maxTable + 1;
-    a && createPlayerGame(a, roundIndex, maxTable);
-    b && createPlayerGame(b, roundIndex, maxTable);
+    a && (await createPlayerGame(a, roundIndex, maxTable));
+    b && (await createPlayerGame(b, roundIndex, maxTable));
   });
 }
 

@@ -27,6 +27,7 @@ export default function handleRequest(
           const body = new PassThrough();
 
           responseHeaders.set("Content-Type", "text/html");
+          responseHeaders.set("X-Clacks-Overhead", "GNU Terry Pratchett");
 
           resolve(
             new Response(body, {
