@@ -1143,6 +1143,14 @@ more candidates.`),
         label: "Awards",
       },
     ],
+    sparePlayer: {
+      name: "Steve Pearson",
+      email: "jammystavros@hotmail.com",
+      listPdfUrl: {
+        base: "https://static.goblinoid.co.uk/",
+        name: "cogs-of-war-2025-spare-player-list.pdf",
+      },
+    },
     scenarios: [],
     maxAttendees: 20,
     bonusPoints: {
