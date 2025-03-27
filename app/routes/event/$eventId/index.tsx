@@ -17,6 +17,7 @@ import invariant from "tiny-invariant";
 import { FiCheckCircle } from "react-icons/fi";
 import { getSessionAttendee, getUser } from "~/account/session.server";
 import { getTournamentBySlug } from "~/tournament/tournament-model.server";
+import { SparePlayer } from "~/tournament/SparePlayer";
 
 interface LoaderData {
   attendees: {
@@ -214,6 +215,7 @@ export default function EventLandingPage() {
               )}
             </tbody>
           </table>
+          <SparePlayer tournament={tournament} />
           {waitList.length > 0 && (
             <>
               <h2>Wait list</h2>
@@ -329,23 +331,7 @@ export default function EventLandingPage() {
               }
             </tbody>
           </table>
-          {tournament.sparePlayer && (
-            <>
-              <p>
-                The spare player for this tournament is{" "}
-                {tournament.sparePlayer.name}.
-              </p>
-              <p>
-                <a
-                  href={`${tournament.sparePlayer.listPdfUrl.base}${tournament.sparePlayer.listPdfUrl.name}`}
-                  download={tournament.sparePlayer.listPdfUrl.name}
-                  className="button primary hollow expanded"
-                >
-                  <AiOutlineFilePdf /> Download the spare player's list PDF.
-                </a>
-              </p>
-            </>
-          )}
+          <SparePlayer tournament={tournament} />
         </div>
       )}
       {tournament.content && (
