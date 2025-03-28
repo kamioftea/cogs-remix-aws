@@ -130,14 +130,16 @@ export const action: ActionFunction = async ({ request, params }) => {
   const formData = Object.fromEntries(await request.formData());
 
   if (formData.type === "additional_fields") {
-    attendee.additionalFields = attendee.additionalFields ?? {};
+    const additionalFields = attendee.additionalFields ?? {};
 
     for (const spec of tournament.additionalFields ?? []) {
-      if (!spec.readonly) {
-        attendee.additionalFields[spec.name] = formData[spec.name];
+      const value = formData[spec.name];
+      if (!spec.readonly && typeof value === "string") {
+        additionalFields[spec.name] = value;
       }
     }
 
+    attendee.additionalFields = additionalFields;
     await putAttendee(attendee);
 
     return null;
@@ -186,12 +188,9 @@ export default function LoginAsAttendeePage() {
               <FiInfo /> These votes will only be visible to you.
             </p>
           </div>
-          <PaintVotes
-            attendee={currentAttendee}
-            attendeesBySlug={attendeesBySlug}
-          />
+          <PaintVotes attendee={attendee} attendeesBySlug={attendeesBySlug} />
           <SportsVotes
-            attendee={currentAttendee}
+            attendee={attendee}
             games={games}
             attendeesBySlug={attendeesBySlug}
           />
