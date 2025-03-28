@@ -128,6 +128,21 @@ export const action: ActionFunction = async ({ request, params }) => {
   }
 
   const formData = Object.fromEntries(await request.formData());
+
+  if (formData.type === "additional_fields") {
+    attendee.additionalFields = attendee.additionalFields ?? {};
+
+    for (const spec of tournament.additionalFields ?? []) {
+      if (!spec.readonly) {
+        attendee.additionalFields[spec.name] = formData[spec.name];
+      }
+    }
+
+    await putAttendee(attendee);
+
+    return null;
+  }
+
   const ballot = Object.fromEntries(
     Object.entries(formData).flatMap(([k, v]) => {
       const [, slug] = k.match(/^vote\[([^\]]+)]$/) || [];
@@ -159,10 +174,11 @@ export default function LoginAsAttendeePage() {
     "routes/event/$eventId",
   ) as TournamentLoaderData;
 
+  let isOwnProfile = currentAttendee?.slug === attendee.slug;
   return (
     <>
       <h2>{attendee.name}</h2>
-      {currentAttendee?.slug === attendee.slug && (
+      {isOwnProfile && tournament.listsSubmissionClosed ? (
         <>
           <h3>Voting</h3>
           <div className="callout secondary">
@@ -180,22 +196,43 @@ export default function LoginAsAttendeePage() {
             attendeesBySlug={attendeesBySlug}
           />
         </>
-      )}
-      <dl>
-        {tournament.additionalFields?.map((spec) => {
-          return attendee.additionalFields?.[spec.name] ? (
-            <Fragment key={spec.name}>
-              <dt>{spec.label}</dt>
-              <dd>
-                {additionalFieldTypes[spec.type].profile(
-                  attendee.additionalFields?.[spec.name],
-                  attendee,
-                )}
-              </dd>
-            </Fragment>
-          ) : null;
-        })}
-      </dl>
+      ) : null}
+      <form method="post">
+        <dl>
+          {tournament.additionalFields?.map((spec) => {
+            return (!spec.readonly && isOwnProfile) ||
+              attendee.additionalFields?.[spec.name] ? (
+              <Fragment key={spec.name}>
+                <dt>{spec.label}</dt>
+                <dd>
+                  {isOwnProfile && !spec.readonly
+                    ? additionalFieldTypes[spec.type].input(
+                        spec.name,
+                        attendee.additionalFields?.[spec.name],
+                        attendee.eventSlug,
+                        attendee.slug,
+                      )
+                    : additionalFieldTypes[spec.type].profile(
+                        attendee.additionalFields?.[spec.name],
+                        attendee,
+                      )}
+                </dd>
+              </Fragment>
+            ) : null;
+          })}
+        </dl>
+        {isOwnProfile &&
+        tournament?.additionalFields?.find((spec) => !spec.readonly) ? (
+          <button
+            type="submit"
+            name="type"
+            value="additional_fields"
+            className="button primary hollow"
+          >
+            Save changes
+          </button>
+        ) : null}
+      </form>
       {games.length ? (
         <>
           <h3>Games</h3>

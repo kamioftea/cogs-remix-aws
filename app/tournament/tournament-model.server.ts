@@ -1097,7 +1097,6 @@ more candidates.`),
       {
         name: "army_list",
         type: "ARMY_LIST",
-        readonly: true,
         label: "Army list",
       },
       {
