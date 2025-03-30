@@ -62,7 +62,8 @@ export const loader: LoaderFunction = async ({ request, params }) => {
   }
 
   const sessionAttendee = await getSessionAttendee(request, tournament.slug);
-  const isAdmin = (await getUser(request))?.roles.includes(Role.Admin);
+  const isAdmin =
+    (await getUser(request))?.roles?.includes(Role.Admin) ?? false;
 
   const additionalFieldsPublic =
     tournament.listsSubmissionClosed ||
