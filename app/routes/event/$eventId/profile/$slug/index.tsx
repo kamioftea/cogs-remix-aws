@@ -12,7 +12,7 @@ import {
   putAttendee,
 } from "~/tournament/attendee-model.server";
 
-import { getSessionAttendee } from "~/account/session.server";
+import { getSessionAttendee, getUser } from "~/account/session.server";
 import {
   Link,
   useCatch,
@@ -36,6 +36,7 @@ import { FiInfo } from "react-icons/fi";
 import { SportsVotes } from "~/routes/event/$eventId/profile/$slug/sportsVotes";
 import { PaintVotes } from "~/routes/event/$eventId/profile/$slug/paintVotes";
 import type { ActionFunction } from "@remix-run/router";
+import { Role } from "~/account/user-model";
 
 interface LoaderData {
   attendee: Attendee;
@@ -61,9 +62,12 @@ export const loader: LoaderFunction = async ({ request, params }) => {
   }
 
   const sessionAttendee = await getSessionAttendee(request, tournament.slug);
+  const isAdmin =
+    (await getUser(request))?.roles?.includes(Role.Admin) ?? false;
 
   const additionalFieldsPublic =
     tournament.listsSubmissionClosed ||
+    isAdmin ||
     sessionAttendee?.email === attendee.email;
 
   const attendeeGames = await getGamesForAttendee(

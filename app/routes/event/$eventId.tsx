@@ -8,7 +8,7 @@ import type { Tournament } from "~/tournament/tournament-model.server";
 import { getTournamentBySlug } from "~/tournament/tournament-model.server";
 import invariant from "tiny-invariant";
 // noinspection JSDeprecatedSymbols
-import { Outlet, useCatch, useLoaderData } from "@remix-run/react";
+import { Link, Outlet, useCatch, useLoaderData } from "@remix-run/react";
 import stylesheetUrl from "~/styles/event.css";
 import ErrorPage, { GenericErrorPage } from "~/error-handling/error-page";
 import type { Breadcrumb } from "~/utils/breadcrumbs";
@@ -18,6 +18,9 @@ import type { Attendee } from "~/tournament/attendee-model.server";
 import dayjs from "dayjs";
 
 import advancedFormat from "dayjs/plugin/advancedFormat";
+import { useOptionalUser } from "~/utils";
+import { Role } from "~/account/user-model";
+import { Fragment } from "react";
 dayjs.extend(advancedFormat);
 
 export interface TournamentLoaderData {
@@ -73,6 +76,7 @@ export const handle = {
 
 export default function EventLandingPage() {
   const { tournament } = useLoaderData<TournamentLoaderData>();
+  const user = useOptionalUser();
 
   return (
     <>
@@ -111,6 +115,24 @@ export default function EventLandingPage() {
       <Breadcrumbs />
 
       <main>
+        {user?.roles?.includes(Role.Admin) && (
+          <div className="callout warning">
+            Admin:{" "}
+            <Link to={`/admin/event/${tournament.slug}/attendees`}>
+              Attendees
+            </Link>{" "}
+            |{" "}
+            {tournament.scenarios.map(({ scenario }, index) => (
+              <Fragment key={scenario.name}>
+                <Link to={`/admin/event/${tournament.slug}/round/${index + 1}`}>
+                  Round {index + 1}: {scenario.name}
+                </Link>{" "}
+                |{" "}
+              </Fragment>
+            ))}
+            <Link to={`/admin/event/${tournament.slug}/votes`}>Votes</Link>
+          </div>
+        )}
         <Outlet />
       </main>
 
