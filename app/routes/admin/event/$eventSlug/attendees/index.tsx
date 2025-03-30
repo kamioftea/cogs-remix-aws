@@ -33,7 +33,7 @@ export const loader: LoaderFunction = async ({ params }) => {
   return json<LoaderData>({ attendees, tournament });
 };
 
-function getStatusTag(attendee: Attendee): ReactNode {
+function SignUpStatusTag({ attendee }: { attendee: Attendee }) {
   switch (false) {
     case attendee.approved:
       return (
@@ -56,17 +56,25 @@ function getStatusTag(attendee: Attendee): ReactNode {
     default:
       return (
         <>
-          {attendee.additionalFields.army_list ? (
-            <span className="label success hollow">
-              <FiCheckCircle /> List
-            </span>
-          ) : null}
           <span className="label success hollow">
             <FiCheckCircle /> {attendee.present ? "Present" : "Paid"}
           </span>
         </>
       );
   }
+}
+
+function getStatusTags(attendee: Attendee): ReactNode {
+  return (
+    <>
+      {attendee.additionalFields?.army_list ? (
+        <span className="label success hollow">
+          <FiCheckCircle /> List
+        </span>
+      ) : null}
+      <SignUpStatusTag attendee={attendee} />
+    </>
+  );
 }
 
 function getApprovalLink(attendee: Attendee): ReactNode {
@@ -151,7 +159,7 @@ export default function EventIndexPage() {
           <tr>
             <th>Name</th>
             <th>Email</th>
-            <th>Slug</th>
+            <th>Faction</th>
             <th>Status</th>
             <th>Army</th>
             <th>Sports</th>
@@ -170,9 +178,12 @@ export default function EventIndexPage() {
               </td>
               <td>{attendee.email}</td>
               <td>
-                <code>{attendee.slug}</code>
+                {attendee.additionalFields?.["faction"] ?? "-"}
+                {attendee.additionalFields?.["allies"] ? (
+                  <i> (with {attendee.additionalFields?.["allies"]})</i>
+                ) : null}
               </td>
-              <td>{getStatusTag(attendee)}</td>
+              <td>{getStatusTags(attendee)}</td>
               <td>
                 {Object.values(attendee.paintBallot ?? {}).reduce(
                   (acc, score) => acc + score,

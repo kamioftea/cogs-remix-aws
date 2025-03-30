@@ -5,7 +5,7 @@ import {
   useRouteLoaderData,
 } from "@remix-run/react";
 import type { ReactNode } from "react";
-import { Fragment } from "react";
+import { useMemo, Fragment } from "react";
 import ErrorPage, { GenericErrorPage } from "~/error-handling/error-page";
 import type { TournamentLoaderData } from "~/routes/event/$eventId";
 import { AiOutlineFilePdf } from "react-icons/ai";
@@ -77,6 +77,61 @@ export default function EventLandingPage() {
     typeof loader
   >() as LoaderData;
   const user = useOptionalUser();
+
+  const sortedRankings = useMemo(
+    () =>
+      attendees
+        .sort(
+          sortBy(
+            (a) => -a.tournament_points,
+            (a) => -a.total_routed,
+            (a) => a.total_attrition,
+            (a) => a.name,
+          ),
+        )
+        .reduce<{
+          prev_tp: number;
+          prev_tr: number;
+          index: number;
+          rows: ReactNode[];
+        }>(
+          ({ prev_tp, prev_tr, index, rows }, attendee) => {
+            const position =
+              prev_tp === (attendee.tournament_points || 0) &&
+              prev_tr === (attendee.total_routed || 0)
+                ? ""
+                : index + 1;
+
+            return {
+              prev_tp: attendee.tournament_points || 0,
+              prev_tr: attendee.total_routed || 0,
+              index: index + 1,
+              rows: [
+                ...rows,
+                <tr key={attendee.slug}>
+                  <td>{position}</td>
+                  <td>
+                    <Link
+                      to={`/event/${tournament.slug}/profile/${attendee.slug}`}
+                    >
+                      {attendee.name}
+                    </Link>
+                  </td>
+                  <td>{attendee.tournament_points ?? 0}</td>
+                  <td>{attendee.total_routed ?? 0}</td>
+                </tr>,
+              ],
+            };
+          },
+          {
+            prev_tp: -1,
+            prev_tr: -1,
+            index: 0,
+            rows: [],
+          },
+        ).rows,
+    [attendees, tournament.slug],
+  );
 
   return (
     <div className="right-aside">
@@ -276,60 +331,7 @@ export default function EventLandingPage() {
                 <th>Total Routed</th>
               </tr>
             </thead>
-            <tbody>
-              {
-                attendees
-                  .sort(
-                    sortBy(
-                      (a) => -a.tournament_points,
-                      (a) => -a.total_routed,
-                      (a) => a.total_attrition,
-                      (a) => a.name,
-                    ),
-                  )
-                  .reduce<{
-                    prev_tp: number;
-                    prev_tr: number;
-                    index: number;
-                    rows: ReactNode[];
-                  }>(
-                    ({ prev_tp, prev_tr, index, rows }, attendee) => {
-                      const position =
-                        prev_tp === (attendee.tournament_points || 0) &&
-                        prev_tr === (attendee.total_routed || 0)
-                          ? ""
-                          : index + 1;
-
-                      return {
-                        prev_tp: attendee.tournament_points || 0,
-                        prev_tr: attendee.total_routed || 0,
-                        index: index + 1,
-                        rows: [
-                          ...rows,
-                          <tr key={attendee.slug}>
-                            <td>{position}</td>
-                            <td>
-                              <Link
-                                to={`/event/${tournament.slug}/profile/${attendee.slug}`}
-                              >
-                                {attendee.name}
-                              </Link>
-                            </td>
-                            <td>{attendee.tournament_points ?? 0}</td>
-                            <td>{attendee.total_routed ?? 0}</td>
-                          </tr>,
-                        ],
-                      };
-                    },
-                    {
-                      prev_tp: -1,
-                      prev_tr: -1,
-                      index: 0,
-                      rows: [],
-                    },
-                  ).rows
-              }
-            </tbody>
+            <tbody>{sortedRankings}</tbody>
           </table>
           <SparePlayer tournament={tournament} />
         </div>
