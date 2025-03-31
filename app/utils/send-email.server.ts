@@ -23,6 +23,14 @@ function toContent(data: string) {
 
 export async function sendEmail(email: Email): Promise<void> {
   if (process.env.NODE_ENV === "development") {
+    console.log(`
+Development: skipping sending email
+-----------------------------------
+To: ${email.to}
+Subject: ${email.subject}
+
+${email.html ?? email.text}
+`);
     return;
   }
 

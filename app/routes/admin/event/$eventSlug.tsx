@@ -29,6 +29,16 @@ export default function EventLayout() {
         <Link to={`/event/${tournament.slug}`}>Event page</Link> |{" "}
         <Link to={`/admin/event/${tournament.slug}/attendees`}>Attendees</Link>{" "}
         |{" "}
+        {!tournament.listsSubmissionClosed ? (
+          <>
+            <Link
+              to={`/admin/event/${tournament.slug}/attendees/send-list-submission-reminders`}
+            >
+              Send reminders
+            </Link>{" "}
+            |{" "}
+          </>
+        ) : null}
         {tournament.scenarios.map(({ scenario }, index) => (
           <Fragment key={scenario.name}>
             <Link to={`/admin/event/${tournament.slug}/round/${index + 1}`}>
