@@ -9,6 +9,8 @@ import type { Dayjs } from "dayjs";
 import { Plunder } from "~/tournament/scenario/plunder";
 import { Control } from "~/tournament/scenario/control";
 import { Pillage } from "~/tournament/scenario/pillage";
+import { CompassPoints } from "~/tournament/scenario/compass-points";
+import { GoldRush } from "~/tournament/scenario/gold-rush";
 
 interface AdditionalFieldSpec {
   type: AdditionalFieldType;
@@ -854,7 +856,7 @@ more candidates.`),
         "S41 7JH",
       ],
     },
-    signUpEnabled: true,
+    signUpEnabled: false,
     disclaimer: renderMarkdownInline(
       `Mantic® and Kings of War® and all associated names, characters, places, and things
        are copyright © and ™ Mantic Games. The original event image © Mantic Games. 
@@ -1097,6 +1099,7 @@ more candidates.`),
       {
         name: "army_list",
         type: "ARMY_LIST",
+        readonly: true,
         label: "Army list",
       },
       {
@@ -1150,7 +1153,27 @@ more candidates.`),
         name: "cogs-of-war-2025-spare-player-list.pdf",
       },
     },
-    scenarios: [],
+    scenarios: [
+      {
+        scenario: CompassPoints,
+        mapUrl:
+          "https://static.goblinoid.co.uk/kow.c-o-g-s.org.uk/maps/CompassPoints2025.png",
+      },
+      {
+        scenario: GoldRush,
+        mapUrl:
+          "https://static.goblinoid.co.uk/kow.c-o-g-s.org.uk/maps/GoldRush2025.png",
+      },
+      {
+        scenario: Control,
+        mapUrl:
+          "https://static.goblinoid.co.uk/kow.c-o-g-s.org.uk/maps/Control2025.png",
+      },
+    ],
+    scenarioPdfUrl: {
+      base: "https://static.goblinoid.co.uk/",
+      name: "cogs-of-war-2025-scenarios-and-scoring.pdf",
+    },
     maxAttendees: 20,
     bonusPoints: {
       win: 5,
@@ -1160,6 +1183,7 @@ more candidates.`),
     kowMastersEventId: 431,
     kowMastersSeason: 10,
     manticCompanionEventId: 424,
+    listsSubmissionClosed: true,
   },
   {
     title: "Clockwork 2025",

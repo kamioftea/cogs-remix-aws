@@ -8,9 +8,10 @@ export const Control: Scenario = {
 At the end of the battle divide the board into six, 24" square scoring zones, 
 three each side of the centre line. For each of these, if one player has more 
 unit strength within the square, they control it. If a unit is in multiple zones
-it counts as being in the zone with the largest proportion of its base. At the
-end of any move, if the unit is equally in two or more zones, its controlling 
-player must declare which zone it is in.
+it counts as being in the zone with the largest proportion of its base. 
+
+_At the end of any move, if the unit is equally in two or more zones, its 
+controlling player must declare which zone it is in._
 
 - Score two points if you control the central zone in your opponent's half of 
   the board.
