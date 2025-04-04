@@ -151,7 +151,7 @@ export default function Index() {
           the campaign. Please ask on the campaigns facebook events if there are
           models you would be interested in borrowing.
         </p>
-        <h2>Machination</h2>
+        <h2 id="machination">Machination</h2>
         <p>
           From April onwards players will get campaign cards each game and
           opportunities to support or sabotage two other players, other than
