@@ -2,6 +2,7 @@ import { Form, useLoaderData } from "@remix-run/react";
 import type { LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import invariant from "tiny-invariant";
+import type { Tournament } from "~/tournament/tournament-model.server";
 import {
   getTournamentBySlug,
   upsertTournamentOverride,
@@ -34,7 +35,7 @@ interface LoaderData {
   roundIndex: number;
   scenario: Scenario;
   mapUrl: string;
-  roundEnd: string;
+  roundEnd: string | undefined;
   playerGames: PlayerGame[];
   attendeesBySlug: Record<string, Attendee>;
 }
@@ -172,10 +173,10 @@ export const action: ActionFunction = async ({ request, params }) => {
           : undefined;
       }
 
-      const scenarios = Array.from({
-        length: tournament.scenarios.length,
-      }).fill({});
-      scenarios[roundIndex - 1] = roundEnd ?? {};
+      const scenarios: Partial<Tournament["scenarios"][number]>[] = Array(
+        tournament.scenarios.length,
+      ).fill({});
+      scenarios[roundIndex - 1] = roundEnd ? { roundEnd } : {};
 
       await upsertTournamentOverride(tournament.slug, { scenarios }, [
         `scenarios.${roundIndex - 1}.roundEnd`,

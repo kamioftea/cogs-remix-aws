@@ -15,6 +15,12 @@ import { Pillage } from "~/tournament/scenario/pillage";
 import { CompassPoints } from "~/tournament/scenario/compass-points";
 import { GoldRush } from "~/tournament/scenario/gold-rush";
 
+type DeepPartial<T> = T extends object
+  ? {
+      [P in keyof T]?: DeepPartial<T[P]>;
+    }
+  : T;
+
 interface AdditionalFieldSpec {
   type: AdditionalFieldType;
   name: string;
@@ -1278,7 +1284,7 @@ export async function getTournamentBySlug(
 
 export async function upsertTournamentOverride(
   slug: string,
-  override: Partial<Tournament>,
+  override: DeepPartial<Tournament>,
   unsets?: string[],
 ) {
   const db = await arc.tables();
