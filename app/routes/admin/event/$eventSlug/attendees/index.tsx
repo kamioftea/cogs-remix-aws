@@ -27,7 +27,7 @@ export const loader: LoaderFunction = async ({ params }) => {
   );
 
   const attendees = await listTournamentAttendeesByEventSlug(params.eventSlug);
-  const tournament = getTournamentBySlug(params.eventSlug);
+  const tournament = await getTournamentBySlug(params.eventSlug);
   invariant(tournament, "by route");
 
   return json<LoaderData>({ attendees, tournament });

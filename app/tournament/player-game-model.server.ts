@@ -208,7 +208,7 @@ export async function updateScoresForTable(
   roundIndex: number,
   tableNumber: number,
 ) {
-  const tournament = getTournamentBySlug(eventSlug);
+  const tournament = await getTournamentBySlug(eventSlug);
   if (!tournament) {
     return;
   }

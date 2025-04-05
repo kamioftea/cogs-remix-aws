@@ -12,7 +12,7 @@ import { getFile } from "~/upload/s3-file-manager.server";
 export const loader: LoaderFunction = async ({ params }) => {
   invariant(params.eventSlug, "From route");
 
-  const tournament = getTournamentBySlug(params.eventSlug);
+  const tournament = await getTournamentBySlug(params.eventSlug);
   if (!tournament) {
     throw new Response("Event not found", { status: 404 });
   }

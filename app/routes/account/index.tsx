@@ -27,23 +27,27 @@ export const loader: LoaderFunction = async ({ request }) => {
   if (!user) return redirect("/account/login");
 
   const attendees = await listTournamentAttendeesByEmail(user.email);
-  const signUps: SignUp[] = attendees.flatMap((attendee) => {
-    const tournament = getTournamentBySlug(attendee.eventSlug);
-    if (!tournament) {
-      return [];
-    }
-    return [
-      {
-        title: tournament.title,
-        slug: attendee.eventSlug,
-        paymentStatus: tournament.costInPounds
-          ? attendee.paid
-            ? "Paid"
-            : "Unpaid"
-          : "Free",
-      },
-    ];
-  });
+  const eventualSignUps: Promise<SignUp[]>[] = attendees.map(
+    async (attendee): Promise<SignUp[]> => {
+      const tournament = await getTournamentBySlug(attendee.eventSlug);
+      if (!tournament) {
+        return [];
+      }
+      return [
+        {
+          title: tournament.title,
+          slug: attendee.eventSlug,
+          paymentStatus: tournament.costInPounds
+            ? attendee.paid
+              ? "Paid"
+              : "Unpaid"
+            : "Free",
+        },
+      ];
+    },
+  );
+
+  const signUps = (await Promise.all(eventualSignUps)).flatMap((arr) => arr);
 
   return json<LoaderData>({ signUps });
 };

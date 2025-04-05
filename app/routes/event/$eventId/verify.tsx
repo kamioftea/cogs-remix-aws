@@ -23,7 +23,7 @@ interface LoaderData {
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   invariant(params.eventId, "From route");
-  const tournament = getTournamentBySlug(params.eventId);
+  const tournament = await getTournamentBySlug(params.eventId);
   if (!tournament) {
     throw new Response("Event not found", { status: 404 });
   }

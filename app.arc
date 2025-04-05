@@ -42,6 +42,10 @@ playerGame
   attendeeSlug **String
   encrypt true
 
+tournament
+  slug *String
+  encrypt true
+
 @tables-indexes
 attendee
   email *String

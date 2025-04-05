@@ -37,7 +37,7 @@ interface LoaderData {
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   invariant(params.eventId, "From route");
-  const tournament = getTournamentBySlug(params.eventId);
+  const tournament = await getTournamentBySlug(params.eventId);
   invariant(tournament, "Checked in ../$eventId");
   const currentAttendee = await getSessionAttendee(request, tournament.slug);
   const user = await getUser(request);
