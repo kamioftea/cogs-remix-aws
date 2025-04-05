@@ -1,11 +1,14 @@
+import arc from "@architect/functions";
+import dayjs from "dayjs";
+import type { Dayjs } from "dayjs";
+import { merge, unset } from "lodash";
+
 import { renderMarkdownInline, unsafeRenderMarkdown } from "~/utils/markdown";
 import type { AdditionalFieldType } from "~/tournament/additional-fields";
 import type { Scenario } from "~/tournament/scenario/scenario";
 import { Loot } from "~/tournament/scenario/loot";
 import { FoolsGold } from "~/tournament/scenario/fools-gold";
 import { Invade } from "~/tournament/scenario/invade";
-import dayjs from "dayjs";
-import type { Dayjs } from "dayjs";
 import { Plunder } from "~/tournament/scenario/plunder";
 import { Control } from "~/tournament/scenario/control";
 import { Pillage } from "~/tournament/scenario/pillage";
@@ -1256,6 +1259,40 @@ const tournamentsBySlug = Object.fromEntries(
   tournaments.map((e) => [e.slug, e]),
 );
 
-export function getTournamentBySlug(slug: string): Tournament | undefined {
-  return tournamentsBySlug[slug];
+export async function getTournamentBySlug(
+  slug: string,
+): Promise<Tournament | undefined> {
+  const db = await arc.tables();
+  const base = tournamentsBySlug[slug];
+
+  if (!base) {
+    return undefined;
+  }
+
+  const overrides = ((await db.tournament.get({
+    slug,
+  })) ?? {}) as Partial<Tournament>;
+
+  return merge(base, overrides);
+}
+
+export async function upsertTournamentOverride(
+  slug: string,
+  override: Partial<Tournament>,
+  unsets?: string[],
+) {
+  const db = await arc.tables();
+
+  const existing = (await db.tournament.get({
+    slug,
+  })) as Partial<Tournament> | undefined;
+
+  const withUnsets = (unsets ?? []).reduce((acc, path) => {
+    unset(acc, path);
+    return acc;
+  }, existing ?? {});
+
+  const updated = merge({ slug }, withUnsets, override);
+
+  await db.tournament.put(updated);
 }

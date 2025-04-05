@@ -34,7 +34,7 @@ interface LoaderData {
 export const loader: LoaderFunction = async ({ params }) => {
   const { eventSlug, email } = params;
   invariant(eventSlug && email, "From route");
-  const tournament = getTournamentBySlug(eventSlug);
+  const tournament = await getTournamentBySlug(eventSlug);
   if (!tournament) {
     throw new Response("Tournament attendee not found", { status: 404 });
   }
@@ -80,7 +80,7 @@ const schema: ObjectSchema<UpdateData> = yup.object().shape({
 export const action: ActionFunction = async ({ request, params }) => {
   const { eventSlug, email } = params;
   invariant(eventSlug && email, "From route");
-  const tournament = getTournamentBySlug(eventSlug);
+  const tournament = await getTournamentBySlug(eventSlug);
   if (!tournament) {
     throw new Response("Tournament attendee not found", { status: 404 });
   }

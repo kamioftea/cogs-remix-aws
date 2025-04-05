@@ -9,6 +9,8 @@ export interface FormInputProps {
   autoFocus?: boolean;
   autoComplete?: string;
   defaultValue?: string;
+  value?: string | number;
+  onChange?: InputHTMLAttributes<HTMLInputElement>["onChange"];
   error_message?: string;
   max?: string | number;
 }
@@ -21,6 +23,8 @@ export default function FormInput({
   autoFocus = false,
   autoComplete,
   defaultValue,
+  value,
+  onChange,
   error_message,
   max,
 }: FormInputProps) {
@@ -39,6 +43,8 @@ export default function FormInput({
           autoFocus,
           autoComplete,
           defaultValue,
+          value,
+          onChange,
           max,
         }}
       />

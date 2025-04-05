@@ -46,7 +46,7 @@ export const handle = { breadcrumbs };
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   invariant(params.eventId, "From route");
-  const tournament = getTournamentBySlug(params.eventId);
+  const tournament = await getTournamentBySlug(params.eventId);
   if (!tournament) {
     throw new Response("Event not found", { status: 404 });
   }
@@ -80,7 +80,7 @@ export const action: ActionFunction = async ({ request, params }) => {
   const BASE_URL = process.env.BASE_URL ?? "http://localhost:3000";
 
   invariant(params.eventId, "From route");
-  const tournament = getTournamentBySlug(params.eventId);
+  const tournament = await getTournamentBySlug(params.eventId);
   if (!tournament) {
     throw new Response("Event not found", { status: 404 });
   }

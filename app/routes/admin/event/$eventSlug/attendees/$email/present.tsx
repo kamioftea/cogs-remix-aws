@@ -10,7 +10,7 @@ import { getTournamentBySlug } from "~/tournament/tournament-model.server";
 export const action: ActionFunction = async ({ params }) => {
   const { eventSlug, email } = params;
   invariant(eventSlug && email, "From route");
-  const tournament = getTournamentBySlug(eventSlug);
+  const tournament = await getTournamentBySlug(eventSlug);
   if (!tournament) {
     throw new Response("Tournament not found", { status: 404 });
   }

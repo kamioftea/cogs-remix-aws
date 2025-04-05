@@ -13,7 +13,7 @@ import { redirect } from "@remix-run/node";
 export const action: ActionFunction = async ({ params }) => {
   const { eventSlug } = params;
   invariant(eventSlug, "From route");
-  const tournament = getTournamentBySlug(eventSlug);
+  const tournament = await getTournamentBySlug(eventSlug);
   if (!tournament) {
     throw new Response("Tournament not found", { status: 404 });
   }

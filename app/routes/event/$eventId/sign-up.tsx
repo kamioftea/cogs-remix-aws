@@ -40,7 +40,7 @@ interface SignUpData {
 export const loader: LoaderFunction = async ({ request, params }) => {
   invariant(params.eventId, "eventId not found");
 
-  const tournament = getTournamentBySlug(params.eventId);
+  const tournament = await getTournamentBySlug(params.eventId);
   if (!tournament) {
     throw new Response("Event not found", { status: 404 });
   }
@@ -75,7 +75,7 @@ interface ActionData {
 export const action: ActionFunction = async ({ request, params }) => {
   invariant(params.eventId, "eventId not found");
 
-  const tournament = getTournamentBySlug(params.eventId);
+  const tournament = await getTournamentBySlug(params.eventId);
 
   if (!tournament) {
     throw new Response("Tournament not found", { status: 404 });

@@ -2,7 +2,10 @@ import { Form, useLoaderData } from "@remix-run/react";
 import type { LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import invariant from "tiny-invariant";
-import { getTournamentBySlug } from "~/tournament/tournament-model.server";
+import {
+  getTournamentBySlug,
+  upsertTournamentOverride,
+} from "~/tournament/tournament-model.server";
 import type { Scenario } from "~/tournament/scenario/scenario";
 import type { PlayerGame } from "~/tournament/player-game-model.server";
 import {
@@ -25,11 +28,13 @@ import {
 } from "~/tournament/scenario/scenario";
 import React, { useEffect, useMemo, useState } from "react";
 import FormInput from "~/form/input";
+import dayjs from "dayjs";
 
 interface LoaderData {
   roundIndex: number;
   scenario: Scenario;
   mapUrl: string;
+  roundEnd: string;
   playerGames: PlayerGame[];
   attendeesBySlug: Record<string, Attendee>;
 }
@@ -52,7 +57,7 @@ export const loader: LoaderFunction = async ({ params }) => {
     throw new Response("Round not found", { status: 404 });
   }
 
-  const { scenario, mapUrl } = tournament.scenarios[roundIndex - 1];
+  const { scenario, mapUrl, roundEnd } = tournament.scenarios[roundIndex - 1];
 
   const playerGames = await getGamesForRound(tournament.slug, roundIndex - 1);
   const attendees = await listTournamentAttendeesByEventSlug(tournament.slug);
@@ -62,6 +67,7 @@ export const loader: LoaderFunction = async ({ params }) => {
     roundIndex,
     scenario,
     mapUrl,
+    roundEnd,
     playerGames,
     attendeesBySlug,
   });
@@ -157,6 +163,24 @@ export const action: ActionFunction = async ({ request, params }) => {
         ),
       );
 
+      const roundEndRaw = formData["roundEnd"].toString() ?? undefined;
+      let roundEnd: string | undefined = undefined;
+      if (roundEndRaw) {
+        const roundEndDate = dayjs(roundEndRaw);
+        roundEnd = roundEndDate.isValid()
+          ? roundEndDate.format("YYYY-MM-DD HH:mm:ss")
+          : undefined;
+      }
+
+      const scenarios = Array.from({
+        length: tournament.scenarios.length,
+      }).fill({});
+      scenarios[roundIndex - 1] = roundEnd ?? {};
+
+      await upsertTournamentOverride(tournament.slug, { scenarios }, [
+        `scenarios.${roundIndex - 1}.roundEnd`,
+      ]);
+
       break;
     }
     case "delete": {
@@ -172,15 +196,22 @@ export const action: ActionFunction = async ({ request, params }) => {
 };
 
 export default function RoundPage() {
-  const { playerGames, attendeesBySlug, scenario }: LoaderData = useLoaderData<
-    typeof loader
-  >() satisfies LoaderData;
+  const { playerGames, attendeesBySlug, scenario, roundEnd }: LoaderData =
+    useLoaderData<typeof loader>() satisfies LoaderData;
 
   const [currentAttendee, setCurrentAttendee] = useState<string | null>(null);
+
+  const [roundEndValue, setRoundEndValue] = useState<string | undefined>(
+    roundEnd,
+  );
 
   useEffect(() => {
     setCurrentAttendee(null);
   }, [playerGames]);
+
+  useEffect(() => {
+    setRoundEndValue(roundEnd);
+  }, [roundEnd]);
 
   const [formActions, presentAttendeeCount] = useMemo(() => {
     const formActions = [];
@@ -210,12 +241,33 @@ export default function RoundPage() {
   return (
     <>
       <Form method="POST">
+        {playerGames.length > 0 ? (
+          <>
+            <FormInput
+              label="Round end"
+              type="text"
+              name="roundEnd"
+              value={roundEndValue}
+              onChange={(e) => setRoundEndValue(e.target.value)}
+            />
+            <button
+              type="button"
+              className="button small primary"
+              onClick={(e) => {
+                e.preventDefault();
+                setRoundEndValue(dayjs().format("YYYY-MM-DD HH:mm:ss"));
+              }}
+            >
+              Set Now
+            </button>
+          </>
+        ) : null}
         {formActions.map(({ value, label }) => (
           <button
             name="action"
             value={value}
             key={value}
-            className="button primary"
+            className="button small primary"
           >
             {label}
           </button>
