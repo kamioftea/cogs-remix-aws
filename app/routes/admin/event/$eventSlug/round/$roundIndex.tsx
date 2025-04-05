@@ -6,6 +6,7 @@ import { getTournamentBySlug } from "~/tournament/tournament-model.server";
 import type { Scenario } from "~/tournament/scenario/scenario";
 import type { PlayerGame } from "~/tournament/player-game-model.server";
 import {
+  deletePlayerGame,
   getGamesForRound,
   lockRound,
   populateRound,
@@ -15,14 +16,14 @@ import {
 } from "~/tournament/player-game-model.server";
 import type { ActionFunction } from "@remix-run/router";
 import { redirect } from "@remix-run/router";
-import type { AttendeeDisplayData } from "~/tournament/attendee-model.server";
-import { attendeeDisplayDataBySlug } from "~/tournament/attendee-model.server";
+import type { Attendee } from "~/tournament/attendee-model.server";
+import { listTournamentAttendeesByEventSlug } from "~/tournament/attendee-model.server";
 import { FiCheck } from "react-icons/fi";
 import {
   ScoreInputField,
   ScoreInputValue,
 } from "~/tournament/scenario/scenario";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import FormInput from "~/form/input";
 
 interface LoaderData {
@@ -30,7 +31,7 @@ interface LoaderData {
   scenario: Scenario;
   mapUrl: string;
   playerGames: PlayerGame[];
-  attendeesBySlug: Record<string, AttendeeDisplayData>;
+  attendeesBySlug: Record<string, Attendee>;
 }
 
 export const loader: LoaderFunction = async ({ params }) => {
@@ -54,7 +55,8 @@ export const loader: LoaderFunction = async ({ params }) => {
   const { scenario, mapUrl } = tournament.scenarios[roundIndex - 1];
 
   const playerGames = await getGamesForRound(tournament.slug, roundIndex - 1);
-  const attendeesBySlug = await attendeeDisplayDataBySlug(tournament.slug);
+  const attendees = await listTournamentAttendeesByEventSlug(tournament.slug);
+  const attendeesBySlug = Object.fromEntries(attendees.map((a) => [a.slug, a]));
 
   return json<LoaderData>({
     roundIndex,
@@ -157,37 +159,53 @@ export const action: ActionFunction = async ({ request, params }) => {
 
       break;
     }
+    case "delete": {
+      await deletePlayerGame(
+        tournament.slug,
+        roundIndex - 1,
+        formData["attendee_slug"].toString(),
+      );
+    }
   }
 
   return redirect(`/admin/event/${tournament.slug}/round/${roundIndex}`);
 };
 
 export default function RoundPage() {
-  const { playerGames, attendeesBySlug, scenario } = useLoaderData<
+  const { playerGames, attendeesBySlug, scenario }: LoaderData = useLoaderData<
     typeof loader
-  >() as LoaderData;
+  >() satisfies LoaderData;
 
-  const formActions = [];
   const [currentAttendee, setCurrentAttendee] = useState<string | null>(null);
 
   useEffect(() => {
     setCurrentAttendee(null);
   }, [playerGames]);
 
-  if ((playerGames || []).length < Object.keys(attendeesBySlug).length) {
-    formActions.push({ value: "populate", label: "Populate round" });
-  }
+  const [formActions, presentAttendeeCount] = useMemo(() => {
+    const formActions = [];
 
-  if (playerGames && playerGames.length > 0) {
-    formActions.push({ value: "update", label: "Update" });
-    if (playerGames.some((pg) => !pg.locked)) {
-      formActions.push({ value: "lock", label: "Lock" });
+    const presentAttendees = [...Object.values(attendeesBySlug)].filter(
+      (a) => a.present,
+    ).length;
+
+    if ((playerGames || []).length < presentAttendees) {
+      formActions.push({ value: "populate", label: "Populate round" });
     }
-  }
 
-  if ((playerGames || []).some((pg) => !pg.published)) {
-    formActions.push({ value: "publish", label: "Publish games" });
-  }
+    if (playerGames && playerGames.length > 0) {
+      formActions.push({ value: "update", label: "Update" });
+      if (playerGames.some((pg) => !pg.locked)) {
+        formActions.push({ value: "lock", label: "Lock" });
+      }
+    }
+
+    if ((playerGames || []).some((pg) => !pg.published)) {
+      formActions.push({ value: "publish", label: "Publish games" });
+    }
+
+    return [formActions, presentAttendees];
+  }, [playerGames, attendeesBySlug]);
 
   return (
     <>
@@ -222,7 +240,7 @@ export default function RoundPage() {
                 <td>
                   <input
                     type="number"
-                    max={Math.ceil(playerGames.length / 2)}
+                    max={Math.ceil(presentAttendeeCount / 2)}
                     name={`tableNumber[${game.attendeeSlug}]`}
                     defaultValue={game.tableNumber}
                     style={{ width: "5rem" }}
@@ -272,9 +290,17 @@ export default function RoundPage() {
                         type="submit"
                         name="action"
                         value="update"
-                        className="button primary small"
+                        className="button primary tiny"
                       >
                         Update
+                      </button>
+                      <button
+                        type="submit"
+                        name="action"
+                        value="delete"
+                        className="button alert tiny"
+                      >
+                        Delete
                       </button>
                       <button
                         type="button"
@@ -282,7 +308,7 @@ export default function RoundPage() {
                           e.preventDefault();
                           setCurrentAttendee(null);
                         }}
-                        className="button secondary small"
+                        className="button secondary tiny"
                       >
                         Cancel
                       </button>

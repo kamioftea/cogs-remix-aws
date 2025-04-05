@@ -90,7 +90,10 @@ async function createPlayerGame(
 }
 
 export async function populateRound(eventSlug: string, roundIndex: number) {
-  const attendees = await listTournamentAttendeesByEventSlug(eventSlug);
+  const attendees = (
+    await listTournamentAttendeesByEventSlug(eventSlug)
+  ).filter((attendee) => attendee.present);
+
   const existing = await getGamesForRound(eventSlug, roundIndex);
 
   let [maxTable, toAssign] = existing.reduce(
@@ -113,8 +116,9 @@ export async function populateRound(eventSlug: string, roundIndex: number) {
   await Promise.all(
     toPairs(toAssign).map(async ([a, b]) => {
       maxTable = maxTable + 1;
-      a && (await createPlayerGame(a, roundIndex, maxTable));
-      b && (await createPlayerGame(b, roundIndex, maxTable));
+      const table = maxTable;
+      a && (await createPlayerGame(a, roundIndex, table));
+      b && (await createPlayerGame(b, roundIndex, table));
     }),
   );
 }
@@ -147,6 +151,17 @@ export async function putPlayerGame(game: PlayerGame) {
   const db = await arc.tables();
 
   await db.playerGame.put(purgeUndefined(game));
+}
+
+export async function deletePlayerGame(
+  eventSlug: string,
+  roundIndex: number,
+  attendeeSlug: string,
+) {
+  const db = await arc.tables();
+  const eventRound = `${eventSlug}--${roundIndex}`;
+
+  await db.playerGame.delete({ eventRound, attendeeSlug });
 }
 
 export async function getPlayersByTable(
