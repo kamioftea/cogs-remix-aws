@@ -16,6 +16,7 @@ import {
 } from "~/tournament/player-game-model.server";
 import type { ActionFunction } from "@remix-run/router";
 import { redirect } from "@remix-run/router";
+import type { Attendee } from "~/tournament/attendee-model.server";
 import { listTournamentAttendeesByEventSlug } from "~/tournament/attendee-model.server";
 import { FiCheck } from "react-icons/fi";
 import {
@@ -162,7 +163,7 @@ export const action: ActionFunction = async ({ request, params }) => {
       await deletePlayerGame(
         tournament.slug,
         roundIndex - 1,
-        formData["attendee_slug"],
+        formData["attendee_slug"].toString(),
       );
     }
   }
