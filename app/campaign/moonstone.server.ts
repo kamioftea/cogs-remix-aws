@@ -71,10 +71,20 @@ export const characters: { [key: string]: Character } = {
     cardId: "Gump",
     moveId: "Rooted",
   },
+  IrisAndHellebore: {
+    name: "Iris & Hellebore",
+    cardId: "IrisAndHellebore",
+    moveId: "FromBelowAndAbove",
+  },
   Joanna: {
     name: "Joanna, Nordic Princess",
     cardId: "Joanna",
     moveId: "ValkyrieCyclone",
+  },
+  Kalista: {
+    name: "Kalista, Leshavult Princess",
+    cardId: "Kalista",
+    moveId: "SlipIntoShadows",
   },
   Morris: {
     name: "Morris",
@@ -91,6 +101,11 @@ export const characters: { [key: string]: Character } = {
     cardId: "Olim",
     moveId: "Fetch",
   },
+  Peggy: {
+    name: "Peggy",
+    cardId: "Peggy",
+    moveId: "RunEmThrough",
+  },
   PortlyPete: {
     name: "Portly Pete",
     cardId: "PortlyPete",
@@ -101,8 +116,23 @@ export const characters: { [key: string]: Character } = {
     cardId: "PowderMonkey",
     moveId: "DrunkenMonkeyStance",
   },
+  Quarrel: {
+    name: "Quarrel",
+    cardId: "Quarrel",
+    moveId: "TacticalRetreat",
+  },
+  Ribald: {
+    name: "Ribald",
+    cardId: "Ribald",
+    moveId: "ShortFuse",
+  },
+  Ruwt: {
+    name: "Ruwt",
+    cardId: "Ruwt",
+    moveId: "EncroachingRoots",
+  },
   SeasickStu: {
-    name: "Seasic Stu",
+    name: "Seasick Stu",
     cardId: "SeasickStu",
     moveId: "ItsABigun",
   },
@@ -196,6 +226,7 @@ export const players: Record<string, Player> = {
       },
       { cardId: "Morris", joined: "Feb", moonstones: 4, kills: 0, deaths: 0 },
       { cardId: "Muridae", joined: "Mar", moonstones: 1, kills: 0, deaths: 0 },
+      { cardId: "Quarrel", joined: "Apr", moonstones: 0, kills: 0, deaths: 0 },
     ],
   },
   kevin: {
@@ -226,6 +257,13 @@ export const players: Record<string, Player> = {
         kills: 0,
         deaths: 0,
       },
+      {
+        cardId: "Ruwt",
+        joined: "Apr",
+        moonstones: 0,
+        kills: 0,
+        deaths: 0,
+      },
     ],
   },
   andy: {
@@ -250,6 +288,13 @@ export const players: Record<string, Player> = {
         kills: 0,
         deaths: 0,
       },
+      {
+        cardId: "Kalista",
+        joined: "Apr",
+        moonstones: 0,
+        kills: 0,
+        deaths: 0,
+      },
     ],
   },
   richard: {
@@ -271,6 +316,13 @@ export const players: Record<string, Player> = {
         cardId: "Butterfingers",
         joined: "Mar",
         moonstones: 2,
+        kills: 0,
+        deaths: 0,
+      },
+      {
+        cardId: "IrisAndHellebore",
+        joined: "Apr",
+        moonstones: 0,
         kills: 0,
         deaths: 0,
       },
@@ -316,6 +368,13 @@ export const players: Record<string, Player> = {
         deaths: 0,
         upgrade: "Unusual Odour",
       },
+      {
+        cardId: "Peggy",
+        joined: "Apr",
+        moonstones: 0,
+        kills: 0,
+        deaths: 0,
+      },
     ],
   },
   rob: {
@@ -326,6 +385,7 @@ export const players: Record<string, Player> = {
       {
         cardId: "Shabbaroon",
         joined: "Feb",
+        retired: "Apr",
         moonstones: 0,
         kills: 0,
         deaths: 2,
@@ -343,6 +403,14 @@ export const players: Record<string, Player> = {
         joined: "Mar",
         moonstones: 2,
         kills: 1,
+        deaths: 0,
+      },
+      { cardId: "Peggy", joined: "Apr", moonstones: 0, kills: 0, deaths: 0 },
+      {
+        cardId: "AnyaBartol",
+        joined: "Apr",
+        moonstones: 0,
+        kills: 0,
         deaths: 0,
       },
     ],
@@ -387,6 +455,13 @@ export const players: Record<string, Player> = {
         kills: 1,
         deaths: 0,
       },
+      {
+        cardId: "SwiggartySwooty",
+        joined: "Apr",
+        moonstones: 0,
+        kills: 0,
+        deaths: 0,
+      },
     ],
   },
   phillip: {
@@ -422,6 +497,13 @@ export const players: Record<string, Player> = {
         moonstones: 0,
         kills: 1,
         deaths: 1,
+      },
+      {
+        cardId: "Ribald",
+        joined: "Apr",
+        moonstones: 0,
+        kills: 0,
+        deaths: 0,
       },
     ],
   },
@@ -494,6 +576,40 @@ export const games: { [key: string]: { [key: string]: PlayerGame } } = {
     jeff: {
       table: 4,
       moonstones: 6,
+    },
+  },
+  april: {
+    richard: {
+      table: 1,
+      moonstones: 0,
+    },
+    jeff: {
+      table: 1,
+      moonstones: 0,
+    },
+    rob: {
+      table: 2,
+      moonstones: 0,
+    },
+    kevin: {
+      table: 2,
+      moonstones: 0,
+    },
+    brendan: {
+      table: 3,
+      moonstones: 0,
+    },
+    phillip: {
+      table: 3,
+      moonstones: 0,
+    },
+    justin: {
+      table: 4,
+      moonstones: 0,
+    },
+    andy: {
+      table: 4,
+      moonstones: 0,
     },
   },
 };

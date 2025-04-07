@@ -11,6 +11,7 @@ export type RosterCharacter = {
   kills: number;
   deaths: number;
   upgrade?: string;
+  retired?: string;
 };
 
 export type Player = {
