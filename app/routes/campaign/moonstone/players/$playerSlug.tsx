@@ -2,7 +2,12 @@ import type { LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import invariant from "tiny-invariant";
 import { players, characters, games } from "~/campaign/moonstone.server";
-import type { AugmentedGame, Character, Player } from "~/campaign/moonstone";
+import type {
+  AugmentedGame,
+  Character,
+  Player,
+  RosterCharacter,
+} from "~/campaign/moonstone";
 import type { Breadcrumb } from "~/utils/breadcrumbs";
 import { CURRENT } from "~/utils/breadcrumbs";
 import type { RouteMatch } from "@remix-run/react";
@@ -10,6 +15,7 @@ import { Link, useLoaderData } from "@remix-run/react";
 import StatCard from "~/campaign/StatCard";
 import { ucFirst } from "~/utils/text";
 import GameRow from "~/campaign/GameRow";
+import { Fragment } from "react";
 
 type LoaderData = {
   player: Player;
@@ -70,7 +76,13 @@ export const handle = {
 };
 
 export default function PlayerPage() {
-  const { player, characters, games } = useLoaderData() as LoaderData;
+  const { player, characters, games } = useLoaderData() satisfies LoaderData;
+
+  const retired: RosterCharacter[] = [
+    ...Object.values(player.characters),
+  ].filter((c) => c.retired);
+
+  console.log({ characters, retired });
 
   return (
     <div
@@ -94,12 +106,13 @@ export default function PlayerPage() {
       </div>
       <h3>Roster</h3>
       <div className="card-grid">
-        {player.characters.map(
-          ({ cardId, joined, kills, deaths, moonstones, upgrade }) => {
+        {player.characters
+          .filter((c) => !c.retired)
+          .map(({ cardId, joined, kills, deaths, moonstones, upgrade }) => {
             const character = characters[cardId];
 
             return (
-              <>
+              <Fragment key={cardId}>
                 <div className="character-info">
                   <h4>{character.name}</h4>
                   <dl className="dl-horizontal">
@@ -117,7 +130,6 @@ export default function PlayerPage() {
                   </dl>
                 </div>
                 <StatCard
-                  key={cardId}
                   cardId={character?.cardId}
                   moveId={character?.moveId}
                   name={character?.name}
@@ -133,11 +145,29 @@ export default function PlayerPage() {
                     />
                   )}
                 </div>
-              </>
+              </Fragment>
             );
-          },
-        )}
+          })}
       </div>
+      {retired.length > 0 ? (
+        <>
+          <h3>Retired</h3>
+          <div className="card-grid">
+            {retired.map(({ cardId }) => {
+              const character = characters[cardId];
+
+              return (
+                <StatCard
+                  key={cardId}
+                  cardId={character?.cardId}
+                  moveId={character?.moveId}
+                  name={character?.name}
+                />
+              );
+            })}
+          </div>
+        </>
+      ) : null}
     </div>
   );
 }
