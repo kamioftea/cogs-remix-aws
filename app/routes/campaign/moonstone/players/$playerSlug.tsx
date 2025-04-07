@@ -82,8 +82,6 @@ export default function PlayerPage() {
     ...Object.values(player.characters),
   ].filter((c) => c.retired);
 
-  console.log({ characters, retired });
-
   return (
     <div
       className="player-page-wrapper"
