@@ -94,9 +94,9 @@ export default function Index() {
                     <i className="text-secondary">No faction</i>
                   )}
                 </td>
-                <td>{player.vps}</td>
-                <td>{player.mps}</td>
-                <td>{player.vps + player.mps}</td>
+                <td>{player.vps ?? 0}</td>
+                <td>{player.mps ?? 0}</td>
+                <td>{(player.vps ?? 0) + (player.mps ?? 0)}</td>
                 <td>{player.kills}</td>
                 <td>{player.deaths}</td>
               </tr>

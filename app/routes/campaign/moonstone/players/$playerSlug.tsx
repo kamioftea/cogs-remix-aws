@@ -140,7 +140,7 @@ export default function PlayerPage() {
                 <div className="stat-card">
                   {upgrade && (
                     <img
-                      src={`/_static/images/campaign-card/${upgrade.replaceAll(
+                      src={`/_static/images/campaign-card/${upgrade.replace(
                         /\s+/g,
                         "",
                       )}.png`}
@@ -179,7 +179,7 @@ export default function PlayerPage() {
               <div className="stat-card" key={cardName}>
                 {
                   <img
-                    src={`/_static/images/campaign-card/${cardName.replaceAll(
+                    src={`/_static/images/campaign-card/${cardName.replace(
                       /\s+/g,
                       "",
                     )}.png`}
