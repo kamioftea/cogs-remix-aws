@@ -93,6 +93,13 @@
 
     .moonstones {
       font-size: 200%;
+      text-align: center;
+
+      .machination-points {
+        font-size: 33%;
+        width: max-content;
+        color: $secondary-color
+      }
     }
   }
 }

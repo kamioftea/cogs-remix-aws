@@ -17,13 +17,19 @@ function sumRoster(
 }
 
 export const loader: LoaderFunction = async () => {
-  const moonstonesByPlayer = Object.values(games)
+  const scoresByPlayer = Object.values(games)
     .flatMap((gamesForMonth) => Object.entries(gamesForMonth))
-    .reduce<Record<string, number>>(
-      (acc, [player, { moonstones }]) => ({
-        ...acc,
-        [player]: (acc[player] ?? 0) + moonstones,
-      }),
+    .reduce<Record<string, { vps: number; mps: number }>>(
+      (acc, [slug, { moonstones, extraVictoryPoints, machinationPoints }]) => {
+        const player = acc[slug] ?? { mps: 0, vps: 0 };
+        return {
+          ...acc,
+          [slug]: {
+            mps: player.mps + (machinationPoints ?? 0),
+            vps: player.vps + moonstones + (extraVictoryPoints ?? 0),
+          },
+        };
+      },
       {},
     );
 
@@ -32,7 +38,8 @@ export const loader: LoaderFunction = async () => {
       name,
       {
         ...data,
-        moonstones: moonstonesByPlayer[name] ?? 0,
+        vps: scoresByPlayer[name]?.vps ?? 0,
+        mps: scoresByPlayer[name]?.mps ?? 0,
         kills: sumRoster("kills", data.characters),
         deaths: sumRoster("deaths", data.characters),
       },
@@ -53,7 +60,9 @@ export default function Index() {
           <tr>
             <th>Name</th>
             <th>Faction</th>
-            <th>Moonstones</th>
+            <th>VPs</th>
+            <th>MPs</th>
+            <th>Power</th>
             <th>Kills</th>
             <th>Deaths</th>
           </tr>
@@ -62,7 +71,7 @@ export default function Index() {
           {Object.entries(players)
             .sort(
               sortBy(
-                ([, p]) => -(p.moonstones ?? 0),
+                ([, p]) => -(p.vps ?? 0) - (p.mps ?? 0),
                 ([, p]) => -(p.kills ?? 0),
                 ([, p]) => p.deaths ?? 0,
                 ([, p]) => p.name,
@@ -85,7 +94,9 @@ export default function Index() {
                     <i className="text-secondary">No faction</i>
                   )}
                 </td>
-                <td>{player.moonstones}</td>
+                <td>{player.vps ?? 0}</td>
+                <td>{player.mps ?? 0}</td>
+                <td>{(player.vps ?? 0) + (player.mps ?? 0)}</td>
                 <td>{player.kills}</td>
                 <td>{player.deaths}</td>
               </tr>
