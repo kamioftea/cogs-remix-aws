@@ -15,7 +15,7 @@ import { Link, useLoaderData } from "@remix-run/react";
 import StatCard from "~/campaign/StatCard";
 import { ucFirst } from "~/utils/text";
 import GameRow from "~/campaign/GameRow";
-import { Fragment } from "react";
+import { Fragment, useMemo } from "react";
 
 type LoaderData = {
   player: Player;
@@ -82,6 +82,11 @@ export default function PlayerPage() {
     ...Object.values(player.characters),
   ].filter((c) => c.retired);
 
+  const campaignCards: string[] = useMemo(
+    () => Object.values(games).flatMap(([game]) => game.campaignCards ?? []),
+    [games],
+  );
+
   return (
     <div
       className="player-page-wrapper"
@@ -135,8 +140,8 @@ export default function PlayerPage() {
                 <div className="stat-card">
                   {upgrade && (
                     <img
-                      src={`/_static/images/campaign-card/${upgrade.replace(
-                        /\s+/,
+                      src={`/_static/images/campaign-card/${upgrade.replaceAll(
+                        /\s+/g,
                         "",
                       )}.png`}
                       alt={upgrade}
@@ -163,6 +168,26 @@ export default function PlayerPage() {
                 />
               );
             })}
+          </div>
+        </>
+      ) : null}
+      {campaignCards.length > 0 ? (
+        <>
+          <h3>Campaign Cards Used</h3>
+          <div className="card-grid">
+            {campaignCards.map((cardName) => (
+              <div className="stat-card" key={cardName}>
+                {
+                  <img
+                    src={`/_static/images/campaign-card/${cardName.replaceAll(
+                      /\s+/g,
+                      "",
+                    )}.png`}
+                    alt={cardName}
+                  />
+                }
+              </div>
+            ))}
           </div>
         </>
       ) : null}

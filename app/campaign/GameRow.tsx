@@ -26,7 +26,14 @@ function PlayerCell({ game }: PlayerCellProps) {
       <Link className="name" to={`../../players/${game.playerSlug}`}>
         {game.player.name}
       </Link>
-      <div className="moonstones">{game.moonstones}</div>
+      <div className="moonstones">
+        {game.moonstones + (game.extraVictoryPoints ?? 0)}
+        {game.machinationPoints ? (
+          <div className={"machination-points"}>
+            MPs: {game.machinationPoints}
+          </div>
+        ) : null}
+      </div>
     </div>
   );
 }

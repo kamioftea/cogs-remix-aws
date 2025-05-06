@@ -89,7 +89,7 @@ export default function Index() {
         <p>
           As the campaign progresses we will start introducing the campaign
           cards as noted on the table. You can download a PDF of current cards
-          from the
+          from the{" "}
           <a href="https://www.moonstonethegame.com/downloads">
             Moonstone downloads page
           </a>
