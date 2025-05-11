@@ -141,7 +141,7 @@ export default function PlayerPage() {
                   {upgrade && (
                     <img
                       src={`/_static/images/campaign-card/${upgrade.replace(
-                        /\s+/g,
+                        /[^a-z0-9]+/gi,
                         "",
                       )}.png`}
                       alt={upgrade}
@@ -180,7 +180,7 @@ export default function PlayerPage() {
                 {
                   <img
                     src={`/_static/images/campaign-card/${cardName.replace(
-                      /\s+/g,
+                      /[^a-z0-9]+/gi,
                       "",
                     )}.png`}
                     alt={cardName}
