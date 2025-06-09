@@ -802,4 +802,38 @@ export const games: { [key: string]: { [key: string]: PlayerGame } } = {
       moonstones: 5,
     },
   },
+  june: {
+    brendan: {
+      table: 1,
+      moonstones: 0,
+    },
+    jeff: {
+      table: 1,
+      moonstones: 0,
+    },
+    richard: {
+      table: 2,
+      moonstones: 0,
+    },
+    phillip: {
+      table: 2,
+      moonstones: 0,
+    },
+    rob: {
+      table: 3,
+      moonstones: 0,
+    },
+    justin: {
+      table: 3,
+      moonstones: 0,
+    },
+    andy: {
+      table: 4,
+      moonstones: 0,
+    },
+    kevin: {
+      table: 4,
+      moonstones: 0,
+    },
+  },
 };
