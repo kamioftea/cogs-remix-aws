@@ -9,7 +9,7 @@ export const characters: { [key: string]: Character } = {
   AnyaBartol: {
     name: "Anya Bartol",
     cardId: "AnyaBartol",
-    moveId: "LoseControl",
+    moveId: "LostControl",
   },
   BrotherDaniel: {
     name: "Brother Daniel",
@@ -40,6 +40,11 @@ export const characters: { [key: string]: Character } = {
     name: "Claudia Duvel",
     cardId: "ClaudiaDuvel",
     moveId: "StandDeliver",
+  },
+  CommodoreDelahaye: {
+    name: "Commodore Delahaye",
+    cardId: "CommodoreDelehaye",
+    moveId: "21GhoulSalute",
   },
   Creep: {
     name: "Creep",
@@ -76,10 +81,20 @@ export const characters: { [key: string]: Character } = {
     cardId: "ElCapitano",
     moveId: "JollyRoger",
   },
+  EricTheEnlightened: {
+    name: "Eric, the Enlightened",
+    cardId: "EricTheEnlightened",
+    moveId: "SwingingAntlers",
+  },
   Fraya: {
     name: "Fraya",
     cardId: "Fraya",
     moveId: "CantHitMe",
+  },
+  Gradock: {
+    name: "Gradock",
+    cardId: "Gradock",
+    moveId: "TheOldSlipStep",
   },
   Gump: {
     name: "Gump",
@@ -100,6 +115,11 @@ export const characters: { [key: string]: Character } = {
     name: "Kalista, Leshavult Princess",
     cardId: "Kalista",
     moveId: "SlipIntoShadows",
+  },
+  Klaus: {
+    name: "Klaus",
+    cardId: "Klaus",
+    moveId: "FlailAroundMadly",
   },
   MamaGimble: {
     name: "Mama Gimble",
@@ -206,6 +226,11 @@ export const characters: { [key: string]: Character } = {
     cardId: "TheFencer",
     moveId: "Needlepoint",
   },
+  TheGoblinKing: {
+    name: "The Goblin King",
+    cardId: "ThegoblinKing",
+    moveId: "GrovelPeasant",
+  },
   TheRevenant: {
     name: "The Revenant",
     cardId: "TheRevenant",
@@ -276,6 +301,13 @@ export const players: Record<string, Player> = {
         kills: 1,
         deaths: 0,
       },
+      {
+        cardId: "Gradock",
+        joined: "Jun",
+        moonstones: 0,
+        kills: 0,
+        deaths: 0,
+      },
     ],
   },
   kevin: {
@@ -335,6 +367,13 @@ export const players: Record<string, Player> = {
         kills: 0,
         deaths: 0,
       },
+      {
+        cardId: "Klaus",
+        joined: "Jun",
+        moonstones: 0,
+        kills: 0,
+        deaths: 0,
+      },
     ],
   },
   andy: {
@@ -376,6 +415,13 @@ export const players: Record<string, Player> = {
       {
         cardId: "Wendigo",
         joined: "May",
+        moonstones: 0,
+        kills: 0,
+        deaths: 0,
+      },
+      {
+        cardId: "EricTheEnlightened",
+        joined: "Jun",
         moonstones: 0,
         kills: 0,
         deaths: 0,
@@ -429,6 +475,13 @@ export const players: Record<string, Player> = {
       {
         cardId: "Dentia",
         joined: "May",
+        moonstones: 0,
+        kills: 0,
+        deaths: 0,
+      },
+      {
+        cardId: "Boulder",
+        joined: "Jun",
         moonstones: 0,
         kills: 0,
         deaths: 0,
@@ -490,6 +543,13 @@ export const players: Record<string, Player> = {
         kills: 0,
         deaths: 0,
       },
+      {
+        cardId: "Ribald",
+        joined: "Jun",
+        moonstones: 0,
+        kills: 0,
+        deaths: 0,
+      },
     ],
   },
   rob: {
@@ -524,6 +584,13 @@ export const players: Record<string, Player> = {
         cardId: "AnyaBartol",
         joined: "Apr",
         moonstones: 2,
+        kills: 0,
+        deaths: 0,
+      },
+      {
+        cardId: "TheGoblinKing",
+        joined: "Jun",
+        moonstones: 0,
         kills: 0,
         deaths: 0,
       },
@@ -584,6 +651,13 @@ export const players: Record<string, Player> = {
         kills: 0,
         deaths: 0,
       },
+      {
+        cardId: "CommodoreDelahaye",
+        joined: "Jun",
+        moonstones: 0,
+        kills: 0,
+        deaths: 0,
+      },
     ],
   },
   phillip: {
@@ -631,6 +705,13 @@ export const players: Record<string, Player> = {
       {
         cardId: "Boulder",
         joined: "May",
+        moonstones: 0,
+        kills: 0,
+        deaths: 0,
+      },
+      {
+        cardId: "AnyaBartol",
+        joined: "Jun",
         moonstones: 0,
         kills: 0,
         deaths: 0,
