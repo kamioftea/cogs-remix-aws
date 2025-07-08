@@ -20,7 +20,7 @@ type LoaderData = {
 
 function getCharactersRanked(
   players: Record<string, Player>,
-  lens: keyof RosterCharacter,
+  lens: "moonstones" | "kills" | "deaths",
 ): CharacterRank[] {
   return Object.values(players)
     .flatMap((player) =>
@@ -31,7 +31,7 @@ function getCharactersRanked(
       })),
     )
     .sort(sortBy((score) => -score.score))
-    .reduce((acc, score) => {
+    .reduce((acc: CharacterRank[], score: CharacterRank) => {
       if (acc.length < 5) {
         return [...acc, score];
       }
