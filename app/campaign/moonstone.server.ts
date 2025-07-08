@@ -9,7 +9,7 @@ export const characters: { [key: string]: Character } = {
   AnyaBartol: {
     name: "Anya Bartol",
     cardId: "AnyaBartol",
-    moveId: "LoseControl",
+    moveId: "LostControl",
   },
   BrotherDaniel: {
     name: "Brother Daniel",
@@ -40,6 +40,11 @@ export const characters: { [key: string]: Character } = {
     name: "Claudia Duvel",
     cardId: "ClaudiaDuvel",
     moveId: "StandDeliver",
+  },
+  CommodoreDelahaye: {
+    name: "Commodore Delahaye",
+    cardId: "CommodoreDelehaye",
+    moveId: "21GhoulSalute",
   },
   Creep: {
     name: "Creep",
@@ -76,10 +81,20 @@ export const characters: { [key: string]: Character } = {
     cardId: "ElCapitano",
     moveId: "JollyRoger",
   },
+  EricTheEnlightened: {
+    name: "Eric, the Enlightened",
+    cardId: "EricTheEnlightened",
+    moveId: "SwingingAntlers",
+  },
   Fraya: {
     name: "Fraya",
     cardId: "Fraya",
     moveId: "CantHitMe",
+  },
+  Gradock: {
+    name: "Gradock",
+    cardId: "Gradock",
+    moveId: "TheOldSlipStep",
   },
   Gump: {
     name: "Gump",
@@ -100,6 +115,11 @@ export const characters: { [key: string]: Character } = {
     name: "Kalista, Leshavult Princess",
     cardId: "Kalista",
     moveId: "SlipIntoShadows",
+  },
+  Klaus: {
+    name: "Klaus",
+    cardId: "Klaus",
+    moveId: "FlailAroundMadly",
   },
   MamaGimble: {
     name: "Mama Gimble",
@@ -206,6 +226,11 @@ export const characters: { [key: string]: Character } = {
     cardId: "TheFencer",
     moveId: "Needlepoint",
   },
+  TheGoblinKing: {
+    name: "The Goblin King",
+    cardId: "ThegoblinKing",
+    moveId: "GrovelPeasant",
+  },
   TheRevenant: {
     name: "The Revenant",
     cardId: "TheRevenant",
@@ -247,7 +272,7 @@ export const players: Record<string, Player> = {
         cardId: "Joanna",
         joined: "Feb",
         moonstones: 1,
-        kills: 5,
+        kills: 6,
         deaths: 2,
         upgrade: "Battle Hardened",
       },
@@ -257,12 +282,12 @@ export const players: Record<string, Player> = {
         joined: "Feb",
         moonstones: 3,
         kills: 4,
-        deaths: 1,
+        deaths: 2,
       },
       {
         cardId: "Morris",
         joined: "Feb",
-        moonstones: 6,
+        moonstones: 9,
         kills: 2,
         deaths: 1,
         upgrade: "Polished Helmet",
@@ -273,7 +298,14 @@ export const players: Record<string, Player> = {
         cardId: "MamaGimble",
         joined: "May",
         moonstones: 0,
-        kills: 1,
+        kills: 2,
+        deaths: 0,
+      },
+      {
+        cardId: "Gradock",
+        joined: "Jun",
+        moonstones: 0,
+        kills: 0,
         deaths: 0,
       },
     ],
@@ -282,19 +314,19 @@ export const players: Record<string, Player> = {
     name: "Kevin",
     faction: "Leshavult",
     characters: [
-      { cardId: "Dranyer", joined: "Feb", moonstones: 1, kills: 0, deaths: 2 },
+      { cardId: "Dranyer", joined: "Feb", moonstones: 2, kills: 0, deaths: 2 },
       {
         cardId: "Snag",
         joined: "Feb",
         moonstones: 0,
-        kills: 0,
+        kills: 1,
         deaths: 4,
         upgrade: "Immaterial Essence",
       },
       {
         cardId: "Gump",
         joined: "Feb",
-        moonstones: 2,
+        moonstones: 4,
         kills: 2,
         deaths: 2,
         upgrade: "Menacing Words",
@@ -304,7 +336,7 @@ export const players: Record<string, Player> = {
         joined: "Feb",
         moonstones: 1,
         kills: 3,
-        deaths: 2,
+        deaths: 3,
       },
       {
         cardId: "AnyaBartol",
@@ -317,9 +349,9 @@ export const players: Record<string, Player> = {
       {
         cardId: "Ruwt",
         joined: "Apr",
-        moonstones: 2,
+        moonstones: 3,
         kills: 1,
-        deaths: 1,
+        deaths: 2,
       },
       {
         cardId: "Raegan",
@@ -331,6 +363,13 @@ export const players: Record<string, Player> = {
       {
         cardId: "TheBeast",
         joined: "May",
+        moonstones: 1,
+        kills: 0,
+        deaths: 0,
+      },
+      {
+        cardId: "Klaus",
+        joined: "Jun",
         moonstones: 0,
         kills: 0,
         deaths: 0,
@@ -341,13 +380,13 @@ export const players: Record<string, Player> = {
     name: "Andy",
     faction: "Leshavult",
     characters: [
-      { cardId: "Antonia", joined: "Feb", moonstones: 0, kills: 1, deaths: 2 },
-      { cardId: "Danica", joined: "Feb", moonstones: 3, kills: 0, deaths: 2 },
+      { cardId: "Antonia", joined: "Feb", moonstones: 1, kills: 1, deaths: 2 },
+      { cardId: "Danica", joined: "Feb", moonstones: 3, kills: 0, deaths: 3 },
       {
         cardId: "Zorya",
         joined: "Feb",
         moonstones: 0,
-        kills: 3,
+        kills: 4,
         deaths: 3,
         upgrade: "Immaterial Essence",
       },
@@ -364,7 +403,7 @@ export const players: Record<string, Player> = {
         joined: "Mar",
         moonstones: 5,
         kills: 0,
-        deaths: 0,
+        deaths: 1,
       },
       {
         cardId: "Kalista",
@@ -378,6 +417,13 @@ export const players: Record<string, Player> = {
         joined: "May",
         moonstones: 0,
         kills: 0,
+        deaths: 0,
+      },
+      {
+        cardId: "EricTheEnlightened",
+        joined: "Jun",
+        moonstones: 0,
+        kills: 1,
         deaths: 0,
       },
     ],
@@ -400,14 +446,14 @@ export const players: Record<string, Player> = {
         joined: "Feb",
         moonstones: 1,
         kills: 3,
-        deaths: 2,
+        deaths: 3,
         upgrade: "Unusual Odour",
       },
-      { cardId: "TeeToe", joined: "Feb", moonstones: 6, kills: 0, deaths: 0 },
+      { cardId: "TeeToe", joined: "Feb", moonstones: 8, kills: 0, deaths: 0 },
       {
         cardId: "Butterfingers",
         joined: "Mar",
-        moonstones: 3,
+        moonstones: 5,
         kills: 0,
         deaths: 0,
       },
@@ -416,7 +462,7 @@ export const players: Record<string, Player> = {
         joined: "Apr",
         moonstones: 0,
         kills: 1,
-        deaths: 1,
+        deaths: 2,
         upgrade: "Polished Helmet",
       },
       {
@@ -433,6 +479,13 @@ export const players: Record<string, Player> = {
         kills: 0,
         deaths: 0,
       },
+      {
+        cardId: "Boulder",
+        joined: "Jun",
+        moonstones: 0,
+        kills: 1,
+        deaths: 0,
+      },
     ],
   },
   brendan: {
@@ -442,7 +495,7 @@ export const players: Record<string, Player> = {
       {
         cardId: "ElCapitano",
         joined: "Feb",
-        moonstones: 5,
+        moonstones: 6,
         kills: 4,
         deaths: 0,
       },
@@ -458,7 +511,7 @@ export const players: Record<string, Player> = {
         joined: "Feb",
         moonstones: 3,
         kills: 1,
-        deaths: 2,
+        deaths: 3,
         upgrade: "Cursed Heirloom",
       },
       {
@@ -473,7 +526,7 @@ export const players: Record<string, Player> = {
         joined: "Mar",
         moonstones: 2,
         kills: 1,
-        deaths: 1,
+        deaths: 2,
         upgrade: "Unusual Odour",
       },
       {
@@ -486,8 +539,15 @@ export const players: Record<string, Player> = {
       {
         cardId: "Creep",
         joined: "May",
-        moonstones: 0,
+        moonstones: 1,
         kills: 0,
+        deaths: 0,
+      },
+      {
+        cardId: "Ribald",
+        joined: "Jun",
+        moonstones: 1,
+        kills: 1,
         deaths: 0,
       },
     ],
@@ -511,7 +571,7 @@ export const players: Record<string, Player> = {
         kills: 2,
         deaths: 2,
       },
-      { cardId: "Swash", joined: "Feb", moonstones: 0, kills: 2, deaths: 2 },
+      { cardId: "Swash", joined: "Feb", moonstones: 0, kills: 2, deaths: 3 },
       {
         cardId: "ViciousSyd",
         joined: "Mar",
@@ -524,6 +584,13 @@ export const players: Record<string, Player> = {
         cardId: "AnyaBartol",
         joined: "Apr",
         moonstones: 2,
+        kills: 0,
+        deaths: 1,
+      },
+      {
+        cardId: "TheGoblinKing",
+        joined: "Jun",
+        moonstones: 0,
         kills: 0,
         deaths: 0,
       },
@@ -552,34 +619,41 @@ export const players: Record<string, Player> = {
         cardId: "SeasickStu",
         joined: "Feb",
         moonstones: 3,
-        kills: 1,
+        kills: 2,
         deaths: 1,
       },
       {
         cardId: "ElCapitano",
         joined: "Feb",
-        moonstones: 0,
-        kills: 3,
+        moonstones: 1,
+        kills: 4,
         deaths: 3,
         upgrade: "Cursed Heirloom",
       },
       {
         cardId: "CrustyBalboa",
         joined: "Mar",
-        moonstones: 1,
+        moonstones: 2,
         kills: 3,
         deaths: 0,
       },
       {
         cardId: "SwiggartySwooty",
         joined: "Apr",
-        moonstones: 1,
+        moonstones: 2,
         kills: 0,
         deaths: 0,
       },
       {
         cardId: "Chezapeaky",
         joined: "May",
+        moonstones: 0,
+        kills: 0,
+        deaths: 0,
+      },
+      {
+        cardId: "CommodoreDelahaye",
+        joined: "Jun",
         moonstones: 0,
         kills: 0,
         deaths: 0,
@@ -593,17 +667,17 @@ export const players: Record<string, Player> = {
       {
         cardId: "TheDuchess",
         joined: "Feb",
-        moonstones: 1,
+        moonstones: 2,
         kills: 0,
         deaths: 2,
       },
-      { cardId: "Creep", joined: "Feb", moonstones: 1, kills: 0, deaths: 1 },
+      { cardId: "Creep", joined: "Feb", moonstones: 2, kills: 0, deaths: 1 },
       {
         cardId: "ClaudiaDuvel",
         joined: "Feb",
         moonstones: 2,
         kills: 2,
-        deaths: 1,
+        deaths: 2,
         upgrade: "Wheelbarrow",
       },
       {
@@ -624,7 +698,7 @@ export const players: Record<string, Player> = {
         cardId: "Ribald",
         joined: "Apr",
         moonstones: 2,
-        kills: 3,
+        kills: 5,
         deaths: 0,
         upgrade: "Fit As A Fiddle",
       },
@@ -632,6 +706,13 @@ export const players: Record<string, Player> = {
         cardId: "Boulder",
         joined: "May",
         moonstones: 0,
+        kills: 0,
+        deaths: 0,
+      },
+      {
+        cardId: "AnyaBartol",
+        joined: "Jun",
+        moonstones: 1,
         kills: 0,
         deaths: 0,
       },
@@ -805,35 +886,50 @@ export const games: { [key: string]: { [key: string]: PlayerGame } } = {
   june: {
     brendan: {
       table: 1,
-      moonstones: 0,
+      moonstones: 3,
+      machinationPoints: 2, // +1 support rich +1 support rob
+      campaignCards: ["Ducks In A Barrel"],
     },
     jeff: {
       table: 1,
-      moonstones: 0,
+      moonstones: 3,
+      machinationPoints: 2, // +2 gamble the silverware,+! sup kev -1 sup just
+      extraVictoryPoints: 3, // + 3VP Keep new robes clean, -1 Malign resurrection +1 Gamble the silverware
+      campaignCards: [
+        "Keeping The New Robes Clean",
+        "Malign Resurrection",
+        "Gamble The Silverware",
+      ],
     },
     richard: {
       table: 2,
-      moonstones: 0,
+      moonstones: 4,
+      machinationPoints: 5, //+1 sup kev, +1 sab justin +1 over sup, +2 high road
+      campaignCards: ["The High Road", "Miraculous Recovery"],
     },
     phillip: {
       table: 2,
-      moonstones: 0,
+      moonstones: 3,
+      extraVictoryPoints: -1,
+      campaignCards: ["Make Your Own Luck"],
     },
     rob: {
       table: 3,
-      moonstones: 0,
+      moonstones: 4,
     },
     justin: {
       table: 3,
-      moonstones: 0,
+      moonstones: 3,
+      machinationPoints: 1, // +1 sup kev +0 sup andy
     },
     andy: {
       table: 4,
-      moonstones: 0,
+      moonstones: 1,
     },
     kevin: {
       table: 4,
-      moonstones: 0,
+      moonstones: 5,
+      machinationPoints: 5, // over support, +1 sup jeff, +1 sup rich
     },
   },
 };

@@ -3,11 +3,48 @@ import { sortBy } from "~/utils";
 import type { Player, RosterCharacter } from "~/campaign/moonstone";
 import type { LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { players, games } from "~/campaign/moonstone.server";
+import { players, games, characters } from "~/campaign/moonstone.server";
+
+type CharacterRank = {
+  name: string;
+  player: string;
+  score: number;
+};
 
 type LoaderData = {
   players: Record<string, Player>;
+  mostKills: CharacterRank[];
+  mostMoonstones: CharacterRank[];
+  mostDeaths: CharacterRank[];
 };
+
+function getCharactersRanked(
+  players: Record<string, Player>,
+  lens: "moonstones" | "kills" | "deaths",
+): CharacterRank[] {
+  return Object.values(players)
+    .flatMap((player) =>
+      player.characters.map((character) => ({
+        name: characters[character.cardId]?.name,
+        player: player.name,
+        score: character[lens],
+      })),
+    )
+    .sort(sortBy((score) => -score.score))
+    .reduce((acc: CharacterRank[], score: CharacterRank) => {
+      if (acc.length < 5) {
+        return [...acc, score];
+      }
+
+      // Top five - extended to include further ties
+      const last = acc.slice(-1)[0];
+      if (last?.score === score.score) {
+        return [...acc, score];
+      }
+
+      return acc;
+    }, []);
+}
 
 function sumRoster(
   key: "moonstones" | "kills" | "deaths",
@@ -46,15 +83,50 @@ export const loader: LoaderFunction = async () => {
     ]),
   );
 
-  return json<LoaderData>({ players: playersWithCounts });
+  return json<LoaderData>({
+    players: playersWithCounts,
+    mostKills: getCharactersRanked(players, "kills"),
+    mostDeaths: getCharactersRanked(players, "deaths"),
+    mostMoonstones: getCharactersRanked(players, "moonstones"),
+  });
 };
 
+type CharacterRankTableProps = {
+  scores: CharacterRank[];
+  scoreLabel: string;
+};
+const CharacterRankTable = ({
+  scores,
+  scoreLabel,
+}: CharacterRankTableProps) => (
+  <table>
+    <thead>
+      <tr>
+        <th style={{ width: "50%" }}>Character</th>
+        <th style={{ width: "30%" }}>Player</th>
+        <th style={{ width: "20%" }}>{scoreLabel}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {(scores ?? []).map((score) => (
+        <tr key={`${score.name}-${score.player}`}>
+          <td>{score.name}</td>
+          <td>{score.player}</td>
+          <td>{score.score}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+);
+
 export default function Index() {
-  const { players } = useLoaderData() as LoaderData;
+  const { players, mostKills, mostDeaths, mostMoonstones } =
+    useLoaderData() as LoaderData;
 
   return (
     <>
       <h2>Players</h2>
+
       <table>
         <thead>
           <tr>
@@ -103,6 +175,17 @@ export default function Index() {
             ))}
         </tbody>
       </table>
+
+      <h2>Other stats</h2>
+
+      <h3>Most murderous</h3>
+      <CharacterRankTable scores={mostKills} scoreLabel={"Kills"} />
+
+      <h3>Most sacrificial</h3>
+      <CharacterRankTable scores={mostDeaths} scoreLabel={"Deaths"} />
+
+      <h3>Most covetous</h3>
+      <CharacterRankTable scores={mostMoonstones} scoreLabel={"Moonstones"} />
     </>
   );
 }
