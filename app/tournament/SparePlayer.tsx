@@ -12,15 +12,17 @@ export const SparePlayer = ({ tournament }: SparePlayerProps) => (
         <p>
           The spare player for this tournament is {tournament.sparePlayer.name}.
         </p>
-        <p>
-          <a
-            href={`${tournament.sparePlayer.listPdfUrl.base}${tournament.sparePlayer.listPdfUrl.name}`}
-            download={tournament.sparePlayer.listPdfUrl.name}
-            className="button primary hollow expanded"
-          >
-            <AiOutlineFilePdf /> Download the spare player's list PDF.
-          </a>
-        </p>
+        {tournament.sparePlayer.listPdfUrl && (
+          <p>
+            <a
+              href={`${tournament.sparePlayer.listPdfUrl.base}${tournament.sparePlayer.listPdfUrl.name}`}
+              download={tournament.sparePlayer.listPdfUrl.name}
+              className="button primary hollow expanded"
+            >
+              <AiOutlineFilePdf /> Download the spare player's list PDF.
+            </a>
+          </p>
+        )}
       </>
     )}
   </>
