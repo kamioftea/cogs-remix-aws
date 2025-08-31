@@ -66,7 +66,7 @@ export interface Tournament {
   sparePlayer?: {
     name: string;
     email: string;
-    listPdfUrl: {
+    listPdfUrl?: {
       base: string;
       name: string;
     };
