@@ -1209,7 +1209,7 @@ more candidates.`),
       "yellow.",
     openGraph: {
       imageUrl:
-        "https://kow.c-o-g-s.org.uk/_static/images/cogs-of-war-2025-og.png",
+        "https://kow.c-o-g-s.org.uk/_static/images/clockwork-2025-og.png",
       imageAlt:
         "A riftforged orc army led by a Stormbringer on Helstrike Manticore clashes" +
         "with a halfling army let by a Muster captain on Aralez. Most of the image" +
