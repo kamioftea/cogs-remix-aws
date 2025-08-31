@@ -1224,7 +1224,7 @@ more candidates.`),
       " in time.",
     about: {
       What: ["24 players, 1000 points, 5 games"],
-      When: ["16th November 2025, 10:00 until 17:45"],
+      When: ["16th November 2025, 10:00 until 17:00"],
       Where: [
         "The Parish Centre",
         "Stonegravels",
@@ -1233,25 +1233,265 @@ more candidates.`),
         "S41 7JH",
       ],
     },
-    signUpEnabled: false,
+    signUpEnabled: true,
     disclaimer: renderMarkdownInline(
       `Mantic® and Kings of War® and all associated names, characters, places, and things
        are copyright © and ™ Mantic Games. The original event image © Mantic Games. 
        Chesterfield Open Gaming Society is not associated with Mantic Games in any way.`,
     ),
-    content: unsafeRenderMarkdown(
-      `## Save the date
+    eventPack: [
+      {
+        title: "Tournament organiser",
+        content: unsafeRenderMarkdown(`
+The tournament organiser for this event is Jeff Horton. If you have 
+questions or feedback, please email Jeff at 
+[jeff@goblinoid.co.uk](mailto:jeff@goblinoid.co.uk).`),
+      },
+      {
+        title: "Tickets",
+        content: unsafeRenderMarkdown(`
+To sign up for this event, please [fill in the sign-up form](
+https://kow.c-o-g-s.org.uk/event/cogs-of-war/sign-up).
 
-New for 2025, we will be running a clocks of war style tournament with smaller forces
-and limited time on the clock:
+Tickets are priced at £18, [payable via PayPal](
+https://www.paypal.com/paypalme/KamiOfTea/18).
+
+If you’d prefer to pay using a different payment method, please contact 
+the tournament organiser.
+
+Tickets can be cancelled for a full refund until Thursday 23rd October. 
+After this, we will only offer a refund if we can fill your place.`),
+      },
+      {
+        title: "Inclusivity and accessibility",
+        content: unsafeRenderMarkdown(`
+Chesterfield Open Gaming Society is dedicated to providing an inclusive, 
+harassment-free gaming experience for everyone. Attendees should feel 
+safe and welcome regardless of gender, gender identity and expression, 
+age, sexual orientation, disability, physical appearance, body size, 
+race, ethnicity, religion (or lack thereof), or hobby choices.
+
+If there is anything that we can do to make it easier or more enjoyable 
+for you to attend, please let us know.
+
+We can’t do this by ourselves. Creating a welcoming, enjoyable, and safe
+environment is everyone’s responsibility. In particular we will not 
+tolerate harassment at the event, during related socials, or on 
+associated social media.
+
+Please read the [full code of conduct](
+https://kow.c-o-g-s.org.uk/code-of-conduct) for more details.
+
+Thank you.`),
+      },
+      {
+        title: "Rules version",
+        content: unsafeRenderMarkdown(`
+At the time of writing the version that will be current at the time of the 
+tournament is unclear. Part of the reason for playing with smaller forces is 
+to provide an opportunity for players picking up a new army for the 2026 season.
+We'd like to use version 4 or Clash of Kings 2026 if either is available in 
+time.
+
+We will confirm which rule set will used on or before 19th October, allowing 
+four weeks to prepare for the tournament. This is before the cancellation 
+deadline so you will not be locked into a rule set choice you disagree with.
+`),
+      },
+      {
+        title: "Preparation",
+        content: unsafeRenderMarkdown(`
+You will need a 1000 point Kings of War army. This should be built using
+the standard army selection and composition rules in the latest version of 
+Kings of War. The exact version we will be using will be announced by 19th 
+October.
+
+It is expected that allies **WILL** be able to be used.
+
+You can submit your list on the <a href="/event/clockwork-2025/edit-details">
+edit details page</a>. Alternatively 
+[email a pdf of your list to jeff@goblinoid.co.uk](
+mailto:jeff@goblinoid.co.uk). Your list should be submitted by 23:59 on 
+Sunday 9th November.
+
+Players will receive +3 tournament points if they submit on time. This 
+will reduce by one point per day or part-day since the submission time 
+that has passed before the list is received, to a minimum of 0 if it is three
+or more days late.
+
+Part of the joy of wargaming is the spectacle of two armies clashing on the
+table-top. Please bring a fully painted and based army that fits with 
+the fantasy wargaming aesthetic. However, we will not penalise players if
+they have a good reason they can’t – no questions asked.
+
+It should be clear to your opponent what each unit in your army 
+represents.
+
+Steve Pearson is our spare player. The list he'll use will be announced by 2nd 
+November.
+`),
+      },
+      {
+        title: "Things to bring with you",
+        content: unsafeRenderMarkdown(`
+- Your 1000 point army.
+- Three copies of your list.
+- Dice, tape measure, arc template, and tokens.
+- A chess clock (physical or app)`),
+      },
+      {
+        title: "Location",
+        content: unsafeRenderMarkdown(`
+The event will be held at the same venue used for COGS club evenings.
+
+The Parish Centre<br />
+Stonegravels<br />
+91 Sheffield Road<br />
+Chesterfield<br />
+S41 7JH
+
+There is car parking on site. A few spaces are stacked behind others. 
+Please make sure to fill the rear spaces first. There should be enough 
+parking at the centre for everyone, but it will be close to full
+capacity, so please contact us if you need to reserve a space for 
+accessibility needs or a quick get-away.
+ 
+There is a bus stop just outside the venue. If you are coming by train, 
+please get in contact as we should be able to arrange a lift to the 
+centre from Chesterfield station.`),
+      },
+      {
+        title: "Food and drink",
+        content: unsafeRenderMarkdown(`
+Free tea and coffee will be available.
+
+Lunch will **NOT** be provided.
+
+There are a number of takeaways and supermarkets within walking 
+distance. We will endeavour to provide a list and menus on the event 
+website nearer the time.
+
+A selection of soft drinks and snacks will be available to purchase 
+during the event.`),
+      },
+      {
+        title: "Schedule",
+        content: unsafeRenderMarkdown(`
+The time allowed for games will decrease throughout the day:
 
 * Games one and two: 25 minutes per player
 * Games three and four: 20 minutes per player
 * Game five: 15 minutes per player
 
-More info and sign-ups will be available soon.
-`,
-    ),
+Due to the short round times, there will be no roll for turn seven. Each game 
+will only be played for six rounds.
+
+|              | Start Time |
+| ------------ | ---------- |
+| Registration |  9:45      |
+| Briefing     | 10:15      |
+| Game one     | 10:30      |
+| Break        | 11:30      |
+| Game two     | 11:45      |
+| Lunch        | 12:45      |
+| Game three   | 13:45      |
+| Break        | 14:35      |
+| Game four    | 14:50      |
+| Break        | 15:45      |
+| Game five    | 16:00      |
+| Awards       | 16:45      |
+| Close        | 17:00      |
+
+The schedule may need to be adjusted on the day.`),
+      },
+      {
+        title: "Playing the games",
+        content: unsafeRenderMarkdown(`
+The event will be using the rules in the latest version of Kings of War. The 
+exact version we will be using will be announced by 19th October.
+
+Chess clocks will be used to help the tournament run on schedule. Clocks
+should be used throughout deployment, scout moves, and player turns.
+ 
+If you and your opponent disagree on a rule, pause the clock whilst you 
+check the rulebook. If that doesn’t resolve your issue, please ask the 
+tournament organiser to adjudicate.
+
+The clock should also be paused if either player needs to take a break 
+for any reason.
+
+Unlike Cogs of War tournaments, timing out is strictly dice down. If you run out
+of time on the clock, you must instantly stop play. If you are currently 
+rolling a combat or shooting attack, no wounds are applied from the attack and
+the target is steady.
+
+If there are enough pauses during a game that you predict the round time
+will end before both players have finished, please inform the tournament 
+organiser as soon as possible so that this can be resolved fairly for 
+both players.`),
+      },
+      {
+        title: "Scenarios and scoring",
+        content: unsafeRenderMarkdown(`
+We will be using scenarios based on the [balanced scenarios developed by 
+the Shroud of the Reaper tournament organisers](
+https://www.shroudofthereaper.co.uk/balanced-scenarios).
+
+Full details of the scenario to be played and how to score victory 
+points will be provided at the start of each round.
+
+There will be up to 7 victory points available for each scenario, with 
+at most 3 points scored if you draw or lose. These will also count as 
+tournament points (TPs).
+
+You get 5 bonus tournament points if you win the scenario, 2 bonus points
+if you draw.
+
+You get up to three bonus tournament points based on the total points of
+enemy units you routed during the game.
+ 
+| Total points routed | Bonus TPs |
+| ------------------- | --------- |
+|  250+               | +1        |
+|  550+               | +2        |
+|  850+               | +3        |
+
+Players will therefore score up to fifteen tournament points per round. 
+With three list submission points, the maximum available tournament 
+score is 78.`),
+      },
+      {
+        title: "Awards",
+        content: unsafeRenderMarkdown(`
+Trophies will be awarded for first, second, and third places. There will 
+be a wooden spoon for last place.
+
+Players will be able to cast votes for their favourite armies. The 
+army with the most votes will win the best army award, with the 
+tournament organiser having a deciding vote in the case of a tie. Please 
+leave your army on display over lunch so that everyone has a chance to 
+decide who to vote for.
+
+Players will be able to cast votes for their most sporting opponent when 
+they submit their final scores. The player with the most votes will win the 
+most sporting award. Ties will be broken in the favour of the player 
+with the lower ranking in the tournament scores.
+
+For both categories, players will receive seven total votes they can
+distribute as they see fit, including casting multiple votes for one or 
+more candidates.`),
+      },
+    ],
+    eventPackPdfUrl: {
+      base: "https://static.goblinoid.co.uk/",
+      name: "clockwork-2025-tournament-pack.pdf",
+    },
+    costInPounds: 18,
+    payPalLink: "https://www.paypal.com/paypalme/KamiOfTea/18",
+    sparePlayer: {
+      name: "Steve Pearson",
+      email: "jammystavros@hotmail.com",
+    },
     scenarios: [],
     maxAttendees: 24,
     pointsLimit: 1000,

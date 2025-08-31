@@ -123,39 +123,6 @@ export default function Index() {
             </div>
           </>
         )}
-        <h2>Campaigns</h2>
-        <div className="event-card-list">
-          <Link
-            to={`/campaign/moonstone`}
-            aria-labelledby={`moonstone-find-out-more`}
-          >
-            <section aria-labelledby={`moonstone-heading`} className="event">
-              <img
-                src={`/_static/images/moonstone-campaign.png`}
-                alt={
-                  "Jayda shooting her bow in a thorny forest, whilst being" +
-                  " beset by fairies. The image is monochrome, except Jayda" +
-                  " and two prominent fairies are highlighted in Yellow."
-                }
-                role="presentation"
-              />
-              <h3 id="moonstone-heading" className="event-title">
-                Into the Forsaken Forest
-                <br />
-                <small>A Moonstone escalation campaign</small>
-              </h3>
-              <button
-                className="button more-info"
-                id={`moonstone-find-out-more`}
-                type="button"
-                tabIndex={-1}
-              >
-                Into the Forsaken Forest campaign page
-                <FiChevronRight />
-              </button>
-            </section>
-          </Link>
-        </div>
 
         <h2>Club Nights</h2>
         <p>
@@ -235,6 +202,39 @@ export default function Index() {
             </div>
           </>
         )}
+        <h2>Past campaigns</h2>
+        <div className="event-card-list">
+          <Link
+            to={`/campaign/moonstone`}
+            aria-labelledby={`moonstone-find-out-more`}
+          >
+            <section aria-labelledby={`moonstone-heading`} className="event">
+              <img
+                src={`/_static/images/moonstone-campaign.png`}
+                alt={
+                  "Jayda shooting her bow in a thorny forest, whilst being" +
+                  " beset by fairies. The image is monochrome, except Jayda" +
+                  " and two prominent fairies are highlighted in Yellow."
+                }
+                role="presentation"
+              />
+              <h3 id="moonstone-heading" className="event-title">
+                Into the Forsaken Forest
+                <br />
+                <small>A Moonstone escalation campaign</small>
+              </h3>
+              <button
+                className="button more-info"
+                id={`moonstone-find-out-more`}
+                type="button"
+                tabIndex={-1}
+              >
+                Into the Forsaken Forest campaign page
+                <FiChevronRight />
+              </button>
+            </section>
+          </Link>
+        </div>
       </main>
 
       <footer>
