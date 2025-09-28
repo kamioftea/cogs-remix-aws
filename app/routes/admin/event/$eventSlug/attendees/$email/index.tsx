@@ -223,6 +223,7 @@ export default function ManageAttendeePage() {
           autoFocus
           defaultValue={attendee.name}
           error_message={errors?.name}
+          ref={nameRef}
         />
         <FormInput
           label="Email"
@@ -230,30 +231,35 @@ export default function ManageAttendeePage() {
           required
           defaultValue={attendee.email}
           error_message={errors?.email}
+          ref={emailRef}
         />
         <FormCheckbox
           label="Approved"
           name="approved"
           defaultChecked={attendee.approved}
           error_message={errors?.approved}
+          ref={approvedRef}
         />
         <FormCheckbox
           label="Verified"
           name="verified"
           defaultChecked={attendee.verified}
           error_message={errors?.verified}
+          ref={verifiedRef}
         />
         <FormCheckbox
           label="Paid"
           name="paid"
           defaultChecked={attendee.paid}
           error_message={errors?.paid}
+          ref={paidRef}
         />
         <FormCheckbox
           label="Present"
           name="present"
           defaultChecked={attendee.present}
           error_message={errors?.present}
+          ref={presentRef}
         />
         {(tournament.additionalFields ?? []).map((spec) => (
           <fieldset key={spec.name}>
