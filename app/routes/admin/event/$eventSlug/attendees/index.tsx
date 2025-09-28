@@ -142,6 +142,9 @@ export default function EventIndexPage() {
 
   return (
     <>
+      <Link to="./add-attendee">
+        <FiPlus /> Add attendee
+      </Link>{" "}
       {tournament.sparePlayer &&
         !attendees.find((a) => a.email === tournament.sparePlayer?.email) && (
           <form

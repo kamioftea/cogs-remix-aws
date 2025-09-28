@@ -128,9 +128,10 @@ export async function createAttendee({
   name,
   approved,
   verified,
+  paid = false,
 }: Pick<
   Attendee,
-  "eventSlug" | "email" | "name" | "approved" | "verified"
+  "eventSlug" | "email" | "name" | "approved" | "verified" | "paid"
 >): Promise<Attendee> {
   const db = await arc.tables();
 
@@ -143,7 +144,7 @@ export async function createAttendee({
     name,
     approved,
     verified,
-    paid: false,
+    paid,
     created: Date.now(),
   });
 

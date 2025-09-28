@@ -1,4 +1,4 @@
-import type { InputHTMLAttributes } from "react";
+import type { ForwardedRef, InputHTMLAttributes } from "react";
 import * as React from "react";
 import { purgeUndefined } from "~/utils/purgeUndefined";
 import * as yup from "yup";
@@ -14,6 +14,7 @@ export interface FormCheckboxProps {
   error_message?: string;
   checkedValue?: string | number;
   uncheckedValue?: string | number;
+  ref?: ForwardedRef<HTMLInputElement>;
 }
 
 export default function FormCheckbox({
@@ -26,6 +27,7 @@ export default function FormCheckbox({
   error_message,
   checkedValue,
   uncheckedValue,
+  ref,
 }: FormCheckboxProps) {
   return (
     <label className={error_message ? "is-invalid-label" : undefined}>
@@ -45,6 +47,7 @@ export default function FormCheckbox({
           autoComplete,
           defaultChecked,
           value: checkedValue ?? undefined,
+          ref,
         })}
       />
       {label}

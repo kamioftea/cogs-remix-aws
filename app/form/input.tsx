@@ -1,5 +1,6 @@
 import * as React from "react";
-import type { InputHTMLAttributes } from "react";
+import type { ForwardedRef, InputHTMLAttributes } from "react";
+import type { FormInput } from "aws-sdk/clients/datazone";
 
 export interface FormInputProps {
   label: string;
@@ -13,6 +14,7 @@ export interface FormInputProps {
   onChange?: InputHTMLAttributes<HTMLInputElement>["onChange"];
   error_message?: string;
   max?: string | number;
+  ref?: ForwardedRef<HTMLInputElement>;
 }
 
 export default function FormInput({
@@ -27,6 +29,7 @@ export default function FormInput({
   onChange,
   error_message,
   max,
+  ref,
 }: FormInputProps) {
   return (
     <label className={error_message ? "is-invalid-label" : undefined}>
@@ -46,6 +49,7 @@ export default function FormInput({
           value,
           onChange,
           max,
+          ref,
         }}
       />
       {error_message && (
