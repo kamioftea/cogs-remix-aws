@@ -129,10 +129,9 @@ export async function createAttendee({
   approved,
   verified,
   paid = false,
-}: Pick<
-  Attendee,
-  "eventSlug" | "email" | "name" | "approved" | "verified" | "paid"
->): Promise<Attendee> {
+}: Pick<Attendee, "eventSlug" | "email" | "name" | "approved" | "verified"> & {
+  paid?: Attendee["paid"];
+}): Promise<Attendee> {
   const db = await arc.tables();
 
   let slug = await getUniqueSlug(name, eventSlug);
