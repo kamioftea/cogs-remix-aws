@@ -1285,28 +1285,19 @@ https://kow.c-o-g-s.org.uk/code-of-conduct) for more details.
 Thank you.`),
       },
       {
-        title: "Rules version",
-        content: unsafeRenderMarkdown(`
-At the time of writing the version that will be current at the time of the 
-tournament is unclear. Part of the reason for playing with smaller forces is 
-to provide an opportunity for players picking up a new army for the 2026 season.
-We'd like to use version 4 or Clash of Kings 2026 if either is available in 
-time.
-
-We will confirm which rule set will used on or before 19th October, allowing 
-four weeks to prepare for the tournament. This is before the cancellation 
-deadline so you will not be locked into a rule set choice you disagree with.
-`),
-      },
-      {
         title: "Preparation",
         content: unsafeRenderMarkdown(`
 You will need a 1000 point Kings of War army. This should be built using
-the standard army selection and composition rules in the latest version of 
-Kings of War. The exact version we will be using will be announced by 19th 
-October.
+the standard army selection and composition rules in the Kings of War version 
+3.5 compendium, the rules updates in Clash of Kings 2025, and the rules from
+Clash of Kings 2024 that were not reprinted (e.g. the updated Twilight Kin 
+army list.)
 
-It is expected that allies **WILL** be able to be used.
+### Optional rules 
+
+* Allies **MAY** be used
+* Command dice will **NOT** be used
+* Withdraw rule will **NOT** be in play. 
 
 You can submit your list on the <a href="/event/clockwork-2025/edit-details">
 edit details page</a>. Alternatively 
@@ -1327,8 +1318,35 @@ they have a good reason they can’t – no questions asked.
 It should be clear to your opponent what each unit in your army 
 represents.
 
-Steve Pearson is our spare player. The list he'll use will be announced by 2nd 
-November.
+Steve Pearson is our spare player, in the event of an odd number of players 
+he'll use this list:
+
+<div class="uploaded-file">
+  <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round"
+       stroke-linejoin="round" height="3em" width="3em" xmlns="http://www.w3.org/2000/svg">
+    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+    <polyline points="14 2 14 8 20 8"></polyline>
+    <line x1="16" y1="13" x2="8" y2="13"></line>
+    <line x1="16" y1="17" x2="8" y2="17"></line>
+    <polyline points="10 9 9 9 8 9"></polyline>
+  </svg>
+  <span class="file-name">Clockwork 2025 - Spare Player.pdf</span>
+  <a
+    href="https://static.goblinoid.co.uk/clockwork-2025-spare-player-list.pdf"
+    download="clockwork-2025-spare-player-list.pdf"
+    target="_blank"
+    rel="noreferrer noopener"
+    class="button primary"
+  >
+    <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round"
+         stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+      <polyline points="7 10 12 15 17 10"></polyline>
+      <line x1="12" y1="15" x2="12" y2="3"></line>
+    </svg>
+    Download
+  </a>
+</div>
 `),
       },
       {
@@ -1407,8 +1425,9 @@ The schedule may need to be adjusted on the day.`),
       {
         title: "Playing the games",
         content: unsafeRenderMarkdown(`
-The event will be using the rules in the latest version of Kings of War. The 
-exact version we will be using will be announced by 19th October.
+The event will be using the rules in Kings of War version 3.5 compendium, the
+rules updates in Clash of Kings 2025, and the rules from Clash of Kings 2024
+that were not reprinted (e.g. the updated Twilight Kin army list.)
 
 Chess clocks will be used to help the tournament run on schedule. Clocks
 should be used throughout deployment, scout moves, and player turns.
@@ -1491,6 +1510,10 @@ more candidates.`),
     sparePlayer: {
       name: "Steve Pearson",
       email: "jammystavros@hotmail.com",
+      listPdfUrl: {
+        base: "https://static.goblinoid.co.uk/",
+        name: "clockwork-2025-spare-player-list.pdf",
+      },
     },
     scenarios: [],
     maxAttendees: 24,
