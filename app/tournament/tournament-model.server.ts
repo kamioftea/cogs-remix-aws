@@ -1203,25 +1203,24 @@ more candidates.`),
     date: dayjs("2025-11-16"),
     imageUrl: "clockwork-2025.png",
     imageDescription:
-      "A riftforged orc army led by a Stormbringer on Helstrike Manticore clashes" +
-      "with a halfling army let by a Muster captain on Aralez. Most of the image" +
-      "is in greyscale, but the front line of the orc force is in monochrome" +
+      "A riftforged orc army led by a Stormbringer on Helstrike Manticore clashes " +
+      "with a halfling army let by a Muster captain on Aralez. Most of the image " +
+      "is in greyscale, but the front line of the orc force is in monochrome " +
       "yellow.",
     openGraph: {
       imageUrl:
         "https://kow.c-o-g-s.org.uk/_static/images/clockwork-2025-og.png",
       imageAlt:
-        "A riftforged orc army led by a Stormbringer on Helstrike Manticore clashes" +
-        "with a halfling army let by a Muster captain on Aralez. Most of the image" +
-        "is in greyscale, but the front line of the orc force is in monochrome" +
+        "A riftforged orc army led by a Stormbringer on Helstrike Manticore clashes " +
+        "with a halfling army let by a Muster captain on Aralez. Most of the image " +
+        "is in greyscale, but the front line of the orc force is in monochrome " +
         "yellow. Superimposed on top of this is the COGS logo and the text " +
         '"Chesterfield Open Gaming Society Presents Clockwork 2025, A Kings of ' +
         'War Speed Tournament, 16th November 2025"',
     },
     description:
-      "A one-day Kings of War speed tournament. We're planning to" +
-      " use the 2026 version of the Kings of War rules if they are available" +
-      " in time.",
+      "A one-day Kings of War speed tournament using the 3.5 edition rules and the " +
+      "Clash of Kings 2025 updates.",
     about: {
       What: ["24 players, 1000 points, 5 games"],
       When: ["16th November 2025, 10:00 until 17:00"],
