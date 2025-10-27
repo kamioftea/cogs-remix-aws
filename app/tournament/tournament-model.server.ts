@@ -1561,6 +1561,57 @@ more candidates.`),
     kowMastersEventId: 430,
     kowMastersSeason: 10,
     manticCompanionEventId: 425,
+    listsSubmissionClosed: false,
+    additionalFields: [
+      {
+        name: "army_list",
+        type: "ARMY_LIST",
+        readonly: true,
+        label: "Army list",
+      },
+      {
+        name: "faction",
+        type: "STRING",
+        readonly: true,
+        label: "Faction",
+      },
+      {
+        name: "allies",
+        type: "STRING",
+        readonly: true,
+        label: "Allies",
+      },
+      {
+        name: "tournament_points",
+        type: "SCORE",
+        readonly: true,
+        label: "Tournament points",
+      },
+      {
+        name: "total_routed",
+        type: "SCORE",
+        readonly: true,
+        label: "Total routed",
+      },
+      {
+        name: "total_attrition",
+        type: "SCORE",
+        readonly: true,
+        label: "Total attrition",
+      },
+      {
+        name: "bonus_points",
+        type: "SCORE",
+        readonly: true,
+        label: "Bonus points",
+      },
+      {
+        name: "awards",
+        type: "STRING",
+        readonly: true,
+        label: "Awards",
+      },
+    ],
   },
 ];
 
