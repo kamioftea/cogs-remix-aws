@@ -17,7 +17,7 @@ import invariant from "tiny-invariant";
 import { FiCheckCircle } from "react-icons/fi";
 import { getSessionAttendee, getUser } from "~/account/session.server";
 import { getTournamentBySlug } from "~/tournament/tournament-model.server";
-import { SparePlayer } from "~/tournament/SparePlayer";
+import { LowAttendeesPlayer, SparePlayer } from "~/tournament/SparePlayer";
 
 interface LoaderData {
   attendees: {
@@ -271,6 +271,7 @@ export default function EventLandingPage() {
             </tbody>
           </table>
           <SparePlayer tournament={tournament} />
+          <LowAttendeesPlayer tournament={tournament} />
           {waitList.length > 0 && (
             <>
               <h2>Wait list</h2>
@@ -334,6 +335,7 @@ export default function EventLandingPage() {
             <tbody>{sortedRankings}</tbody>
           </table>
           <SparePlayer tournament={tournament} />
+          <LowAttendeesPlayer tournament={tournament} />
         </div>
       )}
       {tournament.content && (

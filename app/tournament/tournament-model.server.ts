@@ -34,6 +34,15 @@ export interface PackSection {
   content: string;
 }
 
+export interface OrganiserPlayer {
+  name: string;
+  email: string;
+  listPdfUrl?: {
+    base: string;
+    name: string;
+  };
+}
+
 export interface Tournament {
   title: string;
   subtitle: string;
@@ -63,14 +72,8 @@ export interface Tournament {
   maxAttendees?: number;
   additionalFields?: AdditionalFieldSpec[];
   listsSubmissionClosed?: boolean;
-  sparePlayer?: {
-    name: string;
-    email: string;
-    listPdfUrl?: {
-      base: string;
-      name: string;
-    };
-  };
+  sparePlayer?: OrganiserPlayer;
+  lowAttendeesPlayer?: OrganiserPlayer;
   scenarios: {
     scenario: Scenario;
     mapUrl: string;
@@ -1222,7 +1225,7 @@ more candidates.`),
       "A one-day Kings of War speed tournament using the 3.5 edition rules and the " +
       "Clash of Kings 2025 updates.",
     about: {
-      What: ["24 players, 1000 points, 5 games"],
+      What: ["16 players, 1000 points, 5 games"],
       When: ["16th November 2025, 10:00 until 17:00"],
       Where: [
         "The Parish Centre",
@@ -1333,6 +1336,36 @@ he'll use this list:
   <a
     href="https://static.goblinoid.co.uk/clockwork-2025-spare-player-list.pdf"
     download="clockwork-2025-spare-player-list.pdf"
+    target="_blank"
+    rel="noreferrer noopener"
+    class="button primary"
+  >
+    <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round"
+         stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+      <polyline points="7 10 12 15 17 10"></polyline>
+      <line x1="12" y1="15" x2="12" y2="3"></line>
+    </svg>
+    Download
+  </a>
+</div>
+
+In the event that the tournament needs an extra player to qualify for UK masters'
+rankings, the tournament organiser will also play using this list:
+
+<div class="uploaded-file">
+  <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round"
+       stroke-linejoin="round" height="3em" width="3em" xmlns="http://www.w3.org/2000/svg">
+    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+    <polyline points="14 2 14 8 20 8"></polyline>
+    <line x1="16" y1="13" x2="8" y2="13"></line>
+    <line x1="16" y1="17" x2="8" y2="17"></line>
+    <polyline points="10 9 9 9 8 9"></polyline>
+  </svg>
+  <span class="file-name">Clockwork 2025 - Low Player Count List.pdf</span>
+  <a
+    href="https://static.goblinoid.co.uk/clockwork-2025-low-player-count-list.pdf"
+    download="clockwork-2025-low-player-count-list.pdf"
     target="_blank"
     rel="noreferrer noopener"
     class="button primary"
@@ -1514,12 +1547,71 @@ more candidates.`),
         name: "clockwork-2025-spare-player-list.pdf",
       },
     },
+    lowAttendeesPlayer: {
+      name: "Jeff Horton",
+      email: "jeff@goblinoid.co.uk",
+      listPdfUrl: {
+        base: "https://static.goblinoid.co.uk/",
+        name: "clockwork-2025-low-player-count-list.pdf",
+      },
+    },
     scenarios: [],
-    maxAttendees: 24,
+    maxAttendees: 16,
     pointsLimit: 1000,
     kowMastersEventId: 430,
     kowMastersSeason: 10,
     manticCompanionEventId: 425,
+    listsSubmissionClosed: false,
+    additionalFields: [
+      {
+        name: "army_list",
+        type: "ARMY_LIST",
+        readonly: true,
+        label: "Army list",
+      },
+      {
+        name: "faction",
+        type: "STRING",
+        readonly: true,
+        label: "Faction",
+      },
+      {
+        name: "allies",
+        type: "STRING",
+        readonly: true,
+        label: "Allies",
+      },
+      {
+        name: "tournament_points",
+        type: "SCORE",
+        readonly: true,
+        label: "Tournament points",
+      },
+      {
+        name: "total_routed",
+        type: "SCORE",
+        readonly: true,
+        label: "Total routed",
+      },
+      {
+        name: "total_attrition",
+        type: "SCORE",
+        readonly: true,
+        label: "Total attrition",
+      },
+      {
+        name: "bonus_points",
+        type: "SCORE",
+        readonly: true,
+        label: "Bonus points",
+      },
+      {
+        name: "awards",
+        type: "STRING",
+        readonly: true,
+        label: "Awards",
+      },
+    ],
   },
 ];
 
