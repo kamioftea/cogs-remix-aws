@@ -38,6 +38,26 @@ export function normaliseScore(player_score: number, opponent_score: number) {
   return [4, 3][score_index];
 }
 
+export function normaliseSmallScore(
+  player_score: number,
+  opponent_score: number,
+) {
+  const total_score = player_score + opponent_score;
+  if (total_score <= 5) {
+    return player_score;
+  }
+
+  if (player_score === opponent_score) return 2;
+  const [max, min, score_index] =
+    player_score > opponent_score
+      ? [player_score, opponent_score, 0]
+      : [opponent_score, player_score, 1];
+
+  if (min === 0) return [5, 0][score_index];
+  if (min < max / 2) return [4, 1][score_index];
+  return [3, 2][score_index];
+}
+
 interface ScoreInputFieldProps {
   scoreInput: ScoreInput;
   value: number | undefined;
