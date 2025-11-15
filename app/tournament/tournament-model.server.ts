@@ -14,6 +14,11 @@ import { Control } from "~/tournament/scenario/control";
 import { Pillage } from "~/tournament/scenario/pillage";
 import { CompassPoints } from "~/tournament/scenario/compass-points";
 import { GoldRush } from "~/tournament/scenario/gold-rush";
+import { SmallPillage } from "~/tournament/scenario/small/small-pillage";
+import { SmallDominate } from "~/tournament/scenario/small/small-dominate";
+import { SmallStockpile } from "~/tournament/scenario/small/small-stockpile";
+import { SmallFoolsGold } from "~/tournament/scenario/small/small-fools-gold";
+import { SmallControl } from "~/tournament/scenario/small/small-control";
 
 type DeepPartial<T> = T extends object
   ? {
@@ -1235,7 +1240,7 @@ more candidates.`),
         "S41 7JH",
       ],
     },
-    signUpEnabled: true,
+    signUpEnabled: false,
     disclaimer: renderMarkdownInline(
       `Mantic® and Kings of War® and all associated names, characters, places, and things
        are copyright © and ™ Mantic Games. The original event image © Mantic Games. 
@@ -1491,8 +1496,8 @@ https://www.shroudofthereaper.co.uk/balanced-scenarios).
 Full details of the scenario to be played and how to score victory 
 points will be provided at the start of each round.
 
-There will be up to 7 victory points available for each scenario, with 
-at most 3 points scored if you draw or lose. These will also count as 
+There will be up to 5 victory points available for each scenario, with 
+at most 2 points scored if you draw or lose. These will also count as 
 tournament points (TPs).
 
 You get 5 bonus tournament points if you win the scenario, 2 bonus points
@@ -1507,9 +1512,9 @@ enemy units you routed during the game.
 |  550+               | +2        |
 |  850+               | +3        |
 
-Players will therefore score up to fifteen tournament points per round. 
+Players will therefore score up to thirteen tournament points per round. 
 With three list submission points, the maximum available tournament 
-score is 78.`),
+score is 68.`),
       },
       {
         title: "Awards",
@@ -1555,13 +1560,47 @@ more candidates.`),
         name: "clockwork-2025-low-player-count-list.pdf",
       },
     },
-    scenarios: [],
+    scenarios: [
+      {
+        scenario: SmallFoolsGold,
+        mapUrl:
+          "https://static.goblinoid.co.uk/kow.c-o-g-s.org.uk/maps/Clockwork2025FoolsGold.png",
+      },
+      {
+        scenario: SmallDominate,
+        mapUrl:
+          "https://static.goblinoid.co.uk/kow.c-o-g-s.org.uk/maps/Clockwork2025Dominate.png",
+      },
+      {
+        scenario: SmallStockpile,
+        mapUrl:
+          "https://static.goblinoid.co.uk/kow.c-o-g-s.org.uk/maps/Clockwork2025Stockpile.png",
+      },
+      {
+        scenario: SmallPillage,
+        mapUrl:
+          "https://static.goblinoid.co.uk/kow.c-o-g-s.org.uk/maps/Clockwork2025Pillage.png",
+      },
+      {
+        scenario: SmallControl,
+        mapUrl:
+          "https://static.goblinoid.co.uk/kow.c-o-g-s.org.uk/maps/Clockwork2025Control.png",
+      },
+    ],
+    scenarioPdfUrl: {
+      base: "https://static.goblinoid.co.uk/",
+      name: "clockwork-2025-scenarios-and-scoring.pdf",
+    },
+    bonusPoints: {
+      win: 5,
+      draw: 2,
+    },
     maxAttendees: 16,
     pointsLimit: 1000,
     kowMastersEventId: 430,
     kowMastersSeason: 10,
     manticCompanionEventId: 425,
-    listsSubmissionClosed: false,
+    listsSubmissionClosed: true,
     additionalFields: [
       {
         name: "army_list",

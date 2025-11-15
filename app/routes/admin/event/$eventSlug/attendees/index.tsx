@@ -156,6 +156,20 @@ export default function EventIndexPage() {
               <FiPlus /> Add spare player
             </button>
           </form>
+        )}{" "}
+      {tournament.lowAttendeesPlayer &&
+        !attendees.find(
+          (a) => a.email === tournament.lowAttendeesPlayer?.email,
+        ) && (
+          <form
+            action={`/admin/event/${tournament.slug}/attendees/add-to-player`}
+            method="post"
+            className="display-inline"
+          >
+            <button type="submit" className="button primary">
+              <FiPlus /> Add TO player
+            </button>
+          </form>
         )}
       <table>
         <thead>
