@@ -198,7 +198,9 @@ export default function RoundIndexPage() {
             game.routedPoints ?? "-"
           ),
         "Bonus for routed units": (game) =>
-          game.routedPoints != null ? getRoutedBonus(game.routedPoints) : "-",
+          game.routedPoints != null
+            ? getRoutedBonus(game.routedPoints, tournament.bands)
+            : "-",
         "Total score": (game) => game.totalScore ?? "-",
         "": (game) =>
           !game.locked && game.attendeeSlug === currentAttendee?.slug ? (

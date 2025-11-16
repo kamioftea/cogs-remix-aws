@@ -259,14 +259,14 @@ export async function updateScoresForTable(
   playerA.totalScore =
     scenarioScoreA +
     getOutcomeBonus(outcomeA, tournament) +
-    getRoutedBonus(playerA.routedPoints ?? 0);
+    getRoutedBonus(playerA.routedPoints ?? 0, tournament.bands);
 
   playerB.scenarioScore = scenarioScoreB;
   playerB.outcome = outcomeB;
   playerB.totalScore =
     scenarioScoreB +
     getOutcomeBonus(outcomeB, tournament) +
-    getRoutedBonus(playerB.routedPoints ?? 0);
+    getRoutedBonus(playerB.routedPoints ?? 0, tournament.bands);
 
   await putPlayerGame(playerA);
   await putPlayerGame(playerB);
