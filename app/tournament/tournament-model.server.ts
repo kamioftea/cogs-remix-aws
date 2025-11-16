@@ -93,7 +93,7 @@ export interface Tournament {
   kowMastersSeason: number;
   kowMastersEventId?: number;
   manticCompanionEventId?: number;
-  bands?: { [threshold: number]: number };
+  bands?: [number, number][];
 }
 
 export interface OpenGraphMeta {
@@ -1652,11 +1652,11 @@ more candidates.`),
         label: "Awards",
       },
     ],
-    bands: {
-      850: 3,
-      550: 2,
-      250: 1,
-    },
+    bands: [
+      [850, 3],
+      [550, 2],
+      [250, 1],
+    ],
   },
 ];
 
