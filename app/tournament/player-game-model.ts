@@ -15,15 +15,13 @@ export function getOutcomeBonus(
   }
 }
 
-export function getRoutedBonus(routed_points: number): number {
-  switch (true) {
-    case routed_points >= 1695:
-      return 3;
-    case routed_points >= 1100:
-      return 2;
-    case routed_points >= 500:
-      return 1;
-    default:
-      return 0;
-  }
+export function getRoutedBonus(
+  routed_points: number,
+  bands: { [threshold: number]: number } = { 1695: 3, 1110: 2, 500: 1 },
+): number {
+  return (
+    Object.entries(bands).find(
+      ([threshold]) => routed_points >= Number(threshold),
+    )?.[1] ?? 0
+  );
 }
