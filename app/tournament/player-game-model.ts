@@ -17,11 +17,17 @@ export function getOutcomeBonus(
 
 export function getRoutedBonus(
   routed_points: number,
-  bands: { [threshold: number]: number } = { 1695: 3, 1110: 2, 500: 1 },
+  bands: [number, number][] = [
+    [1695, 3],
+    [1110, 2],
+    [500, 1],
+  ],
 ): number {
-  return (
-    Object.entries(bands).find(
-      ([threshold]) => routed_points >= Number(threshold),
-    )?.[1] ?? 0
-  );
+  let band = bands.find(([threshold]) => {
+    console.log({ threshold, asNum: Number(threshold), routed_points });
+    return routed_points >= Number(threshold);
+  });
+  console.log(band, routed_points, band?.[1] ?? 0);
+
+  return band?.[1] ?? 0;
 }
