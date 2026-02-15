@@ -1,6 +1,6 @@
 import { Link, useLoaderData } from "@remix-run/react";
 import { sortBy } from "~/utils";
-import type { PlayerV2, RosterCharacterV2 } from "~/campaign/moonstone";
+import type { PlayerV2 } from "~/campaign/moonstone";
 import type { LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { moonstone2026, characters } from "~/campaign/moonstone.server";
@@ -80,36 +80,36 @@ export const loader: LoaderFunction = async () => {
   });
 };
 
-type CharacterRankTableProps = {
-  scores: CharacterRank[];
-  scoreLabel: string;
-};
-const CharacterRankTable = ({
-  scores,
-  scoreLabel,
-}: CharacterRankTableProps) => (
-  <table>
-    <thead>
-      <tr>
-        <th style={{ width: "50%" }}>Character</th>
-        <th style={{ width: "30%" }}>Player</th>
-        <th style={{ width: "20%" }}>{scoreLabel}</th>
-      </tr>
-    </thead>
-    <tbody>
-      {(scores ?? []).map((score) => (
-        <tr key={`${score.name}-${score.player}`}>
-          <td>{score.name}</td>
-          <td>{score.player}</td>
-          <td>{score.score}</td>
-        </tr>
-      ))}
-    </tbody>
-  </table>
-);
+// type CharacterRankTableProps = {
+//   scores: CharacterRank[];
+//   scoreLabel: string;
+// };
+// const CharacterRankTable = ({
+//   scores,
+//   scoreLabel,
+// }: CharacterRankTableProps) => (
+//   <table>
+//     <thead>
+//       <tr>
+//         <th style={{ width: "50%" }}>Character</th>
+//         <th style={{ width: "30%" }}>Player</th>
+//         <th style={{ width: "20%" }}>{scoreLabel}</th>
+//       </tr>
+//     </thead>
+//     <tbody>
+//       {(scores ?? []).map((score) => (
+//         <tr key={`${score.name}-${score.player}`}>
+//           <td>{score.name}</td>
+//           <td>{score.player}</td>
+//           <td>{score.score}</td>
+//         </tr>
+//       ))}
+//     </tbody>
+//   </table>
+// );
 
 export default function Index() {
-  const { players, mostMoonstones } = useLoaderData() as LoaderData;
+  const { players } = useLoaderData() as LoaderData;
 
   return (
     <>

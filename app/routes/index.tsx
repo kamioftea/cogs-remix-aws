@@ -123,6 +123,39 @@ export default function Index() {
             </div>
           </>
         )}
+        <h2>Current campaigns</h2>
+        <div className="event-card-list">
+          <Link
+              to={`/campaign/moonstone-2026`}
+              aria-labelledby={`moonstone-2026-find-out-more`}
+          >
+            <section aria-labelledby={`moonstone-2026-heading`} className="event">
+              <img
+                  src={`/_static/images/moonstone-campaign.png`}
+                  alt={
+                      "Jayda shooting her bow in a thorny forest, whilst being" +
+                      " beset by fairies. The image is monochrome, except Jayda" +
+                      " and two prominent fairies are highlighted in Yellow."
+                  }
+                  role="presentation"
+              />
+              <h3 id="moonstone-heading" className="event-title">
+                The Forest Depths
+                <br />
+                <small>A Moonstone campaign</small>
+              </h3>
+              <button
+                  className="button more-info"
+                  id={`moonstone-2026-find-out-more`}
+                  type="button"
+                  tabIndex={-1}
+              >
+                The Forest Depths campaign page
+                <FiChevronRight />
+              </button>
+            </section>
+          </Link>
+        </div>
 
         <h2>Club Nights</h2>
         <p>
