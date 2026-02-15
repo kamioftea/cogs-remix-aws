@@ -1,14 +1,14 @@
-import type { AugmentedGame } from "~/campaign/moonstone";
+import type {AugmentedGame, AugmentedGameV2} from "~/campaign/moonstone";
 import { Link } from "@remix-run/react";
 import type { ReactNode } from "react";
 
 interface GameRowProps {
   label: ReactNode;
-  row: AugmentedGame[];
+  row: (AugmentedGame | AugmentedGameV2)[];
 }
 
 interface PlayerCellProps {
-  game: AugmentedGame;
+  game: AugmentedGame | AugmentedGameV2;
 }
 
 function PlayerCell({ game }: PlayerCellProps) {
