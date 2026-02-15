@@ -40,3 +40,8 @@ export interface AugmentedGame extends PlayerGame {
   playerSlug: string;
   player: Player;
 }
+
+export interface AugmentedGameV2 extends PlayerGame {
+  playerSlug: string;
+  player: PlayerV2;
+}

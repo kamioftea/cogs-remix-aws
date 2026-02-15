@@ -111,6 +111,11 @@ export const characters: { [key: string]: Character } = {
     cardId: "IrisAndHellebore",
     moveId: "FromBelowAndAbove"
   },
+  Jackalope: {
+    name: "Jackalope",
+    cardId: "Jackalope",
+    moveId: "Gore"
+  },
   Joanna: {
     name: "Joanna, Nordic Princess",
     cardId: "Joanna",

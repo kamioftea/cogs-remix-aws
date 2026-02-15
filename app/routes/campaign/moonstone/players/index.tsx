@@ -1,11 +1,9 @@
 import { Link, useLoaderData } from "@remix-run/react";
 import { sortBy } from "~/utils";
-import type { PlayerV2, RosterCharacterV2 } from "~/campaign/moonstone";
+import type { Player, RosterCharacter } from "~/campaign/moonstone";
 import type { LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { moonstone2026, characters } from "~/campaign/moonstone.server";
-
-const { players, games } = moonstone2026;
+import { players, games, characters } from "~/campaign/moonstone.server";
 
 type CharacterRank = {
   name: string;
@@ -14,13 +12,15 @@ type CharacterRank = {
 };
 
 type LoaderData = {
-  players: Record<string, PlayerV2>;
+  players: Record<string, Player>;
+  mostKills: CharacterRank[];
   mostMoonstones: CharacterRank[];
+  mostDeaths: CharacterRank[];
 };
 
 function getCharactersRanked(
-  players: Record<string, PlayerV2>,
-  lens: "moonstones",
+  players: Record<string, Player>,
+  lens: "moonstones" | "kills" | "deaths",
 ): CharacterRank[] {
   return Object.values(players)
     .flatMap((player) =>
@@ -47,8 +47,8 @@ function getCharactersRanked(
 }
 
 function sumRoster(
-  key: "moonstones",
-  characters: RosterCharacterV2[],
+  key: "moonstones" | "kills" | "deaths",
+  characters: RosterCharacter[],
 ): number {
   return characters.reduce((acc, character) => acc + character[key], 0);
 }
@@ -77,12 +77,16 @@ export const loader: LoaderFunction = async () => {
         ...data,
         vps: scoresByPlayer[name]?.vps ?? 0,
         mps: scoresByPlayer[name]?.mps ?? 0,
+        kills: sumRoster("kills", data.characters),
+        deaths: sumRoster("deaths", data.characters),
       },
     ]),
   );
 
   return json<LoaderData>({
     players: playersWithCounts,
+    mostKills: getCharactersRanked(players, "kills"),
+    mostDeaths: getCharactersRanked(players, "deaths"),
     mostMoonstones: getCharactersRanked(players, "moonstones"),
   });
 };
@@ -116,7 +120,8 @@ const CharacterRankTable = ({
 );
 
 export default function Index() {
-  const { players, mostMoonstones } = useLoaderData() as LoaderData;
+  const { players, mostKills, mostDeaths, mostMoonstones } =
+    useLoaderData() as LoaderData;
 
   return (
     <>
@@ -130,6 +135,8 @@ export default function Index() {
             <th>VPs</th>
             <th>MPs</th>
             <th>Power</th>
+            <th>Kills</th>
+            <th>Deaths</th>
           </tr>
         </thead>
         <tbody>
@@ -162,12 +169,22 @@ export default function Index() {
                 <td>{player.vps ?? 0}</td>
                 <td>{player.mps ?? 0}</td>
                 <td>{(player.vps ?? 0) + (player.mps ?? 0)}</td>
+                <td>{player.kills}</td>
+                <td>{player.deaths}</td>
               </tr>
             ))}
         </tbody>
       </table>
 
-      <h2>Most covetous</h2>
+      <h2>Other stats</h2>
+
+      <h3>Most murderous</h3>
+      <CharacterRankTable scores={mostKills} scoreLabel={"Kills"} />
+
+      <h3>Most sacrificial</h3>
+      <CharacterRankTable scores={mostDeaths} scoreLabel={"Deaths"} />
+
+      <h3>Most covetous</h3>
       <CharacterRankTable scores={mostMoonstones} scoreLabel={"Moonstones"} />
     </>
   );

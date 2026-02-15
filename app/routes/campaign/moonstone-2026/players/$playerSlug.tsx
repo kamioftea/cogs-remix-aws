@@ -1,12 +1,12 @@
 import type { LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import invariant from "tiny-invariant";
-import { players, characters, games } from "~/campaign/moonstone.server";
+import { moonstone2026, characters } from "~/campaign/moonstone.server";
 import type {
-  AugmentedGame,
+  AugmentedGameV2,
   Character,
-  Player,
-  RosterCharacter,
+  PlayerV2,
+  RosterCharacterV2,
 } from "~/campaign/moonstone";
 import type { Breadcrumb } from "~/utils/breadcrumbs";
 import { CURRENT } from "~/utils/breadcrumbs";
@@ -17,10 +17,12 @@ import { ucFirst } from "~/utils/text";
 import GameRow from "~/campaign/GameRow";
 import { Fragment, useMemo } from "react";
 
+const { players, games } = moonstone2026;
+
 type LoaderData = {
-  player: Player;
+  player: PlayerV2;
   characters: { [key: string]: Character };
-  games: { [key: string]: AugmentedGame[] };
+  games: { [key: string]: AugmentedGameV2[] };
 };
 
 export const loader: LoaderFunction = async ({ params }) => {
@@ -36,7 +38,7 @@ export const loader: LoaderFunction = async ({ params }) => {
     Object.entries(games)
       .filter(([, playerGames]) => !!playerGames[playerSlug])
       .map(([month, playerGames]) => {
-        const playersGame: AugmentedGame = {
+        const playersGame: AugmentedGameV2 = {
           ...(playerGames[playerSlug] ?? {}),
           playerSlug,
           player,
@@ -48,7 +50,7 @@ export const loader: LoaderFunction = async ({ params }) => {
             table === playersGame.table && slug !== playerSlug,
         )!;
 
-        const opponentsGame: AugmentedGame = {
+        const opponentsGame: AugmentedGameV2 = {
           ...opponentsGameData,
           playerSlug: opponentsSlug,
           player: players[opponentsSlug],
@@ -78,7 +80,7 @@ export const handle = {
 export default function PlayerPage() {
   const { player, characters, games } = useLoaderData() satisfies LoaderData;
 
-  const retired: RosterCharacter[] = [
+  const retired: RosterCharacterV2[] = [
     ...Object.values(player.characters),
   ].filter((c) => c.retired);
 
@@ -111,8 +113,8 @@ export default function PlayerPage() {
       <div className="card-grid">
         {player.characters
           .filter((c) => !c.retired)
-          .map(({ cardId, joined, kills, deaths, moonstones, upgrade }) => {
-            const character = characters[cardId];
+          .map(({ cardId, joined, moonstones, upgrade }) => {
+            const character = characters[cardId] ?? {};
 
             return (
               <Fragment key={cardId}>
@@ -124,12 +126,6 @@ export default function PlayerPage() {
 
                     <dt>Moonstones</dt>
                     <dd>{moonstones}</dd>
-
-                    <dt>Kills</dt>
-                    <dd>{kills}</dd>
-
-                    <dt>Deaths</dt>
-                    <dd>{deaths}</dd>
                   </dl>
                 </div>
                 <StatCard

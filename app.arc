@@ -69,3 +69,6 @@ playerGame
   attendeeSlug **String
   projection all
   name byEventAttendee
+
+@env
+SESSION_SECRET your-strong-random-secret-value
