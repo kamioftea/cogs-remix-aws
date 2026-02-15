@@ -14,6 +14,8 @@ export type RosterCharacter = {
   retired?: string;
 };
 
+export type RosterCharacterV2 = Omit<RosterCharacter, 'kills' | 'deaths'>;
+
 export type Player = {
   name: string;
   faction?: "Commonwealth" | "Dominion" | "Leshavult" | "Shades";
@@ -23,6 +25,8 @@ export type Player = {
   kills?: number;
   deaths?: number;
 };
+
+export type PlayerV2 = Omit<Player, 'characters'> & {characters: RosterCharacterV2[]};
 
 export type PlayerGame = {
   table: number;
