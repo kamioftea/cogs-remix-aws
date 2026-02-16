@@ -226,9 +226,9 @@ export default function Index() {
         </p>
         <p>
           To facilitate machinations, roster changes should be submitted 1 week
-          before the next campaign evening, e.g for March, by Monday 2nd March.
+          before the next campaign evening, e.g for March, by Monday 9th March.
           Then, any machinations should be submitted the night before the
-          campaign evening, e.g. by midnight 8th Merch. If machinations are not
+          campaign evening, e.g. by midnight 15th March. If machinations are not
           submitted, it will be assumed you decided not to intervene in any
           games.
         </p>
