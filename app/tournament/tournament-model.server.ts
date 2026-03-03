@@ -1838,9 +1838,6 @@ The schedule may need to be adjusted on the day.`),
         content: unsafeRenderMarkdown(`
 The event will be using the rules in the 4th edition rules and any FAQ or 
 errata published by Mantic Games prior to the event.
- 
-The optional withdraw rule will **NOT** be in play. Command dice will **NOT** 
-be used.
 
 Chess clocks will be used to help the tournament run on schedule. Clocks
 should be used throughout deployment, scout moves, and player turns.
@@ -1945,6 +1942,7 @@ with the lower ranking in the tournament scores.`),
     pointsLimit: 2300,
     kowMastersSeason: 11,
     listsSubmissionClosed: false,
+    manticCompanionEventId: 973,
   },
 ];
 
