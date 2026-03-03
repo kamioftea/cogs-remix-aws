@@ -1658,6 +1658,295 @@ more candidates.`),
       [250, 1],
     ],
   },
+  {
+    title: "Cogs of War 2026",
+    subtitle: "A Kings of War Tournament",
+    slug: "cogs-of-war-2026",
+    titlePositionX: "27rem",
+    titleStyles: { textAlign: "right", marginTop: "5.5rem" },
+    date: dayjs("2026-07-12"),
+    imageUrl: "cogs-of-war-2026.png",
+    imageDescription:
+        "Ogres with a mix of blunderbuss 'Boomers' and axes leap into the fray against an skeletal Empire of Dust" +
+        " army. Key ogres in the foreground are highlighted in monochrome yellow, while the rest of the image is in" +
+        " greyscale.",
+    openGraph: {
+      imageUrl:
+          "https://kow.c-o-g-s.org.uk/_static/images/cogs-of-war-2026-og.png",
+      imageAlt:
+          "Ogres with a mix of blunderbuss 'Boomers' and axes leap into the fray against an skeletal Empire of Dust" +
+          " army. Key ogres in the foreground are highlighted in monochrome yellow, while the rest of the image is in" +
+          " greyscale. Overlaid text reads 'Chesterfield Open Gaming Society Presents Cogs of War 2026, A Kings of War" +
+          " Tournament, 12th July 2026'.",
+    },
+    description: `A one-day Kings of War singles tournament using the 4th edition rules.`,
+    about: {
+      What: ["20 players, 2300 points, 3 games"],
+      When: ["12th July 2026, 9:30 until 17:30"],
+      Where: [
+        "The Parish Centre",
+        "Stonegravels",
+        "91 Sheffield Road",
+        "Chesterfield",
+        "S41 7JH",
+      ],
+    },
+    signUpEnabled: true,
+    disclaimer: renderMarkdownInline(
+        `Mantic® and Kings of War® and all associated names, characters, places, and things
+       are copyright © and ™ Mantic Games. The original event image © Mantic Games. 
+       Chesterfield Open Gaming Society is not associated with Mantic Games in any way.`,
+    ),
+    eventPack: [
+      {
+        title: "Tournament organiser",
+        content: unsafeRenderMarkdown(`
+The tournament organiser for this event is Steven Pearson. If you have 
+questions or feedback, please email Steven at 
+[jammystavros@hotmail.com](mailto:jammystavros@hotmail.com). I’m also 
+happy to hear both praise and complaints in person
+
+Jeff Horton will be helping with payment and list admin.`),
+      },
+      {
+        title: "Tickets",
+        content: unsafeRenderMarkdown(`
+To sign up for this event, please [fill in the sign-up form](
+https://kow.c-o-g-s.org.uk/event/cogs-of-war-2026/sign-up).
+
+Tickets are priced at £20, [payable via PayPal](
+https://www.paypal.com/paypalme/KamiOfTea/20).
+
+If you’d prefer to pay using a different payment method, please contact 
+the tournament organiser.
+
+Tickets can be cancelled for a full refund until Thursday 18th June. 
+After this, we will offer a refund if we can fill your place.`),
+      },
+      {
+        title: "Inclusivity and accessibility",
+        content: unsafeRenderMarkdown(`
+Chesterfield Open Gaming Society is dedicated to providing an inclusive, 
+harassment-free gaming experience for everyone. Attendees should feel 
+safe and welcome regardless of gender, gender identity and expression, 
+age, sexual orientation, disability, physical appearance, body size, 
+race, ethnicity, religion (or lack thereof), or hobby choices.
+
+If there is anything that we can do to make it easier or more enjoyable 
+for you to attend, please let us know.
+
+We can’t do this by ourselves. Creating a welcoming, enjoyable, and safe
+environment is everyone’s responsibility. In particular we will not 
+tolerate harassment at the event, during related socials, or on 
+associated social media.
+
+Please read the [full code of conduct](
+https://kow.c-o-g-s.org.uk/code-of-conduct) for more details.
+
+Thank you.`),
+      },
+      {
+        title: "Preparation",
+        content: unsafeRenderMarkdown(`
+You will need a 2300 point Kings of War army.  This should be built using the standard army 
+selection and composition rules in the
+[4th edition mantic companion app](https://companion.manticgames.com/kings-of-war-list-builder/). 
+
+You can submit your list on the
+[edit details page](/event/cogs-of-war-2026/edit-details). Alternatively 
+[email a pdf of your list to jeff@goblinoid.co.uk](
+mailto:jeff@goblinoid.co.uk). Your list should be submitted by 23:59 on 
+Saturday 4th July.
+
+Players will receive +3 tournament points if they submit on time. This 
+will reduce by one point per day or part-day since the submission time 
+that has passed before the list is received, to a minimum of 0 if it is three
+or more days late.
+
+Part of the joy of wargaming is the spectacle of two armies clashing on the table-top. We would 
+prefer players to bring a fully painted and based army that fits with the fantasy wargaming 
+aesthetic.
+
+It should be clear to your opponent what each unit in your army represents.
+`),
+      },
+      {
+        title: "Things to bring with you",
+        content: unsafeRenderMarkdown(`
+- Your 2300 point army. 
+- Three copies of your list.
+- Dice, tape measure, arc template, and tokens.
+- A chess clock (physical or app)`),
+      },
+      {
+        title: "Location",
+        content: unsafeRenderMarkdown(`
+The event will be held at the same venue used for COGS club evenings.
+
+The Parish Centre<br />
+Stonegravels<br />
+91 Sheffield Road<br />
+Chesterfield<br />
+S41 7JH
+
+There is car parking on site. A few spaces are stacked behind others. 
+Please make sure to fill the rear spaces first. There should be enough 
+parking at the centre for everyone, but it will be close to full
+capacity. Please contact us if you need to reserve a space for 
+accessibility needs or a quick get-away.
+ 
+There is a bus stop just outside the venue. If you are coming by train, 
+please get in contact as we should be able to arrange a lift to the 
+centre from Chesterfield station.`),
+      },
+      {
+        title: "Food and drink",
+        content: unsafeRenderMarkdown(`
+Free tea and coffee will be available.
+
+Lunch will **NOT** be provided.
+
+There are a number of takeaways and supermarkets within walking 
+distance. We will endeavour to provide a list and menus on the event 
+website nearer the time.
+
+A selection of soft drinks and snacks will be available to purchase 
+during the event.`),
+      },
+      {
+        title: "Schedule",
+        content: unsafeRenderMarkdown(`
+Each round players will have 60 minutes each on their chess clocks, 
+plus ten minutes spare for introductions, pre-game admin, breaks, rules 
+queries, etc.
+
+|              | Start Time |
+| ------------ | ---------- |
+| Registration |  9:15      |
+| Briefing     |  9:45      |
+| Game one     |  9:50      |
+| Lunch        | 12:00      |
+| Game two     | 12:45      |
+| Break        | 14:55      |
+| Game three   | 15:00      |
+| Awards       | 17:15      |
+| Close        | 17:30      |
+
+The schedule may need to be adjusted on the day.`),
+      },
+      {
+        title: "Playing the games",
+        content: unsafeRenderMarkdown(`
+The event will be using the rules in the 4th edition rules and any FAQ or 
+errata published by Mantic Games prior to the event.
+ 
+The optional withdraw rule will **NOT** be in play. Command dice will **NOT** 
+be used.
+
+Chess clocks will be used to help the tournament run on schedule. Clocks
+should be used throughout deployment, scout moves, and player turns.
+ 
+If you and your opponent disagree on a rule, pause the clock whilst you 
+check the rulebook. If that doesn’t resolve your issue, please ask the 
+tournament organiser to adjudicate.
+
+The clock should also be paused if either player needs to take a break 
+for any reason.
+
+If a player time then it is dice down. Any unresolved combats are assumed 
+to have passed their nerve test. Your opponent may complete their remaining 
+turns in the time that they have left on their clock, including rolling for 
+turn 7.
+
+If there are enough pauses during a game that you predict the round time
+will end before both players have finished, please inform the tournament 
+organiser as soon as possible so that this can be resolved fairly for 
+both players.`),
+      },
+      {
+        title: "Scenarios and scoring",
+        content: unsafeRenderMarkdown(`
+Scoring will be weighted towards how well players have done in the scenario,
+with bonus points for winning, and for routing enemy units.
+
+Exact details will be released nearer the time.`)
+      },
+      {
+        title: "Awards",
+        content: unsafeRenderMarkdown(`
+Trophies will be awarded for first, second, and third places. There will 
+be a wooden spoon for last place.
+
+Players will be able to cast votes for their favourite armies. The 
+army with the most votes will win the best army award, with the 
+tournament organiser having a deciding vote in the case of a tie. Please 
+leave your army on display over lunch so that everyone has a chance to 
+decide who to vote for.
+
+Players will be able to cast votes for their most sporting opponent when 
+they submit their final scores. The player with the most votes will win the 
+most sporting award. Ties will be broken in the favour of the player 
+with the lower ranking in the tournament scores.`),
+      },
+    ],
+    costInPounds: 20,
+    payPalLink: "https://www.paypal.com/paypalme/KamiOfTea/20",
+    additionalFields: [
+      {
+        name: "army_list",
+        type: "ARMY_LIST",
+        readonly: true,
+        label: "Army list",
+      },
+      {
+        name: "faction",
+        type: "STRING",
+        readonly: true,
+        label: "Faction",
+      },
+      {
+        name: "allies",
+        type: "STRING",
+        readonly: true,
+        label: "Allies",
+      },
+      {
+        name: "tournament_points",
+        type: "SCORE",
+        readonly: true,
+        label: "Tournament points",
+      },
+      {
+        name: "total_routed",
+        type: "SCORE",
+        readonly: true,
+        label: "Total routed",
+      },
+      {
+        name: "total_attrition",
+        type: "SCORE",
+        readonly: true,
+        label: "Total attrition",
+      },
+      {
+        name: "bonus_points",
+        type: "SCORE",
+        readonly: true,
+        label: "Bonus points",
+      },
+      {
+        name: "awards",
+        type: "STRING",
+        readonly: true,
+        label: "Awards",
+      },
+    ],
+    scenarios: [],
+    maxAttendees: 20,
+    pointsLimit: 2300,
+    kowMastersSeason: 11,
+    listsSubmissionClosed: false,
+  },
 ];
 
 const tournamentsBySlug = Object.fromEntries(
