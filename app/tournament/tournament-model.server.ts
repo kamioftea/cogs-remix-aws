@@ -1704,7 +1704,9 @@ more candidates.`),
 The tournament organiser for this event is Steven Pearson. If you have 
 questions or feedback, please email Steven at 
 [jammystavros@hotmail.com](mailto:jammystavros@hotmail.com). I’m also 
-happy to hear both praise and complaints in person`),
+happy to hear both praise and complaints in person
+
+Jeff Horton will be helping with payment and list admin.`),
       },
       {
         title: "Tickets",
@@ -1713,7 +1715,7 @@ To sign up for this event, please [fill in the sign-up form](
 https://kow.c-o-g-s.org.uk/event/cogs-of-war-2026/sign-up).
 
 Tickets are priced at £20, [payable via PayPal](
-https://www.paypal.com/paypalme/Cragsider/20).
+https://www.paypal.com/paypalme/KamiOfTea/20).
 
 If you’d prefer to pay using a different payment method, please contact 
 the tournament organiser.
@@ -1752,8 +1754,8 @@ selection and composition rules in the
 
 You can submit your list on the
 [edit details page](/event/cogs-of-war-2026/edit-details). Alternatively 
-[email a pdf of your list to jammystavros@hotmail.com](
-mailto:jammystavros@hotmail.com). Your list should be submitted by 23:59 on 
+[email a pdf of your list to jeff@goblinoid.co.uk](
+mailto:jeff@goblinoid.co.uk). Your list should be submitted by 23:59 on 
 Saturday 4th July.
 
 Players will receive +3 tournament points if they submit on time. This 
@@ -1825,7 +1827,7 @@ queries, etc.
 | Game one     |  9:50      |
 | Lunch        | 12:00      |
 | Game two     | 12:45      |
-| Break        | 11:55      |
+| Break        | 14:55      |
 | Game three   | 15:00      |
 | Awards       | 17:15      |
 | Close        | 17:30      |
@@ -1864,30 +1866,10 @@ both players.`),
       {
         title: "Scenarios and scoring",
         content: unsafeRenderMarkdown(`
-Scenarios will be decided closer to the event date.
+Scoring will be weighted towards how well players have done in the scenario,
+with bonus points for winning, and for routing enemy units.
 
-Full details of the scenario to be played and how to score victory 
-points will be provided at the start of each round.
-
-There will be up to seven victory points available for each scenario, with 
-at most three points scored if you draw or lose. These will also count as 
-tournament points (TPs).
-
-You get five bonus tournament points if you win the scenario, two bonus points
-if you draw.
-
-You get up to three bonus tournament points based on the total points of
-enemy units you routed during the game.
- 
-| Total points routed | Bonus TPs |
-| ------------------- | --------- |
-|  575+               | +1        |
-| 1265+               | +2        |
-| 1955+               | +3        |
-
-Players will therefore score up to fifteen tournament points per round. 
-With three list submission points, the maximum available tournament 
-score is 48.`),
+Exact details will be released nearer the time.`)
       },
       {
         title: "Awards",
@@ -1904,11 +1886,7 @@ decide who to vote for.
 Players will be able to cast votes for their most sporting opponent when 
 they submit their final scores. The player with the most votes will win the 
 most sporting award. Ties will be broken in the favour of the player 
-with the lower ranking in the tournament scores.
-
-For both categories, players will receive seven total votes they can
-distribute as they see fit, including casting multiple votes for one or 
-more candidates.`),
+with the lower ranking in the tournament scores.`),
       },
     ],
     costInPounds: 20,
