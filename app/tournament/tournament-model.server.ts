@@ -1663,7 +1663,7 @@ more candidates.`),
     subtitle: "A Kings of War Tournament",
     slug: "cogs-of-war-2026",
     titlePositionX: "27rem",
-    titleStyles: { textAlign: "right", marginTop: "5.5rem" },
+    titleStyles: { textAlign: "right", placeSelf: "end", marginBlockEnd: "10%" },
     date: dayjs("2026-07-12"),
     imageUrl: "cogs-of-war-2026.png",
     imageDescription:
