@@ -13,7 +13,7 @@ export default function StatCard({ name, cardId, moveId }: StatCardProps) {
     : `https://moontome.b-cdn.net/StatCardsHd/${cardId}.webp`;
 
   return (
-    <div className="stat-card">
+    <div className="stat-card flippable">
       <img
         src={imgSrc}
         alt={`${name} ${isFlipped ? "signature move" : "stat card"}`}

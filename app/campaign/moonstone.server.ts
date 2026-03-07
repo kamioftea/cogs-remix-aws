@@ -1,6 +1,12 @@
 import type { Player, Character, PlayerGame, PlayerV2 } from "~/campaign/moonstone";
 
+// noinspection SpellCheckingInspection
 export const characters: { [key: string]: Character } = {
+  Agatha: {
+    name: "Agatha, Tavernfrau",
+    cardId: "Agatha",
+    moveId: "HellHathNoFury"
+  },
   Antonia: {
     name: "Antonia, Noonday Witch",
     cardId: "Antonia",
@@ -10,6 +16,16 @@ export const characters: { [key: string]: Character } = {
     name: "Anya Bartol",
     cardId: "AnyaBartol",
     moveId: "LostControl"
+  },
+  BaronVonFancyhat: {
+    name: "Baron von Fancyhat",
+    cardId: "BaronVonFancyhat",
+    moveId: "MasterStrike"
+  },
+  BeakyBobby: {
+    name: "Beaky Bobby",
+    cardId: "BeakyBobby",
+    moveId: "TakeYourMedicine"
   },
   BrotherDaniel: {
     name: "Brother Daniel",
@@ -86,6 +102,11 @@ export const characters: { [key: string]: Character } = {
     cardId: "EricTheEnlightened",
     moveId: "SwingingAntlers"
   },
+  EricTheSquire: {
+    name: "Eric, the Enlightened",
+    cardId: "EricTheSquire",
+    moveId: "YoullRegretThat"
+  },
   FlindersMemphis: {
     name: "Flinders Memphis",
     cardId: "FlindersMemphis",
@@ -95,6 +116,11 @@ export const characters: { [key: string]: Character } = {
     name: "Fraya",
     cardId: "Fraya",
     moveId: "CantHitMe"
+  },
+  Fritz: {
+    name: "Fritz",
+    cardId: "Fritz",
+    moveId: "CornCutter"
   },
   Gradock: {
     name: "Gradock",
@@ -106,6 +132,16 @@ export const characters: { [key: string]: Character } = {
     cardId: "Gump",
     moveId: "Rooted"
   },
+  Gwendoline: {
+    name: "Gwendoline, Leshavult Priestess",
+    cardId: "Gwendoline",
+    moveId: "DreamgladeGlamour"
+  },
+  HerbertGrowbottom: {
+    name: "Herbert Growbottom",
+    cardId: "HerbertGrowbottom",
+    moveId: "CantHitMe"
+  },
   IrisAndHellebore: {
     name: "Iris & Hellebore",
     cardId: "IrisAndHellebore",
@@ -115,6 +151,11 @@ export const characters: { [key: string]: Character } = {
     name: "Jackalope",
     cardId: "Jackalope",
     moveId: "Gore"
+  },
+  Jobie: {
+    name: "Jobie",
+    cardId: "Jobie",
+    moveId: "PlayDead"
   },
   Joanna: {
     name: "Joanna, Nordic Princess",
@@ -126,10 +167,20 @@ export const characters: { [key: string]: Character } = {
     cardId: "Kalista",
     moveId: "SlipIntoShadows"
   },
+  Kavanagh: {
+    name: "Kavanagh, the Jongler",
+    cardId: "Kavanaugh",
+    moveId: "VanishingBallsTrick"
+  },
   Klaus: {
     name: "Klaus",
     cardId: "Klaus",
     moveId: "FlailAroundMadly"
+  },
+  Loubard: {
+    name: "Loubard",
+    cardId: "Loubard",
+    moveId: "Entangle"
   },
   MamaGimble: {
     name: "Mama Gimble",
@@ -180,6 +231,11 @@ export const characters: { [key: string]: Character } = {
     name: "Prof. Boffinsworth",
     cardId: "ProfBoffinsworth",
     moveId: "BoffsBestiary"
+  },
+  Quack: {
+    name: "Quack",
+    cardId: "Quack",
+    moveId: "GoneInAPuff"
   },
   Quarrel: {
     name: "Quarrel",
@@ -256,10 +312,20 @@ export const characters: { [key: string]: Character } = {
     cardId: "ThegoblinKing",
     moveId: "GrovelPeasant"
   },
+  TheMortician: {
+    name: "The Mortician",
+    cardId: "TheMortician",
+    moveId: "PlayDead"
+  },
   TheRevenant: {
     name: "The Revenant",
     cardId: "TheRevenant",
     moveId: "DestinyFulfilled"
+  },
+  Vespa: {
+    name: "Vespa",
+    cardId: "Vespa",
+    moveId: "StrikeFromAbove"
   },
   ViciousSyd: {
     name: "Vicious Syd",
@@ -968,16 +1034,92 @@ export const moonstone2026: {
       name: "Jeff",
       faction: "Commonwealth",
       characters: [
-        { cardId: "Joanna", joined: "Feb", moonstones: 0 },
-        { cardId: "Morris", joined: "Feb", moonstones: 0 },
-        { cardId: "MamaGimble", joined: "Feb", moonstones: 0 },
-        { cardId: "Matilda", joined: "Feb", moonstones: 0 },
-        { cardId: "FlindersMemphis", joined: "Feb", moonstones: 0 },
-        { cardId: "OldPolly", joined: "Feb", moonstones: 0 },
-        { cardId: "ProfBoffinsworth", joined: "Feb", moonstones: 0 },
-        { cardId: "Jackalope", joined: "Feb", moonstones: 0 }
+        { cardId: "Joanna", joined: "Feb" },
+        { cardId: "Morris", joined: "Feb" },
+        { cardId: "MamaGimble", joined: "Feb" },
+        { cardId: "Matilda", joined: "Feb" },
+        { cardId: "FlindersMemphis", joined: "Feb" },
+        { cardId: "OldPolly", joined: "Feb" },
+        { cardId: "ProfBoffinsworth", joined: "Feb" },
+        { cardId: "Jackalope", joined: "Feb" },
       ]
-    }
+    },
+    phil: {
+      name: "Phil",
+      faction: "Commonwealth",
+      characters: [
+        { cardId: "Agatha", joined: "Feb" },
+        { cardId: "EricTheSquire", joined: "Feb" },
+        { cardId: "BaronVonFancyhat", joined: "Feb" },
+        { cardId: "Fritz", joined: "Feb" },
+        { cardId: "Quack", joined: "Feb" },
+      ]
+    },
+    andy: {
+      name: "Andy",
+      faction: "Leshavult",
+      characters: [
+        { cardId: "BrotherDaniel", joined: "Feb" },
+        { cardId: "EricTheEnlightened", joined: "Feb" },
+        { cardId: "Gwendoline", joined: "Feb" },
+        { cardId: "Kalista", joined: "Feb" },
+        { cardId: "Kavanagh", joined: "Feb" },
+        { cardId: "Klaus", joined: "Feb" },
+        { cardId: "Loubard", joined: "Feb" },
+        { cardId: "Raegan", joined: "Feb" },
+      ]
+    },
+    rob: {
+      name: "Rob",
+      faction: "Dominion",
+      characters: [
+        { cardId: "TheGoblinKing", joined: "Feb" },
+        { cardId: "Shabbaroon", joined: "Feb" },
+        { cardId: "Jobie", joined: "Feb" },
+        { cardId: "BeakyBobby", joined: "Feb" },
+        { cardId: "ViciousSyd", joined: "Feb" },
+        { cardId: "PortlyPete", joined: "Feb" },
+        { cardId: "Doug", joined: "Feb" },
+        { cardId: "TheMortician", joined: "Feb" },
+      ]
+    },
+    richard: {
+      name: "Richard",
+      faction: "Dominion",
+      characters: [
+        { cardId: "TheFencer", joined: "Feb" },
+        { cardId: "Silvertongue", joined: "Feb" },
+        { cardId: "Fraya", joined: "Feb" },
+        { cardId: "Vespa", joined: "Feb" },
+        { cardId: "Boulder", joined: "Feb" },
+        { cardId: "IrisAndHellebore", joined: "Feb" },
+        { cardId: "HerbertGrowbottom", joined: "Feb" },
+        { cardId: "TheMortician", joined: "Feb" },
+      ]
+    },
+    brendan: {
+      name: "Brendan",
+      faction: "Dominion",
+      characters: [
+        { cardId: "BeakyBobby", joined: "Feb" },
+        { cardId: "Creep", joined: "Feb" },
+        { cardId: "CrustyBalboa", joined: "Feb" },
+        { cardId: "Swash", joined: "Feb" },
+        { cardId: "PowderMonkey", joined: "Feb" },
+        { cardId: "SwiggartySwooty", joined: "Feb" },
+        { cardId: "TheGoblinKing", joined: "Feb" },
+        { cardId: "Ribald", joined: "Feb" },
+      ]
+    },
   },
-  games: {}
+  games: {
+    february: {
+      andy: {table: 1, moonstones: 2, machinationPoints: 0, campaignCards: []},
+      rob: {table: 1, moonstones: 4, machinationPoints: 0, campaignCards: ["Ninja Reactions"]},
+      richard: {table: 2, moonstones: 2, machinationPoints: 0, campaignCards: ["Tangle Tree", "Miniature Magic"]},
+      brendan: {table: 2, moonstones: 3, machinationPoints: 0, campaignCards: ["Do It Or Else"]},
+      jeff: {table: 3, moonstones: 5, machinationPoints: 2, campaignCards: ["The High Road"]},
+      phil: {table: 3, moonstones: 2, machinationPoints: 0, campaignCards: ["Catgut Stitches"]},
+    }
+  }
 };

@@ -238,6 +238,9 @@ export default function Index() {
         <p>
           <Link to="./players">Players</Link>
         </p>
+        <p>
+          <Link to="./games/february">February Games</Link>
+        </p>
       </aside>
     </div>
   );

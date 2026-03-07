@@ -1,7 +1,7 @@
 import type { LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import type { AugmentedGame, Player, PlayerGame } from "~/campaign/moonstone";
-import { games, players } from "~/campaign/moonstone.server";
+import type { AugmentedGameV2, PlayerV2, PlayerGame } from "~/campaign/moonstone";
+import { moonstone2026 } from "~/campaign/moonstone.server";
 import type { Breadcrumb } from "~/utils/breadcrumbs";
 import { CURRENT } from "~/utils/breadcrumbs";
 import type { RouteMatch } from "@remix-run/react";
@@ -14,11 +14,12 @@ import invariant from "tiny-invariant";
 type LoaderData = {
   month: string;
   games: { [key: string]: PlayerGame };
-  players: { [key: string]: Player };
+  players: { [key: string]: PlayerV2 };
 };
 
 export const loader: LoaderFunction = async ({ params }) => {
   invariant(params.month, "month not found");
+  const { games, players } = moonstone2026;
 
   const playerGames = games[params.month];
   if (!playerGames) {
@@ -51,7 +52,7 @@ export default function PlayerPage() {
 
   const rows = useMemo(
     () =>
-      Object.entries(games).reduce<{ [key: number]: AugmentedGame[] }>(
+      Object.entries(games).reduce<{ [key: number]: AugmentedGameV2[] }>(
         (acc, [playerSlug, game]) => ({
           ...acc,
           [game.table]: [
@@ -63,7 +64,7 @@ export default function PlayerPage() {
             },
           ],
         }),
-        {} as { [key: number]: AugmentedGame[] },
+        {} as { [key: number]: AugmentedGameV2[] },
       ),
     [players, games],
   );

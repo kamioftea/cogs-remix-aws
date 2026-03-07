@@ -34,8 +34,11 @@
 
   .stat-card {
     img {
-      cursor: pointer;
       width: 100%;
+    }
+
+    &.flippable {
+      cursor: pointer;
     }
   }
 }
