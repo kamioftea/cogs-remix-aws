@@ -17,8 +17,6 @@ import { ucFirst } from "~/utils/text";
 import GameRow from "~/campaign/GameRow";
 import { Fragment, useMemo } from "react";
 
-const { players, games } = moonstone2026;
-
 type LoaderData = {
   player: PlayerV2;
   characters: { [key: string]: Character };
@@ -26,6 +24,8 @@ type LoaderData = {
 };
 
 export const loader: LoaderFunction = async ({ params }) => {
+  const { players, games } = moonstone2026;
+
   const playerSlug = params.playerSlug;
   invariant(playerSlug, "playerSlug not found");
 
@@ -113,7 +113,7 @@ export default function PlayerPage() {
       <div className="card-grid">
         {player.characters
           .filter((c) => !c.retired)
-          .map(({ cardId, joined, moonstones, upgrade }) => {
+          .map(({ cardId, joined, upgrade }) => {
             const character = characters[cardId] ?? {};
 
             return (
@@ -123,9 +123,6 @@ export default function PlayerPage() {
                   <dl className="dl-horizontal">
                     <dt>Joined</dt>
                     <dd>{joined}</dd>
-
-                    <dt>Moonstones</dt>
-                    <dd>{moonstones}</dd>
                   </dl>
                 </div>
                 <StatCard

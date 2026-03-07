@@ -14,7 +14,7 @@ export type RosterCharacter = {
   retired?: string;
 };
 
-export type RosterCharacterV2 = Omit<RosterCharacter, 'kills' | 'deaths'>;
+export type RosterCharacterV2 = Omit<RosterCharacter, 'kills' | 'deaths' | 'moonstones'>;
 
 export type Player = {
   name: string;
