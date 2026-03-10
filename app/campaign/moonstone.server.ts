@@ -1034,7 +1034,7 @@ export const moonstone2026: {
       name: "Jeff",
       faction: "Commonwealth",
       characters: [
-        { cardId: "Joanna", joined: "Feb" },
+        { cardId: "Joanna", joined: "Feb", upgrade: "Battle Hardened" },
         { cardId: "Morris", joined: "Feb" },
         { cardId: "MamaGimble", joined: "Feb" },
         { cardId: "Matilda", joined: "Feb" },
@@ -1120,6 +1120,14 @@ export const moonstone2026: {
       brendan: {table: 2, moonstones: 3, machinationPoints: 0, campaignCards: ["Do It Or Else"]},
       jeff: {table: 3, moonstones: 5, machinationPoints: 2, campaignCards: ["The High Road"]},
       phil: {table: 3, moonstones: 2, machinationPoints: 0, campaignCards: ["Catgut Stitches"]},
+    },
+    march: {
+        andy: {table: 1, moonstones: 0, machinationPoints: 0, campaignCards: []},
+        phil: {table: 1, moonstones: 0, machinationPoints: 0, campaignCards: []},
+        jeff: {table: 2, moonstones: 0, machinationPoints: 0, campaignCards: []},
+        richard: {table: 2, moonstones: 0, machinationPoints: 0, campaignCards: []},
+        rob: {table: 3, moonstones: 0, machinationPoints: 0, campaignCards: []},
+        brendan: {table: 3, moonstones: 0, machinationPoints: 0, campaignCards: []},
     }
   }
 };
