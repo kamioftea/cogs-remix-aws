@@ -51,8 +51,14 @@ export interface OrganiserPlayer {
 export interface Tournament {
   title: string;
   subtitle: string;
+  headerIntro?: string;
+  additionalLogo?: {
+    url: string;
+    alt: string;
+  };
   slug: string;
   date?: Dayjs;
+  dateString?: string;
   description: string;
   about?: Record<string, string[]>;
   content?: string;
@@ -1944,6 +1950,233 @@ with the lower ranking in the tournament scores.`),
     kowMastersSeason: 11,
     kowMastersEventId: 497,
     manticCompanionEventId: 973,
+  },
+  {
+    title: "Swords of Summer 2026",
+    subtitle: "A Two-day Kings of War Tournament at Britcon",
+    headerIntro: "British Historical Games Society and Chesterfield Open Gaming Society Present",
+    additionalLogo: {
+      url: 'bhgs-logo.png',
+      alt: 'British Historical Games Society logo',
+    },
+    slug: "swords-of-summer-2026",
+    titleStyles: { placeSelf: "center start" },
+    date: dayjs("2026-08-09"),
+    dateString: '8th and 9th August 2026',
+    imageUrl: "swords-of-summer-2026.png",
+    imageDescription:
+        "Armies of dwarves and undead clash in mountainous terrain. Most of the image is in greyscale, with a " +
+        "necromancer, their lightning spell, and a few skeletal warriors highlighted in monochrome yellow.",
+    openGraph: {
+      imageUrl:
+          "https://kow.c-o-g-s.org.uk/_static/images/swords-of-summer-2026-og.png",
+      imageAlt:
+          "Armies of dwarves and undead clash in mountainous terrain. Most of the image is in greyscale, with a " +
+          "necromancer, their lightning spell, and a few skeletal warriors highlighted in monochrome yellow." +
+          "Overlaid text reads 'British Historical Games Society and Chesterfield Open Gaming Society Present " +
+          "Swords of Summer 2026, A Two-day Kings of War Tournament at Britcon, 8th and 9th August 2026.",
+    },
+    description: `A two-day Kings of War singles tournament using the 4th edition rules as part of BHGS's Britcon show.`,
+    about: {
+      What: ["2500 points, 5 games"],
+      When: ["8th and 9th August 2026"],
+      Where: [
+        "Britcon,",
+        "The Venue",
+        "DeMontfort University",
+        "Leicester",
+        "LE2 7BU",
+      ],
+    },
+    signUpEnabled: false,
+    content: unsafeRenderMarkdown(`
+![Britcon 2026 7th-9th August 2026](https://www.bhgs.org.uk/uploads/9/3/2/3/9323122/970x250-7-9_orig.jpg)
+    
+Swords of Summer will be returning to Britcon in 2026. We'll be running five 2,500 point games
+split over the Saturday and Sunday of the show.
+
+Sign up at the [British Historical Games Society website](https://www.bhgs.org.uk/britcon---how-to-enter.html)
+`),
+    disclaimer: renderMarkdownInline(
+        `Mantic® and Kings of War® and all associated names, characters, places, and things
+       are copyright © and ™ Mantic Games. The original event image © Mantic Games. 
+       Chesterfield Open Gaming Society is not associated with Mantic Games in any way.`,
+    ),
+    eventPack: [
+      {
+        title: "Tournament organiser",
+        content: unsafeRenderMarkdown(`
+The tournament organiser for this event is Jeff Horton. If you have 
+questions or feedback, please email Jeff at 
+[jeff@goblinoid.co.uk](mailto:jeff@goblinoid.co.uk).`),
+      },
+      {
+        title: "Tickets",
+        content: unsafeRenderMarkdown(`
+Sign up at the [British Historical Games Society website](https://www.bhgs.org.uk/britcon---how-to-enter.html)`),
+      },
+      {
+        title: "Inclusivity and accessibility",
+        content: unsafeRenderMarkdown(`
+Chesterfield Open Gaming Society is dedicated to providing an inclusive, 
+harassment-free gaming experience for everyone. Attendees should feel 
+safe and welcome regardless of gender, gender identity and expression, 
+age, sexual orientation, disability, physical appearance, body size, 
+race, ethnicity, religion (or lack thereof), or hobby choices.
+
+If there is anything that we can do to make it easier or more enjoyable 
+for you to attend, please let us know.
+
+We can’t do this by ourselves. Creating a welcoming, enjoyable, and safe
+environment is everyone’s responsibility. In particular we will not 
+tolerate harassment at the event, during related socials, or on 
+associated social media.
+
+Please read the [full code of conduct](
+https://kow.c-o-g-s.org.uk/code-of-conduct) for more details.
+
+Thank you.`),
+      },
+      {
+        title: "Preparation",
+        content: unsafeRenderMarkdown(`
+You will need a 2500 point Kings of War army.  This should be built using the standard army 
+selection and composition rules in the
+[4th edition mantic companion app](https://companion.manticgames.com/kings-of-war-list-builder/). 
+
+You can submit your list on the
+[edit details page](/event/swords-of-summer-2026/edit-details). Alternatively 
+[email a pdf of your list to jeff@goblinoid.co.uk](
+mailto:jeff@goblinoid.co.uk). Your list should be submitted by 23:59 on 
+Saturday 1st August.
+
+Players will receive +3 tournament points if they submit on time. This 
+will reduce by one point per day or part-day since the submission time 
+that has passed before the list is received, to a minimum of 0 if it is three
+or more days late.
+
+Part of the joy of wargaming is the spectacle of two armies clashing on the table-top. We would 
+prefer players to bring a fully painted and based army that fits with the fantasy wargaming 
+aesthetic.
+
+It should be clear to your opponent what each unit in your army represents.
+`),
+      },
+      {
+        title: "Things to bring with you",
+        content: unsafeRenderMarkdown(`
+- Your 2500 point army. 
+- Three copies of your list.
+- Dice, tape measure, arc template, and tokens.
+- A chess clock (physical or app)`),
+      },
+      {
+        title: "Location",
+        content: unsafeRenderMarkdown(`
+![Britcon 2026 7th-9th August 2026](https://www.bhgs.org.uk/uploads/9/3/2/3/9323122/970x250-7-9_orig.jpg)
+
+The tournament will be part of British Historical Games Society's annual gaming show, Britcon. 
+The event will be held at:
+
+Britcon,  
+The Venue  
+DeMontfort University  
+Leicester  
+LE2 7BU  
+
+For more information about the venue, and the show, see the
+[Britcon website](https://www.bhgs.org.uk/britcon---venue--directions.html).`),
+      },
+      {
+        title: "Playing the games",
+        content: unsafeRenderMarkdown(`
+The event will be using the rules in the 4th edition rules and any FAQ or 
+errata published by Mantic Games prior to the event.
+
+Chess clocks will be used to help the tournament run on schedule. Clocks
+should be used throughout deployment, scout moves, and player turns.
+Players will have 70 minutes each on their chess clocks.
+ 
+If you and your opponent disagree on a rule, pause the clock whilst you 
+check the rulebook. If that doesn’t resolve your issue, please ask the 
+tournament organiser to adjudicate.
+
+The clock should also be paused if either player needs to take a break 
+for any reason.
+
+If a player time then it is dice down. Any unresolved combats are assumed 
+to have passed their nerve test. Your opponent may complete their remaining 
+turns in the time that they have left on their clock, including rolling for 
+turn 7.
+
+If there are enough pauses during a game that you predict the round time
+will end before both players have finished, please inform the tournament 
+organiser as soon as possible so that this can be resolved fairly for 
+both players.`),
+      },
+      {
+        title: "Scenarios and scoring",
+        content: unsafeRenderMarkdown(`
+Scoring will be weighted towards how well players have done in the scenario,
+with bonus points for winning, and for routing enemy units.
+
+Exact details will be released nearer the time.`)
+      }
+    ],
+    additionalFields: [
+      {
+        name: "army_list",
+        type: "ARMY_LIST",
+        readonly: true,
+        label: "Army list",
+      },
+      {
+        name: "faction",
+        type: "STRING",
+        readonly: true,
+        label: "Faction",
+      },
+      {
+        name: "allies",
+        type: "STRING",
+        readonly: true,
+        label: "Allies",
+      },
+      {
+        name: "tournament_points",
+        type: "SCORE",
+        readonly: true,
+        label: "Tournament points",
+      },
+      {
+        name: "total_routed",
+        type: "SCORE",
+        readonly: true,
+        label: "Total routed",
+      },
+      {
+        name: "total_attrition",
+        type: "SCORE",
+        readonly: true,
+        label: "Total attrition",
+      },
+      {
+        name: "bonus_points",
+        type: "SCORE",
+        readonly: true,
+        label: "Bonus points",
+      },
+      {
+        name: "awards",
+        type: "STRING",
+        readonly: true,
+        label: "Awards",
+      },
+    ],
+    scenarios: [],
+    pointsLimit: 2500,
+    listsSubmissionClosed: false,
+    kowMastersSeason: 11,
   },
 ];
 

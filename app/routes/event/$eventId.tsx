@@ -92,8 +92,15 @@ export default function EventLandingPage() {
           alt="Chesterfield Open Gaming Society Logo"
           className="logo"
         />
+        {tournament.additionalLogo &&
+            <img
+                src={`/_static/images/${tournament.additionalLogo.url}`}
+                alt={tournament.additionalLogo.alt}
+                className="additional-logo"
+            />
+        }
         <span className="h3 club-name">
-          Chesterfield Open Gaming Society Presents
+          {tournament.headerIntro ?? 'Chesterfield Open Gaming Society Presents'}
         </span>
         <div
           className="title-wrapper"
@@ -104,9 +111,9 @@ export default function EventLandingPage() {
         >
           <h1>{tournament.title}</h1>
           <p className="subtitle">{tournament.subtitle}</p>
-          {tournament.date && (
+          {(tournament.dateString || tournament.date) && (
             <p className="date-line">
-              {dayjs(tournament.date).format("Do MMMM YYYY")}
+              {tournament.dateString ?? dayjs(tournament.date).format("Do MMMM YYYY")}
             </p>
           )}
         </div>

@@ -26,12 +26,19 @@
     max-width: (min(rem-calc(96px), 10vw));
   }
 
+  img.additional-logo {
+    place-self: start end;
+    grid-area: club;
+    max-width: (min(rem-calc(96px), 10vw));
+  }
+
   .club-name {
     font-family: "Staatliches", "Helvetica Neue", Helvetica, Roboto, Arial,
       sans-serif;
     place-self: start start;
     grid-area: club;
     margin: 0;
+    width: 66%;
   }
 
   .title-wrapper {
