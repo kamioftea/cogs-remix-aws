@@ -122,6 +122,11 @@ export const characters: { [key: string]: Character } = {
     cardId: "FlindersMemphis",
     moveId: "CompressedAir"
   },
+  Flintlock: {
+    name: "Flintlock",
+    cardId: "Flintlock",
+    moveId: "TacticalRetreat"
+  },
   Fraya: {
     name: "Fraya",
     cardId: "Fraya",
@@ -131,6 +136,11 @@ export const characters: { [key: string]: Character } = {
     name: "Fritz",
     cardId: "Fritz",
     moveId: "CornCutter"
+  },
+  GertrudeV2: {
+    name: "Gertrude, the Fairy Hunter",
+    cardId: "Gertrude2",
+    moveId: "SpinKick2"
   },
   Gradock: {
     name: "Gradock",
@@ -186,6 +196,11 @@ export const characters: { [key: string]: Character } = {
     name: "Kalista, Leshavult Princess",
     cardId: "Kalista",
     moveId: "SlipIntoShadows"
+  },
+  Kaufman: {
+    name: "Kaufman",
+    cardId: "Kaufman",
+    moveId: "GutBarge"
   },
   Kavanagh: {
     name: "Kavanagh, the Jongler",
@@ -1089,6 +1104,10 @@ export const moonstone2026: {
         { cardId: "BaronVonFancyhat", joined: "Feb" },
         { cardId: "Fritz", joined: "Feb" },
         { cardId: "Quack", joined: "Feb" },
+        { cardId: "Flintlock", joined: "Feb" },
+        { cardId: "Kaufman", joined: "Mar" },
+        { cardId: "GertrudeV2", joined: "Mar" },
+
       ]
     },
     andy: {
