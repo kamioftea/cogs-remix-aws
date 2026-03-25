@@ -1107,7 +1107,6 @@ export const moonstone2026: {
         { cardId: "Flintlock", joined: "Feb" },
         { cardId: "Kaufman", joined: "Mar" },
         { cardId: "GertrudeV2", joined: "Mar" },
-
       ]
     },
     andy: {
@@ -1161,7 +1160,7 @@ export const moonstone2026: {
         { cardId: "CrustyBalboa", joined: "Feb" },
         { cardId: "Swash", joined: "Feb" },
         { cardId: "PowderMonkey", joined: "Feb" },
-        { cardId: "SwiggartySwooty", joined: "Feb" },
+        { cardId: "SwiggartySwooty", joined: "Feb", upgrade: "Shovel" },
         { cardId: "TheGoblinKing", joined: "Feb" },
         { cardId: "Ribald", joined: "Feb" },
       ]
