@@ -42,6 +42,11 @@ export const characters: { [key: string]: Character } = {
     cardId: "Boulder",
     moveId: "CrushingEmbrace"
   },
+  BoulderV5: {
+    name: "Boulder",
+    cardId: "Boulder2",
+    moveId: "CrushingEmbrace2"
+  },
   Butterfingers: {
     name: "Butterfingers",
     cardId: "Butterfingers",
@@ -86,6 +91,11 @@ export const characters: { [key: string]: Character } = {
     name: "Doug, the Flatulent",
     cardId: "Doug",
     moveId: "AnkleBiter"
+  },
+  DougV3: {
+    name: "Doug, the Flatulent",
+    cardId: "Doug2",
+    moveId: "AnkleBiter2"
   },
   Dranyer: {
     name: "Dranyer",
@@ -152,6 +162,11 @@ export const characters: { [key: string]: Character } = {
     cardId: "Jackalope",
     moveId: "Gore"
   },
+  JackalopeV3: {
+    name: "Jackalope",
+    cardId: "Jackalope2",
+    moveId: "Gore"
+  },
   Jobie: {
     name: "Jobie",
     cardId: "Jobie",
@@ -161,6 +176,11 @@ export const characters: { [key: string]: Character } = {
     name: "Joanna, Nordic Princess",
     cardId: "Joanna",
     moveId: "ValkyrieCyclone"
+  },
+  JoannaV4: {
+    name: "Joanna, Nordic Princess",
+    cardId: "Joanna2",
+    moveId: "ValkyrieCyclone2"
   },
   Kalista: {
     name: "Kalista, Leshavult Princess",
@@ -186,6 +206,11 @@ export const characters: { [key: string]: Character } = {
     name: "Mama Gimble",
     cardId: "MamaGimble",
     moveId: "YoullRegretThat"
+  },
+  MamaGimbleV3: {
+    name: "Mama Gimble",
+    cardId: "MamaGimble2",
+    moveId: "YoullRegretThat2"
   },
   Matilda: {
     name: "Matilda",
@@ -247,6 +272,11 @@ export const characters: { [key: string]: Character } = {
     cardId: "Raegan",
     moveId: "Mistform"
   },
+  RaeganV3: {
+    name: "Raegan, Leshavult Priestess",
+    cardId: "Raegan2",
+    moveId: "Mistform2"
+  },
   Ribald: {
     name: "Ribald",
     cardId: "Ribald",
@@ -271,6 +301,11 @@ export const characters: { [key: string]: Character } = {
     name: "Silvertongue",
     cardId: "Silvertongue",
     moveId: "ThreatsPromises"
+  },
+  SirHogswash: {
+    name: "Sir Hogswash",
+    cardId: "SirHogswash",
+    moveId: "Gore"
   },
   Snag: {
     name: "Snag",
@@ -1034,14 +1069,15 @@ export const moonstone2026: {
       name: "Jeff",
       faction: "Commonwealth",
       characters: [
-        { cardId: "Joanna", joined: "Feb", upgrade: "Battle Hardened" },
-        { cardId: "Morris", joined: "Feb" },
-        { cardId: "MamaGimble", joined: "Feb" },
+        { cardId: "JoannaV4", joined: "Feb", upgrade: "Battle Hardened" },
+        { cardId: "Morris", joined: "Feb", retired: "Apr" },
+        { cardId: "MamaGimbleV3", joined: "Feb" },
         { cardId: "Matilda", joined: "Feb" },
         { cardId: "FlindersMemphis", joined: "Feb" },
         { cardId: "OldPolly", joined: "Feb" },
         { cardId: "ProfBoffinsworth", joined: "Feb" },
-        { cardId: "Jackalope", joined: "Feb" },
+        { cardId: "JackalopeV3", joined: "Feb" },
+        { cardId: "SirHogswash", joined: "Apr" },
       ]
     },
     phil: {
@@ -1065,8 +1101,8 @@ export const moonstone2026: {
         { cardId: "Kalista", joined: "Feb" },
         { cardId: "Kavanagh", joined: "Feb" },
         { cardId: "Klaus", joined: "Feb" },
-        { cardId: "Loubard", joined: "Feb" },
-        { cardId: "Raegan", joined: "Feb" },
+        { cardId: "Loubard", joined: "Feb", upgrade: "Fanatic" },
+        { cardId: "RaeganV3", joined: "Feb" },
       ]
     },
     rob: {
@@ -1079,7 +1115,7 @@ export const moonstone2026: {
         { cardId: "BeakyBobby", joined: "Feb" },
         { cardId: "ViciousSyd", joined: "Feb" },
         { cardId: "PortlyPete", joined: "Feb" },
-        { cardId: "Doug", joined: "Feb" },
+        { cardId: "DougV3", joined: "Feb" },
         { cardId: "TheMortician", joined: "Feb" },
       ]
     },
@@ -1087,11 +1123,11 @@ export const moonstone2026: {
       name: "Richard",
       faction: "Dominion",
       characters: [
-        { cardId: "TheFencer", joined: "Feb" },
+        { cardId: "TheFencer", joined: "Feb", upgrade: "Unusual Odour" },
         { cardId: "Silvertongue", joined: "Feb" },
         { cardId: "Fraya", joined: "Feb" },
         { cardId: "Vespa", joined: "Feb" },
-        { cardId: "Boulder", joined: "Feb" },
+        { cardId: "BoulderV5", joined: "Feb" },
         { cardId: "IrisAndHellebore", joined: "Feb" },
         { cardId: "HerbertGrowbottom", joined: "Feb" },
         { cardId: "TheMortician", joined: "Feb" },
@@ -1122,12 +1158,28 @@ export const moonstone2026: {
       phil: {table: 3, moonstones: 2, machinationPoints: 0, campaignCards: ["Catgut Stitches"]},
     },
     march: {
-        andy: {table: 1, moonstones: 0, machinationPoints: 0, campaignCards: []},
-        phil: {table: 1, moonstones: 0, machinationPoints: 0, campaignCards: []},
-        jeff: {table: 2, moonstones: 0, machinationPoints: 0, campaignCards: []},
-        richard: {table: 2, moonstones: 0, machinationPoints: 0, campaignCards: []},
-        rob: {table: 3, moonstones: 0, machinationPoints: 0, campaignCards: []},
-        brendan: {table: 3, moonstones: 0, machinationPoints: 0, campaignCards: []},
-    }
+        andy: {table: 1, moonstones: 5, machinationPoints: 0, campaignCards: []},
+        phil: {table: 1, moonstones: 1, machinationPoints: 0, campaignCards: ["Forced March"]},
+        jeff: {
+          table: 2,
+          moonstones: 4,
+          machinationPoints: 1,
+          extraVictoryPoints: 3,
+          campaignCards: ["Consolidate Power", "Infiltrate" /* 3 */]
+        },
+        richard: {
+          table: 2,
+          moonstones: 3,
+          machinationPoints: -1, /* Sup Brendan */
+          campaignCards: ["Catgut Stitches", "Hesitation", "Mighty Magic"]
+        },
+        rob: {table: 3, moonstones: 3, machinationPoints: 0, campaignCards: ["Miniature Magic"]},
+        brendan: {
+          table: 3,
+          moonstones: 2,
+          machinationPoints: -1, /* Sup Richard */
+          campaignCards: ["Devastating Blow", "Tangle Tree", "Twist Time"]
+        },
+    },
   }
 };
