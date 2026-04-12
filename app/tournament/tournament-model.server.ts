@@ -1989,13 +1989,18 @@ with the lower ranking in the tournament scores.`),
       ],
     },
     signUpEnabled: false,
+    maxAttendees: 16,
+    costInPounds: 55,
     content: unsafeRenderMarkdown(`
 ![Britcon 2026 7th-9th August 2026](https://www.bhgs.org.uk/uploads/9/3/2/3/9323122/970x250-7-9_orig.jpg)
     
 Swords of Summer will be returning to Britcon in 2026. We'll be running five 2,500 point games
 split over the Saturday and Sunday of the show.
 
-Sign up at the [British Historical Games Society website](https://www.bhgs.org.uk/britcon---how-to-enter.html)
+The ticket price includes a grab-bag packed lunch on Saturday and Sunday, and a "BHGS Fiver" voucher to spend at the 
+Britcon Trade Show. Under 18s can use the code BHGSUNDER18 to get half-price entry.
+
+Sign up at the [British Historical Games Society website](https://www.bhgs.org.uk/britcon---how-to-enter.html).
 `),
     disclaimer: renderMarkdownInline(
         `Mantic® and Kings of War® and all associated names, characters, places, and things
@@ -2013,6 +2018,9 @@ questions or feedback, please email Jeff at
       {
         title: "Tickets",
         content: unsafeRenderMarkdown(`
+Tickets are £55, and include a grab-bag packed lunch on Saturday and Sunday, and a "BHGS Fiver" voucher to spend at the 
+Britcon Trade Show for £5 off any purchase over £10. Under 18s can use the code BHGSUNDER18 to get half-price entry.
+        
 Sign up at the [British Historical Games Society website](https://www.bhgs.org.uk/britcon---how-to-enter.html)`),
       },
       {
@@ -2177,6 +2185,7 @@ Exact details will be released nearer the time.`)
     pointsLimit: 2500,
     listsSubmissionClosed: false,
     kowMastersSeason: 11,
+    manticCompanionEventId: 1029
   },
 ];
 
