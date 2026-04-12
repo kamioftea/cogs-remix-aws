@@ -190,7 +190,7 @@ export default function EventLandingPage() {
         {tournament.manticCompanionEventId && (
           <p>
             <a
-              href={`https://companion.manticgames.com/kings-of-war-events/?event=${tournament.manticCompanionEventId}`}
+              href={`https://companion.manticgames.com/${tournament.manticCompanionEventGroup ?? 'kings-of-war-events'}/?event=${tournament.manticCompanionEventId}`}
             >
               Mantic companion event page.
             </a>
