@@ -98,6 +98,7 @@ export interface Tournament {
   pointsLimit?: number;
   kowMastersSeason: number;
   kowMastersEventId?: number;
+  manticCompanionEventGroup?: string;
   manticCompanionEventId?: number;
   bands?: [number, number][];
 }
@@ -1950,6 +1951,7 @@ with the lower ranking in the tournament scores.`),
     kowMastersSeason: 11,
     kowMastersEventId: 497,
     manticCompanionEventId: 973,
+    manticCompanionEventGroup: 'kings-of-war-4th-edition-events',
   },
   {
     title: "Swords of Summer 2026",
@@ -2185,7 +2187,8 @@ Exact details will be released nearer the time.`)
     pointsLimit: 2500,
     listsSubmissionClosed: false,
     kowMastersSeason: 11,
-    manticCompanionEventId: 1029
+    manticCompanionEventId: 1029,
+    manticCompanionEventGroup: 'kings-of-war-4th-edition-events',
   },
 ];
 
