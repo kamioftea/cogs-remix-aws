@@ -2187,6 +2187,7 @@ Exact details will be released nearer the time.`)
     pointsLimit: 2500,
     listsSubmissionClosed: false,
     kowMastersSeason: 11,
+    kowMastersEventId: 502,
     manticCompanionEventId: 1029,
     manticCompanionEventGroup: 'kings-of-war-4th-edition-events',
   },
