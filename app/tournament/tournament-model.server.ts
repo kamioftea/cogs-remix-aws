@@ -1687,7 +1687,7 @@ more candidates.`),
     },
     description: `A one-day Kings of War singles tournament using the 4th edition rules.`,
     about: {
-      What: ["20 players, 2300 points, 3 games"],
+      What: ["24 players, 2300 points, 3 games"],
       When: ["12th July 2026, 9:30 until 17:30"],
       Where: [
         "The Parish Centre",
