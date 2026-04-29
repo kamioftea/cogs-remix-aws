@@ -3,7 +3,7 @@ cogs-kings-of-war
 
 @aws
 region eu-west-2
-runtime nodejs20.x
+runtime nodejs24.x
 policies
   arn:aws:iam::296681679694:policy/SESSendOnly
   architect-default-policies
