@@ -1084,85 +1084,85 @@ export const moonstone2026: {
       name: "Jeff",
       faction: "Commonwealth",
       characters: [
-        { cardId: "JoannaV4", joined: "Feb", upgrade: "Battle Hardened" },
-        { cardId: "Morris", joined: "Feb", retired: "Apr" },
-        { cardId: "MamaGimbleV3", joined: "Feb" },
-        { cardId: "Matilda", joined: "Feb" },
-        { cardId: "FlindersMemphis", joined: "Feb" },
-        { cardId: "OldPolly", joined: "Feb" },
-        { cardId: "ProfBoffinsworth", joined: "Feb" },
-        { cardId: "JackalopeV3", joined: "Feb" },
-        { cardId: "SirHogswash", joined: "Apr" },
+        {cardId: "JoannaV4", joined: "Feb", upgrade: "Battle Hardened"},
+        {cardId: "Morris", joined: "Feb", retired: "Apr"},
+        {cardId: "MamaGimbleV3", joined: "Feb"},
+        {cardId: "Matilda", joined: "Feb"},
+        {cardId: "FlindersMemphis", joined: "Feb"},
+        {cardId: "OldPolly", joined: "Feb"},
+        {cardId: "ProfBoffinsworth", joined: "Feb"},
+        {cardId: "JackalopeV3", joined: "Feb"},
+        {cardId: "SirHogswash", joined: "Apr"},
       ]
     },
     phil: {
       name: "Phil",
       faction: "Commonwealth",
       characters: [
-        { cardId: "Agatha", joined: "Feb" },
-        { cardId: "EricTheSquire", joined: "Feb" },
-        { cardId: "BaronVonFancyhat", joined: "Feb" },
-        { cardId: "Fritz", joined: "Feb" },
-        { cardId: "Quack", joined: "Feb" },
-        { cardId: "Flintlock", joined: "Feb" },
-        { cardId: "Kaufman", joined: "Mar" },
-        { cardId: "GertrudeV2", joined: "Mar" },
+        {cardId: "Agatha", joined: "Feb"},
+        {cardId: "EricTheSquire", joined: "Feb"},
+        {cardId: "BaronVonFancyhat", joined: "Feb"},
+        {cardId: "Fritz", joined: "Feb"},
+        {cardId: "Quack", joined: "Feb"},
+        {cardId: "Flintlock", joined: "Feb"},
+        {cardId: "Kaufman", joined: "Mar"},
+        {cardId: "GertrudeV2", joined: "Mar"},
       ]
     },
     andy: {
       name: "Andy",
       faction: "Leshavult",
       characters: [
-        { cardId: "BrotherDaniel", joined: "Feb" },
-        { cardId: "EricTheEnlightened", joined: "Feb" },
-        { cardId: "Gwendoline", joined: "Feb" },
-        { cardId: "Kalista", joined: "Feb" },
-        { cardId: "Kavanagh", joined: "Feb" },
-        { cardId: "Klaus", joined: "Feb" },
-        { cardId: "Loubard", joined: "Feb", upgrade: "Fanatic" },
-        { cardId: "RaeganV3", joined: "Feb" },
+        {cardId: "BrotherDaniel", joined: "Feb"},
+        {cardId: "EricTheEnlightened", joined: "Feb"},
+        {cardId: "Gwendoline", joined: "Feb"},
+        {cardId: "Kalista", joined: "Feb"},
+        {cardId: "Kavanagh", joined: "Feb"},
+        {cardId: "Klaus", joined: "Feb"},
+        {cardId: "Loubard", joined: "Feb", upgrade: "Fanatic"},
+        {cardId: "RaeganV3", joined: "Feb"},
       ]
     },
     rob: {
       name: "Rob",
       faction: "Dominion",
       characters: [
-        { cardId: "TheGoblinKing", joined: "Feb" },
-        { cardId: "Shabbaroon", joined: "Feb" },
-        { cardId: "Jobie", joined: "Feb" },
-        { cardId: "BeakyBobby", joined: "Feb" },
-        { cardId: "ViciousSyd", joined: "Feb" },
-        { cardId: "PortlyPete", joined: "Feb" },
-        { cardId: "DougV3", joined: "Feb" },
-        { cardId: "TheMortician", joined: "Feb" },
+        {cardId: "TheGoblinKing", joined: "Feb"},
+        {cardId: "Shabbaroon", joined: "Feb"},
+        {cardId: "Jobie", joined: "Feb"},
+        {cardId: "BeakyBobby", joined: "Feb"},
+        {cardId: "ViciousSyd", joined: "Feb"},
+        {cardId: "PortlyPete", joined: "Feb"},
+        {cardId: "DougV3", joined: "Feb"},
+        {cardId: "TheMortician", joined: "Feb"},
       ]
     },
     richard: {
       name: "Richard",
       faction: "Dominion",
       characters: [
-        { cardId: "TheFencer", joined: "Feb", upgrade: "Unusual Odour" },
-        { cardId: "Silvertongue", joined: "Feb" },
-        { cardId: "Fraya", joined: "Feb" },
-        { cardId: "Vespa", joined: "Feb" },
-        { cardId: "BoulderV5", joined: "Feb" },
-        { cardId: "IrisAndHellebore", joined: "Feb" },
-        { cardId: "HerbertGrowbottom", joined: "Feb" },
-        { cardId: "TheMortician", joined: "Feb" },
+        {cardId: "TheFencer", joined: "Feb", upgrade: "Unusual Odour"},
+        {cardId: "Silvertongue", joined: "Feb"},
+        {cardId: "Fraya", joined: "Feb"},
+        {cardId: "Vespa", joined: "Feb"},
+        {cardId: "BoulderV5", joined: "Feb"},
+        {cardId: "IrisAndHellebore", joined: "Feb"},
+        {cardId: "HerbertGrowbottom", joined: "Feb"},
+        {cardId: "TheMortician", joined: "Feb"},
       ]
     },
     brendan: {
       name: "Brendan",
       faction: "Dominion",
       characters: [
-        { cardId: "BeakyBobby", joined: "Feb" },
-        { cardId: "Creep", joined: "Feb" },
-        { cardId: "CrustyBalboa", joined: "Feb" },
-        { cardId: "Swash", joined: "Feb" },
-        { cardId: "PowderMonkey", joined: "Feb" },
-        { cardId: "SwiggartySwooty", joined: "Feb", upgrade: "Shovel" },
-        { cardId: "TheGoblinKing", joined: "Feb" },
-        { cardId: "Ribald", joined: "Feb" },
+        {cardId: "BeakyBobby", joined: "Feb"},
+        {cardId: "Creep", joined: "Feb"},
+        {cardId: "CrustyBalboa", joined: "Feb"},
+        {cardId: "Swash", joined: "Feb"},
+        {cardId: "PowderMonkey", joined: "Feb"},
+        {cardId: "SwiggartySwooty", joined: "Feb", upgrade: "Shovel"},
+        {cardId: "TheGoblinKing", joined: "Feb"},
+        {cardId: "Ribald", joined: "Feb"},
       ]
     },
   },
@@ -1176,28 +1176,36 @@ export const moonstone2026: {
       phil: {table: 3, moonstones: 2, machinationPoints: 0, campaignCards: ["Catgut Stitches"]},
     },
     march: {
-        andy: {table: 1, moonstones: 5, machinationPoints: 0, campaignCards: []},
-        phil: {table: 1, moonstones: 1, machinationPoints: 0, campaignCards: ["Forced March"]},
-        jeff: {
-          table: 2,
-          moonstones: 4,
-          machinationPoints: 1,
-          extraVictoryPoints: 3,
-          campaignCards: ["Consolidate Power", "Infiltrate" /* 3 */]
-        },
-        richard: {
-          table: 2,
-          moonstones: 3,
-          machinationPoints: -1, /* Sup Brendan */
-          campaignCards: ["Catgut Stitches", "Hesitation", "Mighty Magic"]
-        },
-        rob: {table: 3, moonstones: 3, machinationPoints: 0, campaignCards: ["Miniature Magic"]},
-        brendan: {
-          table: 3,
-          moonstones: 2,
-          machinationPoints: -1, /* Sup Richard */
-          campaignCards: ["Devastating Blow", "Tangle Tree", "Twist Time"]
-        },
+      andy: {table: 1, moonstones: 5, machinationPoints: 0, campaignCards: []},
+      phil: {table: 1, moonstones: 1, machinationPoints: 0, campaignCards: ["Forced March"]},
+      jeff: {
+        table: 2,
+        moonstones: 4,
+        machinationPoints: 1,
+        extraVictoryPoints: 3,
+        campaignCards: ["Consolidate Power", "Infiltrate" /* 3 */]
+      },
+      richard: {
+        table: 2,
+        moonstones: 3,
+        machinationPoints: -1, /* Sup Brendan */
+        campaignCards: ["Catgut Stitches", "Hesitation", "Mighty Magic"]
+      },
+      rob: {table: 3, moonstones: 3, machinationPoints: 0, campaignCards: ["Miniature Magic"]},
+      brendan: {
+        table: 3,
+        moonstones: 2,
+        machinationPoints: -1, /* Sup Richard */
+        campaignCards: ["Devastating Blow", "Tangle Tree", "Twist Time"]
+      },
     },
+    may: {
+      richard: {table: 1, moonstones: 0, machinationPoints: 0, campaignCards: []},
+      rob: {table: 1, moonstones: 0, machinationPoints: 0, campaignCards: []},
+      jeff: {table: 2, moonstones: 0, machinationPoints: 0, campaignCards: []},
+      andy: {table: 2, moonstones: 0, machinationPoints: 0, campaignCards: []},
+      brendan: {table: 3, moonstones: 0, machinationPoints: 0, campaignCards: []},
+      phil: {table: 3, moonstones: 0, machinationPoints: 0, campaignCards: []},
+    }
   }
 };
