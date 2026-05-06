@@ -32,15 +32,15 @@ export default function Index() {
           <tbody>
             <tr>
               <td>16th February</td>
-              <td>No machinations</td>
+              <td>No machination actions</td>
             </tr>
             <tr>
               <td>16th March</td>
               <td>One character gains an upgrade card</td>
             </tr>
             <tr>
-              <td>13th April</td>
-              <td></td>
+              <td><del>13th April</del></td>
+              <td>Skipped due to other commitments</td>
             </tr>
             <tr>
               <td>11th May</td>
@@ -48,10 +48,14 @@ export default function Index() {
             </tr>
             <tr>
               <td>8th June</td>
-              <td>A second model in your roster gets an upgrade card</td>
+              <td></td>
             </tr>
             <tr>
               <td>6th July</td>
+              <td>A second model in your roster gets an upgrade card</td>
+            </tr>
+            <tr>
+              <td>3rd August</td>
               <td>Final game, match-ups based on current standings</td>
             </tr>
           </tbody>
@@ -243,6 +247,9 @@ export default function Index() {
         </p>
         <p>
           <Link to="./games/march">March Games</Link>
+        </p>
+        <p>
+          <Link to="./games/may">May Games</Link>
         </p>
       </aside>
     </div>
