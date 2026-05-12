@@ -1203,7 +1203,7 @@ export const moonstone2026: {
       richard: {
         table: 1,
         moonstones: 5,
-        machinationPoints: 2,
+        machinationPoints: 1,
         campaignCards: ["Forced March", "Gribble Bog", "Miraculous Recovery"]
       },
       rob: {table: 1, moonstones: 0, machinationPoints: 2, campaignCards: ["Forced March"]},
