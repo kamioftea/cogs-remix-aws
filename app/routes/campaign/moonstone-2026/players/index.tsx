@@ -64,8 +64,7 @@ export default function Index() {
             .sort(
               sortBy(
                 ([, p]) => -(p.vps ?? 0) - (p.mps ?? 0),
-                ([, p]) => -(p.kills ?? 0),
-                ([, p]) => p.deaths ?? 0,
+                ([, p]) => -(p.vps ?? 0),
                 ([, p]) => p.name,
               ),
             )
