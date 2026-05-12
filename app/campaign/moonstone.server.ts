@@ -1,4 +1,4 @@
-import type { Player, Character, PlayerGame, PlayerV2 } from "~/campaign/moonstone";
+import type {Player, Character, PlayerGame, PlayerV2} from "~/campaign/moonstone";
 
 // noinspection SpellCheckingInspection
 export const characters: { [key: string]: Character } = {
@@ -417,7 +417,7 @@ export const players: Record<string, Player> = {
         deaths: 2,
         upgrade: "Battle Hardened"
       },
-      { cardId: "Olim", joined: "Feb", moonstones: 3, kills: 0, deaths: 1 },
+      {cardId: "Olim", joined: "Feb", moonstones: 3, kills: 0, deaths: 1},
       {
         cardId: "YoungJack",
         joined: "Feb",
@@ -433,8 +433,8 @@ export const players: Record<string, Player> = {
         deaths: 1,
         upgrade: "Polished Helmet"
       },
-      { cardId: "Muridae", joined: "Mar", moonstones: 2, kills: 0, deaths: 0 },
-      { cardId: "Quarrel", joined: "Apr", moonstones: 0, kills: 0, deaths: 0 },
+      {cardId: "Muridae", joined: "Mar", moonstones: 2, kills: 0, deaths: 0},
+      {cardId: "Quarrel", joined: "Apr", moonstones: 0, kills: 0, deaths: 0},
       {
         cardId: "MamaGimble",
         joined: "May",
@@ -455,7 +455,7 @@ export const players: Record<string, Player> = {
     name: "Kevin",
     faction: "Leshavult",
     characters: [
-      { cardId: "Dranyer", joined: "Feb", moonstones: 2, kills: 0, deaths: 2 },
+      {cardId: "Dranyer", joined: "Feb", moonstones: 2, kills: 0, deaths: 2},
       {
         cardId: "Snag",
         joined: "Feb",
@@ -521,8 +521,8 @@ export const players: Record<string, Player> = {
     name: "Andy",
     faction: "Leshavult",
     characters: [
-      { cardId: "Antonia", joined: "Feb", moonstones: 1, kills: 1, deaths: 2 },
-      { cardId: "Danica", joined: "Feb", moonstones: 3, kills: 0, deaths: 3 },
+      {cardId: "Antonia", joined: "Feb", moonstones: 1, kills: 1, deaths: 2},
+      {cardId: "Danica", joined: "Feb", moonstones: 3, kills: 0, deaths: 3},
       {
         cardId: "Zorya",
         joined: "Feb",
@@ -581,7 +581,7 @@ export const players: Record<string, Player> = {
         kills: 0,
         deaths: 1
       },
-      { cardId: "Fraya", joined: "Feb", moonstones: 2, kills: 0, deaths: 0 },
+      {cardId: "Fraya", joined: "Feb", moonstones: 2, kills: 0, deaths: 0},
       {
         cardId: "TheFencer",
         joined: "Feb",
@@ -590,7 +590,7 @@ export const players: Record<string, Player> = {
         deaths: 3,
         upgrade: "Unusual Odour"
       },
-      { cardId: "TeeToe", joined: "Feb", moonstones: 8, kills: 0, deaths: 0 },
+      {cardId: "TeeToe", joined: "Feb", moonstones: 8, kills: 0, deaths: 0},
       {
         cardId: "Butterfingers",
         joined: "Mar",
@@ -697,7 +697,7 @@ export const players: Record<string, Player> = {
     name: "Rob",
     faction: "Dominion",
     characters: [
-      { cardId: "Doug", joined: "Feb", moonstones: 3, kills: 4, deaths: 2 },
+      {cardId: "Doug", joined: "Feb", moonstones: 3, kills: 4, deaths: 2},
       {
         cardId: "Shabbaroon",
         joined: "May",
@@ -712,7 +712,7 @@ export const players: Record<string, Player> = {
         kills: 2,
         deaths: 2
       },
-      { cardId: "Swash", joined: "Feb", moonstones: 0, kills: 2, deaths: 3 },
+      {cardId: "Swash", joined: "Feb", moonstones: 0, kills: 2, deaths: 3},
       {
         cardId: "ViciousSyd",
         joined: "Mar",
@@ -720,7 +720,7 @@ export const players: Record<string, Player> = {
         kills: 1,
         deaths: 0
       },
-      { cardId: "Peggy", joined: "Apr", moonstones: 0, kills: 0, deaths: 1 },
+      {cardId: "Peggy", joined: "Apr", moonstones: 0, kills: 0, deaths: 1},
       {
         cardId: "AnyaBartol",
         joined: "Apr",
@@ -812,7 +812,7 @@ export const players: Record<string, Player> = {
         kills: 0,
         deaths: 2
       },
-      { cardId: "Creep", joined: "Feb", moonstones: 2, kills: 0, deaths: 1 },
+      {cardId: "Creep", joined: "Feb", moonstones: 2, kills: 0, deaths: 1},
       {
         cardId: "ClaudiaDuvel",
         joined: "Feb",
@@ -1085,14 +1085,14 @@ export const moonstone2026: {
       faction: "Commonwealth",
       characters: [
         {cardId: "JoannaV4", joined: "Feb", upgrade: "Battle Hardened"},
-        {cardId: "Morris", joined: "Feb", retired: "Apr"},
+        {cardId: "Morris", joined: "Feb", retired: "May"},
         {cardId: "MamaGimbleV3", joined: "Feb"},
         {cardId: "Matilda", joined: "Feb"},
         {cardId: "FlindersMemphis", joined: "Feb"},
         {cardId: "OldPolly", joined: "Feb"},
         {cardId: "ProfBoffinsworth", joined: "Feb"},
         {cardId: "JackalopeV3", joined: "Feb"},
-        {cardId: "SirHogswash", joined: "Apr"},
+        {cardId: "SirHogswash", joined: "May"},
       ]
     },
     phil: {
@@ -1200,12 +1200,22 @@ export const moonstone2026: {
       },
     },
     may: {
-      richard: {table: 1, moonstones: 0, machinationPoints: 0, campaignCards: []},
-      rob: {table: 1, moonstones: 0, machinationPoints: 0, campaignCards: []},
-      jeff: {table: 2, moonstones: 0, machinationPoints: 0, campaignCards: []},
-      andy: {table: 2, moonstones: 0, machinationPoints: 0, campaignCards: []},
-      brendan: {table: 3, moonstones: 0, machinationPoints: 0, campaignCards: []},
-      phil: {table: 3, moonstones: 0, machinationPoints: 0, campaignCards: []},
+      richard: {
+        table: 1,
+        moonstones: 5,
+        machinationPoints: 2,
+        campaignCards: ["Forced March", "Gribble Bog", "Miraculous Recovery"]
+      },
+      rob: {table: 1, moonstones: 0, machinationPoints: 2, campaignCards: ["Forced March"]},
+      jeff: {table: 2, moonstones: 1, machinationPoints: 0, campaignCards: []},
+      andy: {table: 2, moonstones: 5, machinationPoints: 0, campaignCards: ["Tangle Tree", "Rolling Stones"]},
+      brendan: {
+        table: 3,
+        moonstones: 4,
+        machinationPoints: 2,
+        campaignCards: ["Hide And Seek", "Hesitation", "Miniature Magic"]
+      },
+      phil: {table: 3, moonstones: 3, machinationPoints: 1, campaignCards: ["Ducks In A Barrel", "Ninja Reactions"]},
     }
   }
 };
