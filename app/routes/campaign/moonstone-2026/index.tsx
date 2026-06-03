@@ -239,18 +239,11 @@ export default function Index() {
       </div>
       <aside className="summary-box">
         <h2>Campaign details</h2>
-        <p>
-          <Link to="./players">Players</Link>
-        </p>
-        <p>
-          <Link to="./games/february">February Games</Link>
-        </p>
-        <p>
-          <Link to="./games/march">March Games</Link>
-        </p>
-        <p>
-          <Link to="./games/may">May Games</Link>
-        </p>
+        <p><Link to="./players">Players</Link></p>
+        <p><Link to="./games/february">February Games</Link></p>
+        <p><Link to="./games/march">March Games</Link></p>
+        <p><Link to="./games/may">May Games</Link></p>
+        <p><Link to="./games/june">June Games</Link></p>
       </aside>
     </div>
   );
