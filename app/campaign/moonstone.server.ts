@@ -1221,9 +1221,9 @@ export const moonstone2026: {
       jeff: {table: 1, moonstones: 0, machinationPoints: 0},
       brendan: {table: 1, moonstones: 0, machinationPoints: 0},
       phil: {table: 2, moonstones: 0, machinationPoints: 0},
-      richard: {table: 2, moonstones: 0, machinationPoints: 0},
+      rob: {table: 2, moonstones: 0, machinationPoints: 0},
       andy: {table: 3, moonstones: 0, machinationPoints: 0},
-      rob: {table: 3, moonstones: 0, machinationPoints: 0},
+      richard: {table: 3, moonstones: 0, machinationPoints: 0},
     }
   }
 };
