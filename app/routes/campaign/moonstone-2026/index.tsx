@@ -26,7 +26,7 @@ export default function Index() {
           <thead>
             <tr>
               <th>Date</th>
-              <th style={{ width: "50%" }}>Notes</th>
+              <th style={{ width: "65%" }}>Notes</th>
             </tr>
           </thead>
           <tbody>
@@ -51,7 +51,7 @@ export default function Index() {
               <td></td>
             </tr>
             <tr>
-              <td>6th July</td>
+              <td><del>6th July</del> 29th June</td>
               <td>A second model in your roster gets an upgrade card</td>
             </tr>
             <tr>
@@ -244,6 +244,7 @@ export default function Index() {
         <p><Link to="./games/march">March Games</Link></p>
         <p><Link to="./games/may">May Games</Link></p>
         <p><Link to="./games/june">June Games</Link></p>
+        <p><Link to="./games/july">July Games</Link></p>
       </aside>
     </div>
   );
