@@ -1218,11 +1218,25 @@ export const moonstone2026: {
       phil: {table: 3, moonstones: 3, machinationPoints: 1, campaignCards: ["Ducks In A Barrel", "Ninja Reactions"]},
     },
     june: {
+      jeff: {
+        table: 1,
+        moonstones: 3,
+        machinationPoints: 4, // 3 Stand alone, 1 Sup phil
+        extraVictoryPoints: 1, // Nefarious bargain
+        campaignCards: ["Stand Alone", "Nefarious Bargain"]
+      },
+      brendan: {table: 1, moonstones: 3, machinationPoints: 0, campaignCards: ["Ducks In A Barrel", "Crazy Town"]},
+      phil: {table: 2, moonstones: 4, machinationPoints: 1, campaignCards: ["Bolt From The Blue"]},
+      rob: {table: 2, moonstones: 3, machinationPoints: 0},
+      andy: {table: 3, moonstones: 2, machinationPoints: 3}, // 2 Nefarious bargain, 1 Sup Phil
+      richard: {table: 3, moonstones: 4, machinationPoints: 3, campaignCards: ["Stand Alone"]},
+    },
+    july: {
+      rob: {table: 1, moonstones: 0, machinationPoints: 0},
       jeff: {table: 1, moonstones: 0, machinationPoints: 0},
-      brendan: {table: 1, moonstones: 0, machinationPoints: 0},
-      phil: {table: 2, moonstones: 0, machinationPoints: 0},
-      rob: {table: 2, moonstones: 0, machinationPoints: 0},
-      andy: {table: 3, moonstones: 0, machinationPoints: 0},
+      andy: {table: 2, moonstones: 0, machinationPoints: 0},
+      brendan: {table: 2, moonstones: 0, machinationPoints: 0},
+      phil: {table: 3, moonstones: 0, machinationPoints: 0},
       richard: {table: 3, moonstones: 0, machinationPoints: 0},
     }
   }
