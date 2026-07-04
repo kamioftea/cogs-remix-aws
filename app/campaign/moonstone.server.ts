@@ -1091,7 +1091,7 @@ export const moonstone2026: {
         {cardId: "FlindersMemphis", joined: "Feb"},
         {cardId: "OldPolly", joined: "Feb"},
         {cardId: "ProfBoffinsworth", joined: "Feb"},
-        {cardId: "JackalopeV3", joined: "Feb"},
+        {cardId: "JackalopeV3", joined: "Feb", upgrade: "Stoic"},
         {cardId: "SirHogswash", joined: "May"},
       ]
     },
@@ -1114,7 +1114,7 @@ export const moonstone2026: {
       faction: "Leshavult",
       characters: [
         {cardId: "BrotherDaniel", joined: "Feb"},
-        {cardId: "EricTheEnlightened", joined: "Feb"},
+        {cardId: "EricTheEnlightened", joined: "Feb", upgrade: "Blood Scent"},
         {cardId: "Gwendoline", joined: "Feb"},
         {cardId: "Kalista", joined: "Feb"},
         {cardId: "Kavanagh", joined: "Feb"},
@@ -1145,7 +1145,7 @@ export const moonstone2026: {
         {cardId: "Silvertongue", joined: "Feb"},
         {cardId: "Fraya", joined: "Feb"},
         {cardId: "Vespa", joined: "Feb"},
-        {cardId: "BoulderV5", joined: "Feb"},
+        {cardId: "BoulderV5", joined: "Feb", upgrade: "Polished Helmet"},
         {cardId: "IrisAndHellebore", joined: "Feb"},
         {cardId: "HerbertGrowbottom", joined: "Feb"},
         {cardId: "TheMortician", joined: "Feb"},

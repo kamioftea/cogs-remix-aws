@@ -82,6 +82,7 @@ export interface Tournament {
   payPalLink?: string;
   maxAttendees?: number;
   additionalFields?: AdditionalFieldSpec[];
+  listSubmissionDeadline?: Dayjs;
   listsSubmissionClosed?: boolean;
   sparePlayer?: OrganiserPlayer;
   lowAttendeesPlayer?: OrganiserPlayer;
@@ -117,7 +118,7 @@ export const tournaments: Tournament[] = [
     titlePositionX: "min(4.25rem, 8vw)",
     date: dayjs("2023-04-23"),
     imageUrl: "cogs-of-war.png",
-    imageDescription: `An army of abyssal dwarves besieges an icy fortress defended by fur-clad humans. Most of the 
+    imageDescription: `An army of abyssal dwarves besieges an icy fortress defended by fur-clad humans. Most of the
                        image is in greyscale, but the elf force is monochrome yellow.`,
     openGraph: {
       imageUrl: "https://kow.c-o-g-s.org.uk/_static/images/cogs-of-war-og.png",
@@ -139,15 +140,15 @@ export const tournaments: Tournament[] = [
     signUpEnabled: false,
     disclaimer: renderMarkdownInline(
       `Mantic® and Kings of War® and all associated names, characters, places, and things are copyright © and
-      ™ Mantic Games. The event image is [The Siege of Chill](https://www.manticgames.com/wallpapers/) © 
+      ™ Mantic Games. The event image is [The Siege of Chill](https://www.manticgames.com/wallpapers/) ©
       Mantic Games. Chesterfield Open Gaming Society is not associated with Mantic Games in any way.`,
     ),
     eventPack: [
       {
         title: "Tournament organiser",
         content: unsafeRenderMarkdown(`
-The tournament organiser for this event is Jeff Horton. If you have 
-questions or feedback, please email Jeff at 
+The tournament organiser for this event is Jeff Horton. If you have
+questions or feedback, please email Jeff at
 [jeff@goblinoid.co.uk](mailto:jeff@goblinoid.co.uk).`),
       },
       {
@@ -159,27 +160,27 @@ https://kow.c-o-g-s.org.uk/event/cogs-of-war/sign-up).
 Tickets are priced at £15, [payable via PayPal](
 https://www.paypal.com/paypalme/KamiOfTea/15).
 
-If you’d prefer to pay using a different payment method, please contact 
+If you’d prefer to pay using a different payment method, please contact
 the tournament organiser.
 
-Tickets can be cancelled for a full refund until Thursday 30th March. 
+Tickets can be cancelled for a full refund until Thursday 30th March.
 After this, we will offer a refund if we can fill your place.`),
       },
       {
         title: "Inclusivity and accessibility",
         content: unsafeRenderMarkdown(`
-Chesterfield Open Gaming Society is dedicated to providing an inclusive, 
-harassment-free gaming experience for everyone. Attendees should feel 
-safe and welcome regardless of gender, gender identity and expression, 
-age, sexual orientation, disability, physical appearance, body size, 
+Chesterfield Open Gaming Society is dedicated to providing an inclusive,
+harassment-free gaming experience for everyone. Attendees should feel
+safe and welcome regardless of gender, gender identity and expression,
+age, sexual orientation, disability, physical appearance, body size,
 race, ethnicity, religion (or lack thereof), or hobby choices.
 
-If there is anything that we can do to make it easier or more enjoyable 
+If there is anything that we can do to make it easier or more enjoyable
 for you to attend, please let us know.
 
 We can’t do this by ourselves. Creating a welcoming, enjoyable, and safe
-environment is everyone’s responsibility. In particular we will not 
-tolerate harassment at the event, during related socials, or on 
+environment is everyone’s responsibility. In particular we will not
+tolerate harassment at the event, during related socials, or on
 associated social media.
 
 Please read the [full code of conduct](
@@ -191,31 +192,31 @@ Thank you.`),
         title: "Preparation",
         content: unsafeRenderMarkdown(`
 You will need a 1995 point Kings of War army. This should be built using
-the standard army selection and composition rules in the 3.5 edition 
-core rulebook. 
+the standard army selection and composition rules in the 3.5 edition
+core rulebook.
 
 The optional rules for Allies **CAN** be used.
 
 You can submit your list on the <a href="/event/cogs-of-war/edit-details">
-edit details page</a>. Alternatively 
+edit details page</a>. Alternatively
 [email a pdf of your list to jeff@goblinoid.co.uk](
-mailto:jeff@goblinoid.co.uk). Your list should be submitted by 23:59 on 
+mailto:jeff@goblinoid.co.uk). Your list should be submitted by 23:59 on
 Sunday 16th April.
 
-Players will receive +3 tournament points if they submit on time. This 
-will reduce by one point per day or part-day since the submission time 
+Players will receive +3 tournament points if they submit on time. This
+will reduce by one point per day or part-day since the submission time
 that has passed before the list is received, to a minimum of 0 if it is three
 or more days late.
 
 Part of the joy of wargaming is the spectacle of two armies clashing on the
-table-top. Please bring a fully painted and based army that fits with 
+table-top. Please bring a fully painted and based army that fits with
 the fantasy wargaming aesthetic. However, we will not penalise players if
 they have a good reason they can’t – no questions asked.
 
-It should be clear to your opponent what each unit in your army 
+It should be clear to your opponent what each unit in your army
 represents.
 
-Steve Pearson is our spare player. In the event that we have an odd number of 
+Steve Pearson is our spare player. In the event that we have an odd number of
 attendees, he'll use this list.
 
 <div class="uploaded-file">
@@ -265,14 +266,14 @@ Stonegravels<br />
 Chesterfield<br />
 S41 7JH
 
-There is car parking on site. A few spaces are stacked behind others. 
-Please make sure to fill the rear spaces first. There should be enough 
+There is car parking on site. A few spaces are stacked behind others.
+Please make sure to fill the rear spaces first. There should be enough
 parking at the centre for everyone, but it will be close to full
-capacity, so please contact us if you need to reserve a space for 
+capacity, so please contact us if you need to reserve a space for
 accessibility needs or a quick get-away.
- 
-There is a bus stop just outside the venue. If you are coming by train, 
-please get in contact as we should be able to arrange a lift to the 
+
+There is a bus stop just outside the venue. If you are coming by train,
+please get in contact as we should be able to arrange a lift to the
 centre from Chesterfield station.`),
       },
       {
@@ -282,18 +283,18 @@ Free tea and coffee will be available.
 
 Lunch will **NOT** be provided.
 
-There are a number of takeaways and supermarkets within walking 
-distance. We will endeavour to provide a list and menus on the event 
+There are a number of takeaways and supermarkets within walking
+distance. We will endeavour to provide a list and menus on the event
 website nearer the time.
 
-A selection of soft drinks and snacks will be available to purchase 
+A selection of soft drinks and snacks will be available to purchase
 during the event.`),
       },
       {
         title: "Schedule",
         content: unsafeRenderMarkdown(`
-Each round players will have 55 minutes each on their chess clocks, 
-plus ten minutes spare for introductions, pre-game admin, breaks, rules 
+Each round players will have 55 minutes each on their chess clocks,
+plus ten minutes spare for introductions, pre-game admin, breaks, rules
 queries, etc.
 
 |              | Start Time |
@@ -313,49 +314,49 @@ The schedule may need to be adjusted on the day.`),
       {
         title: "Playing the games",
         content: unsafeRenderMarkdown(`
-The event will be using the rules in the 3.5 edition core rulebook, 
-along with any FAQ or errata published by Mantic Games prior to the 
+The event will be using the rules in the 3.5 edition core rulebook,
+along with any FAQ or errata published by Mantic Games prior to the
 event.
 
 The optional withdraw rule will NOT be in play.
 
 Chess clocks will be used to help the tournament run on schedule. Clocks
 should be used throughout deployment, scout moves, and player turns.
- 
-If you and your opponent disagree on a rule, pause the clock whilst you 
-check the rulebook. If that doesn’t resolve your issue, please ask the 
+
+If you and your opponent disagree on a rule, pause the clock whilst you
+check the rulebook. If that doesn’t resolve your issue, please ask the
 tournament organiser to adjudicate.
 
-The clock should also be paused if either player needs to take a break 
+The clock should also be paused if either player needs to take a break
 for any reason.
 
-If a player times out whilst resolving an attack, they may finish 
-resolving that attack, and any pending nerve checks. After those are 
+If a player times out whilst resolving an attack, they may finish
+resolving that attack, and any pending nerve checks. After those are
 done, the timed out player may not roll any more dice and can only issue
-change facing orders during any remaining movement phases. Please ensure 
+change facing orders during any remaining movement phases. Please ensure
 to complete these moves quickly.
 
 If there are enough pauses during a game that you predict the round time
-will end before both players have finished, please inform the tournament 
-organiser as soon as possible so that this can be resolved fairly for 
+will end before both players have finished, please inform the tournament
+organiser as soon as possible so that this can be resolved fairly for
 both players.`),
       },
       {
         title: "Scenarios and scoring",
         content: unsafeRenderMarkdown(`
-We will be using scenarios based on the [balanced scenarios developed by 
+We will be using scenarios based on the [balanced scenarios developed by
 the Shroud of the Reaper tournament organisers](
 https://www.shroudofthereaper.co.uk/balanced-scenarios).
-        
-There will be one scenario based on controlling objective markers, one 
-based on holding loot tokens, and one based on controlling areas of the 
+
+There will be one scenario based on controlling objective markers, one
+based on holding loot tokens, and one based on controlling areas of the
 battlefield.
 
-Full details of the scenario to be played and how to score victory 
+Full details of the scenario to be played and how to score victory
 points will be provided at the start of each round.
 
-There will be up to 7 victory points available for each scenario, with 
-at most 3 points scored if you draw or lose. These will also count as 
+There will be up to 7 victory points available for each scenario, with
+at most 3 points scored if you draw or lose. These will also count as
 tournament points (TPs).
 
 You get 3 bonus tournament points if you win the scenario, 1 bonus point
@@ -363,36 +364,36 @@ if you draw.
 
 You get up to three bonus tournament points based on the total points of
 enemy units you routed during the game.
- 
+
 | Total points routed | Bonus TPs |
 | ------------------- | --------- |
 |  500+               | +1        |
 | 1100+               | +2        |
 | 1695+               | +3        |
 
-Players will therefore score up to thirteen tournament points per round. 
-With three list submission points, the maximum available tournament 
+Players will therefore score up to thirteen tournament points per round.
+With three list submission points, the maximum available tournament
 score is 42.`),
       },
       {
         title: "Awards",
         content: unsafeRenderMarkdown(`
-Trophies will be awarded for first, second, and third places. There will 
+Trophies will be awarded for first, second, and third places. There will
 be a wooden spoon for last place.
 
-Players will be able to cast votes for their favourite armies. The 
-army with the most votes will win the best army award, with the 
-tournament organiser having a deciding vote in the case of a tie. Please 
-leave your army on display over lunch so that everyone has a chance to 
+Players will be able to cast votes for their favourite armies. The
+army with the most votes will win the best army award, with the
+tournament organiser having a deciding vote in the case of a tie. Please
+leave your army on display over lunch so that everyone has a chance to
 decide who to vote for.
 
-Players will be able to cast votes for their most sporting opponent when 
-they submit their final scores. The player with the most votes will win the 
-most sporting award. Ties will be broken in the favour of the player 
+Players will be able to cast votes for their most sporting opponent when
+they submit their final scores. The player with the most votes will win the
+most sporting award. Ties will be broken in the favour of the player
 with the lower ranking in the tournament scores.
 
 For both categories, players will receive seven total votes they can
-distribute as they see fit, including casting multiple votes for one or 
+distribute as they see fit, including casting multiple votes for one or
 more candidates.`),
       },
     ],
@@ -503,7 +504,7 @@ more candidates.`),
         "Open Gaming Society Presents Cogs of War 2024, A Kings of War Tournament, " +
         '14th April 2024"',
     },
-    description: `A one-day Kings of War singles tournament using the 3.5 edition rules and the 
+    description: `A one-day Kings of War singles tournament using the 3.5 edition rules and the
     Clash of Kings 2024 updates.`,
     about: {
       What: ["20 players, 1995 points, 3 games"],
@@ -527,8 +528,8 @@ more candidates.`),
       {
         title: "Tournament organiser",
         content: unsafeRenderMarkdown(`
-The tournament organiser for this event is Jeff Horton. If you have 
-questions or feedback, please email Jeff at 
+The tournament organiser for this event is Jeff Horton. If you have
+questions or feedback, please email Jeff at
 [jeff@goblinoid.co.uk](mailto:jeff@goblinoid.co.uk).`),
       },
       {
@@ -540,27 +541,27 @@ https://kow.c-o-g-s.org.uk/event/cogs-of-war-2024/sign-up).
 Tickets are priced at £18, [payable via PayPal](
 https://www.paypal.com/paypalme/KamiOfTea/18).
 
-If you’d prefer to pay using a different payment method, please contact 
+If you’d prefer to pay using a different payment method, please contact
 the tournament organiser.
 
-Tickets can be cancelled for a full refund until Thursday 22nd March. 
+Tickets can be cancelled for a full refund until Thursday 22nd March.
 After this, we will offer a refund if we can fill your place.`),
       },
       {
         title: "Inclusivity and accessibility",
         content: unsafeRenderMarkdown(`
-Chesterfield Open Gaming Society is dedicated to providing an inclusive, 
-harassment-free gaming experience for everyone. Attendees should feel 
-safe and welcome regardless of gender, gender identity and expression, 
-age, sexual orientation, disability, physical appearance, body size, 
+Chesterfield Open Gaming Society is dedicated to providing an inclusive,
+harassment-free gaming experience for everyone. Attendees should feel
+safe and welcome regardless of gender, gender identity and expression,
+age, sexual orientation, disability, physical appearance, body size,
 race, ethnicity, religion (or lack thereof), or hobby choices.
 
-If there is anything that we can do to make it easier or more enjoyable 
+If there is anything that we can do to make it easier or more enjoyable
 for you to attend, please let us know.
 
 We can’t do this by ourselves. Creating a welcoming, enjoyable, and safe
-environment is everyone’s responsibility. In particular we will not 
-tolerate harassment at the event, during related socials, or on 
+environment is everyone’s responsibility. In particular we will not
+tolerate harassment at the event, during related socials, or on
 associated social media.
 
 Please read the [full code of conduct](
@@ -571,37 +572,37 @@ Thank you.`),
       {
         title: "Preparation",
         content: unsafeRenderMarkdown(`
-You will need a 1995 point Kings of War army.  This should be built using the standard army 
-selection and composition rules in the 3.5 edition core rulebook with the updates in Clash of Kings 
+You will need a 1995 point Kings of War army.  This should be built using the standard army
+selection and composition rules in the 3.5 edition core rulebook with the updates in Clash of Kings
 2024.
 
 The optional rules for Allies **CAN** be used.
 
 You can submit your list on the <a href="/event/cogs-of-war-2024/edit-details">
-edit details page</a>. Alternatively 
+edit details page</a>. Alternatively
 [email a pdf of your list to jeff@goblinoid.co.uk](
-mailto:jeff@goblinoid.co.uk). Your list should be submitted by 23:59 on 
+mailto:jeff@goblinoid.co.uk). Your list should be submitted by 23:59 on
 Sunday 7th April.
 
-Players will receive +3 tournament points if they submit on time. This 
-will reduce by one point per day or part-day since the submission time 
+Players will receive +3 tournament points if they submit on time. This
+will reduce by one point per day or part-day since the submission time
 that has passed before the list is received, to a minimum of 0 if it is three
 or more days late.
 
-Part of the joy of wargaming is the spectacle of two armies clashing on the table-top. We would 
-prefer players to bring a fully painted and based army that fits with the fantasy wargaming 
+Part of the joy of wargaming is the spectacle of two armies clashing on the table-top. We would
+prefer players to bring a fully painted and based army that fits with the fantasy wargaming
 aesthetic.
 
 It should be clear to your opponent what each unit in your army represents.
 
-Steve Pearson is our spare player in the event that we have an odd number of 
+Steve Pearson is our spare player in the event that we have an odd number of
 attendees. His list will be published prior to the submission deadline.
 `),
       },
       {
         title: "Things to bring with you",
         content: unsafeRenderMarkdown(`
-- Your 1995 point army. 
+- Your 1995 point army.
 - Three copies of your list.
 - Dice, tape measure, arc template, and tokens.
 - A chess clock (physical or app)`),
@@ -617,14 +618,14 @@ Stonegravels<br />
 Chesterfield<br />
 S41 7JH
 
-There is car parking on site. A few spaces are stacked behind others. 
-Please make sure to fill the rear spaces first. There should be enough 
+There is car parking on site. A few spaces are stacked behind others.
+Please make sure to fill the rear spaces first. There should be enough
 parking at the centre for everyone, but it will be close to full
-capacity. Please contact us if you need to reserve a space for 
+capacity. Please contact us if you need to reserve a space for
 accessibility needs or a quick get-away.
- 
-There is a bus stop just outside the venue. If you are coming by train, 
-please get in contact as we should be able to arrange a lift to the 
+
+There is a bus stop just outside the venue. If you are coming by train,
+please get in contact as we should be able to arrange a lift to the
 centre from Chesterfield station.`),
       },
       {
@@ -634,18 +635,18 @@ Free tea and coffee will be available.
 
 Lunch will **NOT** be provided.
 
-There are a number of takeaways and supermarkets within walking 
-distance. We will endeavour to provide a list and menus on the event 
+There are a number of takeaways and supermarkets within walking
+distance. We will endeavour to provide a list and menus on the event
 website nearer the time.
 
-A selection of soft drinks and snacks will be available to purchase 
+A selection of soft drinks and snacks will be available to purchase
 during the event.`),
       },
       {
         title: "Schedule",
         content: unsafeRenderMarkdown(`
-Each round players will have 55 minutes each on their chess clocks, 
-plus ten minutes spare for introductions, pre-game admin, breaks, rules 
+Each round players will have 55 minutes each on their chess clocks,
+plus ten minutes spare for introductions, pre-game admin, breaks, rules
 queries, etc.
 
 |              | Start Time |
@@ -665,49 +666,49 @@ The schedule may need to be adjusted on the day.`),
       {
         title: "Playing the games",
         content: unsafeRenderMarkdown(`
-The event will be using the rules in the 3.5 edition core rulebook, along 
-with the updates in Clash of Kings 2024, and any FAQ or errata published 
+The event will be using the rules in the 3.5 edition core rulebook, along
+with the updates in Clash of Kings 2024, and any FAQ or errata published
 by Mantic Games prior to the event.
- 
+
 The optional withdraw rule will NOT be in play.
 
 Chess clocks will be used to help the tournament run on schedule. Clocks
 should be used throughout deployment, scout moves, and player turns.
- 
-If you and your opponent disagree on a rule, pause the clock whilst you 
-check the rulebook. If that doesn’t resolve your issue, please ask the 
+
+If you and your opponent disagree on a rule, pause the clock whilst you
+check the rulebook. If that doesn’t resolve your issue, please ask the
 tournament organiser to adjudicate.
 
-The clock should also be paused if either player needs to take a break 
+The clock should also be paused if either player needs to take a break
 for any reason.
 
-If a player times out whilst resolving an attack, they may finish 
-resolving that attack, and any pending nerve checks. After those are 
+If a player times out whilst resolving an attack, they may finish
+resolving that attack, and any pending nerve checks. After those are
 done, the timed out player may not roll any more dice and can only issue
-change facing orders during any remaining movement phases. Please ensure 
+change facing orders during any remaining movement phases. Please ensure
 to complete these moves quickly.
 
 If there are enough pauses during a game that you predict the round time
-will end before both players have finished, please inform the tournament 
-organiser as soon as possible so that this can be resolved fairly for 
+will end before both players have finished, please inform the tournament
+organiser as soon as possible so that this can be resolved fairly for
 both players.`),
       },
       {
         title: "Scenarios and scoring",
         content: unsafeRenderMarkdown(`
-We will be using scenarios based on the [balanced scenarios developed by 
+We will be using scenarios based on the [balanced scenarios developed by
 the Shroud of the Reaper tournament organisers](
 https://www.shroudofthereaper.co.uk/balanced-scenarios).
-        
-There will be one scenario based on controlling objective markers, one 
-based on holding loot tokens, and one based on controlling areas of the 
+
+There will be one scenario based on controlling objective markers, one
+based on holding loot tokens, and one based on controlling areas of the
 battlefield.
 
-Full details of the scenario to be played and how to score victory 
+Full details of the scenario to be played and how to score victory
 points will be provided at the start of each round.
 
-There will be up to seven victory points available for each scenario, with 
-at most three points scored if you draw or lose. These will also count as 
+There will be up to seven victory points available for each scenario, with
+at most three points scored if you draw or lose. These will also count as
 tournament points (TPs).
 
 You get five bonus tournament points if you win the scenario, two bonus points
@@ -715,36 +716,36 @@ if you draw.
 
 You get up to three bonus tournament points based on the total points of
 enemy units you routed during the game.
- 
+
 | Total points routed | Bonus TPs |
 | ------------------- | --------- |
 |  500+               | +1        |
 | 1100+               | +2        |
 | 1695+               | +3        |
 
-Players will therefore score up to fifteen tournament points per round. 
-With three list submission points, the maximum available tournament 
+Players will therefore score up to fifteen tournament points per round.
+With three list submission points, the maximum available tournament
 score is 48.`),
       },
       {
         title: "Awards",
         content: unsafeRenderMarkdown(`
-Trophies will be awarded for first, second, and third places. There will 
+Trophies will be awarded for first, second, and third places. There will
 be a wooden spoon for last place.
 
-Players will be able to cast votes for their favourite armies. The 
-army with the most votes will win the best army award, with the 
-tournament organiser having a deciding vote in the case of a tie. Please 
-leave your army on display over lunch so that everyone has a chance to 
+Players will be able to cast votes for their favourite armies. The
+army with the most votes will win the best army award, with the
+tournament organiser having a deciding vote in the case of a tie. Please
+leave your army on display over lunch so that everyone has a chance to
 decide who to vote for.
 
-Players will be able to cast votes for their most sporting opponent when 
-they submit their final scores. The player with the most votes will win the 
-most sporting award. Ties will be broken in the favour of the player 
+Players will be able to cast votes for their most sporting opponent when
+they submit their final scores. The player with the most votes will win the
+most sporting award. Ties will be broken in the favour of the player
 with the lower ranking in the tournament scores.
 
 For both categories, players will receive seven total votes they can
-distribute as they see fit, including casting multiple votes for one or 
+distribute as they see fit, including casting multiple votes for one or
 more candidates.`),
       },
     ],
@@ -868,7 +869,7 @@ more candidates.`),
         "Open Gaming Society Presents Cogs of War 2025, A Kings of War Tournament, " +
         '6th April 2025"',
     },
-    description: `A one-day Kings of War singles tournament using the 3.5 edition rules and the 
+    description: `A one-day Kings of War singles tournament using the 3.5 edition rules and the
     Clash of Kings 2025 updates.`,
     about: {
       What: ["20 players, 1995 points, 3 games"],
@@ -884,15 +885,15 @@ more candidates.`),
     signUpEnabled: false,
     disclaimer: renderMarkdownInline(
       `Mantic® and Kings of War® and all associated names, characters, places, and things
-       are copyright © and ™ Mantic Games. The original event image © Mantic Games. 
+       are copyright © and ™ Mantic Games. The original event image © Mantic Games.
        Chesterfield Open Gaming Society is not associated with Mantic Games in any way.`,
     ),
     eventPack: [
       {
         title: "Tournament organiser",
         content: unsafeRenderMarkdown(`
-The tournament organiser for this event is Jeff Horton. If you have 
-questions or feedback, please email Jeff at 
+The tournament organiser for this event is Jeff Horton. If you have
+questions or feedback, please email Jeff at
 [jeff@goblinoid.co.uk](mailto:jeff@goblinoid.co.uk).`),
       },
       {
@@ -904,27 +905,27 @@ https://kow.c-o-g-s.org.uk/event/cogs-of-war-2025/sign-up).
 Tickets are priced at £18, [payable via PayPal](
 https://www.paypal.com/paypalme/KamiOfTea/18).
 
-If you’d prefer to pay using a different payment method, please contact 
+If you’d prefer to pay using a different payment method, please contact
 the tournament organiser.
 
-Tickets can be cancelled for a full refund until Thursday 14th March. 
+Tickets can be cancelled for a full refund until Thursday 14th March.
 After this, we will offer a refund if we can fill your place.`),
       },
       {
         title: "Inclusivity and accessibility",
         content: unsafeRenderMarkdown(`
-Chesterfield Open Gaming Society is dedicated to providing an inclusive, 
-harassment-free gaming experience for everyone. Attendees should feel 
-safe and welcome regardless of gender, gender identity and expression, 
-age, sexual orientation, disability, physical appearance, body size, 
+Chesterfield Open Gaming Society is dedicated to providing an inclusive,
+harassment-free gaming experience for everyone. Attendees should feel
+safe and welcome regardless of gender, gender identity and expression,
+age, sexual orientation, disability, physical appearance, body size,
 race, ethnicity, religion (or lack thereof), or hobby choices.
 
-If there is anything that we can do to make it easier or more enjoyable 
+If there is anything that we can do to make it easier or more enjoyable
 for you to attend, please let us know.
 
 We can’t do this by ourselves. Creating a welcoming, enjoyable, and safe
-environment is everyone’s responsibility. In particular we will not 
-tolerate harassment at the event, during related socials, or on 
+environment is everyone’s responsibility. In particular we will not
+tolerate harassment at the event, during related socials, or on
 associated social media.
 
 Please read the [full code of conduct](
@@ -935,29 +936,29 @@ Thank you.`),
       {
         title: "Preparation",
         content: unsafeRenderMarkdown(`
-You will need a 1995 point Kings of War army.  This should be built using the standard army 
-selection and composition rules in the 3.5 edition core rulebook with the updates in Clash of Kings 
+You will need a 1995 point Kings of War army.  This should be built using the standard army
+selection and composition rules in the 3.5 edition core rulebook with the updates in Clash of Kings
 2025.
 
-### Optional rules 
+### Optional rules
 
 * Allies **MAY** be used
 * Command dice will **NOT** be used
-* Withdraw rule will **NOT** be in play. 
+* Withdraw rule will **NOT** be in play.
 
 You can submit your list on the <a href="/event/cogs-of-war-2025/edit-details">
-edit details page</a>. Alternatively 
+edit details page</a>. Alternatively
 [email a pdf of your list to jeff@goblinoid.co.uk](
-mailto:jeff@goblinoid.co.uk). Your list should be submitted by 23:59 on 
+mailto:jeff@goblinoid.co.uk). Your list should be submitted by 23:59 on
 Sunday 30th March.
 
-Players will receive +3 tournament points if they submit on time. This 
-will reduce by one point per day or part-day since the submission time 
+Players will receive +3 tournament points if they submit on time. This
+will reduce by one point per day or part-day since the submission time
 that has passed before the list is received, to a minimum of 0 if it is three
 or more days late.
 
-Part of the joy of wargaming is the spectacle of two armies clashing on the table-top. We would 
-prefer players to bring a fully painted and based army that fits with the fantasy wargaming 
+Part of the joy of wargaming is the spectacle of two armies clashing on the table-top. We would
+prefer players to bring a fully painted and based army that fits with the fantasy wargaming
 aesthetic.
 
 It should be clear to your opponent what each unit in your army represents.
@@ -966,7 +967,7 @@ It should be clear to your opponent what each unit in your army represents.
       {
         title: "Things to bring with you",
         content: unsafeRenderMarkdown(`
-- Your 1995 point army. 
+- Your 1995 point army.
 - Three copies of your list.
 - Dice, tape measure, arc template, and tokens.
 - A chess clock (physical or app)`),
@@ -982,14 +983,14 @@ Stonegravels<br />
 Chesterfield<br />
 S41 7JH
 
-There is car parking on site. A few spaces are stacked behind others. 
-Please make sure to fill the rear spaces first. There should be enough 
+There is car parking on site. A few spaces are stacked behind others.
+Please make sure to fill the rear spaces first. There should be enough
 parking at the centre for everyone, but it will be close to full
-capacity. Please contact us if you need to reserve a space for 
+capacity. Please contact us if you need to reserve a space for
 accessibility needs or a quick get-away.
- 
-There is a bus stop just outside the venue. If you are coming by train, 
-please get in contact as we should be able to arrange a lift to the 
+
+There is a bus stop just outside the venue. If you are coming by train,
+please get in contact as we should be able to arrange a lift to the
 centre from Chesterfield station.`),
       },
       {
@@ -999,18 +1000,18 @@ Free tea and coffee will be available.
 
 Lunch will **NOT** be provided.
 
-There are a number of takeaways and supermarkets within walking 
-distance. We will endeavour to provide a list and menus on the event 
+There are a number of takeaways and supermarkets within walking
+distance. We will endeavour to provide a list and menus on the event
 website nearer the time.
 
-A selection of soft drinks and snacks will be available to purchase 
+A selection of soft drinks and snacks will be available to purchase
 during the event.`),
       },
       {
         title: "Schedule",
         content: unsafeRenderMarkdown(`
-Each round players will have 55 minutes each on their chess clocks, 
-plus ten minutes spare for introductions, pre-game admin, breaks, rules 
+Each round players will have 55 minutes each on their chess clocks,
+plus ten minutes spare for introductions, pre-game admin, breaks, rules
 queries, etc.
 
 |              | Start Time |
@@ -1030,50 +1031,50 @@ The schedule may need to be adjusted on the day.`),
       {
         title: "Playing the games",
         content: unsafeRenderMarkdown(`
-The event will be using the rules in the 3.5 edition core rulebook, along 
-with the updates in Clash of Kings 2025, and any FAQ or errata published 
+The event will be using the rules in the 3.5 edition core rulebook, along
+with the updates in Clash of Kings 2025, and any FAQ or errata published
 by Mantic Games prior to the event.
- 
-The optional withdraw rule will **NOT** be in play. Command dice will **NOT** 
+
+The optional withdraw rule will **NOT** be in play. Command dice will **NOT**
 be used.
 
 Chess clocks will be used to help the tournament run on schedule. Clocks
 should be used throughout deployment, scout moves, and player turns.
- 
-If you and your opponent disagree on a rule, pause the clock whilst you 
-check the rulebook. If that doesn’t resolve your issue, please ask the 
+
+If you and your opponent disagree on a rule, pause the clock whilst you
+check the rulebook. If that doesn’t resolve your issue, please ask the
 tournament organiser to adjudicate.
 
-The clock should also be paused if either player needs to take a break 
+The clock should also be paused if either player needs to take a break
 for any reason.
 
-If a player times out whilst resolving an attack, they may finish 
-resolving that attack, and any pending nerve checks. After those are 
+If a player times out whilst resolving an attack, they may finish
+resolving that attack, and any pending nerve checks. After those are
 done, the timed out player may not roll any more dice and can only issue
-change facing orders during any remaining movement phases. Please ensure 
+change facing orders during any remaining movement phases. Please ensure
 to complete these moves quickly.
 
 If there are enough pauses during a game that you predict the round time
-will end before both players have finished, please inform the tournament 
-organiser as soon as possible so that this can be resolved fairly for 
+will end before both players have finished, please inform the tournament
+organiser as soon as possible so that this can be resolved fairly for
 both players.`),
       },
       {
         title: "Scenarios and scoring",
         content: unsafeRenderMarkdown(`
-We will be using scenarios based on the [balanced scenarios developed by 
+We will be using scenarios based on the [balanced scenarios developed by
 the Shroud of the Reaper tournament organisers](
 https://www.shroudofthereaper.co.uk/balanced-scenarios).
-        
-There will be one scenario based on controlling objective markers, one 
-based on holding loot tokens, and one based on controlling areas of the 
+
+There will be one scenario based on controlling objective markers, one
+based on holding loot tokens, and one based on controlling areas of the
 battlefield.
 
-Full details of the scenario to be played and how to score victory 
+Full details of the scenario to be played and how to score victory
 points will be provided at the start of each round.
 
-There will be up to seven victory points available for each scenario, with 
-at most three points scored if you draw or lose. These will also count as 
+There will be up to seven victory points available for each scenario, with
+at most three points scored if you draw or lose. These will also count as
 tournament points (TPs).
 
 You get five bonus tournament points if you win the scenario, two bonus points
@@ -1081,36 +1082,36 @@ if you draw.
 
 You get up to three bonus tournament points based on the total points of
 enemy units you routed during the game.
- 
+
 | Total points routed | Bonus TPs |
 | ------------------- | --------- |
 |  500+               | +1        |
 | 1100+               | +2        |
 | 1695+               | +3        |
 
-Players will therefore score up to fifteen tournament points per round. 
-With three list submission points, the maximum available tournament 
+Players will therefore score up to fifteen tournament points per round.
+With three list submission points, the maximum available tournament
 score is 48.`),
       },
       {
         title: "Awards",
         content: unsafeRenderMarkdown(`
-Trophies will be awarded for first, second, and third places. There will 
+Trophies will be awarded for first, second, and third places. There will
 be a wooden spoon for last place.
 
-Players will be able to cast votes for their favourite armies. The 
-army with the most votes will win the best army award, with the 
-tournament organiser having a deciding vote in the case of a tie. Please 
-leave your army on display over lunch so that everyone has a chance to 
+Players will be able to cast votes for their favourite armies. The
+army with the most votes will win the best army award, with the
+tournament organiser having a deciding vote in the case of a tie. Please
+leave your army on display over lunch so that everyone has a chance to
 decide who to vote for.
 
-Players will be able to cast votes for their most sporting opponent when 
-they submit their final scores. The player with the most votes will win the 
-most sporting award. Ties will be broken in the favour of the player 
+Players will be able to cast votes for their most sporting opponent when
+they submit their final scores. The player with the most votes will win the
+most sporting award. Ties will be broken in the favour of the player
 with the lower ranking in the tournament scores.
 
 For both categories, players will receive seven total votes they can
-distribute as they see fit, including casting multiple votes for one or 
+distribute as they see fit, including casting multiple votes for one or
 more candidates.`),
       },
     ],
@@ -1251,15 +1252,15 @@ more candidates.`),
     signUpEnabled: false,
     disclaimer: renderMarkdownInline(
       `Mantic® and Kings of War® and all associated names, characters, places, and things
-       are copyright © and ™ Mantic Games. The original event image © Mantic Games. 
+       are copyright © and ™ Mantic Games. The original event image © Mantic Games.
        Chesterfield Open Gaming Society is not associated with Mantic Games in any way.`,
     ),
     eventPack: [
       {
         title: "Tournament organiser",
         content: unsafeRenderMarkdown(`
-The tournament organiser for this event is Jeff Horton. If you have 
-questions or feedback, please email Jeff at 
+The tournament organiser for this event is Jeff Horton. If you have
+questions or feedback, please email Jeff at
 [jeff@goblinoid.co.uk](mailto:jeff@goblinoid.co.uk).`),
       },
       {
@@ -1271,27 +1272,27 @@ https://kow.c-o-g-s.org.uk/event/cogs-of-war/sign-up).
 Tickets are priced at £18, [payable via PayPal](
 https://www.paypal.com/paypalme/KamiOfTea/18).
 
-If you’d prefer to pay using a different payment method, please contact 
+If you’d prefer to pay using a different payment method, please contact
 the tournament organiser.
 
-Tickets can be cancelled for a full refund until Thursday 23rd October. 
+Tickets can be cancelled for a full refund until Thursday 23rd October.
 After this, we will only offer a refund if we can fill your place.`),
       },
       {
         title: "Inclusivity and accessibility",
         content: unsafeRenderMarkdown(`
-Chesterfield Open Gaming Society is dedicated to providing an inclusive, 
-harassment-free gaming experience for everyone. Attendees should feel 
-safe and welcome regardless of gender, gender identity and expression, 
-age, sexual orientation, disability, physical appearance, body size, 
+Chesterfield Open Gaming Society is dedicated to providing an inclusive,
+harassment-free gaming experience for everyone. Attendees should feel
+safe and welcome regardless of gender, gender identity and expression,
+age, sexual orientation, disability, physical appearance, body size,
 race, ethnicity, religion (or lack thereof), or hobby choices.
 
-If there is anything that we can do to make it easier or more enjoyable 
+If there is anything that we can do to make it easier or more enjoyable
 for you to attend, please let us know.
 
 We can’t do this by ourselves. Creating a welcoming, enjoyable, and safe
-environment is everyone’s responsibility. In particular we will not 
-tolerate harassment at the event, during related socials, or on 
+environment is everyone’s responsibility. In particular we will not
+tolerate harassment at the event, during related socials, or on
 associated social media.
 
 Please read the [full code of conduct](
@@ -1303,37 +1304,37 @@ Thank you.`),
         title: "Preparation",
         content: unsafeRenderMarkdown(`
 You will need a 1000 point Kings of War army. This should be built using
-the standard army selection and composition rules in the Kings of War version 
+the standard army selection and composition rules in the Kings of War version
 3.5 compendium, the rules updates in Clash of Kings 2025, and the rules from
-Clash of Kings 2024 that were not reprinted (e.g. the updated Twilight Kin 
+Clash of Kings 2024 that were not reprinted (e.g. the updated Twilight Kin
 army list.)
 
-### Optional rules 
+### Optional rules
 
 * Allies **MAY** be used
 * Command dice will **NOT** be used
-* Withdraw rule will **NOT** be in play. 
+* Withdraw rule will **NOT** be in play.
 
 You can submit your list on the <a href="/event/clockwork-2025/edit-details">
-edit details page</a>. Alternatively 
+edit details page</a>. Alternatively
 [email a pdf of your list to jeff@goblinoid.co.uk](
-mailto:jeff@goblinoid.co.uk). Your list should be submitted by 23:59 on 
+mailto:jeff@goblinoid.co.uk). Your list should be submitted by 23:59 on
 Sunday 9th November.
 
-Players will receive +3 tournament points if they submit on time. This 
-will reduce by one point per day or part-day since the submission time 
+Players will receive +3 tournament points if they submit on time. This
+will reduce by one point per day or part-day since the submission time
 that has passed before the list is received, to a minimum of 0 if it is three
 or more days late.
 
 Part of the joy of wargaming is the spectacle of two armies clashing on the
-table-top. Please bring a fully painted and based army that fits with 
+table-top. Please bring a fully painted and based army that fits with
 the fantasy wargaming aesthetic. However, we will not penalise players if
 they have a good reason they can’t – no questions asked.
 
-It should be clear to your opponent what each unit in your army 
+It should be clear to your opponent what each unit in your army
 represents.
 
-Steve Pearson is our spare player, in the event of an odd number of players 
+Steve Pearson is our spare player, in the event of an odd number of players
 he'll use this list:
 
 <div class="uploaded-file">
@@ -1413,14 +1414,14 @@ Stonegravels<br />
 Chesterfield<br />
 S41 7JH
 
-There is car parking on site. A few spaces are stacked behind others. 
-Please make sure to fill the rear spaces first. There should be enough 
+There is car parking on site. A few spaces are stacked behind others.
+Please make sure to fill the rear spaces first. There should be enough
 parking at the centre for everyone, but it will be close to full
-capacity, so please contact us if you need to reserve a space for 
+capacity, so please contact us if you need to reserve a space for
 accessibility needs or a quick get-away.
- 
-There is a bus stop just outside the venue. If you are coming by train, 
-please get in contact as we should be able to arrange a lift to the 
+
+There is a bus stop just outside the venue. If you are coming by train,
+please get in contact as we should be able to arrange a lift to the
 centre from Chesterfield station.`),
       },
       {
@@ -1430,11 +1431,11 @@ Free tea and coffee will be available.
 
 Lunch will **NOT** be provided.
 
-There are a number of takeaways and supermarkets within walking 
-distance. We will endeavour to provide a list and menus on the event 
+There are a number of takeaways and supermarkets within walking
+distance. We will endeavour to provide a list and menus on the event
 website nearer the time.
 
-A selection of soft drinks and snacks will be available to purchase 
+A selection of soft drinks and snacks will be available to purchase
 during the event.`),
       },
       {
@@ -1446,7 +1447,7 @@ The time allowed for games will decrease throughout the day:
 * Games three and four: 20 minutes per player
 * Game five: 15 minutes per player
 
-Due to the short round times, there will be no roll for turn seven. Each game 
+Due to the short round times, there will be no roll for turn seven. Each game
 will only be played for six rounds.
 
 |              | Start Time |
@@ -1476,36 +1477,36 @@ that were not reprinted (e.g. the updated Twilight Kin army list.)
 
 Chess clocks will be used to help the tournament run on schedule. Clocks
 should be used throughout deployment, scout moves, and player turns.
- 
-If you and your opponent disagree on a rule, pause the clock whilst you 
-check the rulebook. If that doesn’t resolve your issue, please ask the 
+
+If you and your opponent disagree on a rule, pause the clock whilst you
+check the rulebook. If that doesn’t resolve your issue, please ask the
 tournament organiser to adjudicate.
 
-The clock should also be paused if either player needs to take a break 
+The clock should also be paused if either player needs to take a break
 for any reason.
 
 Unlike Cogs of War tournaments, timing out is strictly dice down. If you run out
-of time on the clock, you must instantly stop play. If you are currently 
+of time on the clock, you must instantly stop play. If you are currently
 rolling a combat or shooting attack, no wounds are applied from the attack and
 the target is steady.
 
 If there are enough pauses during a game that you predict the round time
-will end before both players have finished, please inform the tournament 
-organiser as soon as possible so that this can be resolved fairly for 
+will end before both players have finished, please inform the tournament
+organiser as soon as possible so that this can be resolved fairly for
 both players.`),
       },
       {
         title: "Scenarios and scoring",
         content: unsafeRenderMarkdown(`
-We will be using scenarios based on the [balanced scenarios developed by 
+We will be using scenarios based on the [balanced scenarios developed by
 the Shroud of the Reaper tournament organisers](
 https://www.shroudofthereaper.co.uk/balanced-scenarios).
 
-Full details of the scenario to be played and how to score victory 
+Full details of the scenario to be played and how to score victory
 points will be provided at the start of each round.
 
-There will be up to 5 victory points available for each scenario, with 
-at most 2 points scored if you draw or lose. These will also count as 
+There will be up to 5 victory points available for each scenario, with
+at most 2 points scored if you draw or lose. These will also count as
 tournament points (TPs).
 
 You get 5 bonus tournament points if you win the scenario, 2 bonus points
@@ -1513,36 +1514,36 @@ if you draw.
 
 You get up to three bonus tournament points based on the total points of
 enemy units you routed during the game.
- 
+
 | Total points routed | Bonus TPs |
 | ------------------- | --------- |
 |  250+               | +1        |
 |  550+               | +2        |
 |  850+               | +3        |
 
-Players will therefore score up to thirteen tournament points per round. 
-With three list submission points, the maximum available tournament 
+Players will therefore score up to thirteen tournament points per round.
+With three list submission points, the maximum available tournament
 score is 68.`),
       },
       {
         title: "Awards",
         content: unsafeRenderMarkdown(`
-Trophies will be awarded for first, second, and third places. There will 
+Trophies will be awarded for first, second, and third places. There will
 be a wooden spoon for last place.
 
-Players will be able to cast votes for their favourite armies. The 
-army with the most votes will win the best army award, with the 
-tournament organiser having a deciding vote in the case of a tie. Please 
-leave your army on display over lunch so that everyone has a chance to 
+Players will be able to cast votes for their favourite armies. The
+army with the most votes will win the best army award, with the
+tournament organiser having a deciding vote in the case of a tie. Please
+leave your army on display over lunch so that everyone has a chance to
 decide who to vote for.
 
-Players will be able to cast votes for their most sporting opponent when 
-they submit their final scores. The player with the most votes will win the 
-most sporting award. Ties will be broken in the favour of the player 
+Players will be able to cast votes for their most sporting opponent when
+they submit their final scores. The player with the most votes will win the
+most sporting award. Ties will be broken in the favour of the player
 with the lower ranking in the tournament scores.
 
 For both categories, players will receive seven total votes they can
-distribute as they see fit, including casting multiple votes for one or 
+distribute as they see fit, including casting multiple votes for one or
 more candidates.`),
       },
     ],
@@ -1700,16 +1701,16 @@ more candidates.`),
     signUpEnabled: true,
     disclaimer: renderMarkdownInline(
         `Mantic® and Kings of War® and all associated names, characters, places, and things
-       are copyright © and ™ Mantic Games. The original event image © Mantic Games. 
+       are copyright © and ™ Mantic Games. The original event image © Mantic Games.
        Chesterfield Open Gaming Society is not associated with Mantic Games in any way.`,
     ),
     eventPack: [
       {
         title: "Tournament organiser",
         content: unsafeRenderMarkdown(`
-The tournament organiser for this event is Steven Pearson. If you have 
-questions or feedback, please email Steven at 
-[jammystavros@hotmail.com](mailto:jammystavros@hotmail.com). I’m also 
+The tournament organiser for this event is Steven Pearson. If you have
+questions or feedback, please email Steven at
+[jammystavros@hotmail.com](mailto:jammystavros@hotmail.com). I’m also
 happy to hear both praise and complaints in person
 
 Jeff Horton will be helping with payment and list admin.`),
@@ -1723,27 +1724,27 @@ https://kow.c-o-g-s.org.uk/event/cogs-of-war-2026/sign-up).
 Tickets are priced at £20, [payable via PayPal](
 https://www.paypal.com/paypalme/KamiOfTea/20).
 
-If you’d prefer to pay using a different payment method, please contact 
+If you’d prefer to pay using a different payment method, please contact
 the tournament organiser.
 
-Tickets can be cancelled for a full refund until Thursday 18th June. 
+Tickets can be cancelled for a full refund until Thursday 18th June.
 After this, we will offer a refund if we can fill your place.`),
       },
       {
         title: "Inclusivity and accessibility",
         content: unsafeRenderMarkdown(`
-Chesterfield Open Gaming Society is dedicated to providing an inclusive, 
-harassment-free gaming experience for everyone. Attendees should feel 
-safe and welcome regardless of gender, gender identity and expression, 
-age, sexual orientation, disability, physical appearance, body size, 
+Chesterfield Open Gaming Society is dedicated to providing an inclusive,
+harassment-free gaming experience for everyone. Attendees should feel
+safe and welcome regardless of gender, gender identity and expression,
+age, sexual orientation, disability, physical appearance, body size,
 race, ethnicity, religion (or lack thereof), or hobby choices.
 
-If there is anything that we can do to make it easier or more enjoyable 
+If there is anything that we can do to make it easier or more enjoyable
 for you to attend, please let us know.
 
 We can’t do this by ourselves. Creating a welcoming, enjoyable, and safe
-environment is everyone’s responsibility. In particular we will not 
-tolerate harassment at the event, during related socials, or on 
+environment is everyone’s responsibility. In particular we will not
+tolerate harassment at the event, during related socials, or on
 associated social media.
 
 Please read the [full code of conduct](
@@ -1754,23 +1755,23 @@ Thank you.`),
       {
         title: "Preparation",
         content: unsafeRenderMarkdown(`
-You will need a 2300 point Kings of War army.  This should be built using the standard army 
+You will need a 2300 point Kings of War army.  This should be built using the standard army
 selection and composition rules in the
-[4th edition mantic companion app](https://companion.manticgames.com/kings-of-war-list-builder/). 
+[4th edition mantic companion app](https://companion.manticgames.com/kings-of-war-list-builder/).
 
 You can submit your list on the
-[edit details page](/event/cogs-of-war-2026/edit-details). Alternatively 
+[edit details page](/event/cogs-of-war-2026/edit-details). Alternatively
 [email a pdf of your list to jeff@goblinoid.co.uk](
-mailto:jeff@goblinoid.co.uk). Your list should be submitted by 23:59 on 
-Saturday 4th July.
+mailto:jeff@goblinoid.co.uk). Your list should be submitted by 23:59 on
+Sunday 5th July.
 
-Players will receive +3 tournament points if they submit on time. This 
-will reduce by one point per day or part-day since the submission time 
+Players will receive +3 tournament points if they submit on time. This
+will reduce by one point per day or part-day since the submission time
 that has passed before the list is received, to a minimum of 0 if it is three
 or more days late.
 
-Part of the joy of wargaming is the spectacle of two armies clashing on the table-top. We would 
-prefer players to bring a fully painted and based army that fits with the fantasy wargaming 
+Part of the joy of wargaming is the spectacle of two armies clashing on the table-top. We would
+prefer players to bring a fully painted and based army that fits with the fantasy wargaming
 aesthetic.
 
 It should be clear to your opponent what each unit in your army represents.
@@ -1779,7 +1780,7 @@ It should be clear to your opponent what each unit in your army represents.
       {
         title: "Things to bring with you",
         content: unsafeRenderMarkdown(`
-- Your 2300 point army. 
+- Your 2300 point army.
 - Three copies of your list.
 - Dice, tape measure, arc template, and tokens.
 - A chess clock (physical or app)`),
@@ -1795,14 +1796,14 @@ Stonegravels<br />
 Chesterfield<br />
 S41 7JH
 
-There is car parking on site. A few spaces are stacked behind others. 
-Please make sure to fill the rear spaces first. There should be enough 
+There is car parking on site. A few spaces are stacked behind others.
+Please make sure to fill the rear spaces first. There should be enough
 parking at the centre for everyone, but it will be close to full
-capacity. Please contact us if you need to reserve a space for 
+capacity. Please contact us if you need to reserve a space for
 accessibility needs or a quick get-away.
- 
-There is a bus stop just outside the venue. If you are coming by train, 
-please get in contact as we should be able to arrange a lift to the 
+
+There is a bus stop just outside the venue. If you are coming by train,
+please get in contact as we should be able to arrange a lift to the
 centre from Chesterfield station.`),
       },
       {
@@ -1812,18 +1813,18 @@ Free tea and coffee will be available.
 
 Lunch will **NOT** be provided.
 
-There are a number of takeaways and supermarkets within walking 
-distance. We will endeavour to provide a list and menus on the event 
+There are a number of takeaways and supermarkets within walking
+distance. We will endeavour to provide a list and menus on the event
 website nearer the time.
 
-A selection of soft drinks and snacks will be available to purchase 
+A selection of soft drinks and snacks will be available to purchase
 during the event.`),
       },
       {
         title: "Schedule",
         content: unsafeRenderMarkdown(`
-Each round players will have 60 minutes each on their chess clocks, 
-plus ten minutes spare for introductions, pre-game admin, breaks, rules 
+Each round players will have 60 minutes each on their chess clocks,
+plus ten minutes spare for introductions, pre-game admin, breaks, rules
 queries, etc.
 
 |              | Start Time |
@@ -1843,27 +1844,27 @@ The schedule may need to be adjusted on the day.`),
       {
         title: "Playing the games",
         content: unsafeRenderMarkdown(`
-The event will be using the rules in the 4th edition rules and any FAQ or 
+The event will be using the rules in the 4th edition rules and any FAQ or
 errata published by Mantic Games prior to the event.
 
 Chess clocks will be used to help the tournament run on schedule. Clocks
 should be used throughout deployment, scout moves, and player turns.
- 
-If you and your opponent disagree on a rule, pause the clock whilst you 
-check the rulebook. If that doesn’t resolve your issue, please ask the 
+
+If you and your opponent disagree on a rule, pause the clock whilst you
+check the rulebook. If that doesn’t resolve your issue, please ask the
 tournament organiser to adjudicate.
 
-The clock should also be paused if either player needs to take a break 
+The clock should also be paused if either player needs to take a break
 for any reason.
 
-If a player time then it is dice down. Any unresolved combats are assumed 
-to have passed their nerve test. Your opponent may complete their remaining 
-turns in the time that they have left on their clock, including rolling for 
+If a player time then it is dice down. Any unresolved combats are assumed
+to have passed their nerve test. Your opponent may complete their remaining
+turns in the time that they have left on their clock, including rolling for
 turn 7.
 
 If there are enough pauses during a game that you predict the round time
-will end before both players have finished, please inform the tournament 
-organiser as soon as possible so that this can be resolved fairly for 
+will end before both players have finished, please inform the tournament
+organiser as soon as possible so that this can be resolved fairly for
 both players.`),
       },
       {
@@ -1877,18 +1878,18 @@ Exact details will be released nearer the time.`)
       {
         title: "Awards",
         content: unsafeRenderMarkdown(`
-Trophies will be awarded for first, second, and third places. There will 
+Trophies will be awarded for first, second, and third places. There will
 be a wooden spoon for last place.
 
-Players will be able to cast votes for their favourite armies. The 
-army with the most votes will win the best army award, with the 
-tournament organiser having a deciding vote in the case of a tie. Please 
-leave your army on display over lunch so that everyone has a chance to 
+Players will be able to cast votes for their favourite armies. The
+army with the most votes will win the best army award, with the
+tournament organiser having a deciding vote in the case of a tie. Please
+leave your army on display over lunch so that everyone has a chance to
 decide who to vote for.
 
-Players will be able to cast votes for their most sporting opponent when 
-they submit their final scores. The player with the most votes will win the 
-most sporting award. Ties will be broken in the favour of the player 
+Players will be able to cast votes for their most sporting opponent when
+they submit their final scores. The player with the most votes will win the
+most sporting award. Ties will be broken in the favour of the player
 with the lower ranking in the tournament scores.`),
       },
     ],
@@ -1898,20 +1899,12 @@ with the lower ranking in the tournament scores.`),
       {
         name: "army_list",
         type: "ARMY_LIST",
-        readonly: true,
         label: "Army list",
       },
       {
         name: "faction",
         type: "STRING",
-        readonly: true,
         label: "Faction",
-      },
-      {
-        name: "allies",
-        type: "STRING",
-        readonly: true,
-        label: "Allies",
       },
       {
         name: "tournament_points",
@@ -1947,248 +1940,11 @@ with the lower ranking in the tournament scores.`),
     scenarios: [],
     maxAttendees: 24,
     pointsLimit: 2300,
+    listSubmissionDeadline: dayjs('2026-07-05T23:59:59'),
     listsSubmissionClosed: false,
     kowMastersSeason: 11,
     kowMastersEventId: 497,
     manticCompanionEventId: 973,
-    manticCompanionEventGroup: 'kings-of-war-4th-edition-events',
-  },
-  {
-    title: "Swords of Summer 2026",
-    subtitle: "A Two-day Kings of War Tournament at Britcon",
-    headerIntro: "British Historical Games Society and Chesterfield Open Gaming Society Present",
-    additionalLogo: {
-      url: 'bhgs-logo.png',
-      alt: 'British Historical Games Society logo',
-    },
-    slug: "swords-of-summer-2026",
-    titleStyles: { placeSelf: "center start" },
-    date: dayjs("2026-08-09"),
-    dateString: '8th and 9th August 2026',
-    imageUrl: "swords-of-summer-2026.png",
-    imageDescription:
-        "Armies of dwarves and undead clash in mountainous terrain. Most of the image is in greyscale, with a " +
-        "necromancer, their lightning spell, and a few skeletal warriors highlighted in monochrome yellow.",
-    openGraph: {
-      imageUrl:
-          "https://kow.c-o-g-s.org.uk/_static/images/swords-of-summer-2026-og.png",
-      imageAlt:
-          "Armies of dwarves and undead clash in mountainous terrain. Most of the image is in greyscale, with a " +
-          "necromancer, their lightning spell, and a few skeletal warriors highlighted in monochrome yellow." +
-          "Overlaid text reads 'British Historical Games Society and Chesterfield Open Gaming Society Present " +
-          "Swords of Summer 2026, A Two-day Kings of War Tournament at Britcon, 8th and 9th August 2026.",
-    },
-    description: `A two-day Kings of War singles tournament using the 4th edition rules as part of BHGS's Britcon show.`,
-    about: {
-      What: ["2500 points, 5 games"],
-      When: ["8th and 9th August 2026"],
-      Where: [
-        "Britcon,",
-        "The Venue",
-        "DeMontfort University",
-        "Leicester",
-        "LE2 7BU",
-      ],
-    },
-    signUpEnabled: false,
-    maxAttendees: 16,
-    costInPounds: 55,
-    content: unsafeRenderMarkdown(`
-![Britcon 2026 7th-9th August 2026](https://www.bhgs.org.uk/uploads/9/3/2/3/9323122/970x250-7-9_orig.jpg)
-    
-Swords of Summer will be returning to Britcon in 2026. We'll be running five 2,500 point games
-split over the Saturday and Sunday of the show.
-
-The ticket price includes a grab-bag packed lunch on Saturday and Sunday, and a "BHGS Fiver" voucher to spend at the 
-Britcon Trade Show. Under 18s can use the code BHGSUNDER18 to get half-price entry.
-
-Sign up at the [British Historical Games Society website](https://www.bhgs.org.uk/britcon---how-to-enter.html).
-`),
-    disclaimer: renderMarkdownInline(
-        `Mantic® and Kings of War® and all associated names, characters, places, and things
-       are copyright © and ™ Mantic Games. The original event image © Mantic Games. 
-       Chesterfield Open Gaming Society is not associated with Mantic Games in any way.`,
-    ),
-    eventPack: [
-      {
-        title: "Tournament organiser",
-        content: unsafeRenderMarkdown(`
-The tournament organiser for this event is Jeff Horton. If you have 
-questions or feedback, please email Jeff at 
-[jeff@goblinoid.co.uk](mailto:jeff@goblinoid.co.uk).`),
-      },
-      {
-        title: "Tickets",
-        content: unsafeRenderMarkdown(`
-Tickets are £55, and include a grab-bag packed lunch on Saturday and Sunday, and a "BHGS Fiver" voucher to spend at the 
-Britcon Trade Show for £5 off any purchase over £10. Under 18s can use the code BHGSUNDER18 to get half-price entry.
-        
-Sign up at the [British Historical Games Society website](https://www.bhgs.org.uk/britcon---how-to-enter.html)`),
-      },
-      {
-        title: "Inclusivity and accessibility",
-        content: unsafeRenderMarkdown(`
-Chesterfield Open Gaming Society is dedicated to providing an inclusive, 
-harassment-free gaming experience for everyone. Attendees should feel 
-safe and welcome regardless of gender, gender identity and expression, 
-age, sexual orientation, disability, physical appearance, body size, 
-race, ethnicity, religion (or lack thereof), or hobby choices.
-
-If there is anything that we can do to make it easier or more enjoyable 
-for you to attend, please let us know.
-
-We can’t do this by ourselves. Creating a welcoming, enjoyable, and safe
-environment is everyone’s responsibility. In particular we will not 
-tolerate harassment at the event, during related socials, or on 
-associated social media.
-
-Please read the [full code of conduct](
-https://kow.c-o-g-s.org.uk/code-of-conduct) for more details.
-
-Thank you.`),
-      },
-      {
-        title: "Preparation",
-        content: unsafeRenderMarkdown(`
-You will need a 2500 point Kings of War army.  This should be built using the standard army 
-selection and composition rules in the
-[4th edition mantic companion app](https://companion.manticgames.com/kings-of-war-list-builder/). 
-
-You can submit your list on the
-[edit details page](/event/swords-of-summer-2026/edit-details). Alternatively 
-[email a pdf of your list to jeff@goblinoid.co.uk](
-mailto:jeff@goblinoid.co.uk). Your list should be submitted by 23:59 on 
-Saturday 1st August.
-
-Players will receive +3 tournament points if they submit on time. This 
-will reduce by one point per day or part-day since the submission time 
-that has passed before the list is received, to a minimum of 0 if it is three
-or more days late.
-
-Part of the joy of wargaming is the spectacle of two armies clashing on the table-top. We would 
-prefer players to bring a fully painted and based army that fits with the fantasy wargaming 
-aesthetic.
-
-It should be clear to your opponent what each unit in your army represents.
-`),
-      },
-      {
-        title: "Things to bring with you",
-        content: unsafeRenderMarkdown(`
-- Your 2500 point army. 
-- Three copies of your list.
-- Dice, tape measure, arc template, and tokens.
-- A chess clock (physical or app)`),
-      },
-      {
-        title: "Location",
-        content: unsafeRenderMarkdown(`
-![Britcon 2026 7th-9th August 2026](https://www.bhgs.org.uk/uploads/9/3/2/3/9323122/970x250-7-9_orig.jpg)
-
-The tournament will be part of British Historical Games Society's annual gaming show, Britcon. 
-The event will be held at:
-
-Britcon,  
-The Venue  
-DeMontfort University  
-Leicester  
-LE2 7BU  
-
-For more information about the venue, and the show, see the
-[Britcon website](https://www.bhgs.org.uk/britcon---venue--directions.html).`),
-      },
-      {
-        title: "Playing the games",
-        content: unsafeRenderMarkdown(`
-The event will be using the rules in the 4th edition rules and any FAQ or 
-errata published by Mantic Games prior to the event.
-
-Chess clocks will be used to help the tournament run on schedule. Clocks
-should be used throughout deployment, scout moves, and player turns.
-Players will have 70 minutes each on their chess clocks.
- 
-If you and your opponent disagree on a rule, pause the clock whilst you 
-check the rulebook. If that doesn’t resolve your issue, please ask the 
-tournament organiser to adjudicate.
-
-The clock should also be paused if either player needs to take a break 
-for any reason.
-
-If a player time then it is dice down. Any unresolved combats are assumed 
-to have passed their nerve test. Your opponent may complete their remaining 
-turns in the time that they have left on their clock, including rolling for 
-turn 7.
-
-If there are enough pauses during a game that you predict the round time
-will end before both players have finished, please inform the tournament 
-organiser as soon as possible so that this can be resolved fairly for 
-both players.`),
-      },
-      {
-        title: "Scenarios and scoring",
-        content: unsafeRenderMarkdown(`
-Scoring will be weighted towards how well players have done in the scenario,
-with bonus points for winning, and for routing enemy units.
-
-Exact details will be released nearer the time.`)
-      }
-    ],
-    additionalFields: [
-      {
-        name: "army_list",
-        type: "ARMY_LIST",
-        readonly: true,
-        label: "Army list",
-      },
-      {
-        name: "faction",
-        type: "STRING",
-        readonly: true,
-        label: "Faction",
-      },
-      {
-        name: "allies",
-        type: "STRING",
-        readonly: true,
-        label: "Allies",
-      },
-      {
-        name: "tournament_points",
-        type: "SCORE",
-        readonly: true,
-        label: "Tournament points",
-      },
-      {
-        name: "total_routed",
-        type: "SCORE",
-        readonly: true,
-        label: "Total routed",
-      },
-      {
-        name: "total_attrition",
-        type: "SCORE",
-        readonly: true,
-        label: "Total attrition",
-      },
-      {
-        name: "bonus_points",
-        type: "SCORE",
-        readonly: true,
-        label: "Bonus points",
-      },
-      {
-        name: "awards",
-        type: "STRING",
-        readonly: true,
-        label: "Awards",
-      },
-    ],
-    scenarios: [],
-    pointsLimit: 2500,
-    listsSubmissionClosed: false,
-    kowMastersSeason: 11,
-    kowMastersEventId: 502,
-    manticCompanionEventId: 1029,
     manticCompanionEventGroup: 'kings-of-war-4th-edition-events',
   },
 ];

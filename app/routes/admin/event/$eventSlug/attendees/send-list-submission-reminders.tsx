@@ -7,6 +7,7 @@ import { redirect } from "@remix-run/node";
 import { sendEmail } from "~/utils/send-email.server";
 import { ListSubmissionReminderEmail } from "~/tournament/list-submission-reminder-email";
 import { getAttendeeKey } from "~/account/auth.server";
+import dayjs from "dayjs";
 
 export const action: ActionFunction = async ({ params }) => {
   const { eventSlug } = params;
@@ -32,6 +33,7 @@ export const action: ActionFunction = async ({ params }) => {
             eventSlug,
             tournament.title,
             tournament.date,
+            tournament.listSubmissionDeadline ?? dayjs(),
             await getAttendeeKey(attendee.email, tournament.slug),
           ),
         ),
