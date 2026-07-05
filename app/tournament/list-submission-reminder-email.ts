@@ -38,7 +38,6 @@ export class ListSubmissionReminderEmail implements Email {
           ${tournamentDate?.format("D MMMM YYYY")}, and that lists should be
           submitted by ${listSubmissionDeadline.calendar()}.
       </p>
-      <p>Apologies for the previous email that had the submission deadline a day earlier.</p>
       <p>
           You can:
           <ul>
