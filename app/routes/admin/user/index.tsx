@@ -1,35 +1,42 @@
-import type { LoaderFunction } from "@remix-run/node";
-import { json } from "@remix-run/node";
-import { requireUser } from "~/account/session.server";
-import { getUsers } from "~/account/user-model.server";
-import { useLoaderData } from "@remix-run/react";
-import type { User } from "~/account/user-model";
-import { Role } from "~/account/user-model";
-import type { ReactNode } from "react";
+import type {LoaderFunction} from "@remix-run/node";
+import {json} from "@remix-run/node";
+import {requireUser} from "~/account/session.server";
+import {getUsers} from "~/account/user-model.server";
+import {Link, useLoaderData} from "@remix-run/react";
+import type {User} from "~/account/user-model";
+import {Role} from "~/account/user-model";
+import type {ReactNode} from "react";
 
 interface LoaderData {
+  currentUser: User;
   users: User[];
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
-  await requireUser(request, [Role.Admin]);
-  return json<LoaderData>({ users: await getUsers() });
+  const currentUser = await requireUser(request, [Role.Admin]);
+  return json<LoaderData>({currentUser, users: await getUsers() });
 };
 
-function getApprovalLink(user: User): ReactNode {
-  if (user?.roles?.includes(Role.Registered)) return null;
+function getActions(user: User): ReactNode {
+  const deleteLink=
+    <Link to={`/admin/user/${user.email}/delete`}>
+      Delete
+    </Link>
+  
+  if (user?.roles?.includes(Role.Registered)) return deleteLink;
 
   return (
     <form action={`/admin/user/${user.email}/approve`} method="post">
       <button type="submit" className="button clear link display-inline">
         Approve
-      </button>
+      </button>{' '}
+      {deleteLink}
     </form>
   );
 }
 
 export default function UserAdminPage() {
-  const { users } = useLoaderData<LoaderData>();
+  const { currentUser, users } = useLoaderData<LoaderData>();
 
   return (
     <>
@@ -55,7 +62,13 @@ export default function UserAdminPage() {
                   </span>
                 ))}
               </td>
-              <td>{getApprovalLink(user)}</td>
+              <td>
+                {
+                  currentUser.email !== user.email
+                  ? getActions(user)
+                  : null
+                }
+              </td>
             </tr>
           ))}
         </tbody>
