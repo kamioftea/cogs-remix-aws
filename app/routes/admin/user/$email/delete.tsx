@@ -28,7 +28,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
     return redirect(`/admin/user`);
   }
   
-  return;
+  return null;
 }
 
 export default function DeleteUserPage() {
