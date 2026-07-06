@@ -1698,7 +1698,7 @@ more candidates.`),
         "S41 7JH",
       ],
     },
-    signUpEnabled: true,
+    signUpEnabled: false,
     disclaimer: renderMarkdownInline(
         `Mantic® and Kings of War® and all associated names, characters, places, and things
        are copyright © and ™ Mantic Games. The original event image © Mantic Games.
@@ -1899,11 +1899,13 @@ with the lower ranking in the tournament scores.`),
       {
         name: "army_list",
         type: "ARMY_LIST",
+        readonly: true,
         label: "Army list",
       },
       {
         name: "faction",
         type: "STRING",
+        readonly: true,
         label: "Faction",
       },
       {
@@ -1941,7 +1943,7 @@ with the lower ranking in the tournament scores.`),
     maxAttendees: 24,
     pointsLimit: 2300,
     listSubmissionDeadline: dayjs('2026-07-05T23:59:59'),
-    listsSubmissionClosed: false,
+    listsSubmissionClosed: true,
     kowMastersSeason: 11,
     kowMastersEventId: 497,
     manticCompanionEventId: 973,
