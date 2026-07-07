@@ -34,7 +34,6 @@ import dayjs from "dayjs";
 interface LoaderData {
   roundIndex: number;
   scenario: Scenario;
-  mapUrl: string;
   roundEnd: string | undefined;
   playerGames: PlayerGame[];
   attendeesBySlug: Record<string, Attendee>;
@@ -58,7 +57,7 @@ export const loader: LoaderFunction = async ({ params }) => {
     throw new Response("Round not found", { status: 404 });
   }
 
-  const { scenario, mapUrl, roundEnd } = tournament.scenarios[roundIndex - 1];
+  const { scenario, roundEnd } = tournament.scenarios[roundIndex - 1];
 
   const playerGames = await getGamesForRound(tournament.slug, roundIndex - 1);
   const attendees = await listTournamentAttendeesByEventSlug(tournament.slug);
@@ -67,7 +66,6 @@ export const loader: LoaderFunction = async ({ params }) => {
   return json<LoaderData>({
     roundIndex,
     scenario,
-    mapUrl,
     roundEnd,
     playerGames,
     attendeesBySlug,
