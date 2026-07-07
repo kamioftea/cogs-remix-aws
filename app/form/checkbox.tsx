@@ -4,6 +4,7 @@ import { purgeUndefined } from "~/utils/purgeUndefined";
 import * as yup from "yup";
 
 export interface FormCheckboxProps {
+  id?: string;
   label: string;
   name: string;
   type?: InputHTMLAttributes<HTMLInputElement>["type"];
@@ -18,6 +19,7 @@ export interface FormCheckboxProps {
 }
 
 export default function FormCheckbox({
+  id,
   label,
   name,
   required = false,
@@ -35,7 +37,7 @@ export default function FormCheckbox({
         <input type="hidden" value={uncheckedValue} name={name} />
       )}
       <input
-        id={name}
+        id={id ?? name}
         type="checkbox"
         aria-invalid={error_message ? true : undefined}
         aria-describedby={`${name}-error`}

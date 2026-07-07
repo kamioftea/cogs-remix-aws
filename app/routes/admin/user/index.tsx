@@ -18,19 +18,24 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 function getActions(user: User): ReactNode {
-  const deleteLink=
+  const otherLinks=
+    <>
+    <Link to={`/admin/user/${user.email}/manage-roles`}>
+      Roles
+    </Link>{' '}
     <Link to={`/admin/user/${user.email}/delete`}>
       Delete
     </Link>
+    </>
   
-  if (user?.roles?.includes(Role.Registered)) return deleteLink;
+  if (user?.roles?.includes(Role.Registered)) return otherLinks;
 
   return (
     <form action={`/admin/user/${user.email}/approve`} method="post">
       <button type="submit" className="button clear link display-inline">
         Approve
       </button>{' '}
-      {deleteLink}
+      {otherLinks}
     </form>
   );
 }
