@@ -19,6 +19,8 @@ import { SmallDominate } from "~/tournament/scenario/small/small-dominate";
 import { SmallStockpile } from "~/tournament/scenario/small/small-stockpile";
 import { SmallFoolsGold } from "~/tournament/scenario/small/small-fools-gold";
 import { SmallControl } from "~/tournament/scenario/small/small-control";
+import {SeekAndDestroy} from "~/tournament/scenario/seek-and-destroy";
+import { HoldTheLine } from "./scenario/hold-the-line";
 
 type DeepPartial<T> = T extends object
   ? {
@@ -88,7 +90,7 @@ export interface Tournament {
   lowAttendeesPlayer?: OrganiserPlayer;
   scenarios: {
     scenario: Scenario;
-    mapUrl: string;
+    mapUrl?: string;
     roundEnd?: string;
   }[];
   bonusPoints?: {
@@ -1939,7 +1941,11 @@ with the lower ranking in the tournament scores.`),
         label: "Awards",
       },
     ],
-    scenarios: [],
+    scenarios: [
+      {scenario: SeekAndDestroy},
+      {scenario: HoldTheLine},
+      {scenario: Pillage}
+    ],
     maxAttendees: 24,
     pointsLimit: 2300,
     listSubmissionDeadline: dayjs('2026-07-05T23:59:59'),

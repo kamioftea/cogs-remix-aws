@@ -12,7 +12,7 @@ import dayjs from "dayjs";
 export interface RoundLoaderData {
   roundIndex: number;
   scenario: Scenario;
-  mapUrl: string;
+  mapUrl?: string;
   roundEnd?: string;
 }
 
@@ -76,7 +76,10 @@ export default function RoundPage() {
         )}
 
         <h3>Setup</h3>
-        <img src={mapUrl} className="map" alt={`Scenario map for ${title}`} />
+        {mapUrl
+          ? <img src={mapUrl} className="map" alt={`Scenario map for ${title}`} />
+          : null
+        }
         <div dangerouslySetInnerHTML={{ __html: scenario.setup }} />
         <h3>Scoring</h3>
         <div dangerouslySetInnerHTML={{ __html: scenario.scoring }} />
