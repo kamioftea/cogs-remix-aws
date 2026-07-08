@@ -19,8 +19,9 @@ import { SmallDominate } from "~/tournament/scenario/small/small-dominate";
 import { SmallStockpile } from "~/tournament/scenario/small/small-stockpile";
 import { SmallFoolsGold } from "~/tournament/scenario/small/small-fools-gold";
 import { SmallControl } from "~/tournament/scenario/small/small-control";
-import {SeekAndDestroy} from "~/tournament/scenario/seek-and-destroy";
+import {UnbalancedSeekAndDestroy} from "~/tournament/scenario/unbalanced-seek-and-destroy";
 import { HoldTheLine } from "./scenario/hold-the-line";
+import {UnbalancedPillage} from "~/tournament/scenario/unbalanced-pillage";
 
 type DeepPartial<T> = T extends object
   ? {
@@ -1942,9 +1943,9 @@ with the lower ranking in the tournament scores.`),
       },
     ],
     scenarios: [
-      {scenario: SeekAndDestroy},
+      {scenario: UnbalancedSeekAndDestroy},
       {scenario: HoldTheLine},
-      {scenario: Pillage}
+      {scenario: UnbalancedPillage}
     ],
     maxAttendees: 24,
     pointsLimit: 2300,
