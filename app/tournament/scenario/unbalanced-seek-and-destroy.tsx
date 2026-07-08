@@ -12,13 +12,12 @@ If a unit Routs an enemy unit that is carrying Loot in melee, they may elect to 
 table rather than picking it up.
   `),
   scoring: renderMarkdown(`
-Each unit may only score loot tokens upto its unit strength. Each player scores one victory point for each scoring loot
-token their units hold.
+Each player scores one victory point for each loot token their units hold.
   `),
   scoreInputs: [
     {
       name: "loot_counters",
-      label: "How many loot counters do your units score?",
+      label: "How many loot counters do your units hold?",
       type: "number",
       max: 7,
     }
