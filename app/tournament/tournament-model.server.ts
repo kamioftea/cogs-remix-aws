@@ -1947,6 +1947,10 @@ with the lower ranking in the tournament scores.`),
       {scenario: HoldTheLine},
       {scenario: UnbalancedPillage}
     ],
+    scenarioPdfUrl: {
+      base: "https://static.goblinoid.co.uk/",
+      name: "cogs-of-war-2026-scenarios-and-scoring.pdf",
+    },
     maxAttendees: 24,
     pointsLimit: 2300,
     listSubmissionDeadline: dayjs('2026-07-05T23:59:59'),
