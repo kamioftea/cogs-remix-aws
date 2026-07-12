@@ -112,7 +112,7 @@ export async function populateRound(eventSlug: string, roundIndex: number) {
   );
   
   if(tournament?.randomiseTables) {
-    tableNumbers.sort(() => Math.random());
+    tableNumbers.sort(() => Math.random() - 0.5);
   }
   
   toAssign.sort(
