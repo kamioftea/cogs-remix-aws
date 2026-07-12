@@ -1972,9 +1972,9 @@ with the lower ranking in the tournament scores.`),
     manticCompanionEventId: 973,
     manticCompanionEventGroup: 'kings-of-war-4th-edition-events',
     bands: [
-      [3, 1955],
-      [2, 1255],
-      [1, 575]
+      [1955, 3],
+      [1255, 2],
+      [575, 1]
     ],
     randomiseTables: true,
     bonusPoints: {
