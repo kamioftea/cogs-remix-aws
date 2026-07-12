@@ -25,13 +25,13 @@ export function normaliseScore(player_score: number, opponent_score: number) {
   if (total_score <= 7) {
     return player_score;
   }
-
+  
   if (player_score === opponent_score) return 3;
   const [max, min, score_index] =
     player_score > opponent_score
-      ? [player_score, opponent_score, 0]
-      : [opponent_score, player_score, 1];
-
+    ? [player_score, opponent_score, 0]
+    : [opponent_score, player_score, 1];
+  
   if (min === 0) return [7, 0][score_index];
   if (min < max / 3) return [6, 1][score_index];
   if (min < (max * 2) / 3) return [5, 2][score_index];
@@ -46,60 +46,67 @@ export function normaliseSmallScore(
   if (total_score <= 5) {
     return player_score;
   }
-
+  
   if (player_score === opponent_score) return 2;
   const [max, min, score_index] =
     player_score > opponent_score
-      ? [player_score, opponent_score, 0]
-      : [opponent_score, player_score, 1];
-
+    ? [player_score, opponent_score, 0]
+    : [opponent_score, player_score, 1];
+  
   if (min === 0) return [5, 0][score_index];
   if (min < max / 2) return [4, 1][score_index];
   return [3, 2][score_index];
 }
 
 interface ScoreInputFieldProps {
-  attendeeSlug: string,
+  attendeeSlug?: string,
   scoreInput: ScoreInput;
   value: number | undefined;
   label?: boolean;
 }
 
-export const ScoreInputField = ({
-  attendeeSlug,
-  scoreInput,
-  value,
-  label = false,
-}: ScoreInputFieldProps) => {
+export const ScoreInputField = (
+  {
+    attendeeSlug,
+    scoreInput,
+    value,
+    label = false,
+  }: ScoreInputFieldProps
+) => {
+  const name =
+    attendeeSlug
+    ? `${attendeeSlug}[${scoreInput.name}]`
+    : scoreInput.name;
+  
   switch (scoreInput.type) {
     case "boolean":
       return (
         <FormCheckbox
           label={label ? scoreInput.label : ""}
-          name={`${attendeeSlug}[${scoreInput.name}]`}
+          name={name}
           checkedValue={1}
           uncheckedValue={0}
           defaultChecked={value === 1}
         />
       );
-
+    
     case "number":
       return (
         <FormInput
           label={label ? scoreInput.label : ""}
           type="number"
-          name={`${attendeeSlug}[${scoreInput.name}]`}
+          name={name}
           defaultValue={value?.toString() ?? ""}
-          {...{ max: scoreInput.max }}
+          {...{max: scoreInput.max}}
         />
       );
   }
 };
 
 export const ScoreInputValue = ({
-  scoreInput,
-  value,
-}: Pick<ScoreInputFieldProps, 'scoreInput' | 'value'>) => {
+                                  scoreInput,
+                                  value,
+                                }: Pick<ScoreInputFieldProps, 'scoreInput' | 'value'>) => {
   switch (scoreInput.type) {
     case "boolean":
       return <>{value == null ? "-" : value ? "Yes" : "No"}</>;
