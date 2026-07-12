@@ -1,5 +1,5 @@
 import type {LoaderFunction} from "@remix-run/node";
-import { redirect,json} from "@remix-run/node";
+import {json, redirect} from "@remix-run/node";
 import invariant from "tiny-invariant";
 import type {PlayerGame} from "~/tournament/player-game-model.server";
 import {getPlayersByTable, putPlayerGame, updateScoresForTable,} from "~/tournament/player-game-model.server";
@@ -101,29 +101,31 @@ export const action: ActionFunction = async ({request, params}) => {
   const {scenario} = tournament.scenarios[roundIndex];
   
   await Promise.all(
-    playerGames.map(async (game) => {
-      game.scoreBreakdown = Object.fromEntries(
-        scenario.scoreInputs
-                .map((input) => {
-                  return [
-                    input.name,
-                    (formData[`${game.attendeeSlug}[${input.name}]`]?.toString() ?? "").match(/^\d+$/)
-                    ? parseInt(formData[`${game.attendeeSlug}[${input.name}]`].toString())
-                    : undefined,
-                  ];
-                })
-                .filter(([, v]) => v != undefined),
-      );
-      
-      game.routedPoints =
-        (formData[`${game.attendeeSlug}[routed_points]`]?.toString() ?? "")
-          .match(/^\d+$/)
-        ? parseInt(formData[`${game.attendeeSlug}[routed_points]`].toString())
-        : undefined;
-      
-      await putPlayerGame(game);
-      await updateScoresForTable(game.eventSlug, game.roundIndex, game.tableNumber);
-    })
+    playerGames
+      .filter(game => !game.locked)
+      .map(async (game) => {
+        game.scoreBreakdown = Object.fromEntries(
+          scenario.scoreInputs
+                  .map((input) => {
+                    return [
+                      input.name,
+                      (formData[`${game.attendeeSlug}[${input.name}]`]?.toString() ?? "").match(/^\d+$/)
+                      ? parseInt(formData[`${game.attendeeSlug}[${input.name}]`].toString())
+                      : undefined,
+                    ];
+                  })
+                  .filter(([, v]) => v != undefined),
+        );
+        
+        game.routedPoints =
+          (formData[`${game.attendeeSlug}[routed_points]`]?.toString() ?? "")
+            .match(/^\d+$/)
+          ? parseInt(formData[`${game.attendeeSlug}[routed_points]`].toString())
+          : undefined;
+        
+        await putPlayerGame(game);
+        await updateScoresForTable(game.eventSlug, game.roundIndex, game.tableNumber);
+      })
   );
   
   return redirect(`/event/${params.eventId}/round/${params.roundIndex}/table/${params.tableNumber}`);
@@ -134,7 +136,10 @@ export default function RoundIndexPage() {
     typeof loader
   >() as LoaderData;
   
-  const {msg, className: msgClass} = useActionData<{msg?: string, className?: string}>() || {msg: null, className: null};
+  const {msg, className: msgClass} = useActionData<{ msg?: string, className?: string }>() || {
+    msg: null,
+    className: null
+  };
   
   const {tournament, currentAttendee} = useRouteLoaderData(
     "routes/event/$eventId",
@@ -216,8 +221,8 @@ export default function RoundIndexPage() {
     <>
       <h3>Table {tableNumber}</h3>
       {msg && msgClass
-        ? <div className={`callout ${msgClass}`}>{msg}</div>
-        : null
+       ? <div className={`callout ${msgClass}`}>{msg}</div>
+       : null
       }
       <div className="matchup-container">
         {playerGames.map((game, index) => {

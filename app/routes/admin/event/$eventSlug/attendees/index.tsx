@@ -1,63 +1,57 @@
-import type { LoaderFunction } from "@remix-run/router";
-import { json } from "@remix-run/router";
-import { Link, useLoaderData } from "@remix-run/react";
+import type {LoaderFunction} from "@remix-run/router";
+import {json} from "@remix-run/router";
+import {Link, useLoaderData} from "@remix-run/react";
 import invariant from "tiny-invariant";
-import type { Attendee } from "~/tournament/attendee-model.server";
-import { listTournamentAttendeesByEventSlug } from "~/tournament/attendee-model.server";
-import {
-  FiAlertCircle,
-  FiAlertTriangle,
-  FiCheckCircle,
-  FiPlus,
-  FiTrash,
-} from "react-icons/fi";
-import type { ReactNode } from "react";
-import type { Tournament } from "~/tournament/tournament-model.server";
-import { getTournamentBySlug } from "~/tournament/tournament-model.server";
+import type {Attendee} from "~/tournament/attendee-model.server";
+import {listTournamentAttendeesByEventSlug} from "~/tournament/attendee-model.server";
+import {FiAlertCircle, FiAlertTriangle, FiCheckCircle, FiPlus, FiTrash,} from "react-icons/fi";
+import type {ReactNode} from "react";
+import type {Tournament} from "~/tournament/tournament-model.server";
+import {getTournamentBySlug} from "~/tournament/tournament-model.server";
 
 interface LoaderData {
   attendees: Attendee[];
   tournament: Tournament;
 }
 
-export const loader: LoaderFunction = async ({ params }) => {
+export const loader: LoaderFunction = async ({params}) => {
   invariant(
     params.eventSlug,
     `eventSlug not found in ${JSON.stringify(Object.keys(params))}`,
   );
-
+  
   const attendees = await listTournamentAttendeesByEventSlug(params.eventSlug);
   const tournament = await getTournamentBySlug(params.eventSlug);
   invariant(tournament, "by route");
-
-  return json<LoaderData>({ attendees, tournament });
+  
+  return json<LoaderData>({attendees, tournament});
 };
 
-function SignUpStatusTag({ attendee }: { attendee: Attendee }) {
+function SignUpStatusTag({attendee}: { attendee: Attendee }) {
   switch (false) {
     case attendee.approved:
       return (
         <span className="label alert hollow">
-          <FiAlertTriangle /> Unapproved
+          <FiAlertTriangle/> Unapproved
         </span>
       );
     case attendee.verified:
       return (
         <span className="label alert hollow">
-          <FiAlertTriangle /> Unverified
+          <FiAlertTriangle/> Unverified
         </span>
       );
     case attendee.paid:
       return (
         <span className="label warning hollow">
-          <FiAlertCircle /> Unpaid
+          <FiAlertCircle/> Unpaid
         </span>
       );
     default:
       return (
         <>
           <span className="label success hollow">
-            <FiCheckCircle /> {attendee.present ? "Present" : "Paid"}
+            <FiCheckCircle/> {attendee.present ? "Present" : "Paid"}
           </span>
         </>
       );
@@ -69,17 +63,17 @@ function getStatusTags(attendee: Attendee): ReactNode {
     <>
       {attendee.additionalFields?.army_list ? (
         <span className="label success hollow">
-          <FiCheckCircle /> List
+          <FiCheckCircle/> List
         </span>
       ) : null}
-      <SignUpStatusTag attendee={attendee} />
+      <SignUpStatusTag attendee={attendee}/>
     </>
   );
 }
 
 function getApprovalLink(attendee: Attendee): ReactNode {
   if (attendee.approved && attendee.verified) return null;
-
+  
   return (
     <form
       action={`/admin/event/${attendee.eventSlug}/attendees/${attendee.email}/approve`}
@@ -95,7 +89,7 @@ function getApprovalLink(attendee: Attendee): ReactNode {
 function getPresentLink(attendee: Attendee): ReactNode {
   if (!(attendee.approved && attendee.verified)) return null;
   if (attendee.present) return null;
-
+  
   return (
     <form
       action={`/admin/event/${attendee.eventSlug}/attendees/${attendee.email}/present`}
@@ -119,7 +113,7 @@ function getDeleteLink(attendee: Attendee): ReactNode {
         type="submit"
         className="button clear link display-inline text-alert"
       >
-        <FiTrash /> Delete
+        <FiTrash/> Delete
       </button>
     </form>
   );
@@ -136,14 +130,14 @@ function getActions(attendee: Attendee): ReactNode {
 }
 
 export default function EventIndexPage() {
-  const { attendees, tournament } = useLoaderData<
+  const {attendees, tournament} = useLoaderData<
     typeof loader
   >() as LoaderData;
-
+  
   return (
     <>
       <Link to="./add-attendee">
-        <FiPlus /> Add attendee
+        <FiPlus/> Add attendee
       </Link>{" "}
       {tournament.sparePlayer &&
         !attendees.find((a) => a.email === tournament.sparePlayer?.email) && (
@@ -153,7 +147,7 @@ export default function EventIndexPage() {
             className="display-inline"
           >
             <button type="submit" className="button primary">
-              <FiPlus /> Add spare player
+              <FiPlus/> Add spare player
             </button>
           </form>
         )}{" "}
@@ -167,7 +161,7 @@ export default function EventIndexPage() {
             className="display-inline"
           >
             <button type="submit" className="button primary">
-              <FiPlus /> Add TO player
+              <FiPlus/> Add TO player
             </button>
           </form>
         )}
@@ -178,6 +172,7 @@ export default function EventIndexPage() {
             <th>Email</th>
             <th>Faction</th>
             <th>Status</th>
+            <th>Bonus</th>
             <th>Army</th>
             <th>Sports</th>
             <th>Actions</th>
@@ -201,6 +196,11 @@ export default function EventIndexPage() {
                 ) : null}
               </td>
               <td>{getStatusTags(attendee)}</td>
+              <td>{
+                attendee.additionalFields["bonus_points"]
+                ? parseInt(attendee.additionalFields["bonus_points"])
+                : 0
+              }</td>
               <td>
                 {Object.values(attendee.paintBallot ?? {}).reduce(
                   (acc, score) => acc + score,
