@@ -1885,9 +1885,9 @@ enemy units you routed during the game.
 |  1255+              | +2        |
 |  1955+              | +3        |
 
-Players will therefore score up to thirteen tournament points per round.
+Players will therefore score up to fifteen tournament points per round.
 With three list submission points, the maximum available tournament
-score is 42.
+score is 48.
 `)
       },
       {
