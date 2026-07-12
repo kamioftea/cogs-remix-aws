@@ -87,11 +87,8 @@ export const action: ActionFunction = async ({request, params}) => {
   const user = await getUser(request);
   const attendee = await getSessionAttendee(request, tournament.slug);
   
-  const playerGames = (
-    await getPlayersByTable(params.eventId, roundIndex - 1, tableNumber)
-  )
-    .filter((pg) => pg.published)
-    .sort(sortBy((pg) => pg.attendeeSlug));
+  const playerGames =
+    await getPlayersByTable(params.eventId, roundIndex, tableNumber);
   
   const canSubmitScores =
     user?.roles?.includes(Role.Admin)
@@ -102,7 +99,6 @@ export const action: ActionFunction = async ({request, params}) => {
   }
   
   const {scenario} = tournament.scenarios[roundIndex];
-  console.log({formData, scenario: scenario.scoreInputs});
   
   await Promise.all(
     playerGames.map(async (game) => {
@@ -124,8 +120,6 @@ export const action: ActionFunction = async ({request, params}) => {
           .match(/^\d+$/)
         ? parseInt(formData[`${game.attendeeSlug}[routed_points]`].toString())
         : undefined;
-      
-      console.log(`Submitting scores for ${game.attendeeSlug}:`, game.scoreBreakdown, game.routedPoints);
       
       await putPlayerGame(game);
       await updateScoresForTable(game.eventSlug, game.roundIndex, game.tableNumber);
