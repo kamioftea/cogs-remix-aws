@@ -54,6 +54,8 @@ export const action: ActionFunction = async () => {
             "Dwarfs",
           ]),
         },
+        present: true,
+        paid: true,
       });
     }),
   );

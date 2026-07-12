@@ -95,6 +95,8 @@ export async function populateRound(eventSlug: string, roundIndex: number) {
   ).filter((attendee) => attendee.present);
 
   const existing = await getGamesForRound(eventSlug, roundIndex);
+  
+  const tournament = await getTournamentBySlug(eventSlug);
 
   let [maxTable, toAssign] = existing.reduce(
     ([maxTable, toAssign], gamePlayer) => [
@@ -103,7 +105,16 @@ export async function populateRound(eventSlug: string, roundIndex: number) {
     ],
     [0, attendees],
   );
-
+  
+  const tableNumbers = Array.from(
+    {length: Math.ceil(toAssign.length / 2)},
+    (_, i) => i + 1 + maxTable
+  );
+  
+  if(tournament?.randomiseTables) {
+    tableNumbers.sort(() => Math.random());
+  }
+  
   toAssign.sort(
     sortBy(
       (a) => -parseInt(a.additionalFields?.tournament_points || "0"),
@@ -115,8 +126,7 @@ export async function populateRound(eventSlug: string, roundIndex: number) {
 
   await Promise.all(
     toPairs(toAssign).map(async ([a, b]) => {
-      maxTable = maxTable + 1;
-      const table = maxTable;
+      const table = tableNumbers.pop()!;
       a && (await createPlayerGame(a, roundIndex, table));
       b && (await createPlayerGame(b, roundIndex, table));
     }),

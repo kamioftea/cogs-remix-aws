@@ -105,6 +105,7 @@ export interface Tournament {
   manticCompanionEventGroup?: string;
   manticCompanionEventId?: number;
   bands?: [number, number][];
+  randomiseTables?: boolean;
 }
 
 export interface OpenGraphMeta {
@@ -1873,10 +1874,21 @@ both players.`),
       {
         title: "Scenarios and scoring",
         content: unsafeRenderMarkdown(`
-Scoring will be weighted towards how well players have done in the scenario,
-with bonus points for winning, and for routing enemy units.
+- Each scenario will award 0 - 7 to tournament points, with maximum 3 if you draw or lose.
+- You get 5 bonus tournament points if you win the scenario, 2 bonus points if you draw.
+- You get up to three bonus tournament points based on the total points of
+enemy units you routed during the game.
 
-Exact details will be released nearer the time.`)
+| Total points routed | Bonus TPs |
+| ------------------- | --------- |
+|  575+               | +1        |
+|  1255+              | +2        |
+|  1955+              | +3        |
+
+Players will therefore score up to thirteen tournament points per round.
+With three list submission points, the maximum available tournament
+score is 42.
+`)
       },
       {
         title: "Awards",
@@ -1959,6 +1971,16 @@ with the lower ranking in the tournament scores.`),
     kowMastersEventId: 497,
     manticCompanionEventId: 973,
     manticCompanionEventGroup: 'kings-of-war-4th-edition-events',
+    bands: [
+      [3, 1955],
+      [2, 1255],
+      [1, 575]
+    ],
+    randomiseTables: true,
+    bonusPoints: {
+      win: 5,
+      draw: 2,
+    }
   },
 ];
 
