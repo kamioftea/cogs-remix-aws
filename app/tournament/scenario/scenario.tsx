@@ -59,12 +59,14 @@ export function normaliseSmallScore(
 }
 
 interface ScoreInputFieldProps {
+  attendeeSlug: string,
   scoreInput: ScoreInput;
   value: number | undefined;
   label?: boolean;
 }
 
 export const ScoreInputField = ({
+  attendeeSlug,
   scoreInput,
   value,
   label = false,
@@ -74,7 +76,7 @@ export const ScoreInputField = ({
       return (
         <FormCheckbox
           label={label ? scoreInput.label : ""}
-          name={scoreInput.name}
+          name={`${attendeeSlug}[${scoreInput.name}]`}
           checkedValue={1}
           uncheckedValue={0}
           defaultChecked={value === 1}
@@ -86,7 +88,7 @@ export const ScoreInputField = ({
         <FormInput
           label={label ? scoreInput.label : ""}
           type="number"
-          name={scoreInput.name}
+          name={`${attendeeSlug}[${scoreInput.name}]`}
           defaultValue={value?.toString() ?? ""}
           {...{ max: scoreInput.max }}
         />
@@ -97,7 +99,7 @@ export const ScoreInputField = ({
 export const ScoreInputValue = ({
   scoreInput,
   value,
-}: ScoreInputFieldProps) => {
+}: Pick<ScoreInputFieldProps, 'scoreInput' | 'value'>) => {
   switch (scoreInput.type) {
     case "boolean":
       return <>{value == null ? "-" : value ? "Yes" : "No"}</>;
