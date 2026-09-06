@@ -1157,12 +1157,13 @@ export const moonstone2026: {
       characters: [
         {cardId: "BeakyBobby", joined: "Feb"},
         {cardId: "Creep", joined: "Feb"},
-        {cardId: "CrustyBalboa", joined: "Feb"},
+        {cardId: "CrustyBalboa", joined: "Feb", retired: "Jul"},
         {cardId: "Swash", joined: "Feb"},
         {cardId: "PowderMonkey", joined: "Feb"},
         {cardId: "SwiggartySwooty", joined: "Feb", upgrade: "Shovel"},
         {cardId: "TheGoblinKing", joined: "Feb"},
         {cardId: "Ribald", joined: "Feb"},
+        {cardId: "Peggy", joined: "Jul"},
       ]
     },
   },
@@ -1232,12 +1233,40 @@ export const moonstone2026: {
       richard: {table: 3, moonstones: 4, machinationPoints: 3, campaignCards: ["Stand Alone"]},
     },
     july: {
-      rob: {table: 1, moonstones: 0, machinationPoints: 0},
+      rob: {
+        table: 1,
+        moonstones: 5,
+        machinationPoints: 0,
+        campaignCards: ["Hesitation", "Raiding Party", "Devastating Blow"]
+      },
+      jeff: {table: 1, moonstones: 1, machinationPoints: 0},
+      andy: {table: 2, moonstones: 2, machinationPoints: 0, campaignCards: ["Bolt From The Blue"]},
+      brendan: {
+        table: 2,
+        moonstones: 5,
+        machinationPoints: 2,
+        campaignCards: ["Pirate's Booty", "Treacherous Tuition"]
+      },
+      phil: {
+        table: 3,
+        moonstones: 2,
+        machinationPoints: 0,
+        campaignCards: ["Clumsiness Of Cowards", "Devastating Blow", "Stumble"]
+      },
+      richard: {
+        table: 3,
+        moonstones: 4,
+        machinationPoints: 4,
+        campaignCards: ["Ninja Reactions", "Do It Or Else", "The High Road"]
+      },
+    },
+    september: {
       jeff: {table: 1, moonstones: 0, machinationPoints: 0},
-      andy: {table: 2, moonstones: 0, machinationPoints: 0},
+      richard: {table: 1, moonstones: 0, machinationPoints: 0},
       brendan: {table: 2, moonstones: 0, machinationPoints: 0},
+      andy: {table: 2, moonstones: 0, machinationPoints: 0},
+      rob: {table: 3, moonstones: 0, machinationPoints: 0},
       phil: {table: 3, moonstones: 0, machinationPoints: 0},
-      richard: {table: 3, moonstones: 0, machinationPoints: 0},
     }
   }
 };
