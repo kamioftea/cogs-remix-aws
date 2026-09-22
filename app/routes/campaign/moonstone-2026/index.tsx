@@ -245,6 +245,7 @@ export default function Index() {
         <p><Link to="./games/may">May Games</Link></p>
         <p><Link to="./games/june">June Games</Link></p>
         <p><Link to="./games/july">July Games</Link></p>
+        <p><Link to="./games/september">September Games</Link></p>
       </aside>
     </div>
   );
